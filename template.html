@@ -121,6 +121,24 @@ a.card:hover{border-color:var(--c,var(--accent));transform:translateY(-2px)}
 .media img,.media video{width:100%;border-radius:10px;border:1px solid var(--line)}
 .media audio{width:100%}
 .media figcaption{font-size:13px;color:var(--muted);margin-top:6px}
+.prose h2{font:400 22px/1.3 Geist,system-ui,sans-serif;letter-spacing:-.01em;margin:1.6em 0 .6em}
+.prose blockquote{margin:1.2em 0;padding:0 0 0 18px;border-left:2px solid var(--line);color:var(--muted)}
+.prose blockquote p{margin:0 0 .6em}
+.prose table{display:block;overflow-x:auto;border-collapse:collapse;font:400 14px/1.5 Geist,system-ui,sans-serif;margin:0 0 1.2em}
+.prose th,.prose td{border:1px solid var(--line);padding:7px 10px;text-align:left;vertical-align:top}
+.prose th{background:var(--surface);font-weight:500}
+.prose ul,.prose ol{padding-left:1.2em;margin:0 0 1em}
+.prose .spk{font:400 12.5px "Geist Mono",monospace;letter-spacing:.04em;color:var(--muted);margin:0 0 1.4em}
+.prose .spk strong{color:var(--accent);font-weight:500}
+.prose .brk{text-align:center;color:var(--muted);letter-spacing:.4em;margin:1.8em 0}
+.pager{display:flex;gap:12px;margin-top:40px;padding-top:22px;border-top:1px solid var(--line);max-width:40em}
+.pager a{display:flex;flex-direction:column;gap:3px;border:1px solid var(--line);border-radius:10px;padding:12px 16px;background:var(--surface);min-width:0;flex:1}
+.pager a:hover{border-color:var(--accent)}
+.pager a.nx{text-align:right}
+.pager small{font:11px "Geist Mono",monospace;color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
+.toc{max-width:40em;margin-top:30px}
+.toc h5{font:500 11px "Geist Mono",monospace;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin:22px 0 8px}
+.tagline{font-weight:400}.tagline strong{font-weight:500}
 .g{display:inline-grid;place-items:center;width:20px;height:20px;border-radius:5px;font:600 11px "Geist Mono",monospace;color:#07120c;background:var(--gc)}
 .g.E{background:var(--ge)}.g.U{background:var(--gu)}
 .gl{display:flex;gap:6px;align-items:center}
@@ -242,14 +260,14 @@ footer .cols a:hover{color:var(--fg)}
   <a class="brand" href="#home"><i></i>Syren Codex</a>
   <nav class="links" id="links"></nav>
   <button class="sbtn" id="sopen" aria-label="Search the archive"><span id="sico"></span><span class="t">Search the archive</span><kbd>/</kbd></button>
-  <a class="btn p" style="padding:6px 12px;font-size:13px" href="https://claude.ai/artifact/HKnA4aW9ugwCasSP3kkugA" target="_blank" rel="noopener">Read the story</a>
+  <a class="btn p" style="padding:6px 12px;font-size:13px" href="#story">Read the story</a>
   <button class="tog" id="theme" aria-label="Toggle theme">◐</button>
 </div></header>
 <main id="app"></main>
 <footer><div class="wrap"><div class="cols"><div><a class="brand" href="#home" style="color:var(--fg)"><i></i>Syren Codex</a><p style="margin:12px 0 0;max-width:20em">The archive behind The Syren Protocols. The manuscript is the authority on story facts.</p></div>
 <div><h6>Explore</h6><a href="#map">Map</a><a href="#c-loc">Locations</a><a href="#c-chr">Characters</a><a href="#c-obj">Objects</a><a href="#c-lor">Lore</a></div>
 <div><h6>Evidence</h6><a href="#c-chr">Confirmed (C)</a><a href="#c-chr">Estimated (E)</a><a href="#c-chr">Unconfirmed (U)</a></div>
-<div><h6>The story</h6><a href="https://claude.ai/artifact/HKnA4aW9ugwCasSP3kkugA" target="_blank" rel="noopener">Read the manuscript</a></div>
+<div><h6>The story</h6><a href="#story">Read the manuscript</a><a href="#story-appendix-the-brief">Appendix: The Brief</a></div>
 <div><h6>Archive</h6><span class="mono" id="stamp"></span></div></div></div></footer>
 <div class="ov" id="ov"><div class="palette" role="dialog" aria-label="Search">
   <input id="q" placeholder="Search names, places, objects, lore" autocomplete="off">
@@ -304,7 +322,7 @@ function snip(d,q){const toks=norm(q).split(/\s+/).filter(Boolean);if(!toks.leng
 const dot=t=>`<span class="dot" style="--dc:${COL[t]}"></span>`;
 const grade=g=>g?`<span class="g ${g}" title="${GRADE[g]}">${g}</span>`:'';
 const count=t=>DATA.filter(d=>d.type===t).length;
-const NAV=[['map','Map','map'],['c-loc','Locations','pin'],['c-chr','Characters','user'],['c-obj','Objects','cube'],['c-lor','Lore','waves']];
+const NAV=[['story','Story','book'],['map','Map','map'],['c-loc','Locations','pin'],['c-chr','Characters','user'],['c-obj','Objects','cube'],['c-lor','Lore','waves']];
 function navPaint(h){$('#links').innerHTML=NAV.map(([k,l,ic])=>{const on=h===k||h.startsWith(k+'-')||(k.startsWith('c-')&&h.startsWith('e-'+k.slice(2)+'-'))||(k==='map'&&h.startsWith('map'));return `<a href="#${k}" class="${on?'on':''}">${l}</a>`}).join('')}
 let pTypes=[],pSel=0,pRes=[];
 function pOpen(){$('#ov').classList.add('on');const i=$('#q');i.value='';pTypes=[];pSel=0;pPaint();i.focus()}
@@ -415,7 +433,7 @@ function home(){
   <section class="sec"><div class="wrap split"><div><div class="eyebrow">Format</div><h2>Every entry has the same shape.</h2><p class="sub">Reference, name, category, summary, reliability and status. Cross-references link the entries together, and a media field takes images, sound and video.</p><a class="btn" href="#e-chr-002">${ico('book')} See an entry</a></div><div class="code">${rec}</div></div></section>
   <section class="sec"><div class="wrap"><div class="sechead"><h2>Start with these entries.</h2><a class="btn" href="#c-chr">All characters</a></div><p class="sub">Six places to begin.</p><div class="tpl">${feat.map(d=>`<a class="tc" href="#e-${d.id}" style="--c:${COL[d.type]}"><span class="tt">${ICON[d.type]} ${d.ref.replace('SYNPTCL/','')}</span><b>${esc(d.name.replace(/ \(.*$/,''))}</b><p>${esc(d.summary)}</p><small>Read entry →</small></a>`).join('')}</div></div></section>
   <section class="sec"><div class="wrap"><div class="sechead"><h2>Voices in the archive.</h2><a class="btn" href="#c-chr">Meet the characters</a></div><p class="sub">Each Protocol belongs to one survivor.</p><div class="voices"><a class="big" href="#e-${v.id}"><p>${esc(v.summary)}</p><small>${esc(v.name)}, ${v.ref.replace('SYNPTCL/','')}</small></a>${tiles.map((t,i)=>`<a class="tile" href="#e-${t.id}" style="background:${tcol[i]}"><b>${esc(t.name.replace(/ \(.*$/,'').replace(/"[^"]*" /,''))}</b><small>${t.ref.replace('SYNPTCL/','')}</small></a>`).join('')}</div></div></section>
-  <section class="sec"><div class="wrap split"><div><div class="eyebrow">Manuscript first</div><h2>The story stays the authority.</h2><p class="sub">When the archive and the manuscript disagree, the manuscript wins. Read it in full, then come back here to look things up.</p><a class="btn" href="https://claude.ai/artifact/HKnA4aW9ugwCasSP3kkugA" target="_blank" rel="noopener">Read the story ↗</a></div><div class="code"><div><span class="k">Authority   </span><span class="v">manuscript</span></div><div><span class="k">Grades      </span><span class="v">C confirmed · E estimated · U unconfirmed</span></div><div><span class="k">Entries     </span><span class="v">${DATA.length}</span></div><div><span class="k">Map points  </span><span class="v">${MAP.pts.length}</span></div></div></div></section>
+  <section class="sec"><div class="wrap split"><div><div class="eyebrow">Manuscript first</div><h2>The story stays the authority.</h2><p class="sub">When the archive and the manuscript disagree, the manuscript wins. Read it in full, then come back here to look things up.</p><a class="btn" href="#story">${ico('book')} Read the story</a></div><div class="code"><div><span class="k">Authority   </span><span class="v">manuscript</span></div><div><span class="k">Grades      </span><span class="v">C confirmed · E estimated · U unconfirmed</span></div><div><span class="k">Entries     </span><span class="v">${DATA.length}</span></div><div><span class="k">Map points  </span><span class="v">${MAP.pts.length}</span></div></div></div></section>
   <section class="cta2"><div class="wrap"><h2>Search the archive, <em>follow the map.</em></h2><div class="cta"><a class="btn p" href="#map">Open the map</a><button class="btn" id="hs4">Search the archive</button></div></div></section>
   <div class="wrap"><div class="badges"><span>${ico('shield')} Manuscript is the authority</span><span>${ico('book')} Every entry graded</span><span>${ico('pin')} Every place on the map</span></div></div>`;
   const tb=$('#tbody');const tabs={t:()=>`<table class="tbl"><thead><tr><th>Ref</th><th>Name</th><th>Category</th><th>Grade</th></tr></thead><tbody>${tableRows}</tbody></table>`,
@@ -451,8 +469,27 @@ function entry(id){
       ${ids.length?`<div class="box"><h6>Connected entries</h6>${ids.map(i=>`<a class="x" href="#e-${i}">${dot(BYID[i].type)} ${esc(BYID[i].name.replace(/ \(.*$/,''))}</a>`).join('')}</div>`:''}
       <div class="box"><h6>Media</h6><p>${(d.media&&d.media.length)?d.media.length+' attached':'None attached yet.'}</p></div>
     </aside></div></div>`}
+/* story */
+let STORY=null,storyLoad=null;
+const getStory=()=>storyLoad||(storyLoad=fetch('story.json').then(r=>{if(!r.ok)throw new Error(r.status);return r.json()}).then(s=>STORY=s).catch(e=>{storyLoad=null;throw e}));
+const SGROUP={front:'Before the story',story:'The story',back:'After the story'};
+function storySide(cur){return `<aside class="side">${Object.keys(SGROUP).map(g=>`<h5>${SGROUP[g]}</h5>`+STORY.pages.filter(p=>p.group===g).map(p=>`<a href="#story-${p.slug}" class="${p.slug===cur?'on':''}"><span>${esc(p.title)}</span></a>`).join('')).join('')}</aside>`}
+function storyHome(){const S=STORY;const start=S.pages.find(p=>p.slug==='foreword')||S.pages.find(p=>p.group==='story');
+  $('#app').innerHTML=`<div class="wrap"><div class="docs two">${storySide('')}<div class="main"><div class="crumb"><a href="#home">Codex</a> / Story</div><div class="ph"><span class="tag" style="--c:var(--accent)">MANUSCRIPT</span><span class="mono" style="font-size:12px;color:var(--muted)">First draft</span></div><h1 class="t">${esc(S.name)}</h1><p class="sum">${esc(S.subtitle)}</p>
+    <div class="prose"><div class="tagline">${S.tagline}</div>${S.blurb}</div>
+    <div class="cta" style="justify-content:flex-start"><a class="btn p" href="#story-${start.slug}">${ico('book')} Start reading</a><a class="btn" href="#map">${ico('map')} Open the map</a></div>
+    <div class="toc">${Object.keys(SGROUP).map(g=>`<h5>${SGROUP[g]}</h5>`+S.pages.filter(p=>p.group===g).map(p=>`<a class="row" href="#story-${p.slug}"><b>${esc(p.title)}</b></a>`).join('')).join('')}</div></div></div></div>`}
+function storyPage(slug){const P=STORY.pages,i=P.findIndex(p=>p.slug===slug);if(i<0){storyHome();return}const p=P[i],pv=P[i-1],nx=P[i+1];
+  $('#app').innerHTML=`<div class="wrap"><div class="docs two">${storySide(slug)}<article class="main"><div class="crumb"><a href="#home">Codex</a> / <a href="#story">Story</a> / ${esc(p.title.split(':')[0])}</div><h1 class="t">${esc(p.title)}</h1>
+    <div class="prose">${p.html}</div>
+    <nav class="pager">${pv?`<a href="#story-${pv.slug}"><small>Previous</small>${esc(pv.title)}</a>`:'<a href="#story"><small>Back to</small>Contents</a>'}${nx?`<a class="nx" href="#story-${nx.slug}"><small>Next</small>${esc(nx.title)}</a>`:'<a class="nx" href="#story"><small>Back to</small>Contents</a>'}</nav></article></div></div>`}
+function storyRoute(h){const draw=()=>{h==='story'?storyHome():storyPage(h.slice(6));scrollTo(0,0)};
+  if(STORY)return draw();
+  $('#app').innerHTML='<div class="wrap"><div class="empty">Opening the manuscript…</div></div>';
+  getStory().then(()=>{if((location.hash||'#home').slice(1)===h)draw()}).catch(()=>{$('#app').innerHTML='<div class="wrap"><div class="empty">The manuscript could not be loaded. Please reload the page.</div></div>'})}
 function route(){const h=(location.hash||'#home').slice(1);navPaint(h);
-  if(h==='map')mapView();else if(h.startsWith('map-'))mapView(h.slice(4));
+  if(h==='story'||h.startsWith('story-'))storyRoute(h);
+  else if(h==='map')mapView();else if(h.startsWith('map-'))mapView(h.slice(4));
   else if(h.startsWith('c-')&&META[h.slice(2).toUpperCase()])cat(h.slice(2));
   else if(h.startsWith('e-'))entry(h.slice(2));else home();
   scrollTo(0,0)}

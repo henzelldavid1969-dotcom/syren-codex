@@ -1,0 +1,12 @@
+{
+  "name": "syren-codex",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "export": "node scripts/export.mjs",
+    "build": "node scripts/build.mjs"
+  },
+  "dependencies": {
+    "marked": "15.0.12"
+  }
+}

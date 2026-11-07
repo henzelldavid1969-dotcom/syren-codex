@@ -1,8 +1,10 @@
-// Build the site: put data/codex.json into the approved template and write
-// dist/index.html. The template is not changed. Vercel runs this on every
-// deployment. It needs no network access and no keys.
+// Build the site: put data/codex.json into the template and write
+// dist/index.html, and turn the manuscript exports in story/ into
+// dist/story.json for the Story pages. Vercel runs this on every deployment.
+// It needs no network access and no keys.
 
 import { readFile, writeFile, mkdir } from 'node:fs/promises';
+import { buildStory } from './story-lib.mjs';
 
 const { META, DATA, MAP } = JSON.parse(await readFile(new URL('../data/codex.json', import.meta.url), 'utf8'));
 
@@ -27,3 +29,11 @@ const html =
 await mkdir(new URL('../dist/', import.meta.url), { recursive: true });
 await writeFile(new URL('../dist/index.html', import.meta.url), html);
 console.log(`Built dist/index.html: ${DATA.length} entries, ${MAP.pts.length} map points, ${html.length} bytes.`);
+
+const story = buildStory({
+  manuscript: await readFile(new URL('../story/manuscript.md', import.meta.url), 'utf8'),
+  backCover: await readFile(new URL('../story/back-cover.md', import.meta.url), 'utf8'),
+  appendix: await readFile(new URL('../story/appendix.md', import.meta.url), 'utf8'),
+});
+await writeFile(new URL('../dist/story.json', import.meta.url), JSON.stringify(story));
+console.log(`Built dist/story.json: ${story.pages.length} pages.`);
