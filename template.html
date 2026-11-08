@@ -244,6 +244,62 @@ footer .wrap{display:flex;gap:16px;justify-content:space-between;flex-wrap:wrap}
 .voices .tile{writing-mode:horizontal-tb}
 .voices .tile b{font-weight:400;font-size:15px;line-height:1.25}
 .voices a:hover{filter:brightness(1.06)}
+/* Voices in the archive: an accordion of files, one open at a time. Closed
+   files are narrow spines with the name running upwards; on phones the files
+   stack and open downwards. Black, grey and acid, as the tiles. */
+.vac{display:flex;gap:8px;height:430px;margin-top:22px;container-type:inline-size}
+.vp{position:relative;flex:0 0 56px;min-width:0;border:1px solid var(--line);border-radius:14px;background:var(--surface);overflow:hidden;transition:flex-grow .55s cubic-bezier(.2,.8,.2,1),flex-basis .55s cubic-bezier(.2,.8,.2,1),border-color .2s}
+.vp.open{flex:1 1 0;background:radial-gradient(60% 50% at 0% 0%,color-mix(in srgb,var(--accent) 14%,transparent),transparent 70%),var(--surface)}
+.vp:not(.open):hover{border-color:var(--accent)}
+.vt{all:unset;box-sizing:border-box;position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;gap:12px;padding:16px 0 14px;cursor:pointer;color:var(--muted);transition:opacity .2s}
+.vt:focus-visible{outline:2px solid var(--fg);outline-offset:-5px;border-radius:12px}
+.vt .vi,.vh .vi{width:20px;height:20px;flex:none;stroke:currentColor;fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+.vt .vn{flex:1;writing-mode:vertical-rl;transform:rotate(180deg);font-size:14.5px;letter-spacing:.01em;color:var(--fg);white-space:nowrap;text-align:left;overflow:hidden}
+.vp:not(.open):hover .vn{color:var(--fg)}
+.vt .vr{font:400 11px "Geist Mono",monospace;color:var(--muted);letter-spacing:.04em}
+.vg{width:20px;height:20px;box-sizing:border-box;border-radius:50%;display:grid;place-items:center;font:500 10px "Geist Mono",monospace;color:var(--fg);border:1.3px solid var(--accent);background:color-mix(in srgb,var(--accent) 18%,transparent);flex:none}
+.vg.C{background:var(--accent);color:var(--accent-fg)}
+.vg.U{border:1.3px dashed var(--muted);background:none}
+.vchev{display:none}
+.vp.open .vt{opacity:0;visibility:hidden;pointer-events:none}
+.vb{position:absolute;top:0;bottom:0;left:0;width:calc(100cqi - (var(--n) - 1) * 64px);box-sizing:border-box;padding:26px 30px 26px;display:flex;flex-direction:column;opacity:0;visibility:hidden;transition:opacity .2s,visibility 0s .2s}
+.vp.open .vb{opacity:1;visibility:visible;transition:opacity .35s .25s}
+.vh{font:400 11.5px "Geist Mono",monospace;letter-spacing:.06em;color:var(--muted);text-transform:uppercase}
+.vh b{background:var(--accent);color:var(--accent-fg);font-weight:500;padding:1px 5px;border-radius:3px}
+.vb h3{margin:16px 0 10px;font-weight:500;font-size:clamp(24px,2.6vw,32px);letter-spacing:-.025em;line-height:1.1;outline:none;max-width:62%}
+.vs{margin:0;color:var(--muted);font-size:16px;line-height:1.55;max-width:min(30em,62%);text-wrap:pretty}
+.vf{display:flex;flex-wrap:wrap;gap:8px 26px;margin:20px 0 0;max-width:64%}
+.vf dt{font:500 10.5px "Geist Mono",monospace;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-bottom:4px}
+.vf dd{margin:0;font-size:14px}
+.vl{display:flex;flex-wrap:wrap;gap:8px;margin-top:auto;position:relative;z-index:2}
+.vdos{position:absolute;right:-18px;bottom:-30px;width:170px;height:226px;border-radius:12px;background:var(--raise);border:1px solid var(--line);padding:14px;box-sizing:border-box;transform:rotate(-6deg);transform-origin:50% 100%;box-shadow:0 18px 40px -26px rgba(0,0,0,.5);transition:transform .6s cubic-bezier(.2,.8,.2,1)}
+.vp.open:hover .vdos{transform:rotate(-9deg) translateY(-6px)}
+.vdos .rf{font:10px "Geist Mono",monospace;color:var(--muted);letter-spacing:.06em}
+.vdos .sil{margin:12px auto 10px;width:58px;height:64px;position:relative}
+.vdos .sil:before{content:"";position:absolute;left:14px;top:0;width:28px;height:28px;border-radius:50%;border:1.4px solid var(--fg)}
+.vdos .sil:after{content:"";position:absolute;left:0;top:34px;width:58px;height:30px;border-radius:30px 30px 0 0;border:1.4px solid var(--fg);border-bottom:0}
+.vdos .sil i{position:absolute;left:7px;top:10px;width:44px;height:8px;background:#111;z-index:2;transition:width .6s,left .6s}
+.vp.open:hover .vdos .sil i{width:16px;left:35px}
+.vdos .bar{height:5px;border-radius:3px;background:var(--line);margin:7px 0}
+.vgr{position:absolute;right:12px;top:12px;width:26px;height:26px;box-sizing:border-box;border-radius:50%;display:grid;place-items:center;font:500 11px "Geist Mono",monospace;color:var(--fg);border:1.3px solid var(--accent);background:color-mix(in srgb,var(--accent) 18%,transparent)}
+.vgr.C{background:var(--accent);color:var(--accent-fg)}
+.vgr.U{border-style:dashed;border-color:var(--muted);background:none}
+@media(max-width:760px){
+ .vac{flex-direction:column;height:auto;gap:6px}
+ .vp,.vp.open{flex:none}
+ .vt{position:relative;inset:auto;flex-direction:row;padding:13px 16px;gap:12px;width:100%}
+ .vt .vn{writing-mode:horizontal-tb;transform:none;flex:1}
+ .vp.open .vt{opacity:1;visibility:visible;pointer-events:auto}
+ .vchev{display:block;width:6px;height:6px;border-right:1.4px solid var(--muted);border-bottom:1.4px solid var(--muted);transform:rotate(45deg);margin:0 2px 3px 4px;transition:transform .2s}
+ .vp.open .vchev{transform:rotate(-135deg);margin-bottom:-3px}
+ .vb{position:relative;width:auto;display:none;opacity:1;visibility:visible;padding:2px 16px 18px}
+ .vp.open .vb{display:flex}
+ .vs,.vf{max-width:none}
+ .vb h3{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);margin:0}
+ .vs{margin-top:12px}
+ .vl{margin-top:18px}
+ .vdos{display:none}}
+@media(prefers-reduced-motion:reduce){.vp,.vb,.vt,.vdos,.vdos .sil i{transition:none!important}}
 .cta2{text-align:center;padding:70px 0 50px}
 .cta2 h2{font-size:clamp(28px,4vw,40px);font-weight:300;letter-spacing:-.03em;margin:0 0 20px}
 .cta2 h2 em{font-style:normal;color:var(--accent)}
@@ -786,8 +842,18 @@ function mountMap(root,opt){
 function home(){
   const H=HOME,fill=(s,n)=>String(s).replace(/\{n\}/g,n);
   const gradeCount=t=>['C','E','U',''].map(g=>DATA.filter(d=>d.type===t&&d.grade===g).length);
-  const v=BYID['chr-001'];const tiles=['chr-002','chr-003','chr-004','chr-007'].map(i=>BYID[i]).filter(Boolean);
-  const tcol=['#1f2a44','#0f5c4a','#5a2a6b','#7a3b1c'];
+  // Voices in the archive: the archivist, then each survivor who owns a Protocol, in chapter order
+  const VO=[BYID['chr-001'],...DATA.filter(d=>d.type==='CHR'&&d.facts&&d.facts.own_protocol).map(d=>[d,CHAPTERS.sections.find(x=>x.s===d.facts.own_protocol)]).filter(x=>x[1]).sort((a,b)=>a[1].o-b[1].o).map(x=>x[0])].filter(Boolean);
+  const vname=d=>d.name.replace(/ \(.*$/,'');
+  const vshort=d=>vname(d).replace(/"[^"]*" /,'');
+  const vnum=d=>d.ref.split('/').pop();
+  const voice=(d,i)=>{const sec=d.facts&&d.facts.own_protocol?CHAPTERS.sections.find(x=>x.s===d.facts.own_protocol):null;const open=i===0;
+    const ch=sec?sec.l.split(' · ')[0]:'';const facts=[d.facts&&d.facts.age?['Age',esc(d.facts.age)]:null,d.grade?['Evidence',`<span class="gl">${grade(d.grade)} ${GRADE[d.grade]}</span>`]:null,sec?['Protocol',esc(d.facts.own_protocol_t||sec.t)]:null].filter(Boolean);
+    return `<div class="vp${open?' open':''}"><button class="vt" aria-expanded="${open}" aria-controls="vb-${d.id}"><svg class="vi" aria-hidden="true"><use href="#i-chr"/></svg><span class="vn">${esc(vshort(d))}</span><span class="vr">${vnum(d)}</span>${d.grade?`<span class="vg ${d.grade}">${d.grade}</span>`:''}<span class="vchev" aria-hidden="true"></span></button>
+      <div class="vb" id="vb-${d.id}"><div class="vh"><span><b>${d.ref.replace('SYNPTCL/','')}</b>${sec?` · ${esc(sec.l.toUpperCase())}`:''}</span></div><h3 tabindex="-1">${esc(vname(d))}</h3><p class="vs">${esc(d.summary)}</p>
+      ${facts.length?`<dl class="vf">${facts.map(([k,v])=>`<div><dt>${k}</dt><dd>${v}</dd></div>`).join('')}</dl>`:''}
+      <div class="vl">${sec?`<a class="btn p" href="#story-${sec.s}">Read ${esc(ch.replace(/^Ch /,'Chapter '))}</a>`:'<a class="btn p" href="#story">Read the story</a>'}<a class="btn" href="#e-${d.id}">Open the entry</a></div>
+      <div class="vdos" aria-hidden="true"><div class="rf">${d.ref.replace('SYNPTCL/','')}</div><div class="sil"><i></i></div><div class="bar"></div><div class="bar" style="width:72%"></div><div class="bar" style="width:84%"></div>${d.grade?`<div class="vgr ${d.grade}">${d.grade}</div>`:''}</div></div></div>`};
   const slot=(art,fallback)=>art?(/^\s*<svg[\s>]/i.test(art)?art:`<img src="${esc(art)}" alt="" loading="lazy">`):fallback;
   /* category tiles (tiles_prototype.html), wired to live data */
   const GT=Object.fromEntries(H.grid.tiles.map(t=>[t.key,t]));
@@ -834,7 +900,7 @@ function home(){
   <section class="sec" id="idx"><div class="wrap"><h2>${esc(H.index.heading)}</h2><p class="sub">${esc(fill(H.index.text,DATA.length))}</p><div class="tabs" id="tabs"><button class="on" data-t="t">${esc(H.index.tab_all)}</button><button data-t="e">${esc(H.index.tab_evidence)}</button><button data-t="m">${esc(H.index.tab_points)}</button></div>
     <div class="chips" id="chips"></div><div class="win"><div class="bar"><i></i><i></i><i></i></div><div class="body full" id="tbody"></div></div></div></section>
   <section class="sec"><div class="wrap"><div class="sechead"><h2>${esc(H.popular.heading)}</h2><button class="btn" id="browseall">${esc(H.popular.button)}</button></div><p class="sub">${esc(H.popular.text)}</p><div class="tpl">${feat.map(d=>`<a class="tc" href="#e-${d.id}" style="--c:${COL[d.type]}"><span class="tt">${ICON[d.type]} ${d.ref.replace('SYNPTCL/','')}</span><b>${esc(d.name.replace(/ \(.*$/,''))}</b><p>${esc(d.summary)}</p><small>Read entry →</small></a>`).join('')}</div></div></section>
-  <section class="sec"><div class="wrap"><div class="sechead"><h2>Voices in the archive.</h2><a class="btn" href="#c-chr">Meet the characters</a></div><p class="sub">Each Protocol belongs to one survivor.</p><div class="voices"><a class="big" href="#e-${v.id}"><p>${esc(v.summary)}</p><small>${esc(v.name)}, ${v.ref.replace('SYNPTCL/','')}</small></a>${tiles.map((t,i)=>`<a class="tile" href="#e-${t.id}" style="background:${tcol[i]}"><b>${esc(t.name.replace(/ \(.*$/,'').replace(/"[^"]*" /,''))}</b><small>${t.ref.replace('SYNPTCL/','')}</small></a>`).join('')}</div></div></section>
+  <section class="sec"><div class="wrap"><div class="sechead"><h2>Voices in the archive.</h2><a class="btn" href="#c-chr">Meet the characters</a></div><p class="sub">Each Protocol belongs to one survivor. Select a name to open their file.</p><div class="vac" id="vac" style="--n:${VO.length}">${VO.map(voice).join('')}</div></div></section>
   <section class="sec"><div class="wrap split"><div><div class="eyebrow">Manuscript first</div><h2>The story stays the authority.</h2><p class="sub">When the archive and the manuscript disagree, the manuscript wins. Read it in full, then come back here to look things up.</p><a class="btn" href="#story">${ico('book')} Read the story</a></div><div class="code"><div><span class="k">Authority   </span><span class="v">manuscript</span></div><div><span class="k">Grades      </span><span class="v">C confirmed · E estimated · U unconfirmed</span></div><div><span class="k">Entries     </span><span class="v">${DATA.length}</span></div><div><span class="k">Map points  </span><span class="v">${MAP.pts.length}</span></div></div></div></section>
   <section class="cta2"><div class="wrap"><h2>Search the archive, <em>follow the map.</em></h2><div class="cta"><a class="btn p" href="#map">Open the map</a><button class="btn" id="hs4">Search the archive</button></div></div></section>
   <div class="wrap"><div class="badges"><span>${ico('shield')} Manuscript is the authority</span><span>${ico('book')} Every entry graded</span><span>${ico('pin')} Every place on the map</span></div></div>`;
@@ -857,7 +923,10 @@ function home(){
   paintIndex();
   $('#tl-ev').onclick=e=>{e.preventDefault();IX.t='e';IX.all=false;[...$('#tabs').children].forEach(x=>x.classList.toggle('on',x.dataset.t==='e'));paintIndex();$('#idx').scrollIntoView({behavior:'smooth',block:'start'})};
   $('#browseall').onclick=()=>{IX.t='t';IX.cat='';IX.all=true;[...$('#tabs').children].forEach(x=>x.classList.toggle('on',x.dataset.t==='t'));paintIndex();$('#idx').scrollIntoView({behavior:'smooth',block:'start'})};
-  $('#app').querySelectorAll('.hs,#hs4').forEach(el=>el.onclick=pOpen);mountMap($('#mm'),{compact:true,h:520})}
+  $('#app').querySelectorAll('.hs,#hs4').forEach(el=>el.onclick=pOpen);
+  $('#vac').onclick=e=>{const b=e.target.closest('.vt');if(!b)return;const p=b.parentElement,mob=matchMedia('(max-width:760px)').matches,was=p.classList.contains('open');
+    $('#vac').querySelectorAll('.vp').forEach(x=>{x.classList.remove('open');x.querySelector('.vt').setAttribute('aria-expanded','false')});
+    if(!(mob&&was)){p.classList.add('open');b.setAttribute('aria-expanded','true');if(!mob)p.querySelector('h3').focus({preventScroll:true})}};mountMap($('#mm'),{compact:true,h:520})}
 function mapView(focus){
   $('#app').innerHTML=`<div class="wrap" style="padding-top:22px;padding-bottom:50px"><div class="crumb"><a href="#home">Codex</a> / Map</div><h1 class="t" style="font-size:clamp(26px,4vw,36px);text-align:left;margin:0 0 14px;max-width:none">Warsaw and the corridor</h1><div id="mm"></div></div>`;
   mountMap($('#mm'),{h:Math.max(520,innerHeight-230),focus})}
