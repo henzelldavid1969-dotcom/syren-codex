@@ -5,7 +5,7 @@
     "title": "The Syren Protocols",
     "description": "Some cities are buried. Some are documented. In 2034 Warsaw was both. What follows is what survived.",
     "_placeholder_read_me": "Shown on any entry that has no images of its own, marked PLACEHOLDER. A real image replaces it automatically. To change it, upload a new placeholder.jpg to the images bucket. To switch it off, set the value below to an empty string.",
-    "placeholder_image": "https://qldxlphmvjjovzlmeguw.supabase.co/storage/v1/object/public/images/placeholder.jpg"
+    "placeholder_image": "https://qldxlphmvjjovzlmeguw.supabase.co/storage/v1/object/public/images/placeholder.jpg?v=2"
   },
 
   "hero": {
