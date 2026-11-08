@@ -35,7 +35,7 @@ const LINE_KIND = { occupation_perimeter: 'occ', russian_perimeter: 'rus', escap
 const POINT_KIND = { outpost: 'out', node: 'node', gate: 'gate', occupier: 'rus', other: 'kos' };
 
 const [categories, entries, relations, relTypes, sections, groups, marks, appearances, locF, chrF, objF, lorF,
-  images, audio, video, files, points, lines] = await Promise.all([
+  images, audio, video, files, points, lines, factionRows] = await Promise.all([
   table('categories', 'code,label,mark,sort_order', 'sort_order'),
   table('entries', '*', 'ref'),
   table('relations', 'from_ref,to_ref,type,position', 'from_ref,position,to_ref'),
@@ -54,6 +54,7 @@ const [categories, entries, relations, relTypes, sections, groups, marks, appear
   table('entry_files_view', '*', 'entry_ref,position,id'),
   table('map_points', '*', 'position,id'),
   table('map_lines', 'kind,name,coordinates,position', 'position,id'),
+  table('factions', 'position,name,slug,mark_file,entry_ref', 'position'),
 ]);
 
 const typeOrder = categories.map((c) => c.code);
@@ -90,6 +91,7 @@ const DATA = entries
       appears: e.appears_in || '',
       reliability: e.reliability || '',
       status: e.status || 'Draft',
+      featured: e.featured_order ?? null,
       sources: e.source_count ?? null,
       note: e.archivist_note || '',
       xnote: e.cross_references_note || '',
@@ -133,7 +135,35 @@ const MAP = {
   })),
 };
 
-const out = JSON.stringify({ META, DATA, MAP, STORY }, null, 1) + '\n';
+// Faction marks: an SVG file in the images bucket, placed inline so that
+// currentColor follows light and dark mode. Anything that could run code
+// is removed first.
+async function markSvg(file) {
+  if (!file) return '';
+  try {
+    const res = await fetch(fileUrl('images', file));
+    if (!res.ok) return '';
+    let svg = await res.text();
+    const start = svg.search(/<svg[\s>]/i);
+    if (start < 0) return '';
+    svg = svg.slice(start, svg.lastIndexOf('</svg>') + 6)
+      .replace(/<script[\s\S]*?<\/script>/gi, '')
+      .replace(/<foreignObject[\s\S]*?<\/foreignObject>/gi, '')
+      .replace(/\son[a-z]+\s*=\s*("[^"]*"|'[^']*'|[^\s>]+)/gi, '')
+      .replace(/(href\s*=\s*["'])\s*javascript:[^"']*/gi, '$1#');
+    return svg;
+  } catch {
+    return '';
+  }
+}
+const FACTIONS = await Promise.all(factionRows.map(async (f) => ({
+  name: f.name,
+  slug: f.slug,
+  entry: (f.entry_ref && slugOf[f.entry_ref]) || '',
+  svg: await markSvg(f.mark_file),
+})));
+
+const out = JSON.stringify({ META, DATA, MAP, STORY, FACTIONS }, null, 1) + '\n';
 await mkdir(new URL('../data/', import.meta.url), { recursive: true });
 await writeFile(new URL('../data/codex.json', import.meta.url), out);
 console.log(`Exported data/codex.json: ${DATA.length} entries, ${MAP.pts.length} map points.`);

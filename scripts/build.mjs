@@ -6,17 +6,29 @@
 import { readFile, writeFile, mkdir } from 'node:fs/promises';
 import { buildStory } from './story-lib.mjs';
 
-const { META, DATA, MAP, STORY } = JSON.parse(await readFile(new URL('../data/codex.json', import.meta.url), 'utf8'));
+const { META, DATA, MAP, STORY, FACTIONS = [] } = JSON.parse(await readFile(new URL('../data/codex.json', import.meta.url), 'utf8'));
 
 // JSON that is safe inside a <script> element.
 const LS = String.fromCharCode(0x2028), PS = String.fromCharCode(0x2029);
 const js = (v) => JSON.stringify(v).replace(/</g, '\\u003c').split(LS).join('\\u2028').split(PS).join('\\u2029');
 
-// The prototype was viewed inside a standard page shell; add the same shell.
+// Home page copy, editable without touching layout code.
+const HOME = JSON.parse(await readFile(new URL('../content/home.json', import.meta.url), 'utf8'));
+const attr = (v) => String(v).replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;');
+
+// A standard page shell, with the site name in the title and sharing tags.
 const head =
   '<!doctype html>\n<html lang="en-GB">\n<meta charset="utf-8">\n' +
   '<meta name="viewport" content="width=device-width, initial-scale=1">\n' +
-  '<meta name="description" content="The archive behind The Syren Protocols: places, people, objects and lore, with a map.">\n';
+  `<meta name="description" content="${attr(HOME.site.description)}">\n` +
+  `<meta name="application-name" content="${attr(HOME.site.title)}">\n` +
+  `<meta property="og:type" content="website">\n` +
+  `<meta property="og:site_name" content="${attr(HOME.site.title)}">\n` +
+  `<meta property="og:title" content="${attr(HOME.site.title)}">\n` +
+  `<meta property="og:description" content="${attr(HOME.site.description)}">\n` +
+  `<meta name="twitter:card" content="summary">\n` +
+  `<meta name="twitter:title" content="${attr(HOME.site.title)}">\n` +
+  `<meta name="twitter:description" content="${attr(HOME.site.description)}">\n`;
 
 const template = await readFile(new URL('../template.html', import.meta.url), 'utf8');
 const html =
@@ -25,7 +37,10 @@ const html =
     .replace('/*DATA*/', () => js(DATA))
     .replace('/*META*/', () => js(META))
     .replace('/*MAP*/', () => js(MAP))
-    .replace('/*STORY*/', () => js(STORY));
+    .replace('/*STORY*/', () => js(STORY))
+    .replace('/*FACTIONS*/', () => js(FACTIONS))
+    .replace('/*HOME*/', () => js(HOME))
+    .replace(/<title>[^<]*<\/title>/, () => `<title>${attr(HOME.site.title)}</title>`);
 
 await mkdir(new URL('../dist/', import.meta.url), { recursive: true });
 await writeFile(new URL('../dist/index.html', import.meta.url), html);

@@ -1,0 +1,70 @@
+{
+  "_read_me": "All home page copy lives here. Edit the text in quotes and keep the {n} markers: the site fills each {n} with a live count from the database. An \"art\" value of null keeps the current illustration; set it to an image address, or to SVG markup beginning <svg, to replace it.",
+
+  "site": {
+    "title": "The Syren Protocols",
+    "description": "Some cities are buried. Some are documented. In 2034 Warsaw was both. What follows is what survived."
+  },
+
+  "hero": {
+    "headline": "When memory becomes a weapon,",
+    "headline_accent": "testimony is all that remains.",
+    "intro": "Some cities are buried. Some are documented. In 2034 Warsaw was both. What follows is what survived.",
+    "intro_secondary": "Assembling testimony from a city that no longer exists as we knew it.",
+    "button_map": "Open the map",
+    "button_search": "Search the archive"
+  },
+
+  "grid": {
+    "tiles": [
+      { "key": "locations",     "title": "Locations",       "lead": "{n} locations.",        "text": "Survivor outposts, occupier positions and escape routes, each placed on the map.", "art": null },
+      { "key": "characters",    "title": "Characters",      "lead": "{n} people of record.", "text": "Survivors, Runners and occupiers, each with an evidence grade.", "art": null },
+      { "key": "objects",       "title": "Objects",         "lead": "{n} objects of record.", "text": "The Dendron, the Dust and the Protocols themselves.", "art": null },
+      { "key": "lore",          "title": "Lore",            "lead": "{n} records.",          "text": "The wartime programme, the flood and the history behind them.", "art": null },
+      { "key": "escape-routes", "title": "Escape routes",   "lead": "{n} routes.",           "text": "The ways out through the occupier's ring: north, east, south and far east.", "art": null },
+      { "key": "search",        "title": "Search",          "lead": "",                      "text": "A single search across names, places and passages of text.", "art": null },
+      { "key": "evidence",      "title": "Evidence grades", "lead": "",                      "text": "Every entry carries a grade: C confirmed, E estimated, U unconfirmed.", "art": null }
+    ],
+    "footnote": "Every entry links to the places and people it touches."
+  },
+
+  "map": {
+    "heading": "The Syren Protocols: Geographic Inventory",
+    "text": "Survivor outposts, route nodes, gates and occupier positions. Select a point to open its entry.",
+    "button": "Open the full map"
+  },
+
+  "factions": {
+    "heading": "The factions",
+    "text": "Those who held the city, fled it, resisted it and occupied it."
+  },
+
+  "index": {
+    "heading": "Archive index",
+    "text": "Sort, filter and open any of the {n} entries.",
+    "tab_all": "All entries",
+    "tab_evidence": "Evidence",
+    "tab_points": "Map points",
+    "filter_all": "All",
+    "rows_shown": 10,
+    "view_all": "View all {n} entries",
+    "view_all_points": "View all {n} map points",
+    "view_fewer": "Show fewer"
+  },
+
+  "portal": {
+    "heading": "One project, four ways in",
+    "cards": [
+      { "key": "novel",   "title": "The novel",   "text": "Sixteen testimonies, read in full.",          "link": "Read the story",     "href": "#story", "status": "",       "icon": "book",   "art": null },
+      { "key": "map",     "title": "The map",     "text": "Geographic inventory of occupied Warsaw.",   "link": "Open the map",       "href": "#map",   "status": "",       "icon": "map",    "art": null },
+      { "key": "archive", "title": "The archive", "text": "{n} entries, each graded for evidence.",     "link": "Search the archive", "href": "search", "status": "",       "icon": "search", "art": null },
+      { "key": "voices",  "title": "The voices",  "text": "Podcast and field recordings.",              "link": "",                   "href": "",       "status": "Coming", "icon": "audio",  "art": null }
+    ]
+  },
+
+  "popular": {
+    "heading": "Popular searches",
+    "text": "Where most readers begin.",
+    "button": "Browse all entries"
+  }
+}

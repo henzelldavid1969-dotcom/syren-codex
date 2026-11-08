@@ -1,5 +1,5 @@
-<title>Syren Codex</title>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@200..700&family=Geist+Mono:wght@400;500&family=Newsreader:ital,wght@0,400;0,500;1,400&display=swap">
+<title>The Syren Protocols</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@200..700&family=Geist+Mono:wght@300;400;500&family=Newsreader:ital,wght@0,400;0,500;1,400&display=swap">
 <style>
 :root{--bg:#0e0f0f;--surface:#151616;--raise:#1d1f1f;--line:#2a2d2c;--fg:#ededed;--muted:#9ba09e;--accent:#B8DF0D;--accent-fg:#141a00;--accent-ink:#B8DF0D;
 --loc:#B8DF0D;--chr:#7aa7ff;--obj:#e3b562;--lor:#c58bd9;--gc:#B8DF0D;--ge:#e3b562;--gu:#e08a7a;--rus:#e5625a;--glow:rgba(184,223,13,.14);--mapbg:#0b0d0d;color-scheme:dark}
@@ -356,16 +356,51 @@ details>summary{list-style:none}details>summary::-webkit-details-marker{display:
 .side:hover::-webkit-scrollbar,.rail:hover::-webkit-scrollbar,.mlist:hover::-webkit-scrollbar,.pr:hover::-webkit-scrollbar,.win .body:hover::-webkit-scrollbar{width:6px;height:6px}
 .side::-webkit-scrollbar-thumb,.rail::-webkit-scrollbar-thumb,.mlist::-webkit-scrollbar-thumb,.pr::-webkit-scrollbar-thumb,.win .body::-webkit-scrollbar-thumb{background:var(--line);border-radius:3px}
 @media(max-width:1020px){.rail{max-height:none;overflow:visible}}
+/* home page revision */
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.brand{flex:none}
+.mbtn{display:none;background:none;border:1px solid var(--line);border-radius:7px;width:32px;height:32px;color:var(--muted);place-items:center;flex:none}
+.mbtn .ico{width:16px;height:16px}
+.links a.only-m{display:none}
+@media(max-width:1080px){.nav .wrap{position:relative}.brand{margin-right:auto}.mbtn{display:grid}
+ .links{position:absolute;top:56px;left:0;right:0;display:none;flex-direction:column;gap:2px;padding:8px max(16px,env(safe-area-inset-left)) 14px;background:var(--bg);border-bottom:1px solid var(--line);overflow:visible}
+ .nav.open .links{display:flex}.links a{padding:10px 10px;font-size:15px}}
+@media(max-width:560px){.nav .btn.p{display:none}.links a.only-m{display:block}}
+.hero .lede.lt{margin-top:12px;opacity:.72}
+.cell h3.ut{font-size:19px;text-transform:uppercase;letter-spacing:.06em;gap:10px}
+.cell h3.ut .ico{width:22px;height:22px}
+.cell .art img{display:block;max-width:100%;height:auto}
+.cell .go{font:400 12.5px "Geist Mono",monospace;color:var(--accent-ink);padding:0 0 22px}
+.cell .go .chip{font-family:"Geist Mono",monospace;text-transform:uppercase;letter-spacing:.06em}
+.fgrid{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));border-top:1px solid var(--line);border-bottom:1px solid var(--line);margin-top:22px}
+.fgrid .fc{display:grid;place-items:center;min-height:118px;padding:22px 14px;text-align:center;color:var(--fg);opacity:.55;filter:grayscale(1);transition:opacity .2s,filter .2s}
+.fgrid .fc:nth-child(n+7){border-top:1px solid var(--line)}
+.fgrid .fc:hover{opacity:1;filter:none}
+.fgrid .fc svg{width:100%;max-width:128px;max-height:56px;height:auto}
+.fgrid .fn{font:300 11.5px/1.5 "Geist Mono",monospace;text-transform:uppercase;letter-spacing:.12em;color:var(--muted)}
+.fgrid .fc:hover .fn{color:var(--fg)}
+@media(max-width:760px){.fgrid{grid-template-columns:repeat(3,minmax(0,1fr))}.fgrid .fc:nth-child(n+7){border-top:0}.fgrid .fc:nth-child(n+4){border-top:1px solid var(--line)}}
+.chips{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 12px}
+.chips .chip{cursor:pointer;font:inherit;font-size:12.5px}
+.chips .chip.on{border-color:var(--accent-ink);color:var(--fg)}
+.win .body.full{max-height:none;overflow:visible}
+.tbl th.sort{cursor:pointer;user-select:none}
+.tbl th.sort:hover{color:var(--fg)}
+.tbl th .ar{margin-left:4px}
+.more{display:flex;justify-content:center;padding:12px 14px}
+.more button{background:none;border:0;font:400 13px "Geist Mono",monospace;color:var(--accent-ink);cursor:pointer}
+.more button:hover{text-decoration:underline}
 </style>
 <header class="nav"><div class="wrap">
-  <a class="brand" href="#home"><i></i>Syren Codex</a>
+  <a class="brand" href="#home"><i></i><span class="bt">The Syren Protocols</span></a>
   <nav class="links" id="links"></nav>
   <button class="sbtn" id="sopen" aria-label="Search the archive"><span id="sico"></span><span class="t">Search the archive</span><kbd>/</kbd></button>
   <a class="btn p" style="padding:6px 12px;font-size:13px" href="#story">Read the story</a>
   <button class="tog" id="theme" aria-label="Toggle theme">◐</button>
+  <button class="mbtn" id="menu" aria-label="Menu" aria-expanded="false" aria-controls="links"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
 </div></header>
 <main id="app"></main>
-<footer><div class="wrap"><div class="cols"><div><a class="brand" href="#home" style="color:var(--fg)"><i></i>Syren Codex</a><p style="margin:12px 0 0;max-width:20em">The archive behind The Syren Protocols. The manuscript is the authority on story facts.</p></div>
+<footer><div class="wrap"><div class="cols"><div><a class="brand" href="#home" style="color:var(--fg)"><i></i><span class="bt">The Syren Protocols</span></a><p style="margin:12px 0 0;max-width:20em">The archive behind The Syren Protocols. The manuscript is the authority on story facts.</p></div>
 <div><h6>Explore</h6><a href="#map">Map</a><a href="#c-loc">Locations</a><a href="#c-chr">Characters</a><a href="#c-obj">Objects</a><a href="#c-lor">Lore</a></div>
 <div><h6>Evidence</h6><a href="#c-chr">Confirmed (C)</a><a href="#c-chr">Estimated (E)</a><a href="#c-chr">Unconfirmed (U)</a></div>
 <div><h6>The story</h6><a href="#story">Read the manuscript</a><a href="#story-appendix-the-brief">Appendix: The Brief</a></div>
@@ -380,6 +415,8 @@ details>summary{list-style:none}details>summary::-webkit-details-marker{display:
 const DATA=/*DATA*/;
 const META=/*META*/;
 const MAP=/*MAP*/;
+const HOME=/*HOME*/;
+const FACTIONS=/*FACTIONS*/;
 const CHAPTERS=/*STORY*/;
 const COL={LOC:'var(--loc)',CHR:'var(--chr)',OBJ:'var(--obj)',LOR:'var(--lor)'};
 const IC={
@@ -428,7 +465,7 @@ const dot=t=>`<span class="dot" style="--dc:${COL[t]}"></span>`;
 const grade=g=>g?`<span class="g ${g}" title="${GRADE[g]}">${g}</span>`:'';
 const count=t=>DATA.filter(d=>d.type===t).length;
 const NAV=[['story','Story','book'],['map','Map','map'],['c-loc','Locations','pin'],['c-chr','Characters','user'],['c-obj','Objects','cube'],['c-lor','Lore','waves']];
-function navPaint(h){$('#links').innerHTML=NAV.map(([k,l,ic])=>{const on=h===k||h.startsWith(k+'-')||(k.startsWith('c-')&&h.startsWith('e-'+k.slice(2)+'-'))||(k==='map'&&h.startsWith('map'));return `<a href="#${k}" class="${on?'on':''}">${l}</a>`}).join('')}
+function navPaint(h){$('#links').innerHTML=NAV.map(([k,l,ic])=>{const on=h===k||h.startsWith(k+'-')||(k.startsWith('c-')&&h.startsWith('e-'+k.slice(2)+'-'))||(k==='map'&&h.startsWith('map'));return `<a href="#${k}" class="${on?'on':''}">${l}</a>`}).join('')+'<a class="only-m" href="#story">Read the story</a>'}
 let pTypes=[],pSel=0,pRes=[];
 function pOpen(){$('#ov').classList.add('on');const i=$('#q');i.value='';pTypes=[];pSel=0;pPaint();i.focus()}
 function pClose(){$('#ov').classList.remove('on')}
@@ -501,6 +538,7 @@ function mountMap(root,opt){
   if(opt.focus){const idx=MAP.pts.map((p,i)=>p.e===opt.focus?i:-1).filter(i=>i>-1);if(idx.length===1)pick(idx[0],true)}
 }
 function home(){
+  const H=HOME,fill=(s,n)=>String(s).replace(/\{n\}/g,n);
   const pal=['#e8456b','#f2711c','#3b6fd6','#637807','#9345ab','#b8860b'];
   const chars=DATA.filter(d=>d.type==='CHR').slice(0,6);
   const gradeCount=t=>['C','E','U',''].map(g=>DATA.filter(d=>d.type===t&&d.grade===g).length);
@@ -512,40 +550,63 @@ function home(){
     const rt=esc2.map(c=>`<path d="${p(c)}" fill="none" stroke="var(--accent-ink)" stroke-width="1" stroke-dasharray="3 2"/>`).join('');
     const pts=MAP.pts.filter(q=>q.k==='out').map(q=>`<circle cx="${((q.x-LON0)*KX*k).toFixed(1)}" cy="${((LAT0-q.y)*KY*k).toFixed(1)}" r="2" fill="var(--loc)"/>`).join('');
     return `<svg viewBox="0 0 ${W} ${H}" width="320">${per}${rt}${pts}</svg>`})();
-  const cell=(t,cls,body)=>`<a class="cell ${cls||''}" href="#c-${t}" style="--c:${COL[t.toUpperCase()]}">${body}</a>`;
-  const strip=[['book','Diaries'],['audio','Testimony'],['compass','Field notes'],['audio','Cassette tapes'],['cube','Memory cards'],['image','Photographs'],['map','Maps']];
-  const tableRows=DATA.map(d=>`<tr><td class="mono" style="color:var(--muted)">${d.ref.replace('SYNPTCL/','')}</td><td><a href="#e-${d.id}">${esc(d.name.replace(/ \(.*$/,''))}</a></td><td>${dot(d.type)} ${META[d.type].label}</td><td>${grade(d.grade)}</td></tr>`).join('');
-  const kn=['Reference','Name','Category','Summary','Reliability','Status'];const r=BYID['chr-002'];
-  const recVals={Reference:r.ref,Name:r.name,Category:'Characters / '+r.mark,Summary:r.summary,Reliability:(r.reliability||'').slice(0,60)+'…',Status:r.status||'Draft'};
-  const rec=kn.map(k=>`<div><span class="k">${k.padEnd(12)}</span><span class="v">${esc(String(recVals[k]).length>70?String(recVals[k]).slice(0,68)+'…':recVals[k])}</span></div>`).join('');
-  const feat=['chr-001','obj-001','obj-002','lor-001','loc-001','obj-003'].map(i=>BYID[i]).filter(Boolean);
   const v=BYID['chr-001'];const tiles=['chr-002','chr-003','chr-004','chr-007'].map(i=>BYID[i]).filter(Boolean);
   const tcol=['#1f2a44','#0f5c4a','#5a2a6b','#7a3b1c'];
-  $('#app').innerHTML=`<section class="hero"><div class="wrap"><div class="h2col"><h1>Everything the archive knows<em>and how well it knows it.</em></h1><div><p class="lede">Warsaw, 2034 to 2036. Places, people, objects and history behind The Syren Protocols: a map, ${DATA.length} entries, and an evidence grade on each one.</p><div class="cta"><a class="btn p" href="#map">Open the map</a><button class="btn" id="hs2">${ico('search')} Search the archive</button></div></div></div></div></section>
+  const slot=(art,fallback)=>art?(/^\s*<svg[\s>]/i.test(art)?art:`<img src="${esc(art)}" alt="" loading="lazy">`):fallback;
+  const routes=MAP.lines.filter(l=>l.k==='esc').length;
+  const T=Object.fromEntries(H.grid.tiles.map(t=>[t.key,t]));
+  const N={locations:count('LOC'),characters:count('CHR'),objects:count('OBJ'),lore:count('LOR'),'escape-routes':routes};
+  const art={locations:mini,
+    characters:`<div class="av">${chars.map((c,i)=>`<i style="background:${pal[i]}">${esc(c.name[0])}</i>`).join('')}</div>`,
+    objects:`<svg viewBox="0 0 24 24" width="96" style="stroke:var(--obj);fill:none;stroke-width:.5">${IC.cube}</svg>`,
+    lore:`<svg viewBox="0 0 24 24" width="104" style="stroke:var(--lor);fill:none;stroke-width:.5">${IC.waves}</svg>`,
+    'escape-routes':`<svg viewBox="0 0 24 24" width="96" style="stroke:var(--accent-ink);fill:none;stroke-width:.5">${IC.route}</svg>`,
+    search:`<div class="fakesearch"><div class="fi">${ico('search')} water</div><div class="fr"><span>Filtry</span><span>LOC/013</span></div><div class="fr"><span>Rising water</span><span>LOR/005</span></div></div>`,
+    evidence:`<div class="bars">${bars}</div>`};
+  const TI={locations:'pin',characters:'user',objects:'cube',lore:'waves','escape-routes':'route',search:'search',evidence:'shield'};
+  const TC={locations:COL.LOC,characters:COL.CHR,objects:COL.OBJ,lore:COL.LOR};
+  const body=k=>{const t=T[k];if(!t)return '';const lead=fill(t.lead||'',N[k]);return `<h3 class="ut">${ico(TI[k])} ${esc(t.title)}</h3><p>${lead?`<b>${esc(lead)}</b> `:''}${esc(fill(t.text,N[k]))}</p><div class="art">${slot(t.art,art[k])}</div>`};
+  const tile=(k,href,cls)=>`<a class="cell ${cls||''}" href="${href}" style="--c:${TC[k]||'var(--accent-ink)'}">${body(k)}</a>`;
+  const feat=DATA.filter(d=>d.featured).sort((a,b)=>a.featured-b.featured);
+  const P=H.portal.cards.map(c=>{const inner=`<h3 class="ut">${ico(c.icon)} ${esc(c.title)}</h3><p>${esc(fill(c.text,DATA.length))}</p><div class="art">${slot(c.art,`<svg viewBox="0 0 24 24" width="88" style="stroke:var(--accent-ink);fill:none;stroke-width:.5">${IC[c.icon]||''}</svg>`)}</div><div class="go">${c.status?`<span class="chip">${esc(c.status)}</span>`:`${esc(c.link)} →`}</div>`;
+    return c.status||!c.href?`<div class="cell" style="--c:var(--accent-ink)">${inner}</div>`:c.href==='search'?`<button class="cell hs" style="--c:var(--accent-ink);text-align:left;font:inherit;color:inherit;cursor:pointer">${inner}</button>`:`<a class="cell" href="${esc(c.href)}" style="--c:var(--accent-ink)">${inner}</a>`}).join('');
+  const F=FACTIONS.map(f=>{const inner=f.svg?`${f.svg}<span class="sr">${esc(f.name)}</span>`:`<span class="fn">${esc(f.name)}</span>`;
+    return f.entry&&BYID[f.entry]?`<a class="fc" href="#e-${f.entry}" title="${esc(f.name)}">${inner}</a>`:`<div class="fc" title="${esc(f.name)}">${inner}</div>`}).join('');
+  $('#app').innerHTML=`<section class="hero"><div class="wrap"><div class="h2col"><h1>${esc(H.hero.headline)}<em>${esc(H.hero.headline_accent)}</em></h1><div><p class="lede">${esc(H.hero.intro)}</p><p class="lede lt">${esc(H.hero.intro_secondary)}</p><div class="cta"><a class="btn p" href="#map">${esc(H.hero.button_map)}</a><button class="btn hs">${ico('search')} ${esc(H.hero.button_search)}</button></div></div></div></div></section>
   <section style="padding:8px 0 18px"><div class="wrap"><div class="grid7">
-   ${cell('loc','w2',`<h3>${ico('pin')} Locations</h3><p><b>${count('LOC')} places.</b> Outposts, Russian positions and the escape routes, each on the map.</p><div class="art">${mini}</div>`)}
-   ${cell('chr','',`<h3>${ico('user')} Characters</h3><p><b>${count('CHR')} people.</b> Survivors, Runners and occupiers.</p><div class="art"><div class="av">${chars.map((c,i)=>`<i style="background:${pal[i]}">${esc(c.name[0])}</i>`).join('')}</div></div>`)}
-   ${cell('obj','',`<h3>${ico('cube')} Objects</h3><p><b>${count('OBJ')} things.</b> The Dendron, the Dust, the Protocols.</p><div class="art"><svg viewBox="0 0 24 24" width="96" style="stroke:var(--obj);fill:none;stroke-width:.5">${IC.cube}</svg></div>`)}
-   ${cell('lor','',`<h3>${ico('waves')} Lore</h3><p><b>${count('LOR')} threads.</b> The programme, the flood, 1944.</p><div class="art"><svg viewBox="0 0 24 24" width="104" style="stroke:var(--lor);fill:none;stroke-width:.5">${IC.waves}</svg></div>`)}
-   <a class="cell" href="#map" style="--c:var(--accent-ink)"><h3>${ico('route')} Escape routes</h3><p><b>Four routes</b> out through the occupier's ring.</p><div class="art"><svg viewBox="0 0 24 24" width="96" style="stroke:var(--accent-ink);fill:none;stroke-width:.5">${IC.route}</svg></div></a>
-   <button class="cell" id="hs3" style="--c:var(--accent-ink);text-align:left;font:inherit;color:inherit;cursor:pointer"><h3>${ico('search')} Search</h3><p><b>One search</b> across names, places and text.</p><div class="art"><div class="fakesearch"><div class="fi">${ico('search')} water</div><div class="fr"><span>Filtry</span><span>LOC/013</span></div><div class="fr"><span>Rising water</span><span>LOR/005</span></div></div></div></button>
-   <a class="cell" href="#c-chr" style="--c:var(--accent-ink)"><h3>${ico('shield')} Evidence</h3><p><b>C, E or U</b> on every entry, by how far the sources agree.</p><div class="art"><div class="bars">${bars}</div></div></a>
-  </div><p class="tline"><b>Read one entry or follow the whole archive.</b> Every entry links to the places and people it touches.</p></div></section>
-  <section class="sec"><div class="wrap"><div class="sechead"><h2>Start with where it happened.</h2><a class="btn" href="#map">${ico('compass')} Open the full map</a></div><p class="sub">Select any point to open its entry. Occupier positions are approximate.</p><div id="mm"></div></div></section>
-  <section class="sec"><div class="wrap"><div class="stl">Drawn from the Protocols</div><div class="strip">${strip.map(([i,l])=>`<span>${ico(i)}${l}</span>`).join('')}</div></div></section>
-  <section class="sec"><div class="wrap"><h2>Browse everything<br><span style="color:var(--muted)">without leaving the page</span></h2><div class="tabs" id="tabs"><button class="on" data-t="t">Entry table</button><button data-t="e">Evidence</button><button data-t="m">Map points</button></div>
-    <div class="win"><div class="bar"><i></i><i></i><i></i></div><div class="body" id="tbody"></div></div></div></section>
-  <section class="sec"><div class="wrap split"><div><div class="eyebrow">Format</div><h2>Every entry has the same shape.</h2><p class="sub">Reference, name, category, summary, reliability and status. Cross-references link the entries together, and a media field takes images, sound and video.</p><a class="btn" href="#e-chr-002">${ico('book')} See an entry</a></div><div class="code">${rec}</div></div></section>
-  <section class="sec"><div class="wrap"><div class="sechead"><h2>Start with these entries.</h2><a class="btn" href="#c-chr">All characters</a></div><p class="sub">Six places to begin.</p><div class="tpl">${feat.map(d=>`<a class="tc" href="#e-${d.id}" style="--c:${COL[d.type]}"><span class="tt">${ICON[d.type]} ${d.ref.replace('SYNPTCL/','')}</span><b>${esc(d.name.replace(/ \(.*$/,''))}</b><p>${esc(d.summary)}</p><small>Read entry →</small></a>`).join('')}</div></div></section>
+   ${tile('locations','#c-loc','w2')}${tile('characters','#c-chr')}${tile('objects','#c-obj')}${tile('lore','#c-lor')}${tile('escape-routes','#map')}
+   <button class="cell hs" style="--c:var(--accent-ink);text-align:left;font:inherit;color:inherit;cursor:pointer">${body('search')}</button>
+   ${tile('evidence','#c-chr')}
+  </div><p class="tline">${esc(H.grid.footnote)}</p></div></section>
+  <section class="sec"><div class="wrap"><div class="sechead"><h2>${esc(H.map.heading)}</h2><a class="btn" href="#map">${ico('compass')} ${esc(H.map.button)}</a></div><p class="sub">${esc(H.map.text)}</p><div id="mm"></div></div></section>
+  <section class="sec"><div class="wrap"><div class="eyebrow">${esc(H.factions.heading)}</div><p class="sub" style="margin:0">${esc(H.factions.text)}</p><div class="fgrid">${F}</div></div></section>
+  <section class="sec" id="idx"><div class="wrap"><h2>${esc(H.index.heading)}</h2><p class="sub">${esc(fill(H.index.text,DATA.length))}</p><div class="tabs" id="tabs"><button class="on" data-t="t">${esc(H.index.tab_all)}</button><button data-t="e">${esc(H.index.tab_evidence)}</button><button data-t="m">${esc(H.index.tab_points)}</button></div>
+    <div class="chips" id="chips"></div><div class="win"><div class="bar"><i></i><i></i><i></i></div><div class="body full" id="tbody"></div></div></div></section>
+  <section class="sec"><div class="wrap"><h2>${esc(H.portal.heading)}</h2><div class="grid7" style="margin-top:22px">${P}</div></div></section>
+  <section class="sec"><div class="wrap"><div class="sechead"><h2>${esc(H.popular.heading)}</h2><button class="btn" id="browseall">${esc(H.popular.button)}</button></div><p class="sub">${esc(H.popular.text)}</p><div class="tpl">${feat.map(d=>`<a class="tc" href="#e-${d.id}" style="--c:${COL[d.type]}"><span class="tt">${ICON[d.type]} ${d.ref.replace('SYNPTCL/','')}</span><b>${esc(d.name.replace(/ \(.*$/,''))}</b><p>${esc(d.summary)}</p><small>Read entry →</small></a>`).join('')}</div></div></section>
   <section class="sec"><div class="wrap"><div class="sechead"><h2>Voices in the archive.</h2><a class="btn" href="#c-chr">Meet the characters</a></div><p class="sub">Each Protocol belongs to one survivor.</p><div class="voices"><a class="big" href="#e-${v.id}"><p>${esc(v.summary)}</p><small>${esc(v.name)}, ${v.ref.replace('SYNPTCL/','')}</small></a>${tiles.map((t,i)=>`<a class="tile" href="#e-${t.id}" style="background:${tcol[i]}"><b>${esc(t.name.replace(/ \(.*$/,'').replace(/"[^"]*" /,''))}</b><small>${t.ref.replace('SYNPTCL/','')}</small></a>`).join('')}</div></div></section>
   <section class="sec"><div class="wrap split"><div><div class="eyebrow">Manuscript first</div><h2>The story stays the authority.</h2><p class="sub">When the archive and the manuscript disagree, the manuscript wins. Read it in full, then come back here to look things up.</p><a class="btn" href="#story">${ico('book')} Read the story</a></div><div class="code"><div><span class="k">Authority   </span><span class="v">manuscript</span></div><div><span class="k">Grades      </span><span class="v">C confirmed · E estimated · U unconfirmed</span></div><div><span class="k">Entries     </span><span class="v">${DATA.length}</span></div><div><span class="k">Map points  </span><span class="v">${MAP.pts.length}</span></div></div></div></section>
   <section class="cta2"><div class="wrap"><h2>Search the archive, <em>follow the map.</em></h2><div class="cta"><a class="btn p" href="#map">Open the map</a><button class="btn" id="hs4">Search the archive</button></div></div></section>
   <div class="wrap"><div class="badges"><span>${ico('shield')} Manuscript is the authority</span><span>${ico('book')} Every entry graded</span><span>${ico('pin')} Every place on the map</span></div></div>`;
-  const tb=$('#tbody');const tabs={t:()=>`<table class="tbl"><thead><tr><th>Ref</th><th>Name</th><th>Category</th><th>Grade</th></tr></thead><tbody>${tableRows}</tbody></table>`,
-   e:()=>`<table class="tbl"><thead><tr><th>Category</th><th>C</th><th>E</th><th>U</th><th>Not yet graded</th></tr></thead><tbody>${['LOC','CHR','OBJ','LOR'].map(t=>`<tr><td>${dot(t)} ${META[t].label}</td>${gradeCount(t).map(n=>`<td>${n}</td>`).join('')}</tr>`).join('')}</tbody></table>`,
-   m:()=>`<table class="tbl"><thead><tr><th>Code</th><th>Point</th><th>Kind</th><th>Entry</th></tr></thead><tbody>${MAP.pts.map(p=>`<tr><td class="mono" style="color:var(--muted)">${esc(p.c)}</td><td>${esc(p.n)}</td><td>${KIND[p.k][0]}</td><td>${p.e?`<a href="#map-${p.e}">${BYID[p.e].ref.replace('SYNPTCL/','')}</a>`:''}</td></tr>`).join('')}</tbody></table>`};
-  tb.innerHTML=tabs.t();$('#tabs').onclick=e=>{const b=e.target.closest('button');if(!b)return;[...$('#tabs').children].forEach(x=>x.classList.toggle('on',x===b));tb.innerHTML=tabs[b.dataset.t]()};
-  ['hs2','hs3','hs4'].forEach(i=>{const el=$('#'+i);if(el)el.onclick=pOpen});mountMap($('#mm'),{compact:true,h:520})}
+  /* archive index: tabs, category chips, sorting, first rows then expand */
+  const IX={t:'t',cat:'',all:false,key:'ref',dir:1};const rows=Math.max(1,+H.index.rows_shown||10);
+  const cats=[['',H.index.filter_all],...Object.keys(META).map(k=>[k,META[k].label])];
+  const sortVal={ref:d=>Object.keys(META).indexOf(d.type)*1000+ +d.ref.slice(-3),name:d=>d.name.toLowerCase(),cat:d=>Object.keys(META).indexOf(d.type),grade:d=>'CEU'.indexOf(d.grade)<0?9:'CEU'.indexOf(d.grade)};
+  const th=(k,l)=>`<th class="sort" data-k="${k}">${l}${IX.key===k?`<span class="ar">${IX.dir>0?'↑':'↓'}</span>`:''}</th>`;
+  const more=(n,shown,label)=>n>shown||IX.all&&n>rows?`<div class="more"><button id="ixmore">${esc(IX.all?H.index.view_fewer:fill(label,n))}</button></div>`:'';
+  function paintIndex(){const tb=$('#tbody');
+    $('#chips').innerHTML=IX.t==='t'?cats.map(([k,l])=>`<button class="chip ${IX.cat===k?'on':''}" data-c="${k}">${k?dot(k):''}${esc(l)}</button>`).join(''):'';
+    if(IX.t==='t'){const list=DATA.filter(d=>!IX.cat||d.type===IX.cat).sort((a,b)=>{const x=sortVal[IX.key](a),y=sortVal[IX.key](b);return (x<y?-1:x>y?1:a.ref.localeCompare(b.ref))*IX.dir});
+      const show=IX.all?list:list.slice(0,rows);
+      tb.innerHTML=`<table class="tbl"><thead><tr>${th('ref','Ref')}${th('name','Name')}${th('cat','Category')}${th('grade','Grade')}</tr></thead><tbody>${show.map(d=>`<tr><td class="mono" style="color:var(--muted)">${d.ref.replace('SYNPTCL/','')}</td><td><a href="#e-${d.id}">${esc(d.name.replace(/ \(.*$/,''))}</a></td><td>${dot(d.type)} ${META[d.type].label}</td><td>${grade(d.grade)}</td></tr>`).join('')}</tbody></table>${more(list.length,show.length,H.index.view_all)}`}
+    else if(IX.t==='e')tb.innerHTML=`<table class="tbl"><thead><tr><th>Category</th><th>C</th><th>E</th><th>U</th><th>Not yet graded</th></tr></thead><tbody>${['LOC','CHR','OBJ','LOR'].map(t=>`<tr><td>${dot(t)} ${META[t].label}</td>${gradeCount(t).map(n=>`<td>${n}</td>`).join('')}</tr>`).join('')}</tbody></table>`;
+    else{const show=IX.all?MAP.pts:MAP.pts.slice(0,rows);tb.innerHTML=`<table class="tbl"><thead><tr><th>Code</th><th>Point</th><th>Kind</th><th>Entry</th></tr></thead><tbody>${show.map(p=>`<tr><td class="mono" style="color:var(--muted)">${esc(p.c)}</td><td>${esc(p.n)}</td><td>${KIND[p.k][0]}</td><td>${p.e?`<a href="#map-${p.e}">${BYID[p.e].ref.replace('SYNPTCL/','')}</a>`:''}</td></tr>`).join('')}</tbody></table>${more(MAP.pts.length,show.length,H.index.view_all_points)}`}}
+  $('#tabs').onclick=e=>{const b=e.target.closest('button');if(!b)return;[...$('#tabs').children].forEach(x=>x.classList.toggle('on',x===b));IX.t=b.dataset.t;IX.all=false;paintIndex()};
+  $('#chips').onclick=e=>{const b=e.target.closest('.chip');if(!b)return;IX.cat=b.dataset.c;IX.all=false;paintIndex()};
+  $('#tbody').onclick=e=>{const h=e.target.closest('th.sort');if(h){const k=h.dataset.k;IX.dir=IX.key===k?-IX.dir:1;IX.key=k;paintIndex();return}if(e.target.id==='ixmore'){const top=IX.all;IX.all=!IX.all;paintIndex();if(top)$('#idx').scrollIntoView({block:'start'})}};
+  paintIndex();
+  $('#browseall').onclick=()=>{IX.t='t';IX.cat='';IX.all=true;[...$('#tabs').children].forEach(x=>x.classList.toggle('on',x.dataset.t==='t'));paintIndex();$('#idx').scrollIntoView({behavior:'smooth',block:'start'})};
+  $('#app').querySelectorAll('.hs,#hs4').forEach(el=>el.onclick=pOpen);mountMap($('#mm'),{compact:true,h:520})}
 function mapView(focus){
   $('#app').innerHTML=`<div class="wrap" style="padding-top:22px;padding-bottom:50px"><div class="crumb"><a href="#home">Codex</a> / Map</div><h1 class="t" style="font-size:clamp(26px,4vw,36px);text-align:left;margin:0 0 14px;max-width:none">Warsaw and the corridor</h1><div id="mm"></div></div>`;
   mountMap($('#mm'),{h:Math.max(520,innerHeight-230),focus})}
@@ -641,6 +702,12 @@ function storyRoute(h){const draw=()=>{h==='story'?storyHome():storyPage(h.slice
   $('#app').innerHTML='<div class="wrap"><div class="empty">Opening the manuscript…</div></div>';
   getStory().then(()=>{if((location.hash||'#home').slice(1)===h)draw()}).catch(()=>{$('#app').innerHTML='<div class="wrap"><div class="empty">The manuscript could not be loaded. Please reload the page.</div></div>'})}
 document.addEventListener('toggle',e=>{const d=e.target;if(d.tagName!=='DETAILS'||!d.open||!d.dataset.acc)return;document.querySelectorAll(`details[data-acc="${d.dataset.acc}"]`).forEach(x=>{if(x!==d)x.open=false})},true);
+document.querySelectorAll('.brand .bt').forEach(x=>x.textContent=HOME.site.title);
+const navEl=$('.nav'),menuBtn=$('#menu');
+const menuSet=o=>{navEl.classList.toggle('open',o);menuBtn.setAttribute('aria-expanded',o?'true':'false')};
+menuBtn.onclick=()=>menuSet(!navEl.classList.contains('open'));
+document.addEventListener('click',e=>{if(navEl.classList.contains('open')&&!e.target.closest('.nav'))menuSet(false)});
+document.addEventListener('keydown',e=>{if(e.key==='Escape')menuSet(false)});
 /* lightbox */
 const LB={list:[],i:0,last:null};const lbEl=$('#lb');
 function lbShow(){const x=LB.list[LB.i],img=$('img',lbEl),n=LB.list.length;img.src=x.src;img.alt=x.alt||x.caption||'';
@@ -658,7 +725,7 @@ document.addEventListener('keydown',e=>{if(!lbEl.classList.contains('on'))return
   else{e.stopImmediatePropagation();return}e.preventDefault();e.stopImmediatePropagation()},true);
 let lbX=null;$('img',lbEl).addEventListener('pointerdown',e=>{lbX=e.clientX});
 $('img',lbEl).addEventListener('pointerup',e=>{if(lbX!==null&&Math.abs(e.clientX-lbX)>50)lbGo(e.clientX<lbX?1:-1);lbX=null});
-function route(){const h=(location.hash||'#home').slice(1);navPaint(h);lbClose();
+function route(){const h=(location.hash||'#home').slice(1);navPaint(h);menuSet(false);lbClose();
   if(h==='story'||h.startsWith('story-'))storyRoute(h);
   else if(h==='map')mapView();else if(h.startsWith('map-'))mapView(h.slice(4));
   else if(h.startsWith('c-')&&META[h.slice(2).toUpperCase()])cat(h.slice(2));
