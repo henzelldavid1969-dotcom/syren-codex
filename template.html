@@ -83,6 +83,12 @@ a.card:hover{border-color:var(--c,var(--accent));transform:translateY(-2px)}
 .mcanvas svg circle.halo{r:calc(14px*var(--k));fill:none;stroke:var(--fg);stroke-width:calc(1.4px*var(--k));opacity:.8}
 .mcanvas svg circle.hit{r:calc(14px*var(--k));fill:transparent;cursor:pointer}
 .mcanvas svg text{font:500 calc(11.5px*var(--k)) Geist,sans-serif;fill:var(--fg);paint-order:stroke;stroke:var(--mapbg);stroke-width:calc(3px*var(--k));pointer-events:none}
+/* the River Vistula on every map: a neutral band, under everything else */
+:root{--river:color-mix(in srgb,var(--fg) 13%,var(--mapbg))}
+.mcanvas svg .riv{fill:none;stroke:var(--river);stroke-width:max(calc(4px * var(--k)),3.6px);stroke-linecap:round;stroke-linejoin:round}
+.mcanvas svg text.rivl{font:500 calc(9.5px*var(--k)) "Geist Mono",monospace;letter-spacing:.4em;fill:var(--muted);stroke:none;paint-order:normal}
+.tiles .riv{fill:none;stroke:color-mix(in srgb,var(--fg) 13%,transparent);stroke-width:6;stroke-linecap:round;stroke-linejoin:round}
+.tiles .scan .sriv{fill:none;stroke:color-mix(in srgb,var(--fg) 13%,transparent);stroke-width:8;stroke-linecap:round;stroke-linejoin:round}
 .mtools{position:absolute;top:10px;left:10px;display:flex;gap:6px;flex-wrap:wrap;max-width:calc(100% - 70px)}
 .mtools .chip{cursor:pointer;background:color-mix(in srgb,var(--surface) 90%,transparent);backdrop-filter:blur(6px)}
 .mtools .chip.off{opacity:.45;text-decoration:line-through}
@@ -845,7 +851,7 @@ const GLY={out:'<circle class="sy-ring" cx="7" cy="7" r="5.6" stroke-width="1.1"
 const gly=k=>`<svg class="gly" viewBox="0 0 14 14" aria-hidden="true">${GLY[k]}</svg>`;
 const FULL={x:0,y:0,w:(21.57-LON0)*KX,h:(LAT0-52.05)*KY};
 function mountMap(root,opt){
-  const compact=!!opt.compact;let vb={...FULL};let sel=null;
+  const compact=!!opt.compact;let vb={...FULL};let sel=null;const rid='riv'+Math.random().toString(36).slice(2,8);
   const on={out:1,node:1,gate:1,rus:1,kos:1,rt:1,per:1};
   root.innerHTML=`<div class="mapwrap ${compact?'compact':''}" style="--mh:${opt.h||560}px"><aside class="mpanel"><div class="ms"><input placeholder="Find a place on the map" aria-label="Find a place"></div><div class="mlist"></div></aside><div class="mcanvas"><svg></svg><div class="mtools"></div><div class="mzoom"><button data-z="1.5" aria-label="Zoom in">+</button><button data-z="0.67" aria-label="Zoom out">−</button><button data-z="0" aria-label="Reset view">⌖</button></div><div class="mcard"></div><div class="mnote">Schematic. Occupier positions are approximate.</div></div></div>`;
   const svg=$('svg',root),cv=$('.mcanvas',root),list=$('.mlist',root),card=$('.mcard',root);
@@ -854,6 +860,8 @@ function mountMap(root,opt){
     let g='';for(let lo=20.9;lo<21.6;lo+=.1){const x=((lo-LON0)*KX).toFixed(1);g+=`<line class="gr" x1="${x}" x2="${x}" y1="0" y2="${FULL.h}"/>`}
     for(let la=52.1;la<52.46;la+=.05){const y=((LAT0-la)*KY).toFixed(1);g+=`<line class="gr" y1="${y}" y2="${y}" x1="0" x2="${FULL.w}"/>`}
     let L='';MAP.lines.forEach(l=>{const d=path(l.c);
+      // the Vistula: a band under everything else, named twice along its course
+      if(l.k==='riv'){L+=`<path id="${rid}" class="riv" d="${d}"/>`+['15%','74%'].map(o=>`<text class="rivl" dy="0.35em"><textPath href="#${rid}" startOffset="${o}">${esc(l.n.toUpperCase())}</textPath></text>`).join('');return}
       if(l.k==='rus'&&on.per)L+=`<path class="perim rp" d="${d}Z"/>`;
       if(l.k==='occ'&&on.per)L+=`<path class="perim op" d="${d}Z"/>`;
       if(l.k==='esc'&&on.rt)L+=`<path class="rt" d="${d}"><title>${esc(l.n)}</title></path>`});

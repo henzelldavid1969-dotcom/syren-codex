@@ -1,0 +1,14 @@
+{
+  "_read_me": "The course of the River Vistula through the map, from north-west to south-east, as [longitude, latitude] pairs. Traced through the positions of the Warsaw bridges (Maria Sklodowska-Curie, Grot-Rowecki, Gdanski, Slasko-Dabrowski, Swietokrzyski, Poniatowski, Lazienkowski, Siekierkowski), so it is accurate to a few hundred metres. To refine it, replace the list with points from a survey map in the same order. The map draws it under everything else and labels it.",
+  "name": "Vistula",
+  "coordinates": [
+    [20.880, 52.405], [20.892, 52.393], [20.905, 52.380], [20.918, 52.366], [20.930, 52.352],
+    [20.945, 52.333], [20.958, 52.318], [20.972, 52.305], [20.984, 52.293], [20.995, 52.283],
+    [21.003, 52.273], [21.009, 52.265], [21.012, 52.260], [21.018, 52.254], [21.024, 52.247],
+    [21.031, 52.243], [21.039, 52.240], [21.046, 52.236], [21.054, 52.231], [21.060, 52.226],
+    [21.066, 52.222], [21.077, 52.219], [21.090, 52.216], [21.100, 52.210], [21.106, 52.200],
+    [21.109, 52.190], [21.112, 52.180], [21.116, 52.170], [21.122, 52.160], [21.130, 52.148],
+    [21.138, 52.135], [21.146, 52.120], [21.155, 52.105], [21.164, 52.090], [21.175, 52.075],
+    [21.185, 52.060], [21.195, 52.045]
+  ]
+}

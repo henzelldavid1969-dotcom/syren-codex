@@ -10,7 +10,7 @@ const COS = Math.cos((52.25 * Math.PI) / 180);
 const f = (n) => n.toFixed(1);
 
 function projection(MAP) {
-  const all = MAP.pts.map((p) => [p.x, p.y]).concat(...MAP.lines.map((l) => l.c));
+  const all = MAP.pts.map((p) => [p.x, p.y]).concat(...MAP.lines.filter((l) => l.k !== 'riv').map((l) => l.c));
   const lons = all.map((p) => p[0]), lats = all.map((p) => p[1]);
   const minLon = Math.min(...lons), maxLat = Math.max(...lats);
   const scale = 400 / Math.max((Math.max(...lons) - minLon) * COS, maxLat - Math.min(...lats));
@@ -38,6 +38,8 @@ export function buildTiles(MAP) {
 
   // The Ground
   let g = '<svg class="gfx map" viewBox="-30 -30 460 440" aria-hidden="true">';
+  const riv = line('riv')[0];
+  if (riv) g += `<path d="${path(riv.p)}" class="riv"/>`;
   if (rus) g += `<path d="${path(rus.p)}" class="rusline"/>`;
   if (occ) {
     g += `<path d="${path(occ.p)}" class="occ"/>`;
@@ -56,6 +58,7 @@ export function buildTiles(MAP) {
 
   // Ways Out: one dot travels each route; a still dot stands in when motion is reduced.
   let w = '<svg class="gfx esc" viewBox="-30 -30 460 440" aria-hidden="true">';
+  if (riv) w += `<path d="${path(riv.p)}" class="riv"/>`;
   if (occ) {
     w += `<path d="${path(occ.p)}" class="eocc"/>`;
     rings(occ.p, [0.55, 0.2]).forEach((r) => { w += `<path d="${path(r)}" class="econt"/>`; });
@@ -108,6 +111,8 @@ export function buildScan(MAP) {
   s += `<style>${kf}${rd}.tiles .scan .ret{animation:tl-scan ${dur}s cubic-bezier(.65,0,.35,1) infinite;transform:translate(${f(stops[0].q[0])}px,${f(stops[0].q[1])}px)}.tiles .rdo .rl2{animation:tl-read ${dur}s steps(1,end) infinite}</style>`;
   for (let gx = Math.floor(x0 / 20) * 20; gx < x0 + W + 20; gx += 20) s += `<path d="M${gx} ${f(y0 - 20)}V${f(y0 + H + 20)}" class="sgr"/>`;
   for (let gy = Math.floor(y0 / 20) * 20; gy < y0 + H + 20; gy += 20) s += `<path d="M${f(x0 - 20)} ${gy}H${f(x0 + W + 20)}" class="sgr"/>`;
+  const riv = line('riv')[0];
+  if (riv) s += `<path d="${path(riv.p)}" class="sriv"/>`;
   if (occ) {
     s += `<path d="${path(occ.p)}Z" class="socc"/>`;
     rings(occ.p, [0.8, 0.6, 0.4, 0.2]).forEach((r) => { s += `<path d="${path(r)}Z" class="scont"/>`; });

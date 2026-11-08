@@ -9,6 +9,11 @@ import { buildTiles, buildScan } from './tiles.mjs';
 
 const { META, DATA, MAP, STORY, FACTIONS = [] } = JSON.parse(await readFile(new URL('../data/codex.json', import.meta.url), 'utf8'));
 
+// The River Vistula: geography, not story data, so it lives in content/
+// rather than the database. Drawn under everything else on every map.
+const VISTULA = JSON.parse(await readFile(new URL('../content/vistula.json', import.meta.url), 'utf8'));
+MAP.lines.unshift({ k: 'riv', n: VISTULA.name, c: VISTULA.coordinates });
+
 // JSON that is safe inside a <script> element.
 const LS = String.fromCharCode(0x2028), PS = String.fromCharCode(0x2029);
 const js = (v) => JSON.stringify(v).replace(/</g, '\\u003c').split(LS).join('\\u2028').split(PS).join('\\u2029');
