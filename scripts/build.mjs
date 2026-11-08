@@ -5,7 +5,7 @@
 
 import { readFile, writeFile, mkdir } from 'node:fs/promises';
 import { buildStory } from './story-lib.mjs';
-import { buildTiles } from './tiles.mjs';
+import { buildTiles, buildScan } from './tiles.mjs';
 
 const { META, DATA, MAP, STORY, FACTIONS = [] } = JSON.parse(await readFile(new URL('../data/codex.json', import.meta.url), 'utf8'));
 
@@ -35,6 +35,7 @@ const head =
 // the Waterline are fixed drawings kept in assets/tiles.
 const TILES = {
   ...buildTiles(MAP),
+  ...buildScan(MAP),
   dendron: await readFile(new URL('../assets/tiles/dendron.svg', import.meta.url), 'utf8'),
   waterline: await readFile(new URL('../assets/tiles/waterline.svg', import.meta.url), 'utf8'),
 };

@@ -76,3 +76,48 @@ export function buildTiles(MAP) {
   const coord = first ? `${first.y.toFixed(2)}°N ${first.x.toFixed(2)}°E · ${ascii(first.n.split(',')[0]).toUpperCase()}` : '';
   return { ground: g, ways: w, coord, routes: routes.length };
 }
+
+// "Four ways in": the Map card. A close crop of the corridor with a survey
+// grid, and a reticle that moves between four outposts, pausing on each.
+// The reticle's keyframes come from the real outpost positions, so they are
+// written into the SVG here; the readout lines under it change in step.
+export function buildScan(MAP) {
+  const P = projection(MAP);
+  const line = (k) => MAP.lines.filter((l) => l.k === k).map((l) => ({ ...l, p: l.c.map(P) }));
+  const occ = line('occ')[0], routes = line('esc');
+  const outs = MAP.pts.filter((p) => p.k === 'out').map((p) => ({ ...p, q: P([p.x, p.y]) }));
+  const rus = MAP.pts.filter((p) => p.k === 'rus').map((p) => ({ ...p, q: P([p.x, p.y]) }));
+  const pick = ['Z1', 'S1', 'G1', 'F1'].map((c) => outs.find((o) => o.c === c)).filter(Boolean);
+  const stops = pick.length >= 2 ? pick : outs.slice(0, 4);
+  const cx = stops.reduce((s, o) => s + o.q[0], 0) / stops.length, cy = stops.reduce((s, o) => s + o.q[1], 0) / stops.length;
+  const W = 230, H = 170, x0 = cx - W / 2, y0 = cy - H / 2;
+  let s = `<svg class="gfx scan" viewBox="${f(x0)} ${f(y0)} ${W} ${H}" preserveAspectRatio="xMidYMid slice" aria-hidden="true">`;
+  const n = stops.length, dur = 3.2 * n;
+  let kf = '@keyframes tl-scan{';
+  stops.forEach((o, i) => {
+    const a = (i / n) * 100, b = a + (100 / n) * 0.62, t = `translate(${f(o.q[0])}px,${f(o.q[1])}px)`;
+    kf += `${a.toFixed(2)}%,${b.toFixed(2)}%{transform:${t}}`;
+  });
+  kf += `100%{transform:translate(${f(stops[0].q[0])}px,${f(stops[0].q[1])}px)}}`;
+  let rd = '@keyframes tl-read{';
+  stops.forEach((o, i) => {
+    const a = (i / n) * 100 + (100 / n) * 0.0, b = ((i + 1) / n) * 100 - 0.01;
+    rd += `${a.toFixed(2)}%,${b.toFixed(2)}%{transform:translateY(${-i * 100 / n}%)}`;
+  });
+  rd += '}';
+  s += `<style>${kf}${rd}.tiles .scan .ret{animation:tl-scan ${dur}s cubic-bezier(.65,0,.35,1) infinite;transform:translate(${f(stops[0].q[0])}px,${f(stops[0].q[1])}px)}.tiles .rdo .rl2{animation:tl-read ${dur}s steps(1,end) infinite}</style>`;
+  for (let gx = Math.floor(x0 / 20) * 20; gx < x0 + W + 20; gx += 20) s += `<path d="M${gx} ${f(y0 - 20)}V${f(y0 + H + 20)}" class="sgr"/>`;
+  for (let gy = Math.floor(y0 / 20) * 20; gy < y0 + H + 20; gy += 20) s += `<path d="M${f(x0 - 20)} ${gy}H${f(x0 + W + 20)}" class="sgr"/>`;
+  if (occ) {
+    s += `<path d="${path(occ.p)}Z" class="socc"/>`;
+    rings(occ.p, [0.8, 0.6, 0.4, 0.2]).forEach((r) => { s += `<path d="${path(r)}Z" class="scont"/>`; });
+  }
+  routes.forEach((r) => { s += `<path d="${path(r.p)}" class="srt"/>`; });
+  rus.forEach((p) => { const [x, y] = p.q; s += `<path d="M${f(x - 3)} ${f(y - 3)}l6 6m0-6l-6 6" class="sx"/>`; });
+  outs.forEach((p) => { const [x, y] = p.q.map(f); s += `<circle cx="${x}" cy="${y}" r="5" class="sring"/><circle cx="${x}" cy="${y}" r="2.2" class="sdot"/>`; });
+  s += `<g class="ret"><path d="M-400 0H-9M9 0H400M0 -400V-9M0 9V400" class="rx"/><rect x="-8" y="-8" width="16" height="16" class="rb"/><circle r="11" class="rp"/></g>`;
+  s += '</svg>';
+  const ascii = (t) => t.replace(/[łŁ]/g, (c) => (c === 'ł' ? 'l' : 'L')).normalize('NFD').replace(/[̀-ͯ]/g, '');
+  const read = stops.map((o) => `${o.y.toFixed(2)}°N ${o.x.toFixed(2)}°E · ${o.c} ${ascii(o.n.split(',')[0]).toUpperCase()}`);
+  return { scan: s, scanRead: read };
+}

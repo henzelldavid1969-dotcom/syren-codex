@@ -540,6 +540,64 @@ details>summary{list-style:none}details>summary::-webkit-details-marker{display:
 .tiles .t:focus-visible{outline:2px solid var(--s);outline-offset:2px}
 .tiles .art{position:absolute;inset:0;z-index:1;pointer-events:none}
 .tiles .art img{width:100%;height:100%;object-fit:cover;display:block}
+/* "One project, four ways in": the four cards in the tile style (same frame,
+   palette and motion rules as the tiles above) */
+.tiles.ways .t{min-height:340px}
+.tiles.ways .num{min-height:34px}
+.tiles .ms{left:24px;right:-28px;bottom:-40px;height:60%}
+.tiles .ms .pg{position:absolute;inset:0;border:1px solid var(--line);border-radius:10px;background:var(--raise);transform-origin:15% 100%;transition:transform .6s cubic-bezier(.2,.8,.2,1);box-shadow:0 14px 30px -22px rgba(0,0,0,.45)}
+.tiles .ms .p3{transform:rotate(5deg) translate(10px,-4px)}
+.tiles .ms .p2{transform:rotate(2.5deg) translate(5px,-2px)}
+.tiles .t:hover .ms .p3{transform:rotate(9deg) translate(18px,-9px)}
+.tiles .t:hover .ms .p2{transform:rotate(4.5deg) translate(9px,-4px)}
+.tiles .ms .p1{padding:16px 18px;display:flex;flex-direction:column;gap:9px}
+.tiles .ms .mh{flex:none;font:500 9.5px/14px "Geist Mono",monospace;letter-spacing:.12em;color:var(--muted);margin-bottom:3px;white-space:nowrap;overflow:hidden;text-overflow:clip}
+.tiles .ms i{flex:none;display:block;height:5px;border-radius:3px;background:color-mix(in srgb,var(--fg) 15%,transparent);width:var(--w);transform-origin:left;animation:tl-wr 9s cubic-bezier(.3,.7,.3,1) infinite both;animation-delay:var(--d)}
+.tiles .ms i.rx{background:var(--redact)}
+.tiles .ms i.hl{background:var(--acid);box-shadow:0 0 0 .6px var(--tipstroke)}
+.tiles .ms b{flex:none;display:block;width:7px;height:11px;background:var(--fg);animation:tl-blink 1.1s steps(1) infinite}
+@keyframes tl-wr{0%{transform:scaleX(0)}10%,88%{transform:scaleX(1);opacity:1}96%,100%{transform:scaleX(1);opacity:0}}
+@keyframes tl-blink{50%{opacity:0}}
+.tiles .pod{left:24px;right:24px;bottom:66px;height:104px}
+.tiles .pod .wf{position:absolute;inset:0;display:flex;align-items:center;justify-content:space-between}
+.tiles .pod .wf span{width:3px;border-radius:2px;height:var(--h);background:color-mix(in srgb,var(--fg) 20%,transparent);animation:tl-eq var(--s) ease-in-out infinite alternate;animation-delay:var(--d)}
+.tiles .pod .wf.on{clip-path:inset(0 62% 0 0);animation:tl-play 10s linear infinite}
+.tiles .pod .wf.on span{background:var(--acid);box-shadow:0 0 0 .5px var(--tipstroke)}
+.tiles .pod .phd{position:absolute;top:-10px;bottom:-10px;left:38%;width:1.5px;background:var(--s);animation:tl-head 10s linear infinite}
+.tiles .pod .phd:before{content:"";position:absolute;top:-3px;left:-3px;width:7px;height:7px;border-radius:50%;background:var(--s)}
+.tiles .t:hover .pod .wf span{animation-duration:.45s}
+@keyframes tl-eq{from{transform:scaleY(.35)}to{transform:scaleY(1)}}
+@keyframes tl-play{from{clip-path:inset(0 100% 0 0)}to{clip-path:inset(0 0 0 0)}}
+@keyframes tl-head{from{left:0}to{left:100%}}
+.tiles .scan{left:0;right:0;bottom:0;width:100%;height:58%;-webkit-mask-image:linear-gradient(transparent,#000 32%);mask-image:linear-gradient(transparent,#000 32%)}
+.tiles .scan path,.tiles .scan circle,.tiles .scan rect{vector-effect:non-scaling-stroke}
+.tiles .scan .sgr{fill:none;stroke:var(--line);stroke-width:1}
+.tiles .scan .socc{stroke:var(--muted);stroke-width:1.1;fill:color-mix(in srgb,var(--fg) 4%,transparent)}
+.tiles .scan .scont{fill:none;stroke:var(--muted);stroke-width:.7;opacity:.35}
+.tiles .scan .srt{fill:none;stroke:var(--s);stroke-width:1.2;stroke-dasharray:3 5;opacity:.75;animation:tl-dash 14s linear infinite}
+.tiles .scan .sx{fill:none;stroke:var(--ink);stroke-width:1.2}
+.tiles .scan .sring{fill:none;stroke:var(--fg);stroke-width:1}
+.tiles .scan .sdot{fill:var(--acid);stroke:var(--tipstroke);stroke-width:.8}
+.tiles .scan .rx{fill:none;stroke:var(--s);stroke-width:1;stroke-dasharray:2 3;opacity:.6}
+.tiles .scan .rb{fill:none;stroke:var(--s);stroke-width:1.6}
+.tiles .scan .rp{fill:none;stroke:var(--s);stroke-width:1.2;transform-box:fill-box;transform-origin:center;animation:tl-ping 1.6s ease-out infinite}
+.tiles .rdo{position:absolute;left:18px;bottom:14px;z-index:3;height:22px;overflow:hidden;border-radius:6px;background:color-mix(in srgb,var(--surface) 88%,transparent);padding:0 6px;font:11px "Geist Mono",monospace;color:var(--muted);letter-spacing:.06em}
+.tiles .rdo .rl2{display:flex;flex-direction:column}
+.tiles .rdo .rl2 span{height:22px;line-height:22px;white-space:nowrap}
+.tiles .reg{left:24px;right:-8px;bottom:-24px;height:58%;border:1px solid var(--line);border-radius:10px;background:var(--raise);overflow:hidden;box-shadow:0 14px 30px -22px rgba(0,0,0,.45)}
+.tiles .reg .rbar{display:flex;gap:5px;padding:10px 12px;border-bottom:1px solid var(--line)}
+.tiles .reg .rbar i{width:7px;height:7px;border-radius:50%;background:var(--line)}
+.tiles .reg .tkw{position:absolute;top:28px;left:0;right:0;bottom:0;overflow:hidden;-webkit-mask-image:linear-gradient(transparent,#000 16%,#000 84%,transparent);mask-image:linear-gradient(transparent,#000 16%,#000 84%,transparent)}
+.tiles .reg .tk{animation:tl-tick 30s linear infinite}
+@keyframes tl-tick{to{transform:translateY(-50%)}}
+.tiles .reg .rw{display:grid;grid-template-columns:58px minmax(0,1fr) 18px;gap:10px;align-items:center;height:32px;padding:0 22px 0 14px;border-bottom:1px solid color-mix(in srgb,var(--line) 70%,transparent);font-size:12.5px}
+.tiles .reg .rw .rf{font:11px "Geist Mono",monospace;color:var(--muted)}
+.tiles .reg .rw b{font-weight:400;color:var(--fg);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.tiles .reg .gb{width:18px;height:18px;box-sizing:border-box;border-radius:50%;display:grid;place-items:center;font:500 9.5px "Geist Mono",monospace;color:var(--fg);border:1.2px solid var(--acid);background:color-mix(in srgb,var(--acid) 18%,transparent)}
+.tiles .reg .gb.C{background:var(--acid);color:#000}
+.tiles .reg .gb.U{border:1.2px dashed var(--muted);background:none}
+.tiles .reg .band{position:absolute;left:0;right:0;top:92px;height:32px;background:color-mix(in srgb,var(--acid) 14%,transparent);box-shadow:inset 3px 0 0 var(--acid);pointer-events:none}
+@media(prefers-reduced-motion:reduce){.tiles .ms i,.tiles .ms b{opacity:1}}
 </style>
 <header class="nav"><div class="wrap">
   <a class="brand" href="#home"><i></i><span class="bt">The Syren Protocols</span></a>
@@ -557,6 +615,10 @@ details>summary{list-style:none}details>summary::-webkit-details-marker{display:
 <symbol id="i-rte" viewBox="0 0 24 24"><path d="M19.5 9.5A8 8 0 1 0 20 12"/><path d="M12 12h9.5M18 8.5l3.5 3.5-3.5 3.5"/></symbol>
 <symbol id="i-sea" viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5 21 21M10.5 10.5l3.6-3.6"/></symbol>
 <symbol id="i-grd" viewBox="0 0 24 24"><path d="M9 3h6v6l2.5 3.5h-11L9 9z"/><path d="M4 16.5h16M6 20.5h12"/></symbol>
+<symbol id="i-book" viewBox="0 0 24 24"><path d="M12 6.5C10 5 7 4.5 3.5 5v13c3.5-.5 6.5 0 8.5 1.5 2-1.5 5-2 8.5-1.5V5C17 4.5 14 5 12 6.5z"/><path d="M12 6.5v13M6.5 8.5h2.5M6.5 11.5h2.5M15 8.5h2.5"/></symbol>
+<symbol id="i-pod" viewBox="0 0 24 24"><rect x="9" y="2.5" width="6" height="11" rx="3"/><path d="M5.5 10.5a6.5 6.5 0 0 0 13 0M12 17v4M8.5 21h7"/></symbol>
+<symbol id="i-map" viewBox="0 0 24 24"><path d="M3.5 6.5 9 4l6 2.5L20.5 4v13.5L15 20l-6-2.5-5.5 2.5z"/><path d="M9 4v13.5M15 6.5V20"/></symbol>
+<symbol id="i-idx" viewBox="0 0 24 24"><rect x="3.5" y="3.5" width="17" height="17" rx="2"/><path d="M3.5 8.5h17M7 12.5h3M12.5 12.5h4.5M7 16h3M12.5 16h3"/></symbol>
 </defs></svg>
 <main id="app"></main>
 <footer><div class="wrap"><div class="cols"><div><a class="brand" href="#home" style="color:var(--fg)"><i></i><span class="bt">The Syren Protocols</span></a><p style="margin:12px 0 0;max-width:20em">The archive behind The Syren Protocols. The manuscript is the authority on story facts.</p></div>
@@ -740,8 +802,20 @@ function home(){
    <a class="t fade" style="--c:var(--gc)" href="#idx" id="tl-ev">${thead('evidence','i-grd','')}<div class="gfx gd" aria-hidden="true">${['C','E','U'].map(g=>`<div class="r ${g.toLowerCase()}"><div class="l">${g}</div><div class="tr"><div class="tfill" style="--w:${share(g)}%"></div><div class="rd" style="--rl:${share(g)}%"></div></div></div>`).join('')}</div></a>
   </div>`;
   const feat=DATA.filter(d=>d.featured).sort((a,b)=>a.featured-b.featured);
-  const P=H.portal.cards.map(c=>{const inner=`<h3 class="ut">${ico(c.icon)} ${esc(c.title)}</h3><p>${esc(fill(c.text,DATA.length))}</p><div class="art">${slot(c.art,`<svg viewBox="0 0 24 24" width="88" style="stroke:var(--accent-ink);fill:none;stroke-width:.5">${IC[c.icon]||''}</svg>`)}</div><div class="go">${c.status?`<span class="chip">${esc(c.status)}</span>`:`${esc(c.link)} →`}</div>`;
-    return c.status||!c.href?`<div class="cell" style="--c:var(--accent-ink)">${inner}</div>`:c.href==='search'?`<button class="cell hs" style="--c:var(--accent-ink);text-align:left;font:inherit;color:inherit;cursor:pointer">${inner}</button>`:`<a class="cell" href="${esc(c.href)}" style="--c:var(--accent-ink)">${inner}</a>`}).join('');
+  // "One project, four ways in": four cards in the tile style
+  const WAYS={story:'i-book',podcast:'i-pod',map:'i-map',archive:'i-idx'};
+  const proto=(CHAPTERS.sections.find(x=>x.k==='protocol')||{}).l||'';
+  const wayGfx={
+    story:()=>`<div class="gfx ms" aria-hidden="true"><div class="pg p3"></div><div class="pg p2"></div><div class="pg p1"><div class="mh">${esc(proto.toUpperCase())}</div>${[[92],[100],[62,'rx'],[96],[86],[44,'hl'],[98],[72]].map(([w,c],i)=>`<i class="${c||''}" style="--w:${w}%;--d:${(i*.3).toFixed(1)}s"></i>`).join('')}<b></b></div></div>`,
+    podcast:()=>{const bars=Array.from({length:44},(_,i)=>`<span style="--h:${Math.round(22+74*Math.abs(Math.sin(i*.55)*Math.cos(i*.17)))}%;--s:${(.8+(i%5)*.16).toFixed(2)}s;--d:-${(i*.13).toFixed(2)}s"></span>`).join('');
+      return `<div class="gfx pod" aria-hidden="true"><div class="wf">${bars}</div><div class="wf on">${bars}</div><div class="phd"></div></div>`},
+    map:()=>`${TILES.scan}<div class="rdo" aria-hidden="true"><div class="rl2">${TILES.scanRead.map(t=>`<span>${esc(t)}</span>`).join('')}</div></div>`,
+    archive:()=>{const g=DATA.filter(d=>d.grade).sort((a,b)=>a.ref.localeCompare(b.ref)),n=Math.min(12,g.length),pick=Array.from({length:n},(_,i)=>g[Math.floor(i*g.length/n)]);
+      const rows=pick.map(d=>`<div class="rw"><span class="rf">${esc(d.ref.replace('SYNPTCL/',''))}</span><b>${esc(d.name.replace(/ \(.*$/,''))}</b><span class="gb ${d.grade}">${d.grade}</span></div>`).join('');
+      return `<div class="gfx reg" aria-hidden="true"><div class="rbar"><i></i><i></i><i></i></div><div class="tkw"><div class="tk">${rows}${rows}</div></div><div class="band"></div></div>`}};
+  const wayNum={story:CHAPTERS.sections.filter(x=>x.k==='chapter'||x.k==='protocol').length,map:MAP.pts.length,archive:DATA.length};
+  const P=H.portal.cards.map(c=>{const inner=`${c.art?`<div class="art">${slot(c.art,'')}</div>`:''}<div class="hd"><div class="ti"><svg aria-hidden="true"><use href="#${WAYS[c.key]||'i-sea'}"/></svg><h3>${esc(c.title)}</h3></div><div class="num">${c.status?'':(wayNum[c.key]??'')}</div></div><div class="tcode"><b>${esc(c.code||'')}</b> · ${esc(c.label||'')}</div><p class="ln">${esc(fill(c.text||'',DATA.length))}</p>${wayGfx[c.key]?wayGfx[c.key]():''}${c.status?`<div class="ttag">${esc(c.status.toUpperCase())}</div>`:''}`;
+    return c.status||!c.href?`<div class="t" style="--c:var(--s)">${inner}</div>`:c.href==='search'?`<button class="t hs" style="--c:var(--s)" aria-label="${esc(c.title)}: ${esc(c.label||'')}">${inner}</button>`:`<a class="t" style="--c:var(--s)" href="${esc(c.href)}">${inner}</a>`}).join('');
   const F=FACTIONS.map(f=>{const inner=f.svg?`${f.svg}<span class="sr">${esc(f.name)}</span>`:`<span class="fn">${esc(f.name)}</span>`;
     return f.entry&&BYID[f.entry]?`<a class="fc" href="#e-${f.entry}" title="${esc(f.name)}">${inner}</a>`:`<div class="fc" title="${esc(f.name)}">${inner}</div>`}).join('');
   $('#app').innerHTML=`<section class="hero"><div class="wrap"><div class="h2col"><h1><span class="l1">${esc(H.hero.headline)}</span><em>${esc(H.hero.headline_accent)}</em></h1><div><p class="lede">${nw(H.hero.intro)}</p><p class="lede lt">${nw(H.hero.intro_secondary)}</p><div class="cta"><a class="btn p" href="#map">${esc(H.hero.button_map)}</a><button class="btn hs">${ico('search')} ${esc(H.hero.button_search)}</button></div></div></div></div></section>
@@ -750,7 +824,7 @@ function home(){
   <section class="sec"><div class="wrap"><div class="eyebrow">${esc(H.factions.heading)}</div><p class="sub" style="margin:0">${esc(H.factions.text)}</p><div class="fgrid">${F}</div></div></section>
   <section class="sec" id="idx"><div class="wrap"><h2>${esc(H.index.heading)}</h2><p class="sub">${esc(fill(H.index.text,DATA.length))}</p><div class="tabs" id="tabs"><button class="on" data-t="t">${esc(H.index.tab_all)}</button><button data-t="e">${esc(H.index.tab_evidence)}</button><button data-t="m">${esc(H.index.tab_points)}</button></div>
     <div class="chips" id="chips"></div><div class="win"><div class="bar"><i></i><i></i><i></i></div><div class="body full" id="tbody"></div></div></div></section>
-  <section class="sec"><div class="wrap"><h2>${esc(H.portal.heading)}</h2><div class="grid7" style="margin-top:22px">${P}</div></div></section>
+  <section class="sec"><div class="wrap"><h2>${esc(H.portal.heading)}</h2><div class="tiles ways" style="margin-top:22px">${P}</div></div></section>
   <section class="sec"><div class="wrap"><div class="sechead"><h2>${esc(H.popular.heading)}</h2><button class="btn" id="browseall">${esc(H.popular.button)}</button></div><p class="sub">${esc(H.popular.text)}</p><div class="tpl">${feat.map(d=>`<a class="tc" href="#e-${d.id}" style="--c:${COL[d.type]}"><span class="tt">${ICON[d.type]} ${d.ref.replace('SYNPTCL/','')}</span><b>${esc(d.name.replace(/ \(.*$/,''))}</b><p>${esc(d.summary)}</p><small>Read entry →</small></a>`).join('')}</div></div></section>
   <section class="sec"><div class="wrap"><div class="sechead"><h2>Voices in the archive.</h2><a class="btn" href="#c-chr">Meet the characters</a></div><p class="sub">Each Protocol belongs to one survivor.</p><div class="voices"><a class="big" href="#e-${v.id}"><p>${esc(v.summary)}</p><small>${esc(v.name)}, ${v.ref.replace('SYNPTCL/','')}</small></a>${tiles.map((t,i)=>`<a class="tile" href="#e-${t.id}" style="background:${tcol[i]}"><b>${esc(t.name.replace(/ \(.*$/,'').replace(/"[^"]*" /,''))}</b><small>${t.ref.replace('SYNPTCL/','')}</small></a>`).join('')}</div></div></section>
   <section class="sec"><div class="wrap split"><div><div class="eyebrow">Manuscript first</div><h2>The story stays the authority.</h2><p class="sub">When the archive and the manuscript disagree, the manuscript wins. Read it in full, then come back here to look things up.</p><a class="btn" href="#story">${ico('book')} Read the story</a></div><div class="code"><div><span class="k">Authority   </span><span class="v">manuscript</span></div><div><span class="k">Grades      </span><span class="v">C confirmed · E estimated · U unconfirmed</span></div><div><span class="k">Entries     </span><span class="v">${DATA.length}</span></div><div><span class="k">Map points  </span><span class="v">${MAP.pts.length}</span></div></div></div></section>
