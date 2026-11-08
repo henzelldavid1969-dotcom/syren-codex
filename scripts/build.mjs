@@ -5,6 +5,7 @@
 
 import { readFile, writeFile, mkdir } from 'node:fs/promises';
 import { buildStory } from './story-lib.mjs';
+import { buildTiles } from './tiles.mjs';
 
 const { META, DATA, MAP, STORY, FACTIONS = [] } = JSON.parse(await readFile(new URL('../data/codex.json', import.meta.url), 'utf8'));
 
@@ -30,6 +31,14 @@ const head =
   `<meta name="twitter:title" content="${attr(HOME.site.title)}">\n` +
   `<meta name="twitter:description" content="${attr(HOME.site.description)}">\n`;
 
+// Home page tile graphics: maps generated from the map data; the Dendron and
+// the Waterline are fixed drawings kept in assets/tiles.
+const TILES = {
+  ...buildTiles(MAP),
+  dendron: await readFile(new URL('../assets/tiles/dendron.svg', import.meta.url), 'utf8'),
+  waterline: await readFile(new URL('../assets/tiles/waterline.svg', import.meta.url), 'utf8'),
+};
+
 const template = await readFile(new URL('../template.html', import.meta.url), 'utf8');
 const html =
   head +
@@ -39,6 +48,7 @@ const html =
     .replace('/*MAP*/', () => js(MAP))
     .replace('/*STORY*/', () => js(STORY))
     .replace('/*FACTIONS*/', () => js(FACTIONS))
+    .replace('/*TILES*/', () => js(TILES))
     .replace('/*HOME*/', () => js(HOME))
     .replace(/<title>[^<]*<\/title>/, () => `<title>${attr(HOME.site.title)}</title>`);
 

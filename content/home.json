@@ -18,14 +18,15 @@
   },
 
   "grid": {
+    "_read_me": "The seven category tiles. title is the large heading, code and label make the line beneath it, text is the description. Counts are live. art is a picture placed behind the tile graphic: null for none, or an image address.",
     "tiles": [
-      { "key": "locations",     "title": "Locations",       "lead": "{n} locations.",        "text": "Survivor outposts, occupier positions and escape routes, each placed on the map.", "art": null },
-      { "key": "characters",    "title": "Characters",      "lead": "{n} people of record.", "text": "Survivors, Runners and occupiers, each with an evidence grade.", "art": null },
-      { "key": "objects",       "title": "Objects",         "lead": "{n} objects of record.", "text": "The Dendron, the Dust and the Protocols themselves.", "art": null },
-      { "key": "lore",          "title": "Lore",            "lead": "{n} records.",          "text": "The wartime programme, the flood and the history behind them.", "art": null },
-      { "key": "escape-routes", "title": "Escape routes",   "lead": "{n} routes.",           "text": "The ways out through the occupier's ring: north, east, south and far east.", "art": null },
-      { "key": "search",        "title": "Search",          "lead": "",                      "text": "A single search across names, places and passages of text.", "art": null },
-      { "key": "evidence",      "title": "Evidence grades", "lead": "",                      "text": "Every entry carries a grade: C confirmed, E estimated, U unconfirmed.", "art": null }
+      { "key": "locations",  "title": "The Ground",    "code": "LOC",   "label": "Locations",     "text": "Survivor outposts, occupier positions and the ways between them.",     "art": null },
+      { "key": "characters", "title": "The Witnesses", "code": "CHR",   "label": "Characters",    "text": "Survivors, Runners and occupiers. Some confirmed, some only rumoured.", "art": null },
+      { "key": "objects",    "title": "Exhibits",      "code": "OBJ",   "label": "Objects",       "text": "The Dendron, the Dust, and what was carried out of Warsaw.",            "art": null },
+      { "key": "lore",       "title": "The Waterline", "code": "LOR",   "label": "Lore",          "text": "The programme, the flood and the history behind them.",                "art": null },
+      { "key": "routes",     "title": "Ways Out",      "code": "RTE",   "label": "Escape routes", "text": "Four crossings through the occupier's ring.",                          "art": null },
+      { "key": "search",     "title": "The Index",     "code": "ALL",   "label": "Search",        "text": "Names, places and passages of text.", "query": "water",               "art": null },
+      { "key": "evidence",   "title": "What We Know",  "code": "GRADE", "label": "Evidence",      "text": "Every entry carries a grade. Hover to lift the redaction.",            "art": null }
     ],
     "footnote": "Every entry links to the places and people it touches."
   },

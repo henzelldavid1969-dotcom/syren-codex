@@ -398,6 +398,112 @@ details>summary{list-style:none}details>summary::-webkit-details-marker{display:
 .more{display:flex;justify-content:center;padding:12px 14px}
 .more button{background:none;border:0;font:400 13px "Geist Mono",monospace;color:var(--accent-ink);cursor:pointer}
 .more button:hover{text-decoration:underline}
+/* home page category tiles (ported from tiles_prototype.html, scoped to .tiles) */
+.tiles .rdot.still{display:none}
+.tiles{--acid:#b8f200;--bg:#fcfcfb;--surface:#f6f6f4;--raise:#fff;--line:#e2e3e0;--fg:#111;--muted:#666b68;--ink:#111;--redact:#111;--s:#111;--tipstroke:#111;--glow:rgba(184,242,0,.22)}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]) .tiles{--bg:#0a0a0a;--surface:#121212;--raise:#1a1a1a;--line:#2a2a2a;--fg:#f2f2f2;--muted:#9a9a9a;--ink:#f2f2f2;--redact:#000;--s:#b8f200;--tipstroke:transparent;--glow:rgba(184,242,0,.10)}}
+:root[data-theme=dark] .tiles{--bg:#0a0a0a;--surface:#121212;--raise:#1a1a1a;--line:#2a2a2a;--fg:#f2f2f2;--muted:#9a9a9a;--ink:#f2f2f2;--redact:#000;--s:#b8f200;--tipstroke:transparent;--glow:rgba(184,242,0,.10)}
+.tiles{--loc:var(--s);--chr:var(--s);--obj:var(--s);--lor:var(--s);--rte:var(--s);--gc:var(--s);--ge:var(--s);--gu:var(--s);--rus:var(--ink)}
+.tiles{max-width:1180px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.tiles .t{position:relative;overflow:hidden;background:var(--surface);border:1px solid var(--line);border-radius:16px;min-height:330px;display:block;color:inherit;text-decoration:none;isolation:isolate;transition:border-color .2s,transform .2s}
+.tiles .t:hover{border-color:var(--c);transform:translateY(-2px)}
+.tiles .t:before{content:"";position:absolute;inset:0;z-index:-1;background:radial-gradient(60% 50% at 0% 0%,var(--glow),transparent 70%)}
+.tiles .w2{grid-column:span 2}
+.tiles .tall{min-height:400px}
+.tiles .hd{position:relative;z-index:3;padding:22px 24px 0;display:flex;justify-content:space-between;gap:12px}
+.tiles .ti{display:flex;gap:10px;align-items:center;color:var(--c)}
+.tiles .ti svg{width:26px;height:26px;stroke:currentColor;fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+.tiles h3{margin:0;white-space:nowrap;font:400 14px/1.2 Geist,system-ui,sans-serif;letter-spacing:.13em;text-transform:uppercase;color:var(--fg)}
+.tiles .tcode{font:400 11.5px "Geist Mono",monospace;letter-spacing:.06em;color:var(--muted);margin:10px 24px 0;position:relative;z-index:3;text-transform:uppercase}
+.tiles .tcode b{background:var(--acid);color:#000;font-weight:500;padding:1px 5px;border-radius:3px}
+.tiles .ln{position:relative;z-index:3;margin:8px 24px 0;max-width:21em;color:var(--muted);font-size:14px}
+.tiles .num{font:200 34px/1 "Geist Mono",monospace;color:var(--c);letter-spacing:-.04em}
+.tiles .gfx{position:absolute;pointer-events:none}
+.tiles .fade:after{content:"";position:absolute;left:0;right:0;bottom:0;height:34%;z-index:2;background:linear-gradient(transparent,var(--surface));pointer-events:none}
+.tiles .map{right:-14%;top:2%;height:150%;width:84%}
+.tiles .map path{fill:none;vector-effect:non-scaling-stroke}
+.tiles .occ{stroke:var(--obj);stroke-width:1.2;fill:color-mix(in srgb,var(--rus) 7%,transparent)!important}
+.tiles .rusline{stroke:var(--rus);stroke-width:1;opacity:.55}
+.tiles .cont{stroke:var(--obj);stroke-width:.7;opacity:calc(.55 - var(--i)*.1)}
+.tiles .route{stroke:var(--loc);stroke-width:1.2;stroke-dasharray:3 5;animation:tl-dash 14s linear infinite;opacity:.9}
+@keyframes tl-dash{to{stroke-dashoffset:-160}}
+.tiles .ring{fill:none;stroke:var(--loc);stroke-width:1;transform-box:fill-box;transform-origin:center;animation:tl-ping 3.2s ease-out infinite;animation-delay:var(--d)}
+@keyframes tl-ping{0%{transform:scale(.3);opacity:.9}100%{transform:scale(1.6);opacity:0}}
+.tiles .tdot{fill:var(--acid);stroke:var(--tipstroke);stroke-width:.9}
+.tiles .x{stroke:var(--ink);stroke-width:1.2;fill:none}
+.tiles .gate{fill:var(--bg);stroke:var(--s);stroke-width:1.2}
+.tiles .node{fill:var(--muted)}
+.tiles .kos{fill:var(--acid);stroke:var(--s);stroke-width:1}
+.tiles .t:hover .route{animation-duration:3s}
+.tiles .coord{position:absolute;left:24px;bottom:18px;z-index:3;font:11px "Geist Mono",monospace;color:var(--muted);letter-spacing:.06em}
+.tiles .fan{position:absolute;left:50%;bottom:-8px;width:0;height:0}
+.tiles .cd{position:absolute;left:-62px;bottom:0;width:124px;height:168px;border-radius:10px;background:var(--raise);border:1px solid var(--line);transform-origin:50% 140%;transform:rotate(calc(var(--r)*1deg));transition:transform .5s cubic-bezier(.2,.8,.2,1);padding:10px;box-shadow:0 8px 24px -14px rgba(0,0,0,.4)}
+.tiles .t:hover .cd{transform:rotate(calc(var(--r)*1.5deg)) translateY(-6px)}
+.tiles .cd .rf{font:9px "Geist Mono",monospace;color:var(--muted);letter-spacing:.06em}
+.tiles .sil{margin:8px auto 6px;width:44px;height:48px;position:relative}
+.tiles .sil:before{content:"";position:absolute;left:11px;top:0;width:22px;height:22px;border-radius:50%;border:1.3px solid var(--chr)}
+.tiles .sil:after{content:"";position:absolute;left:0;top:26px;width:44px;height:22px;border-radius:22px 22px 0 0;border:1.3px solid var(--chr);border-bottom:0}
+.tiles .sil i{position:absolute;left:6px;top:8px;width:32px;height:6px;background:var(--redact);z-index:2;transition:width .5s,left .5s}
+.tiles .t:hover .cd:nth-child(3) .sil i{width:12px;left:26px}
+.tiles .bar{height:4px;border-radius:2px;background:var(--line);margin:5px 0}
+.tiles .gr{position:absolute;right:9px;bottom:9px;width:22px;height:22px;border-radius:50%;background:var(--acid);display:grid;place-items:center;font:500 11px "Geist Mono",monospace;color:#000}
+.tiles .den{left:0;right:0;bottom:0;width:100%;height:78%}
+.tiles .vn{fill:none;stroke:var(--obj);stroke-linecap:round;stroke-dasharray:1;stroke-dashoffset:1;animation:tl-grow 2.6s ease-out forwards;animation-delay:var(--dp)}
+.tiles .t:hover .vn{animation-name:tl-grow2}
+@keyframes tl-grow{to{stroke-dashoffset:0}}
+@keyframes tl-grow2{from{stroke-dashoffset:1}to{stroke-dashoffset:0}}
+.tiles .vt{fill:var(--acid);stroke:var(--tipstroke);stroke-width:.5;opacity:0;animation:tl-tip 3.4s ease-in-out infinite;animation-delay:var(--dp)}
+@keyframes tl-tip{0%,100%{opacity:0}50%{opacity:.95}}
+.tiles .ttag{position:absolute;right:20px;bottom:20px;z-index:4;border:1px solid var(--s);border-radius:99px;padding:3px 12px;font:10.5px "Geist Mono",monospace;color:var(--fg);background:var(--surface);letter-spacing:.06em}
+.tiles .lore{left:0;right:0;bottom:0;width:100%;height:54%}
+.tiles .lore .tk{stroke:var(--muted);stroke-width:1;opacity:.55}
+.tiles .lore .lv{stroke:var(--lor);stroke-width:1;stroke-dasharray:2 5;opacity:.7}
+.tiles .lore text{font:10px "Geist Mono",monospace;fill:var(--muted);letter-spacing:.05em}
+.tiles .wv{fill:var(--acid);opacity:.3;transition:transform 1.4s cubic-bezier(.2,.8,.2,1)}
+.tiles .wv.b{opacity:.5}
+.tiles .wa{animation:tl-sway 9s ease-in-out infinite alternate}
+.tiles .wb{animation:tl-sway 6s ease-in-out infinite alternate-reverse}
+@keyframes tl-sway{from{transform:translateX(-40px)}to{transform:translateX(0)}}
+.tiles .t:hover .wv{transform:translateY(-34px)}
+.tiles .esc{right:-6%;left:-6%;top:30%;width:112%;height:96%}
+.tiles .esc path{fill:none;vector-effect:non-scaling-stroke}
+.tiles .eocc{stroke:var(--obj);stroke-width:1.2}
+.tiles .econt{stroke:var(--obj);stroke-width:.7;opacity:.35}
+.tiles .rline{stroke:var(--rte);stroke-width:1.2;stroke-dasharray:2 6;opacity:.8}
+.tiles .rdot{fill:var(--acid);stroke:var(--tipstroke);stroke-width:.9}
+.tiles .rl{font:10px "Geist Mono",monospace;fill:var(--muted)}
+.tiles .sb{position:absolute;left:24px;right:24px;top:132px;border:1px solid var(--line);border-radius:12px;background:var(--raise);box-shadow:0 12px 30px -18px rgba(0,0,0,.35);z-index:3}
+.tiles .sq{display:flex;align-items:center;gap:10px;padding:12px 14px;font:14px "Geist Mono",monospace;border-bottom:1px solid var(--line)}
+.tiles .sq svg{width:16px;height:16px;stroke:var(--muted);fill:none;stroke-width:1.5}
+.tiles .ty{overflow:hidden;white-space:nowrap;width:0;border-right:1.5px solid var(--fg);animation:tl-typ 6s steps(var(--n,5)) infinite}
+@keyframes tl-typ{0%{width:0}30%,90%{width:calc(var(--n,5)*1ch);border-color:var(--fg)}100%{width:calc(var(--n,5)*1ch)}}
+.tiles .rs{display:flex;justify-content:space-between;align-items:center;line-height:1;padding:11px 14px;font-size:13.5px;color:var(--muted);border-bottom:1px solid var(--line);opacity:0;animation:tl-rin 6s infinite}
+.tiles .rs span{font:12px "Geist Mono",monospace}
+.tiles .rs:nth-child(2){animation-delay:.1s}
+.tiles .rs:nth-child(3){animation-delay:.25s}
+.tiles .rs:nth-child(4){animation-delay:.4s}
+@keyframes tl-rin{0%,30%{opacity:0;transform:translateY(6px)}40%,92%{opacity:1;transform:none}100%{opacity:0}}
+.tiles .gd{left:24px;right:24px;bottom:28px;display:grid;gap:16px}
+.tiles .gd .r{display:grid;grid-template-columns:30px 1fr;gap:14px;align-items:center}
+.tiles .gd .l{font:500 13px "Geist Mono",monospace;width:30px;height:30px;border:1.3px solid var(--s);color:var(--s);border-radius:50%;display:grid;place-items:center}
+.tiles .gd .r.c .l{background:var(--acid);border-color:var(--acid);color:#000}
+.tiles .gd .tr{position:relative;height:16px;background:var(--line);border-radius:99px;overflow:hidden}
+.tiles .gd .tfill{position:absolute;inset:0 auto 0 0;width:var(--w);border-radius:99px;transform-origin:left;animation:tl-fill 1.4s cubic-bezier(.2,.8,.2,1) both}
+@keyframes tl-fill{from{transform:scaleX(0)}to{transform:none}}
+.tiles .gd .c .tfill{background:var(--acid)}
+.tiles .gd .e .tfill{background:color-mix(in srgb,var(--acid) 55%,transparent)}
+.tiles .gd .u .tfill{background:color-mix(in srgb,var(--acid) 22%,transparent);border:1.3px dashed var(--s)}
+.tiles .gd .rd{position:absolute;top:0;bottom:0;left:calc(var(--rl) - 5%);right:0;border-radius:99px;background:color-mix(in srgb,var(--surface) 55%,transparent);-webkit-backdrop-filter:blur(7px);backdrop-filter:blur(7px);transition:transform 1s cubic-bezier(.2,.8,.2,1)}
+.tiles .t:hover .rd{transform:translateX(104%)}
+.tiles .stamp{position:absolute;right:22px;top:128px;z-index:3;border:1.5px solid var(--s);color:var(--s);padding:2px 10px;font:500 11px "Geist Mono",monospace;letter-spacing:.2em;transform:rotate(-8deg);opacity:.8}
+@media(max-width:900px){.tiles{grid-template-columns:1fr 1fr}.tiles .w2{grid-column:span 2}}
+@media(max-width:600px){.tiles{grid-template-columns:1fr}.tiles .w2{grid-column:auto}.tiles .map{width:90%;right:-20%}}
+@media(prefers-reduced-motion:reduce){.tiles .rdot:not(.still){display:none}.tiles .rdot.still{display:inline}.tiles,.tiles *{animation:none!important;transition:none!important}.tiles .vn{stroke-dashoffset:0}.tiles .ty{width:calc(var(--n,5)*1ch)}.tiles .rs{opacity:1}.tiles .vt{opacity:.7}}
+.tiles button.t .sb{position:relative;left:auto;right:auto;top:auto;margin:30px 24px 18px}
+.tiles button.t{font:inherit;color:inherit;text-align:left;width:100%;padding:0;cursor:pointer;display:flex;flex-direction:column;align-items:stretch;justify-content:flex-start}
+.tiles .t:focus-visible{outline:2px solid var(--s);outline-offset:2px}
+.tiles .art{position:absolute;inset:0;z-index:1;pointer-events:none}
+.tiles .art img{width:100%;height:100%;object-fit:cover;display:block}
 </style>
 <header class="nav"><div class="wrap">
   <a class="brand" href="#home"><i></i><span class="bt">The Syren Protocols</span></a>
@@ -407,6 +513,15 @@ details>summary{list-style:none}details>summary::-webkit-details-marker{display:
   <button class="tog" id="theme" aria-label="Toggle theme">◐</button>
   <button class="mbtn" id="menu" aria-label="Menu" aria-expanded="false" aria-controls="links"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
 </div></header>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+<symbol id="i-loc" viewBox="0 0 24 24"><path d="M12 21s6-5.4 6-10.5a6 6 0 0 0-12 0C6 15.6 12 21 12 21z"/><circle cx="12" cy="10.5" r="2.2"/><path d="M12 1.5v2M2.5 10.5h2M19.5 10.5h2"/></symbol>
+<symbol id="i-chr" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4.5 21c0-4 3.4-6.5 7.5-6.5s7.5 2.5 7.5 6.5"/><path d="M8.2 7.2h7.6" stroke-width="3.2"/></symbol>
+<symbol id="i-obj" viewBox="0 0 24 24"><path d="M3.5 12.5 12 4h8v8l-8.5 8.5z"/><circle cx="16" cy="8" r="1.3"/><path d="M12 4 9.5 1.5"/></symbol>
+<symbol id="i-lor" viewBox="0 0 24 24"><path d="M5 3v18M5 6h3M5 10h2M5 14h3M5 18h2"/><path d="M11 12c1.6-1.4 3-1.4 4.5 0s3 1.4 4.5 0M11 16.5c1.6-1.4 3-1.4 4.5 0s3 1.4 4.5 0"/></symbol>
+<symbol id="i-rte" viewBox="0 0 24 24"><path d="M19.5 9.5A8 8 0 1 0 20 12"/><path d="M12 12h9.5M18 8.5l3.5 3.5-3.5 3.5"/></symbol>
+<symbol id="i-sea" viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5 21 21M10.5 10.5l3.6-3.6"/></symbol>
+<symbol id="i-grd" viewBox="0 0 24 24"><path d="M9 3h6v6l2.5 3.5h-11L9 9z"/><path d="M4 16.5h16M6 20.5h12"/></symbol>
+</defs></svg>
 <main id="app"></main>
 <footer><div class="wrap"><div class="cols"><div><a class="brand" href="#home" style="color:var(--fg)"><i></i><span class="bt">The Syren Protocols</span></a><p style="margin:12px 0 0;max-width:20em">The archive behind The Syren Protocols. The manuscript is the authority on story facts.</p></div>
 <div><h6>Explore</h6><a href="#map">Map</a><a href="#c-loc">Locations</a><a href="#c-chr">Characters</a><a href="#c-obj">Objects</a><a href="#c-lor">Lore</a></div>
@@ -425,6 +540,7 @@ const META=/*META*/;
 const MAP=/*MAP*/;
 const HOME=/*HOME*/;
 const FACTIONS=/*FACTIONS*/;
+const TILES=/*TILES*/;
 const CHAPTERS=/*STORY*/;
 const COL={LOC:'var(--loc)',CHR:'var(--chr)',OBJ:'var(--obj)',LOR:'var(--lor)'};
 const IC={
@@ -547,45 +663,35 @@ function mountMap(root,opt){
 }
 function home(){
   const H=HOME,fill=(s,n)=>String(s).replace(/\{n\}/g,n);
-  const pal=['#e8456b','#f2711c','#3b6fd6','#637807','#9345ab','#b8860b'];
-  const chars=DATA.filter(d=>d.type==='CHR').slice(0,6);
   const gradeCount=t=>['C','E','U',''].map(g=>DATA.filter(d=>d.type===t&&d.grade===g).length);
-  const bars=['LOC','CHR','OBJ','LOR'].map(t=>{const c=gradeCount(t),n=count(t);return `<div>${c.map((v,i)=>`<span style="width:${v/n*100}%;background:${['var(--gc)','var(--ge)','var(--gu)','var(--line)'][i]}"></span>`).join('')}</div>`}).join('');
-  const esc2=MAP.lines.filter(l=>l.k==='esc').map(l=>l.c);
-  const mini=(()=>{const W=200,H=130,sx=W/((21.57-LON0)*KX),sy=H/((LAT0-52.05)*KY),k=Math.min(sx,sy);
-    const p=c=>c.map((q,i)=>(i?'L':'M')+((q[0]-LON0)*KX*k).toFixed(1)+' '+((LAT0-q[1])*KY*k).toFixed(1)).join('');
-    const per=MAP.lines.filter(l=>l.k!=='esc').map(l=>`<path d="${p(l.c)}Z" fill="${l.k==='rus'?'var(--rus)':'var(--obj)'}" fill-opacity=".08" stroke="${l.k==='rus'?'var(--rus)':'var(--obj)'}" stroke-width=".8"/>`).join('');
-    const rt=esc2.map(c=>`<path d="${p(c)}" fill="none" stroke="var(--accent-ink)" stroke-width="1" stroke-dasharray="3 2"/>`).join('');
-    const pts=MAP.pts.filter(q=>q.k==='out').map(q=>`<circle cx="${((q.x-LON0)*KX*k).toFixed(1)}" cy="${((LAT0-q.y)*KY*k).toFixed(1)}" r="2" fill="var(--loc)"/>`).join('');
-    return `<svg viewBox="0 0 ${W} ${H}" width="320">${per}${rt}${pts}</svg>`})();
   const v=BYID['chr-001'];const tiles=['chr-002','chr-003','chr-004','chr-007'].map(i=>BYID[i]).filter(Boolean);
   const tcol=['#1f2a44','#0f5c4a','#5a2a6b','#7a3b1c'];
   const slot=(art,fallback)=>art?(/^\s*<svg[\s>]/i.test(art)?art:`<img src="${esc(art)}" alt="" loading="lazy">`):fallback;
-  const routes=MAP.lines.filter(l=>l.k==='esc').length;
-  const T=Object.fromEntries(H.grid.tiles.map(t=>[t.key,t]));
-  const N={locations:count('LOC'),characters:count('CHR'),objects:count('OBJ'),lore:count('LOR'),'escape-routes':routes};
-  const art={locations:mini,
-    characters:`<div class="av">${chars.map((c,i)=>`<i style="background:${pal[i]}">${esc(c.name[0])}</i>`).join('')}</div>`,
-    objects:`<svg viewBox="0 0 24 24" width="96" style="stroke:var(--obj);fill:none;stroke-width:.5">${IC.cube}</svg>`,
-    lore:`<svg viewBox="0 0 24 24" width="104" style="stroke:var(--lor);fill:none;stroke-width:.5">${IC.waves}</svg>`,
-    'escape-routes':`<svg viewBox="0 0 24 24" width="96" style="stroke:var(--accent-ink);fill:none;stroke-width:.5">${IC.route}</svg>`,
-    search:`<div class="fakesearch"><div class="fi">${ico('search')} water</div><div class="fr"><span>Filtry</span><span>LOC/013</span></div><div class="fr"><span>Rising water</span><span>LOR/005</span></div></div>`,
-    evidence:`<div class="bars">${bars}</div>`};
-  const TI={locations:'pin',characters:'user',objects:'cube',lore:'waves','escape-routes':'route',search:'search',evidence:'shield'};
-  const TC={locations:COL.LOC,characters:COL.CHR,objects:COL.OBJ,lore:COL.LOR};
-  const body=k=>{const t=T[k];if(!t)return '';const lead=fill(t.lead||'',N[k]);return `<h3 class="ut">${ico(TI[k])} ${esc(t.title)}</h3><p>${lead?`<b>${esc(lead)}</b> `:''}${esc(fill(t.text,N[k]))}</p><div class="art">${slot(t.art,art[k])}</div>`};
-  const tile=(k,href,cls)=>`<a class="cell ${cls||''}" href="${href}" style="--c:${TC[k]||'var(--accent-ink)'}">${body(k)}</a>`;
+  /* category tiles (tiles_prototype.html), wired to live data */
+  const GT=Object.fromEntries(H.grid.tiles.map(t=>[t.key,t]));
+  const thead=(k,icon,num)=>{const t=GT[k]||{};return `${t.art?`<div class="art">${slot(t.art,'')}</div>`:''}<div class="hd"><div class="ti"><svg aria-hidden="true"><use href="#${icon}"/></svg><h3>${esc(t.title||'')}</h3></div><div class="num">${num===''?'':num}</div></div><div class="tcode"><b>${esc(t.code||'')}</b> · ${esc(t.label||'')}</div><p class="ln">${esc(t.text||'')}</p>`};
+  const witnesses=(()=>{const pick=DATA.filter(d=>d.type==='CHR').sort((a,b)=>(a.featured||99)-(b.featured||99)||b.rel.length-a.rel.length||a.ref.localeCompare(b.ref)).slice(0,5);
+    return [pick[3],pick[1],pick[0],pick[2],pick[4]].map((d,i)=>d?`<div class="cd" style="--r:${[-22,-11,0,11,22][i]}"><div class="rf">${d.ref.replace('SYNPTCL/','')}</div><div class="sil"><i></i></div><div class="bar" style="width:80%"></div><div class="bar" style="width:55%"></div><div class="bar" style="width:68%"></div><div class="gr">${d.grade||'·'}</div></div>`:'').join('')})();
+  const q=(GT.search&&GT.search.query)||'water';
+  const found=find(q).slice(0,3).map(x=>x.d);
+  const graded=DATA.filter(d=>'CEU'.includes(d.grade)&&d.grade).length||1;const share=g=>Math.max(18,Math.round(DATA.filter(d=>d.grade===g).length/graded*100));
+  const den=BYID['obj-001'];
+  const tilesHTML=`<div class="tiles">
+   <a class="t w2 tall fade" style="--c:var(--loc)" href="#c-loc">${thead('locations','i-loc',count('LOC'))}${TILES.ground}<div class="coord">${esc(TILES.coord)}</div></a>
+   <a class="t tall" style="--c:var(--chr)" href="#c-chr">${thead('characters','i-chr',count('CHR'))}<div class="fan" aria-hidden="true">${witnesses}</div></a>
+   <a class="t tall" style="--c:var(--obj)" href="#c-obj">${thead('objects','i-obj',count('OBJ'))}${TILES.dendron}${den?`<div class="ttag">SPECIMEN · ${den.ref.replace('SYNPTCL/','')}</div>`:''}</a>
+   <a class="t fade" style="--c:var(--lor)" href="#c-lor">${thead('lore','i-lor',count('LOR'))}${TILES.waterline}</a>
+   <a class="t fade" style="--c:var(--rte)" href="#map">${thead('routes','i-rte',TILES.routes)}${TILES.ways}</a>
+   <button class="t hs" style="--c:var(--loc)">${thead('search','i-sea','')}<div class="sb" aria-hidden="true"><div class="sq"><svg viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5 21 21"/></svg><span class="ty" style="--n:${q.length}">${esc(q)}</span></div>${found.map(d=>`<div class="rs">${esc(short(d.name))} <span>${d.ref.replace('SYNPTCL/','')}</span></div>`).join('')}</div></button>
+   <a class="t fade" style="--c:var(--gc)" href="#idx" id="tl-ev">${thead('evidence','i-grd','')}<div class="gfx gd" aria-hidden="true">${['C','E','U'].map(g=>`<div class="r ${g.toLowerCase()}"><div class="l">${g}</div><div class="tr"><div class="tfill" style="--w:${share(g)}%"></div><div class="rd" style="--rl:${share(g)}%"></div></div></div>`).join('')}</div></a>
+  </div>`;
   const feat=DATA.filter(d=>d.featured).sort((a,b)=>a.featured-b.featured);
   const P=H.portal.cards.map(c=>{const inner=`<h3 class="ut">${ico(c.icon)} ${esc(c.title)}</h3><p>${esc(fill(c.text,DATA.length))}</p><div class="art">${slot(c.art,`<svg viewBox="0 0 24 24" width="88" style="stroke:var(--accent-ink);fill:none;stroke-width:.5">${IC[c.icon]||''}</svg>`)}</div><div class="go">${c.status?`<span class="chip">${esc(c.status)}</span>`:`${esc(c.link)} →`}</div>`;
     return c.status||!c.href?`<div class="cell" style="--c:var(--accent-ink)">${inner}</div>`:c.href==='search'?`<button class="cell hs" style="--c:var(--accent-ink);text-align:left;font:inherit;color:inherit;cursor:pointer">${inner}</button>`:`<a class="cell" href="${esc(c.href)}" style="--c:var(--accent-ink)">${inner}</a>`}).join('');
   const F=FACTIONS.map(f=>{const inner=f.svg?`${f.svg}<span class="sr">${esc(f.name)}</span>`:`<span class="fn">${esc(f.name)}</span>`;
     return f.entry&&BYID[f.entry]?`<a class="fc" href="#e-${f.entry}" title="${esc(f.name)}">${inner}</a>`:`<div class="fc" title="${esc(f.name)}">${inner}</div>`}).join('');
   $('#app').innerHTML=`<section class="hero"><div class="wrap"><div class="h2col"><h1><span class="l1">${esc(H.hero.headline)}</span><em>${esc(H.hero.headline_accent)}</em></h1><div><p class="lede">${esc(H.hero.intro)}</p><p class="lede lt">${esc(H.hero.intro_secondary)}</p><div class="cta"><a class="btn p" href="#map">${esc(H.hero.button_map)}</a><button class="btn hs">${ico('search')} ${esc(H.hero.button_search)}</button></div></div></div></div></section>
-  <section style="padding:8px 0 18px"><div class="wrap"><div class="grid7">
-   ${tile('locations','#c-loc','w2')}${tile('characters','#c-chr')}${tile('objects','#c-obj')}${tile('lore','#c-lor')}${tile('escape-routes','#map')}
-   <button class="cell hs" style="--c:var(--accent-ink);text-align:left;font:inherit;color:inherit;cursor:pointer">${body('search')}</button>
-   ${tile('evidence','#c-chr')}
-  </div><p class="tline">${esc(H.grid.footnote)}</p></div></section>
+  <section style="padding:8px 0 18px"><div class="wrap">${tilesHTML}<p class="tline">${esc(H.grid.footnote)}</p></div></section>
   <section class="sec"><div class="wrap"><div class="sechead"><h2>${esc(H.map.heading)}</h2><a class="btn" href="#map">${ico('compass')} ${esc(H.map.button)}</a></div><p class="sub">${esc(H.map.text)}</p><div id="mm"></div></div></section>
   <section class="sec"><div class="wrap"><div class="eyebrow">${esc(H.factions.heading)}</div><p class="sub" style="margin:0">${esc(H.factions.text)}</p><div class="fgrid">${F}</div></div></section>
   <section class="sec" id="idx"><div class="wrap"><h2>${esc(H.index.heading)}</h2><p class="sub">${esc(fill(H.index.text,DATA.length))}</p><div class="tabs" id="tabs"><button class="on" data-t="t">${esc(H.index.tab_all)}</button><button data-t="e">${esc(H.index.tab_evidence)}</button><button data-t="m">${esc(H.index.tab_points)}</button></div>
@@ -613,6 +719,7 @@ function home(){
   $('#chips').onclick=e=>{const b=e.target.closest('.chip');if(!b)return;IX.cat=b.dataset.c;IX.all=false;paintIndex()};
   $('#tbody').onclick=e=>{const h=e.target.closest('th.sort');if(h){const k=h.dataset.k;IX.dir=IX.key===k?-IX.dir:1;IX.key=k;paintIndex();return}if(e.target.id==='ixmore'){const top=IX.all;IX.all=!IX.all;paintIndex();if(top)$('#idx').scrollIntoView({block:'start'})}};
   paintIndex();
+  $('#tl-ev').onclick=e=>{e.preventDefault();IX.t='e';IX.all=false;[...$('#tabs').children].forEach(x=>x.classList.toggle('on',x.dataset.t==='e'));paintIndex();$('#idx').scrollIntoView({behavior:'smooth',block:'start'})};
   $('#browseall').onclick=()=>{IX.t='t';IX.cat='';IX.all=true;[...$('#tabs').children].forEach(x=>x.classList.toggle('on',x.dataset.t==='t'));paintIndex();$('#idx').scrollIntoView({behavior:'smooth',block:'start'})};
   $('#app').querySelectorAll('.hs,#hs4').forEach(el=>el.onclick=pOpen);mountMap($('#mm'),{compact:true,h:520})}
 function mapView(focus){
