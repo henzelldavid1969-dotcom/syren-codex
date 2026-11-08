@@ -46,10 +46,14 @@ await mkdir(new URL('../dist/', import.meta.url), { recursive: true });
 await writeFile(new URL('../dist/index.html', import.meta.url), html);
 console.log(`Built dist/index.html: ${DATA.length} entries, ${MAP.pts.length} map points, ${html.length} bytes.`);
 
+// The Story view's source: one file. To refresh the manuscript, replace
+// story/manuscript.md (Markdown, one "## " heading per section) and rebuild.
+const MANUSCRIPT = 'story/manuscript.md';
+const read = (path) => readFile(new URL('../' + path, import.meta.url), 'utf8');
 const story = buildStory({
-  manuscript: await readFile(new URL('../story/manuscript.md', import.meta.url), 'utf8'),
-  backCover: await readFile(new URL('../story/back-cover.md', import.meta.url), 'utf8'),
-  appendix: await readFile(new URL('../story/appendix.md', import.meta.url), 'utf8'),
+  manuscript: await read(MANUSCRIPT),
+  backCover: await read('story/back-cover.md'), // introduction on the Story page
+  appendix: await read('story/appendix.md'),    // Appendix: The Brief
 });
 await writeFile(new URL('../dist/story.json', import.meta.url), JSON.stringify(story));
 console.log(`Built dist/story.json: ${story.pages.length} pages.`);
