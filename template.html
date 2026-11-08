@@ -381,6 +381,9 @@ details>summary{list-style:none}details>summary::-webkit-details-marker{display:
  .nav.open .links{display:flex}.links a{padding:10px 10px;font-size:15px}}
 @media(max-width:560px){.nav .btn.p{display:none}.links a.only-m{display:block}}
 .hero .lede.lt{margin-top:12px;opacity:.72}
+/* intro: no single word left alone on the last line. text-wrap does it where
+   supported; the non-breaking space before the last word covers the rest. */
+.hero .lede{text-wrap:pretty}
 .cell h3.ut{font-size:16px;text-transform:uppercase;letter-spacing:.06em;gap:10px}
 .cell h3.ut~p,.cell h3.ut~.go{padding-left:32px}
 .cell h3.ut .ico{width:22px;height:22px}
@@ -574,6 +577,8 @@ const GRADE={C:'Confirmed',E:'Estimated',U:'Unconfirmed'};
 const BYID=Object.fromEntries(DATA.map(d=>[d.id,d]));
 const $=(s,r=document)=>r.querySelector(s);
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+// keep the last two words together, so no line ends with one word on its own
+const nw=s=>esc(String(s).trim()).replace(/ (\S+)$/,"\u00a0$1");
 const norm=s=>[...String(s)].map(c=>c==='ł'||c==='Ł'?'l':c.normalize('NFD')[0].toLowerCase()).join('');
 DATA.forEach(d=>{d._n=norm(d.name);d._s=norm(d.summary);d._e=norm(d.entry+' '+(d.appears||''));d._r=norm(d.ref)});
 function score(d,toks){let s=0;for(const t of toks){let m=0;
@@ -697,7 +702,7 @@ function home(){
     return c.status||!c.href?`<div class="cell" style="--c:var(--accent-ink)">${inner}</div>`:c.href==='search'?`<button class="cell hs" style="--c:var(--accent-ink);text-align:left;font:inherit;color:inherit;cursor:pointer">${inner}</button>`:`<a class="cell" href="${esc(c.href)}" style="--c:var(--accent-ink)">${inner}</a>`}).join('');
   const F=FACTIONS.map(f=>{const inner=f.svg?`${f.svg}<span class="sr">${esc(f.name)}</span>`:`<span class="fn">${esc(f.name)}</span>`;
     return f.entry&&BYID[f.entry]?`<a class="fc" href="#e-${f.entry}" title="${esc(f.name)}">${inner}</a>`:`<div class="fc" title="${esc(f.name)}">${inner}</div>`}).join('');
-  $('#app').innerHTML=`<section class="hero"><div class="wrap"><div class="h2col"><h1><span class="l1">${esc(H.hero.headline)}</span><em>${esc(H.hero.headline_accent)}</em></h1><div><p class="lede">${esc(H.hero.intro)}</p><p class="lede lt">${esc(H.hero.intro_secondary)}</p><div class="cta"><a class="btn p" href="#map">${esc(H.hero.button_map)}</a><button class="btn hs">${ico('search')} ${esc(H.hero.button_search)}</button></div></div></div></div></section>
+  $('#app').innerHTML=`<section class="hero"><div class="wrap"><div class="h2col"><h1><span class="l1">${esc(H.hero.headline)}</span><em>${esc(H.hero.headline_accent)}</em></h1><div><p class="lede">${nw(H.hero.intro)}</p><p class="lede lt">${nw(H.hero.intro_secondary)}</p><div class="cta"><a class="btn p" href="#map">${esc(H.hero.button_map)}</a><button class="btn hs">${ico('search')} ${esc(H.hero.button_search)}</button></div></div></div></div></section>
   <section style="padding:8px 0 18px"><div class="wrap">${tilesHTML}<p class="tline">${esc(H.grid.footnote)}</p></div></section>
   <section class="sec"><div class="wrap"><div class="sechead"><h2>${esc(H.map.heading)}</h2><a class="btn" href="#map">${ico('compass')} ${esc(H.map.button)}</a></div><p class="sub">${esc(H.map.text)}</p><div id="mm"></div></div></section>
   <section class="sec"><div class="wrap"><div class="eyebrow">${esc(H.factions.heading)}</div><p class="sub" style="margin:0">${esc(H.factions.text)}</p><div class="fgrid">${F}</div></div></section>
