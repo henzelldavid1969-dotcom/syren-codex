@@ -1,10 +1,10 @@
 <title>The Syren Protocols</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@200..700&family=Geist+Mono:wght@300;400;500&family=Newsreader:ital,wght@0,400;0,500;1,400&display=swap">
 <style>
-:root{--bg:#0e0f0f;--surface:#151616;--raise:#1d1f1f;--line:#2a2d2c;--fg:#ededed;--muted:#9ba09e;--accent:#B8DF0D;--accent-fg:#141a00;--accent-ink:#B8DF0D;
+:root{--bg:#0e0f0f;--surface:#151616;--raise:#1d1f1f;--line:#2a2d2c;--fg:#ededed;--muted:#9ba09e;--accent:#B8DF0D;--accent-fg:#141a00;--accent-ink:#B8DF0D;--edge:transparent;
 --loc:#B8DF0D;--chr:#7aa7ff;--obj:#e3b562;--lor:#c58bd9;--gc:#B8DF0D;--ge:#e3b562;--gu:#e08a7a;--rus:#e5625a;--glow:rgba(184,223,13,.14);--mapbg:#0b0d0d;color-scheme:dark}
-@media(prefers-color-scheme:light){:root:not([data-theme="dark"]){--bg:#fcfcfb;--surface:#f6f6f4;--raise:#ffffff;--line:#e2e3e0;--fg:#161817;--muted:#626865;--accent:#B8DF0D;--accent-fg:#141a00;--accent-ink:#161817;--loc:#161817;--chr:#3b6fd6;--obj:#a9741a;--lor:#9345ab;--gc:#B8DF0D;--ge:#a9741a;--gu:#c0503f;--rus:#c9382f;--glow:rgba(184,223,13,.12);--mapbg:#f1f2ef;color-scheme:light}}
-:root[data-theme="light"]{--bg:#fcfcfb;--surface:#f6f6f4;--raise:#ffffff;--line:#e2e3e0;--fg:#161817;--muted:#626865;--accent:#B8DF0D;--accent-fg:#141a00;--accent-ink:#161817;--loc:#161817;--chr:#3b6fd6;--obj:#a9741a;--lor:#9345ab;--gc:#B8DF0D;--ge:#a9741a;--gu:#c0503f;--rus:#c9382f;--glow:rgba(184,223,13,.12);--mapbg:#f1f2ef;color-scheme:light}
+@media(prefers-color-scheme:light){:root:not([data-theme="dark"]){--bg:#fcfcfb;--surface:#f6f6f4;--raise:#ffffff;--line:#e2e3e0;--fg:#161817;--muted:#626865;--accent:#B8DF0D;--accent-fg:#141a00;--accent-ink:#161817;--edge:#161817;--loc:#161817;--chr:#3b6fd6;--obj:#a9741a;--lor:#9345ab;--gc:#B8DF0D;--ge:#a9741a;--gu:#c0503f;--rus:#c9382f;--glow:rgba(184,223,13,.12);--mapbg:#f1f2ef;color-scheme:light}}
+:root[data-theme="light"]{--bg:#fcfcfb;--surface:#f6f6f4;--raise:#ffffff;--line:#e2e3e0;--fg:#161817;--muted:#626865;--accent:#B8DF0D;--accent-fg:#141a00;--accent-ink:#161817;--edge:#161817;--loc:#161817;--chr:#3b6fd6;--obj:#a9741a;--lor:#9345ab;--gc:#B8DF0D;--ge:#a9741a;--gu:#c0503f;--rus:#c9382f;--glow:rgba(184,223,13,.12);--mapbg:#f1f2ef;color-scheme:light}
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
 body{margin:0;background:var(--bg);color:var(--fg);font:300 15.5px/1.65 Geist,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
@@ -76,11 +76,11 @@ a.card:hover{border-color:var(--c,var(--accent));transform:translateY(-2px)}
 .mcanvas:active{cursor:grabbing}
 .mcanvas svg{width:100%;height:100%;display:block}
 .mcanvas svg .gr{stroke:var(--line);stroke-width:.4;vector-effect:non-scaling-stroke;opacity:.7}
-.mcanvas svg .perim{fill-opacity:.05;stroke-width:1.4;vector-effect:non-scaling-stroke;stroke-linejoin:round}
+.mcanvas svg .perim{stroke-width:1.2;vector-effect:non-scaling-stroke;stroke-linejoin:round}
+.mcanvas svg .perim.op{fill:var(--fg);fill-opacity:.045;stroke:var(--muted)}
+.mcanvas svg .perim.rp{fill:var(--fg);fill-opacity:.02;stroke:var(--muted);stroke-dasharray:2 3;opacity:.8}
 .mcanvas svg .rt{fill:none;stroke:var(--accent);stroke-width:2;vector-effect:non-scaling-stroke;stroke-dasharray:6 4;stroke-linecap:round}
-.mcanvas svg circle.pt{r:calc(6px*var(--k));fill:var(--dc);stroke:var(--mapbg);stroke-width:calc(1.6px*var(--k));cursor:pointer}
-.mcanvas svg circle.pt.sq{r:calc(4.4px*var(--k))}
-.mcanvas svg circle.halo{r:calc(13px*var(--k));fill:none;stroke:var(--dc);stroke-width:calc(1.5px*var(--k));opacity:.9}
+.mcanvas svg circle.halo{r:calc(14px*var(--k));fill:none;stroke:var(--fg);stroke-width:calc(1.4px*var(--k));opacity:.8}
 .mcanvas svg circle.hit{r:calc(14px*var(--k));fill:transparent;cursor:pointer}
 .mcanvas svg text{font:500 calc(11.5px*var(--k)) Geist,sans-serif;fill:var(--fg);paint-order:stroke;stroke:var(--mapbg);stroke-width:calc(3px*var(--k));pointer-events:none}
 .mtools{position:absolute;top:10px;left:10px;display:flex;gap:6px;flex-wrap:wrap;max-width:calc(100% - 70px)}
@@ -140,7 +140,7 @@ a.card:hover{border-color:var(--c,var(--accent));transform:translateY(-2px)}
 .toc h5{font:500 11px "Geist Mono",monospace;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin:22px 0 8px}
 .tagline{font-weight:400}.tagline strong{font-weight:500}
 .g{display:inline-grid;place-items:center;width:20px;height:20px;border-radius:5px;font:600 11px "Geist Mono",monospace;color:#07120c;background:var(--gc)}
-.g.E{background:var(--ge)}.g.U{background:var(--gu)}
+.g{box-sizing:border-box}.g.E{background:color-mix(in srgb,var(--accent) 18%,transparent);border:1.5px solid var(--accent);color:var(--fg)}.g.U{background:none;border:1px dashed var(--muted);color:var(--fg)}
 .gl{display:flex;gap:6px;align-items:center}
 .ctl{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin:0 0 16px}
 .fin{flex:1;min-width:200px;background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:9px 12px;color:var(--fg);font:inherit;font-size:14px}
@@ -149,7 +149,7 @@ a.card:hover{border-color:var(--c,var(--accent));transform:translateY(-2px)}
 .seg button:last-child{border:0}
 .seg button.on{background:var(--raise);color:var(--fg)}
 .row{display:block;border:1px solid var(--line);border-radius:10px;padding:14px 16px;margin-bottom:8px;background:var(--surface)}
-.row:hover{border-color:var(--c,var(--accent))}
+.row:hover{border-color:var(--accent)}
 .row .rt2{display:flex;gap:10px;align-items:center;justify-content:space-between}
 .row b{font-weight:400;font-size:16px;letter-spacing:-.01em}
 .row p{margin:4px 0 0;color:var(--muted);font-size:14px}
@@ -164,7 +164,7 @@ mark{background:color-mix(in srgb,var(--accent) 28%,transparent);color:inherit;b
 .pr{max-height:52vh;overflow:auto;padding:6px}
 .pi{display:flex;gap:12px;align-items:flex-start;padding:9px 10px;border-radius:8px}
 .pi.sel{background:var(--raise)}
-.pi .dot{margin-top:7px}
+.pi .tic{margin-top:4px;color:var(--muted)}
 .pi b{font-weight:400}
 .pi p{margin:1px 0 0;color:var(--muted);font-size:13px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
 .pi small{margin-left:auto;font:11px "Geist Mono",monospace;color:var(--muted);white-space:nowrap;padding-top:3px}
@@ -225,12 +225,12 @@ footer .wrap{display:flex;gap:16px;justify-content:space-between;flex-wrap:wrap}
 @media(max-width:860px){.split{grid-template-columns:1fr}}
 .split h2{margin:0 0 10px}
 .code{border:1px solid var(--line);border-radius:12px;background:var(--surface);padding:18px 20px;font:400 12.5px/1.8 "Geist Mono",monospace;overflow:auto}
-.code .k{color:var(--accent-ink)}.code .v{color:var(--muted)}.code .n{color:var(--chr)}
+.code .k{color:var(--accent-ink)}.code .v{color:var(--muted)}.code .n{color:var(--fg)}
 .code div{white-space:pre}
 .tpl{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
 @media(max-width:860px){.tpl{grid-template-columns:1fr 1fr}}@media(max-width:520px){.tpl{grid-template-columns:1fr}}
 .tc{display:flex;flex-direction:column;gap:8px;border:1px solid var(--line);border-radius:12px;padding:18px;background:var(--bg);transition:border-color .15s}
-.tc:hover{border-color:var(--c)}
+.tc:hover{border-color:var(--accent)}
 .tc .tt{display:flex;gap:8px;align-items:center;color:var(--c);font-size:12px;font-family:"Geist Mono",monospace}
 .tc b{font-weight:400;font-size:16px;letter-spacing:-.01em}
 .tc p{margin:0;color:var(--muted);font-size:13.5px;flex:1}
@@ -270,7 +270,7 @@ footer .cols a:hover{color:var(--fg)}
 .mh{display:flex;justify-content:space-between;align-items:baseline;gap:12px;margin:34px 0 12px;padding-top:6px}
 .mh h3{margin:0;font:500 12px "Geist Mono",monospace;text-transform:uppercase;letter-spacing:.12em;color:var(--muted)}
 .mh small{font:400 12px "Geist Mono",monospace;color:var(--muted);opacity:.8}
-.ph-tag{font:400 11px "Geist Mono",monospace;letter-spacing:.06em;color:var(--obj);border:1px dashed color-mix(in srgb,var(--obj) 50%,var(--line));border-radius:5px;padding:1px 7px;margin-left:8px;text-transform:uppercase}
+.ph-tag{font:400 11px "Geist Mono",monospace;letter-spacing:.06em;color:var(--muted);border:1px dashed color-mix(in srgb,var(--muted) 50%,var(--line));border-radius:5px;padding:1px 7px;margin-left:8px;text-transform:uppercase}
 .imgs{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px}
 @media(max-width:700px){.imgs{grid-template-columns:repeat(3,minmax(0,1fr))}}
 .imgs .slot,.imgs figure{aspect-ratio:1;border-radius:10px;border:1px dashed var(--line);background:var(--surface);display:grid;place-items:center;color:var(--muted);margin:0;overflow:hidden;position:relative}
@@ -358,7 +358,7 @@ details>summary{list-style:none}details>summary::-webkit-details-marker{display:
 @media(max-width:1020px){.rail{max-height:none;overflow:visible}}
 .ecover{position:relative}
 .ecover .ph-tag,.imgs figure.phimg:after{position:absolute;top:12px;left:12px;margin:0;background:color-mix(in srgb,var(--bg) 72%,transparent)}
-.imgs figure.phimg:after{content:"placeholder";top:auto;bottom:7px;left:50%;transform:translateX(-50%);font:400 10px "Geist Mono",monospace;letter-spacing:.06em;text-transform:uppercase;color:var(--obj);border:1px dashed color-mix(in srgb,var(--obj) 50%,var(--line));border-radius:5px;padding:1px 6px}
+.imgs figure.phimg:after{content:"placeholder";top:auto;bottom:7px;left:50%;transform:translateX(-50%);font:400 10px "Geist Mono",monospace;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);border:1px dashed color-mix(in srgb,var(--muted) 50%,var(--line));border-radius:5px;padding:1px 6px}
 /* home page revision */
 .hero .h2col{align-items:start}
 /* headline: full width, two lines that never wrap. The size follows the
@@ -386,8 +386,30 @@ details>summary{list-style:none}details>summary::-webkit-details-marker{display:
 .hero .lede{text-wrap:pretty}
 /* light mode: acid green for large text, lines and map markers; small text
    is black. Acid markers get a thin dark edge so they hold on pale ground. */
-@media(prefers-color-scheme:light){:root:not([data-theme="dark"]) .mcanvas svg circle.pt.ac{stroke:#161817;stroke-width:calc(1px*var(--k))}:root:not([data-theme="dark"]) .dot.ac{box-shadow:inset 0 0 0 1px #161817}}
-:root[data-theme="light"] .mcanvas svg circle.pt.ac{stroke:#161817;stroke-width:calc(1px*var(--k))}:root[data-theme="light"] .dot.ac{box-shadow:inset 0 0 0 1px #161817}
+/* markers (marker study, recommended): reference numbers and an acid bar in the
+   sidebars, the tile icons for categories, map symbols on the map and its lists.
+   Black, grey and acid only; shape tells one kind from another. */
+.side h5{display:flex;align-items:center;gap:7px}
+.tic{width:14px;height:14px;flex:none;stroke-width:1.5}
+.side h5 .tic{width:15px;height:15px}
+.side a{position:relative}
+.side a.on,.side a.on:hover{background:none;font-weight:500}
+.side a.on:before{content:"";position:absolute;left:-5px;top:5px;bottom:5px;width:3px;border-radius:2px;background:var(--accent)}
+.rno{font:400 11.5px "Geist Mono",monospace;color:var(--muted);opacity:.8;min-width:3ch;flex:none;font-variant-numeric:tabular-nums}
+.side a.on .rno{color:var(--fg);opacity:1}
+.chips .chip.on,.pf .chip.on{background:var(--accent);border-color:var(--accent);color:var(--accent-fg)}
+.chips .chip .tic,.pf .chip .tic{width:13px;height:13px}
+.tc .tt .tic{width:14px;height:14px}
+.gly,.mcanvas svg.gly{width:14px;height:14px;flex:none;overflow:visible;display:inline-block}
+.sy-ring{fill:none;stroke:var(--fg)}
+.sy-acid{fill:var(--accent);stroke:var(--edge)}
+.sy-node{fill:var(--muted)}
+.sy-gate{fill:var(--mapbg);stroke:var(--fg)}
+.sy-x{fill:none;stroke:var(--fg);stroke-linecap:round}
+.sy-kos{fill:var(--accent);stroke:var(--fg)}
+.sy-rt{fill:none;stroke:var(--accent);stroke-width:2.4;stroke-dasharray:3 2.2}
+.sy-per{fill:color-mix(in srgb,var(--fg) 6%,transparent);stroke:var(--muted);stroke-width:1.1;stroke-linejoin:round}
+.mcanvas svg .sy-ring,.mcanvas svg .sy-acid,.mcanvas svg .sy-node,.mcanvas svg .sy-gate,.mcanvas svg .sy-x,.mcanvas svg .sy-kos{pointer-events:none}
 .cell h3.ut{font-size:16px;text-transform:uppercase;letter-spacing:.06em;gap:10px}
 .cell h3.ut~p,.cell h3.ut~.go{padding-left:32px}
 .cell h3.ut .ico{width:22px;height:22px}
@@ -404,7 +426,7 @@ details>summary{list-style:none}details>summary::-webkit-details-marker{display:
 @media(max-width:760px){.fgrid{grid-template-columns:repeat(3,minmax(0,1fr))}.fgrid .fc:nth-child(n+7){border-top:0}.fgrid .fc:nth-child(n+4){border-top:1px solid var(--line)}}
 .chips{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 12px}
 .chips .chip{cursor:pointer;font:inherit;font-size:12.5px}
-.chips .chip.on{border-color:var(--accent);color:var(--fg)}
+.chips .chip.on{background:var(--accent);border-color:var(--accent);color:var(--accent-fg)}
 .win .body.full{max-height:none;overflow:visible}
 .tbl th.sort{cursor:pointer;user-select:none}
 .tbl th.sort:hover{color:var(--fg)}
@@ -556,7 +578,9 @@ const HOME=/*HOME*/;
 const FACTIONS=/*FACTIONS*/;
 const TILES=/*TILES*/;
 const CHAPTERS=/*STORY*/;
-const COL={LOC:'var(--loc)',CHR:'var(--chr)',OBJ:'var(--obj)',LOR:'var(--lor)'};
+const COL={LOC:'var(--fg)',CHR:'var(--fg)',OBJ:'var(--fg)',LOR:'var(--fg)'};
+// category icons: the custom set from the home page tiles (sprite above #app)
+const tic=t=>`<svg class="ico tic" aria-hidden="true"><use href="#i-${t.toLowerCase()}"/></svg>`;
 const IC={
 file:'<path d="M7 3.5h7l4 4V20a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V4.5a1 1 0 0 1 1-1Z"/><path d="M14 3.5V8h4M9 13h6M9 16.5h6"/>',
 plus:'<path d="M12 5v14M5 12h14"/>',
@@ -575,7 +599,7 @@ book:'<path d="M5 4.5h11a3 3 0 0 1 3 3V20H8a3 3 0 0 1-3-3V4.5Z"/><path d="M5 17a
 compass:'<circle cx="12" cy="12" r="8.5"/><path d="m15.5 8.5-2 5-5 2 2-5 5-2Z"/>',
 route:'<circle cx="6" cy="18" r="2"/><circle cx="18" cy="6" r="2"/><path d="M8 18h6a3 3 0 0 0 0-6h-4a3 3 0 0 1 0-6h6"/>'};
 const ico=n=>`<svg class="ico" viewBox="0 0 24 24" aria-hidden="true">${IC[n]}</svg>`;
-const ICON={LOC:ico('pin'),CHR:ico('user'),OBJ:ico('cube'),LOR:ico('waves')};
+const ICON={LOC:tic('LOC'),CHR:tic('CHR'),OBJ:tic('OBJ'),LOR:tic('LOR')};
 const BLURB={LOC:'Outposts, Russian positions and escape routes. Each one sits on the map.',CHR:'The survivors, the Runners and the occupiers, with the passages that show them.',OBJ:'The Dendron, the Dust, the Protocols and the things people carried.',LOR:'The programme, the stages of compliance, the flood and the history behind them.'};
 const GRADE={C:'Confirmed',E:'Estimated',U:'Unconfirmed'};
 const BYID=Object.fromEntries(DATA.map(d=>[d.id,d]));
@@ -601,7 +625,8 @@ function snip(d,q){const toks=norm(q).split(/\s+/).filter(Boolean);if(!toks.leng
   if(toks.some(t=>d._s.includes(t)||d._n.includes(t)))return d.summary;
   const t=toks.find(t=>norm(d.entry).includes(t));if(!t)return d.summary;
   const n=norm(d.entry),i=n.indexOf(t),a=Math.max(0,i-60);return (a?'… ':'')+d.entry.slice(a,i+110)+' …'}
-const dot=t=>t==='LOC'?`<span class="dot ac" style="--dc:var(--accent)"></span>`:`<span class="dot" style="--dc:${COL[t]}"></span>`;
+// reference number shown beside an entry in the sidebars, e.g. 001
+const refno=d=>`<span class="rno">${esc(d.ref.split('/').pop())}</span>`;
 const grade=g=>g?`<span class="g ${g}" title="${GRADE[g]}">${g}</span>`:'';
 const count=t=>DATA.filter(d=>d.type===t).length;
 const NAV=[['story','Story','book'],['map','Map','map'],['c-loc','Locations','pin'],['c-chr','Characters','user'],['c-obj','Objects','cube'],['c-lor','Lore','waves']];
@@ -610,8 +635,8 @@ let pTypes=[],pSel=0,pRes=[];
 function pOpen(){$('#ov').classList.add('on');const i=$('#q');i.value='';pTypes=[];pSel=0;pPaint();i.focus()}
 function pClose(){$('#ov').classList.remove('on')}
 function pPaint(){const q=$('#q').value;pRes=find(q,pTypes).slice(0,40);pSel=Math.min(pSel,Math.max(0,pRes.length-1));
-  $('#pf').innerHTML=Object.keys(META).map(t=>`<span class="chip ${pTypes.includes(t)?'on':''}" data-t="${t}">${dot(t)}${META[t].label}</span>`).join('');
-  $('#pr').innerHTML=pRes.length?pRes.map((x,i)=>`<a class="pi ${i===pSel?'sel':''}" href="#e-${x.d.id}">${dot(x.d.type)}<div><b>${hl(x.d.name,q)}</b><p>${hl(snip(x.d,q),q)}</p></div><small>${x.d.ref.replace('SYNPTCL/','')}</small></a>`).join(''):'<div class="empty">Nothing in the archive matches that.</div>'}
+  $('#pf').innerHTML=Object.keys(META).map(t=>`<span class="chip ${pTypes.includes(t)?'on':''}" data-t="${t}">${tic(t)}${META[t].label}</span>`).join('');
+  $('#pr').innerHTML=pRes.length?pRes.map((x,i)=>`<a class="pi ${i===pSel?'sel':''}" href="#e-${x.d.id}">${tic(x.d.type)}<div><b>${hl(x.d.name,q)}</b><p>${hl(snip(x.d,q),q)}</p></div><small>${x.d.ref.replace('SYNPTCL/','')}</small></a>`).join(''):'<div class="empty">Nothing in the archive matches that.</div>'}
 $('#sopen').onclick=pOpen;$('#sico').innerHTML=ico('search');
 $('#ov').addEventListener('click',e=>{if(e.target.id==='ov')pClose();const c=e.target.closest('.chip');if(c){const t=c.dataset.t;pTypes=pTypes.includes(t)?pTypes.filter(x=>x!==t):[...pTypes,t];pSel=0;pPaint();$('#q').focus()}if(e.target.closest('.pi'))pClose()});
 $('#q').addEventListener('input',()=>{pSel=0;pPaint()});
@@ -624,9 +649,20 @@ $('#theme').onclick=()=>{const r=document.documentElement,cur=r.dataset.theme||(
 /* map */
 const LON0=20.89,LAT0=52.455,KX=Math.cos(52.23*Math.PI/180)*1000,KY=1000;
 const prj=(x,y)=>[(x-LON0)*KX,(LAT0-y)*KY];
-const KIND={out:['Survivor outposts','var(--loc)','var(--accent)'],node:['Route nodes','var(--accent-ink)','var(--accent)'],gate:['Gates','var(--accent-ink)','var(--accent)'],rus:['Occupier positions','var(--rus)','var(--rus)'],kos:['Other markers','var(--muted)','var(--muted)']};
-// [label, text colour, marker colour]; acid markers get a dark edge in light mode
-const AC=c=>c==='var(--accent)'?' ac':'';
+const KIND={out:['Survivor outposts'],node:['Route nodes'],gate:['Gates'],rus:['Occupier positions'],kos:['Other markers']};
+// map symbols: shape, not colour, tells the kinds apart. sym() draws one on the
+// map at scale k (map units per screen pixel); GLY holds the same shapes for lists.
+function sym(kind,x,y,k){const X=x.toFixed(1),Y=y.toFixed(1),u=v=>(v*k).toFixed(2);
+  if(kind==='out')return `<circle class="sy-ring" cx="${X}" cy="${Y}" r="${u(7)}" stroke-width="${u(1.3)}"/><circle class="sy-acid" cx="${X}" cy="${Y}" r="${u(3.4)}" stroke-width="${u(1)}"/>`;
+  if(kind==='node')return `<circle class="sy-node" cx="${X}" cy="${Y}" r="${u(2.8)}"/>`;
+  if(kind==='gate')return `<rect class="sy-gate" x="${(x-4.5*k).toFixed(1)}" y="${(y-4.5*k).toFixed(1)}" width="${u(9)}" height="${u(9)}" stroke-width="${u(1.4)}"/>`;
+  if(kind==='rus'){const h=4.5*k;return `<path class="sy-x" d="M${(x-h).toFixed(1)} ${(y-h).toFixed(1)}L${(x+h).toFixed(1)} ${(y+h).toFixed(1)}M${(x+h).toFixed(1)} ${(y-h).toFixed(1)}L${(x-h).toFixed(1)} ${(y+h).toFixed(1)}" stroke-width="${u(1.8)}"/>`}
+  const h=5*k;return `<path class="sy-kos" d="M${X} ${(y-h).toFixed(1)}L${(x+h).toFixed(1)} ${Y}L${X} ${(y+h).toFixed(1)}L${(x-h).toFixed(1)} ${Y}Z" stroke-width="${u(1)}"/>`}
+const GLY={out:'<circle class="sy-ring" cx="7" cy="7" r="5.6" stroke-width="1.1"/><circle class="sy-acid" cx="7" cy="7" r="2.6" stroke-width=".8"/>',
+  rus:'<path class="sy-x" d="M3.2 3.2l7.6 7.6m0-7.6l-7.6 7.6" stroke-width="1.6"/>',node:'<circle class="sy-node" cx="7" cy="7" r="2.4"/>',
+  gate:'<rect class="sy-gate" x="3" y="3" width="8" height="8" stroke-width="1.3"/>',kos:'<path class="sy-kos" d="M7 2l5 5-5 5-5-5z" stroke-width="1"/>',
+  rt:'<path class="sy-rt" d="M.5 7h13"/>',per:'<path class="sy-per" d="M2 4.5 6 2l6 2.5-1 6.5-6.5 1L2 9z"/>'};
+const gly=k=>`<svg class="gly" viewBox="0 0 14 14" aria-hidden="true">${GLY[k]}</svg>`;
 const FULL={x:0,y:0,w:(21.57-LON0)*KX,h:(LAT0-52.05)*KY};
 function mountMap(root,opt){
   const compact=!!opt.compact;let vb={...FULL};let sel=null;
@@ -638,12 +674,12 @@ function mountMap(root,opt){
     let g='';for(let lo=20.9;lo<21.6;lo+=.1){const x=((lo-LON0)*KX).toFixed(1);g+=`<line class="gr" x1="${x}" x2="${x}" y1="0" y2="${FULL.h}"/>`}
     for(let la=52.1;la<52.46;la+=.05){const y=((LAT0-la)*KY).toFixed(1);g+=`<line class="gr" y1="${y}" y2="${y}" x1="0" x2="${FULL.w}"/>`}
     let L='';MAP.lines.forEach(l=>{const d=path(l.c);
-      if(l.k==='rus'&&on.per)L+=`<path class="perim" d="${d}Z" fill="var(--rus)" stroke="var(--rus)"/>`;
-      if(l.k==='occ'&&on.per)L+=`<path class="perim" d="${d}Z" fill="var(--obj)" stroke="var(--obj)"/>`;
+      if(l.k==='rus'&&on.per)L+=`<path class="perim rp" d="${d}Z"/>`;
+      if(l.k==='occ'&&on.per)L+=`<path class="perim op" d="${d}Z"/>`;
       if(l.k==='esc'&&on.rt)L+=`<path class="rt" d="${d}"><title>${esc(l.n)}</title></path>`});
-    let P='',T='';MAP.pts.forEach((p,i)=>{if(!on[p.k])return;const [x,y]=prj(p.x,p.y);const c=KIND[p.k][2];
-      if(sel===i)P+=`<circle class="halo" cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" style="--dc:${c}"/>`;
-      P+=`<circle class="pt ${p.k==='out'||p.k==='rus'?'':'sq'}${AC(c)}" cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" style="--dc:${c}"/><circle class="hit" data-i="${i}" cx="${x.toFixed(1)}" cy="${y.toFixed(1)}"><title>${esc(p.n)}</title></circle>`;
+    const k=vb.w/(svg.clientWidth||800);let P='',T='';MAP.pts.forEach((p,i)=>{if(!on[p.k])return;const [x,y]=prj(p.x,p.y);
+      if(sel===i)P+=`<circle class="halo" cx="${x.toFixed(1)}" cy="${y.toFixed(1)}"/>`;
+      P+=sym(p.k,x,y,k)+`<circle class="hit" data-i="${i}" cx="${x.toFixed(1)}" cy="${y.toFixed(1)}"><title>${esc(p.n)}</title></circle>`;
       if(p.k==='out'||p.k==='rus'||sel===i)T+=`<text x="${(x+9*vb.w/(svg.clientWidth||800)).toFixed(1)}" y="${(y+3.5*vb.w/(svg.clientWidth||800)).toFixed(1)}">${esc(p.n.split(',')[0])}</text>`});
     svg.innerHTML=g+L+P+T;view()}
   function view(){svg.setAttribute('viewBox',`${vb.x} ${vb.y} ${vb.w} ${vb.h}`);svg.style.setProperty('--k',(vb.w/(svg.clientWidth||800)).toFixed(4))}
@@ -652,14 +688,14 @@ function mountMap(root,opt){
     const nw=Math.min(Math.max(vb.w/f,30),FULL.w*1.3),k=nw/vb.w;const nh=vb.h*k;vb.x+=(vb.w-nw)*px;vb.y+=(vb.h-nh)*py;vb.w=nw;vb.h=nh;draw()}
   function pick(i,fly){sel=i;const p=MAP.pts[i];if(!p){card.classList.remove('on');draw();return}
     if(fly){const [x,y]=prj(p.x,p.y);const r=svg.getBoundingClientRect();vb.w=Math.min(vb.w,110);vb.h=vb.w*r.height/r.width;vb.x=x-vb.w/2;vb.y=y-vb.h/2}
-    const e=BYID[p.e];card.innerHTML=`<button class="x" aria-label="Close">×</button><div class="eyebrow" style="margin:0 0 6px;color:${KIND[p.k][1]}">${KIND[p.k][0]}</div><h4>${esc(p.n)}</h4><p>${esc(p.t)}</p>${e?`<a class="btn p" href="#e-${e.id}">Open entry ${e.ref.replace('SYNPTCL/','')}</a>`:'<span class="chip">No entry yet</span>'}`;
+    const e=BYID[p.e];card.innerHTML=`<button class="x" aria-label="Close">×</button><div class="eyebrow" style="margin:0 0 6px">${KIND[p.k][0]}</div><h4>${esc(p.n)}</h4><p>${esc(p.t)}</p>${e?`<a class="btn p" href="#e-${e.id}">Open entry ${e.ref.replace('SYNPTCL/','')}</a>`:'<span class="chip">No entry yet</span>'}`;
     card.classList.add('on');draw();paintList()}
   function paintList(){const q=$('input',root).value;let h='';
     Object.keys(KIND).forEach(k=>{const items=MAP.pts.map((p,i)=>[p,i]).filter(([p])=>p.k===k&&(!q||norm(p.n+' '+p.c+' '+p.t).includes(norm(q))));
-      if(items.length)h+=`<h4>${KIND[k][0]}</h4>`+items.map(([p,i])=>`<button class="mi ${sel===i?'on':''}" data-i="${i}"><span class="dot${AC(KIND[k][2])}" style="--dc:${KIND[k][2]}"></span><span>${hl(p.n,q)}</span><small>${esc(p.c)}</small></button>`).join('')});
+      if(items.length)h+=`<h4>${KIND[k][0]}</h4>`+items.map(([p,i])=>`<button class="mi ${sel===i?'on':''}" data-i="${i}">${gly(k)}<span>${hl(p.n,q)}</span><small>${esc(p.c)}</small></button>`).join('')});
     list.innerHTML=h||'<div class="empty">No match.</div>'}
   const tools=$('.mtools',root);
-  function paintTools(){tools.innerHTML=[['out','Outposts','var(--accent)'],['rus','Occupier','var(--rus)'],['node','Nodes','var(--accent)'],['gate','Gates','var(--accent)'],['rt','Routes','var(--accent)'],['per','Perimeters','var(--obj)']].map(([k,l,c])=>`<span class="chip ${on[k]?'':'off'}" data-k="${k}"><span class="dot${AC(c)}" style="--dc:${c}"></span>${l}</span>`).join('')}
+  function paintTools(){tools.innerHTML=[['out','Outposts'],['rus','Occupier'],['node','Nodes'],['gate','Gates'],['rt','Routes'],['per','Perimeters']].map(([k,l])=>`<span class="chip ${on[k]?'':'off'}" data-k="${k}">${gly(k)}${l}</span>`).join('')}
   tools.onclick=e=>{const c=e.target.closest('.chip');if(!c)return;on[c.dataset.k]=!on[c.dataset.k];paintTools();draw()};
   $('.mzoom',root).onclick=e=>{const b=e.target.closest('button');if(!b)return;const z=+b.dataset.z;z?zoom(z):fit()};
   card.onclick=e=>{if(e.target.closest('.x')){sel=null;card.classList.remove('on');draw();paintList()}};
@@ -727,11 +763,11 @@ function home(){
   const th=(k,l)=>`<th class="sort" data-k="${k}">${l}${IX.key===k?`<span class="ar">${IX.dir>0?'↑':'↓'}</span>`:''}</th>`;
   const more=(n,shown,label)=>n>shown||IX.all&&n>rows?`<div class="more"><button id="ixmore">${esc(IX.all?H.index.view_fewer:fill(label,n))}</button></div>`:'';
   function paintIndex(){const tb=$('#tbody');
-    $('#chips').innerHTML=IX.t==='t'?cats.map(([k,l])=>`<button class="chip ${IX.cat===k?'on':''}" data-c="${k}">${k?dot(k):''}${esc(l)}</button>`).join(''):'';
+    $('#chips').innerHTML=IX.t==='t'?cats.map(([k,l])=>`<button class="chip ${IX.cat===k?'on':''}" data-c="${k}">${k?tic(k):''}${esc(l)}</button>`).join(''):'';
     if(IX.t==='t'){const list=DATA.filter(d=>!IX.cat||d.type===IX.cat).sort((a,b)=>{const x=sortVal[IX.key](a),y=sortVal[IX.key](b);return (x<y?-1:x>y?1:a.ref.localeCompare(b.ref))*IX.dir});
       const show=IX.all?list:list.slice(0,rows);
-      tb.innerHTML=`<table class="tbl"><thead><tr>${th('ref','Ref')}${th('name','Name')}${th('cat','Category')}${th('grade','Grade')}</tr></thead><tbody>${show.map(d=>`<tr><td class="mono" style="color:var(--muted)">${d.ref.replace('SYNPTCL/','')}</td><td><a href="#e-${d.id}">${esc(d.name.replace(/ \(.*$/,''))}</a></td><td>${dot(d.type)} ${META[d.type].label}</td><td>${grade(d.grade)}</td></tr>`).join('')}</tbody></table>${more(list.length,show.length,H.index.view_all)}`}
-    else if(IX.t==='e')tb.innerHTML=`<table class="tbl"><thead><tr><th>Category</th><th>C</th><th>E</th><th>U</th><th>Not yet graded</th></tr></thead><tbody>${['LOC','CHR','OBJ','LOR'].map(t=>`<tr><td>${dot(t)} ${META[t].label}</td>${gradeCount(t).map(n=>`<td>${n}</td>`).join('')}</tr>`).join('')}</tbody></table>`;
+      tb.innerHTML=`<table class="tbl"><thead><tr>${th('ref','Ref')}${th('name','Name')}${th('cat','Category')}${th('grade','Grade')}</tr></thead><tbody>${show.map(d=>`<tr><td class="mono" style="color:var(--muted)">${d.ref.replace('SYNPTCL/','')}</td><td><a href="#e-${d.id}">${esc(d.name.replace(/ \(.*$/,''))}</a></td><td><span class="gl">${tic(d.type)} ${META[d.type].label}</span></td><td>${grade(d.grade)}</td></tr>`).join('')}</tbody></table>${more(list.length,show.length,H.index.view_all)}`}
+    else if(IX.t==='e')tb.innerHTML=`<table class="tbl"><thead><tr><th>Category</th><th>C</th><th>E</th><th>U</th><th>Not yet graded</th></tr></thead><tbody>${['LOC','CHR','OBJ','LOR'].map(t=>`<tr><td><span class="gl">${tic(t)} ${META[t].label}</span></td>${gradeCount(t).map(n=>`<td>${n}</td>`).join('')}</tr>`).join('')}</tbody></table>`;
     else{const show=IX.all?MAP.pts:MAP.pts.slice(0,rows);tb.innerHTML=`<table class="tbl"><thead><tr><th>Code</th><th>Point</th><th>Kind</th><th>Entry</th></tr></thead><tbody>${show.map(p=>`<tr><td class="mono" style="color:var(--muted)">${esc(p.c)}</td><td>${esc(p.n)}</td><td>${KIND[p.k][0]}</td><td>${p.e?`<a href="#map-${p.e}">${BYID[p.e].ref.replace('SYNPTCL/','')}</a>`:''}</td></tr>`).join('')}</tbody></table>${more(MAP.pts.length,show.length,H.index.view_all_points)}`}}
   $('#tabs').onclick=e=>{const b=e.target.closest('button');if(!b)return;[...$('#tabs').children].forEach(x=>x.classList.toggle('on',x===b));IX.t=b.dataset.t;IX.all=false;paintIndex()};
   $('#chips').onclick=e=>{const b=e.target.closest('.chip');if(!b)return;IX.cat=b.dataset.c;IX.all=false;paintIndex()};
@@ -747,7 +783,7 @@ function markGroups(k){const ms=META[k].marks||[],items=DATA.filter(d=>d.type===
   const gs=ms.map(m=>({c:m.c,l:m.l||m.c,items:items.filter(d=>d.mark===m.c)}));gs.push({c:'',l:'Not yet marked',items:items.filter(d=>!ms.some(m=>m.c===d.mark))});
   return gs.filter(g=>g.items.length)}
 const ENTRY_ORDER=Object.keys(META).flatMap(k=>markGroups(k).flatMap(g=>g.items));
-function side(t,cur){const cd=BYID[cur];return `<aside class="side">${Object.keys(META).map(k=>`<h5>${META[k].label}</h5>`+(k===t?markGroups(k).map(g=>`<details data-acc="side-${k}" name="side-${k}"${cd&&g.items.includes(cd)?' open':''}><summary title="${esc(g.c||'No mark')}">${esc(g.l)}<span class="n">${g.items.length}</span></summary>${g.items.map(d=>`<a href="#e-${d.id}" class="${d.id===cur?'on':''}">${dot(k)}<span>${esc(d.name.replace(/ \(.*$/,''))}</span></a>`).join('')}</details>`).join(''):`<a href="#c-${k.toLowerCase()}">${dot(k)}<span>All ${count(k)} entries</span></a>`)).join('')}</aside>`}
+function side(t,cur){const cd=BYID[cur];return `<aside class="side">${Object.keys(META).map(k=>`<h5>${tic(k)}${META[k].label}</h5>`+(k===t?markGroups(k).map(g=>`<details data-acc="side-${k}" name="side-${k}"${cd&&g.items.includes(cd)?' open':''}><summary title="${esc(g.c||'No mark')}">${esc(g.l)}<span class="n">${g.items.length}</span></summary>${g.items.map(d=>`<a href="#e-${d.id}" class="${d.id===cur?'on':''}"${d.id===cur?' aria-current="page"':''}>${refno(d)}<span>${esc(d.name.replace(/ \(.*$/,''))}</span></a>`).join('')}</details>`).join(''):`<a href="#c-${k.toLowerCase()}"><span>All ${count(k)} entries</span></a>`)).join('')}</aside>`}
 function cat(t){
   t=t.toUpperCase();const m=META[t];let g='',q='';
   $('#app').innerHTML=`<div class="wrap"><div class="docs two">${side(t,'')}<div class="main"><div class="crumb"><a href="#home">Codex</a> / ${m.label}</div><div class="ph"><span class="tag" style="--c:${COL[t]}">${m.mark}</span></div><h1 class="t">${m.label}</h1><p class="sum">${BLURB[t]}</p>
