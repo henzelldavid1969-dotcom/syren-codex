@@ -66,6 +66,24 @@
     ]
   },
 
+  "timeline": {
+    "heading": "The record, in order.",
+    "text": "From the first flood to the last testimony. Select a moment to read it where it happens in the story.",
+    "_read_me": "One line per moment, in order. date is shown as written. kind sets the icon: flood, occupation, person, protocol or testimony. label is the line of text. story is the address of the Story page it opens (the part after #story- in the page address). A line with only gap draws a break in the line, for a stretch of time the timeline skips. Every date and label here is taken from the manuscript, which is the authority.",
+    "events": [
+      { "date": "11 Oct 2028",          "kind": "flood",      "label": "The dams fail upstream. The first flood begins.",                 "story": "chapter-3-the-zone-protocol-001" },
+      { "date": "2028 to 2029",         "kind": "occupation", "label": "Warsaw falls. The occupation takes hold.",                        "story": "chapter-3-the-zone-protocol-001" },
+      { "gap": "Five years" },
+      { "date": "1 Jun 2034",           "kind": "person",     "label": "Diana crosses into the corridor by reed boat.",                   "story": "diary-001-the-arrival" },
+      { "date": "30 Jun 2034",          "kind": "protocol",   "label": "Protocol 001 records the survivor corridor.",                     "story": "chapter-3-the-zone-protocol-001" },
+      { "date": "2 Sep 2034",           "kind": "flood",      "label": "The second flood. The Docks are overtopped.",                     "story": "interlude-the-second-flood" },
+      { "date": "3 Sep to 20 Oct 2034", "kind": "protocol",   "label": "Protocol 002 observes the occupying force.",                      "story": "chapter-6-the-occupation-protocol-002" },
+      { "date": "1 Jan 2035",           "kind": "flood",      "label": "The third flood. Diana disappears from Czerniaków.",              "story": "chapter-15-the-aftermath-protocol-005" },
+      { "date": "Oct 2035",             "kind": "person",     "label": "A postcard leads Alex to a barn east of Warsaw, and to the notebooks.", "story": "foreword" },
+      { "date": "Nov 2035 to Mar 2036", "kind": "testimony",  "label": "Alex records the survivors, from Berlin to Warsaw.",               "story": "chapter-2-the-photographer" }
+    ]
+  },
+
   "popular": {
     "heading": "Popular searches",
     "text": "Where most readers begin.",
