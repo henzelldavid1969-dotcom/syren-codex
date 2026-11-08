@@ -328,6 +328,34 @@ footer .cols a:hover{color:var(--fg)}
 @media(prefers-color-scheme:light){:root:not([data-theme="dark"]){--facts:#fafaf9}}
 :root[data-theme="light"]{--facts:#fafaf9}
 .facts{background:var(--facts)}
+/* folds, relation lines and scrollbars (ENTRY_PROTOCOL.md sections 8 and 9) */
+details>summary{list-style:none}details>summary::-webkit-details-marker{display:none}
+.side summary{display:flex;align-items:center;gap:8px;margin:2px 0;padding:6px 8px;border-radius:6px;cursor:pointer;font:500 11px "Geist Mono",monospace;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}
+.side summary:hover{color:var(--fg);background:var(--raise)}
+.side summary .n,.rail summary .n{margin-left:auto;font:400 11px "Geist Mono",monospace;letter-spacing:0;color:var(--muted)}
+.side summary:after,.rail summary:after{content:"";flex:none;width:5px;height:5px;border-right:1.3px solid currentColor;border-bottom:1.3px solid currentColor;transform:rotate(-45deg);transition:transform .15s;margin:0 2px 0 4px}
+.side details[open]>summary:after,.rail details[open]>summary:after{transform:rotate(45deg)}
+.side details>a{margin-left:6px}
+.rail details.box{padding:0}
+.rail details.box>summary{display:flex;align-items:center;gap:8px;padding:12px 14px;cursor:pointer}
+.rail details.box>summary h6{margin:0}
+.rail details.box>summary:hover h6{color:var(--fg)}
+.rail details.box>.bd{padding:0 14px 14px}
+.rail .rl{display:flex;gap:10px;align-items:baseline;padding:3px 0;color:var(--fg);min-width:0}
+.rail .rl .rp{flex:none;min-width:5.6em;font:400 11px "Geist Mono",monospace;color:var(--muted)}
+.rail .rl .tt{min-width:0;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
+.rail .rl:hover .tt{color:var(--accent-ink)}
+.rail details.note{margin-top:8px}
+.rail details.note>summary{display:flex;align-items:center;gap:6px;cursor:pointer;font:400 11px "Geist Mono",monospace;text-transform:uppercase;letter-spacing:.06em;color:var(--muted)}
+.rail details.note>summary:hover{color:var(--fg)}
+.rail details.note p{margin-top:6px}
+.rail{max-height:calc(100vh - 96px);overflow:auto}
+.side,.rail,.mlist,.pr,.win .body{scrollbar-width:none}
+.side:hover,.rail:hover,.mlist:hover,.pr:hover,.win .body:hover{scrollbar-width:thin;scrollbar-color:var(--line) transparent}
+.side::-webkit-scrollbar,.rail::-webkit-scrollbar,.mlist::-webkit-scrollbar,.pr::-webkit-scrollbar,.win .body::-webkit-scrollbar{width:0;height:0}
+.side:hover::-webkit-scrollbar,.rail:hover::-webkit-scrollbar,.mlist:hover::-webkit-scrollbar,.pr:hover::-webkit-scrollbar,.win .body:hover::-webkit-scrollbar{width:6px;height:6px}
+.side::-webkit-scrollbar-thumb,.rail::-webkit-scrollbar-thumb,.mlist::-webkit-scrollbar-thumb,.pr::-webkit-scrollbar-thumb,.win .body::-webkit-scrollbar-thumb{background:var(--line);border-radius:3px}
+@media(max-width:1020px){.rail{max-height:none;overflow:visible}}
 </style>
 <header class="nav"><div class="wrap">
   <a class="brand" href="#home"><i></i>Syren Codex</a>
@@ -352,6 +380,7 @@ footer .cols a:hover{color:var(--fg)}
 const DATA=/*DATA*/;
 const META=/*META*/;
 const MAP=/*MAP*/;
+const CHAPTERS=/*STORY*/;
 const COL={LOC:'var(--loc)',CHR:'var(--chr)',OBJ:'var(--obj)',LOR:'var(--lor)'};
 const IC={
 file:'<path d="M7 3.5h7l4 4V20a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V4.5a1 1 0 0 1 1-1Z"/><path d="M14 3.5V8h4M9 13h6M9 16.5h6"/>',
@@ -520,7 +549,11 @@ function home(){
 function mapView(focus){
   $('#app').innerHTML=`<div class="wrap" style="padding-top:22px;padding-bottom:50px"><div class="crumb"><a href="#home">Codex</a> / Map</div><h1 class="t" style="font-size:clamp(26px,4vw,36px);text-align:left;margin:0 0 14px;max-width:none">Warsaw and the corridor</h1><div id="mm"></div></div>`;
   mountMap($('#mm'),{h:Math.max(520,innerHeight-230),focus})}
-function side(t,cur){return `<aside class="side">${Object.keys(META).map(k=>`<h5>${META[k].label}</h5>`+(k===t?DATA.filter(d=>d.type===k).map(d=>`<a href="#e-${d.id}" class="${d.id===cur?'on':''}">${dot(k)}<span>${esc(d.name.replace(/ \(.*$/,''))}</span></a>`).join(''):`<a href="#c-${k.toLowerCase()}">${dot(k)}<span>All ${count(k)} entries</span></a>`)).join('')}</aside>`}
+function markGroups(k){const ms=META[k].marks||[],items=DATA.filter(d=>d.type===k);
+  const gs=ms.map(m=>({c:m.c,l:m.l||m.c,items:items.filter(d=>d.mark===m.c)}));gs.push({c:'',l:'Not yet marked',items:items.filter(d=>!ms.some(m=>m.c===d.mark))});
+  return gs.filter(g=>g.items.length)}
+const ENTRY_ORDER=Object.keys(META).flatMap(k=>markGroups(k).flatMap(g=>g.items));
+function side(t,cur){const cd=BYID[cur];return `<aside class="side">${Object.keys(META).map(k=>`<h5>${META[k].label}</h5>`+(k===t?markGroups(k).map(g=>`<details data-acc="side-${k}" name="side-${k}"${cd&&g.items.includes(cd)?' open':''}><summary title="${esc(g.c||'No mark')}">${esc(g.l)}<span class="n">${g.items.length}</span></summary>${g.items.map(d=>`<a href="#e-${d.id}" class="${d.id===cur?'on':''}">${dot(k)}<span>${esc(d.name.replace(/ \(.*$/,''))}</span></a>`).join('')}</details>`).join(''):`<a href="#c-${k.toLowerCase()}">${dot(k)}<span>All ${count(k)} entries</span></a>`)).join('')}</aside>`}
 function cat(t){
   t=t.toUpperCase();const m=META[t];let g='',q='';
   $('#app').innerHTML=`<div class="wrap"><div class="docs two">${side(t,'')}<div class="main"><div class="crumb"><a href="#home">Codex</a> / ${m.label}</div><div class="ph"><span class="tag" style="--c:${COL[t]}">${m.mark}</span></div><h1 class="t">${m.label}</h1><p class="sum">${BLURB[t]}</p>
@@ -559,6 +592,7 @@ function mediaBlocks(d){
   h+=hd('Files',!fi.length,fi.length?fi.length+' file'+(fi.length>1?'s':''):'PDF');
   h+=fi.length?`<div class="files">${fi.map(x=>{const ext=(x.src.split('?')[0].match(/\.([a-z0-9]+)$/i)||[,'file'])[1].toUpperCase();return `<a class="fl" href="${esc(x.src)}" target="_blank" rel="noopener">${ico('file')}<div><b>${esc(x.label)}</b><small>${[ext,x.pages?x.pages+' page'+(x.pages>1?'s':''):'',x.size?kb(x.size):''].filter(Boolean).join(' · ')}</small></div><span class="go">Open</span></a>`}).join('')}</div>`:`<div class="fl dash">${ico('file')}<div><b>Document name.pdf</b><small>PDF · 0 pages · 0 MB</small></div></div>`;
   return h}
+const panel=(title,n,body,open)=>`<details class="box"${open?' open':''}><summary><h6>${title}</h6><span class="n">${n}</span></summary><div class="bd">${body}</div></details>`;
 const longDate=s=>{if(!s)return '';const [y,m,dd]=s.split('-');return `${+dd} ${['January','February','March','April','May','June','July','August','September','October','November','December'][m-1]} ${y}`};
 function entry(id){
   const d=BYID[id];if(!d){home();return}const t=d.type;const rel=d.rel.filter(r=>BYID[r.id]);
@@ -566,6 +600,8 @@ function entry(id){
   const coords=t==='LOC'&&d.facts.lat!=null;
   const mapBox=own?`<a class="btn p" href="#map-${d.id}" style="width:100%;justify-content:center">${ico('pin')} Show on map</a>`:place?`<a class="btn" href="#map-${place}" style="width:100%;justify-content:center">${ico('pin')} ${esc(short(BYID[place].name))} on the map</a>`:coords?`<a class="btn" href="#map" style="width:100%;justify-content:center">${ico('map')} Open the map</a>`:'';
   const groups=[...new Set(rel.map(r=>r.label))];
+  const k=ENTRY_ORDER.indexOf(d),pv=ENTRY_ORDER[k-1],nx=ENTRY_ORDER[k+1];
+  const mapN=own?MAP.pts.filter(p=>p.e===d.id).length:place?MAP.pts.filter(p=>p.e===place).length:coords?1:0;
   const tags=[META[t].label,d.mark||META[t].mark,...rel.slice(0,6).map(r=>BYID[r.id])];
   $('#app').innerHTML=`<div class="wrap"><div class="docs">${side(t,id)}<article class="main"><header class="ehead"><div class="crumb"><a href="#home">Codex</a> / <a href="#c-${t.toLowerCase()}">${META[t].label}</a> / ${d.ref.replace('SYNPTCL/','')}</div>
     <div class="eref">${d.ref.replace('SYNPTCL/','').replace('/','-')}</div><h1 class="t">${esc(d.name)}</h1></header><p class="sum it">${esc(d.summary)}</p>
@@ -573,33 +609,38 @@ function entry(id){
     ${facts(d)}
     <div class="tags">${tags.map(x=>typeof x==='string'?`<span>${esc(x.toLowerCase())}</span>`:`<a href="#e-${x.id}">${esc(short(x.name).toLowerCase())}</a>`).join('')}</div>
     <div class="prose"><p>${esc(d.entry)}</p></div>
-    ${mediaBlocks(d)}</article>
+    ${mediaBlocks(d)}
+    <nav class="pager">${pv?`<a href="#e-${pv.id}"><small>Previous</small>${esc(short(pv.name))}</a>`:`<a href="#c-${t.toLowerCase()}"><small>Back to</small>${META[t].label}</a>`}${nx?`<a class="nx" href="#e-${nx.id}"><small>Next</small>${esc(short(nx.name))}</a>`:`<a class="nx" href="#home"><small>Back to</small>Codex</a>`}</nav></article>
     <aside class="rail">
-      ${mapBox?`<div class="box"><h6>Map</h6>${mapBox}</div>`:''}
-      <div class="box"><h6>Evidence</h6><p>${d.grade?`<span class="gl"><span class="g ${d.grade}">${d.grade}</span> ${GRADE[d.grade]}${d.sources!=null?` · ${d.sources} source${d.sources===1?'':'s'}`:''}</span>`:'Not yet graded.'}</p>${d.reliability?`<p style="margin-top:8px">${esc(d.reliability)}</p>`:''}</div>
-      <div class="box"><h6>Appears in</h6>${d.apps.length?d.apps.map(a=>`<a class="x" href="#story-${a.s}">${ico('book')} ${esc(a.t)}</a>`).join(''):''}${d.appears?`<p style="margin-top:${d.apps.length?8:0}px">${esc(d.appears)}</p>`:'<p>Not recorded</p>'}</div>
-      <div class="box"><h6>Connected entries</h6>${rel.length?groups.map(g=>`${groups.length>1||g!=='Connected'?`<div class="grp">${esc(g)}</div>`:''}${rel.filter(r=>r.label===g).map(r=>`<a class="x" href="#e-${r.id}">${dot(BYID[r.id].type)} ${esc(short(BYID[r.id].name))}</a>`).join('')}`).join(''):`<p>${esc(d.xnote||'None recorded.')}</p>`}</div>
-      <div class="box"><h6>Record</h6><dl><dt>Status</dt><dd>${esc(d.status)}</dd><dt>Updated</dt><dd>${longDate(d.updated)||'Not recorded'}</dd>${d.aliases?`<dt>Also</dt><dd>${esc(d.aliases)}</dd>`:''}</dl>${d.note?`<p style="margin-top:10px">${esc(d.note)}</p>`:''}</div>
+      ${mapBox?panel('Map',mapN,mapBox,false):''}
+      ${panel('Evidence',d.sources!=null?d.sources:'–',`<p>${d.grade?`<span class="gl"><span class="g ${d.grade}">${d.grade}</span> ${GRADE[d.grade]}${d.sources!=null?` · ${d.sources} source${d.sources===1?'':'s'}`:''}</span>`:'Not yet graded.'}</p>${d.reliability?`<p style="margin-top:8px">${esc(d.reliability)}</p>`:''}`,true)}
+      ${panel('Appears in',d.apps.length,(d.apps.length?d.apps.map(a=>{const p=(a.l||a.t).split(' · ');return `<a class="rl" href="#story-${a.s}" title="${esc(a.t)}"><span class="rp">${esc(p.length>1?p[0]:'')}</span><span class="tt">${esc(p.length>1?p.slice(1).join(' · '):p[0])}</span></a>`}).join(''):'')+(d.appears?`<details class="note"><summary>Note</summary><p>${esc(d.appears)}</p></details>`:'')+(!d.apps.length&&!d.appears?'<p>Not recorded</p>':''),true)}
+      ${panel('Connected entries',rel.length,rel.length?groups.map(g=>`${groups.length>1||g!=='Connected'?`<div class="grp">${esc(g)}</div>`:''}${rel.filter(r=>r.label===g).map(r=>`<a class="rl" href="#e-${r.id}" title="${esc(BYID[r.id].name)}"><span class="rp">${BYID[r.id].ref.replace('SYNPTCL/','')}</span><span class="tt">${esc(BYID[r.id].name)}</span></a>`).join('')}`).join(''):`<p>${esc(d.xnote||'None recorded.')}</p>`,false)}
+      ${panel('Record',2+(d.aliases?1:0)+(d.note?1:0),`<dl><dt>Status</dt><dd>${esc(d.status)}</dd><dt>Updated</dt><dd>${longDate(d.updated)||'Not recorded'}</dd>${d.aliases?`<dt>Also</dt><dd>${esc(d.aliases)}</dd>`:''}</dl>${d.note?`<p style="margin-top:10px">${esc(d.note)}</p>`:''}`,false)}
     </aside></div></div>`;
   $('#app').querySelectorAll('[data-lb]').forEach(a=>a.onclick=e=>{e.preventDefault();lbOpen(d.images,+a.dataset.lb)})}
 /* story */
 let STORY=null,storyLoad=null;
 const getStory=()=>storyLoad||(storyLoad=fetch('story.json').then(r=>{if(!r.ok)throw new Error(r.status);return r.json()}).then(s=>STORY=s).catch(e=>{storyLoad=null;throw e}));
-const SGROUP={front:'Before the story',story:'The story',back:'After the story'};
-function storySide(cur){return `<aside class="side">${Object.keys(SGROUP).map(g=>`<h5>${SGROUP[g]}</h5>`+STORY.pages.filter(p=>p.group===g).map(p=>`<a href="#story-${p.slug}" class="${p.slug===cur?'on':''}"><span>${esc(p.title)}</span></a>`).join('')).join('')}</aside>`}
-function storyHome(){const S=STORY;const start=S.pages.find(p=>p.slug==='foreword')||S.pages.find(p=>p.group==='story');
+function storyOrder(){const have=new Set(STORY.pages.map(p=>p.slug));const byS=Object.fromEntries(STORY.pages.map(p=>[p.slug,p]));
+  const known=CHAPTERS.sections.filter(c=>have.has(c.s)).map(c=>({...c,html:byS[c.s].html}));
+  const extra=STORY.pages.filter(p=>!CHAPTERS.sections.some(c=>c.s===p.slug)).map(p=>({s:p.slug,t:p.title,l:p.title,g:'after',html:p.html}));
+  return known.concat(extra)}
+function storySide(cur){const O=storyOrder(),c=O.find(x=>x.s===cur);return `<aside class="side">${CHAPTERS.groups.map(g=>{const items=O.filter(x=>x.g===g.c);return items.length?`<details data-acc="story" name="story"${c&&c.g===g.c?' open':''}><summary>${esc(g.n)}<span class="n">${items.length}</span></summary>${items.map(x=>`<a href="#story-${x.s}" class="${x.s===cur?'on':''}" title="${esc(x.t)}"><span>${esc(x.l||x.t)}</span></a>`).join('')}</details>`:''}).join('')}</aside>`}
+function storyHome(){const S=STORY,O=storyOrder();const start=O.find(x=>x.s==='foreword')||O[0];
   $('#app').innerHTML=`<div class="wrap"><div class="docs two">${storySide('')}<div class="main"><div class="crumb"><a href="#home">Codex</a> / Story</div><div class="ph"><span class="tag" style="--c:var(--accent-ink)">MANUSCRIPT</span><span class="mono" style="font-size:12px;color:var(--muted)">First draft</span></div><h1 class="t">${esc(S.name)}</h1><p class="sum">${esc(S.subtitle)}</p>
     <div class="prose"><div class="tagline">${S.tagline}</div>${S.blurb}</div>
-    <div class="cta" style="justify-content:flex-start"><a class="btn p" href="#story-${start.slug}">${ico('book')} Start reading</a><a class="btn" href="#map">${ico('map')} Open the map</a></div>
-    <div class="toc">${Object.keys(SGROUP).map(g=>`<h5>${SGROUP[g]}</h5>`+S.pages.filter(p=>p.group===g).map(p=>`<a class="row" href="#story-${p.slug}"><b>${esc(p.title)}</b></a>`).join('')).join('')}</div></div></div></div>`}
-function storyPage(slug){const P=STORY.pages,i=P.findIndex(p=>p.slug===slug);if(i<0){storyHome();return}const p=P[i],pv=P[i-1],nx=P[i+1];
-  $('#app').innerHTML=`<div class="wrap"><div class="docs two">${storySide(slug)}<article class="main"><div class="crumb"><a href="#home">Codex</a> / <a href="#story">Story</a> / ${esc(p.title.split(':')[0])}</div><h1 class="t">${esc(p.title)}</h1>
+    <div class="cta" style="justify-content:flex-start"><a class="btn p" href="#story-${start.s}">${ico('book')} Start reading</a><a class="btn" href="#map">${ico('map')} Open the map</a></div>
+    <div class="toc">${CHAPTERS.groups.map(g=>{const items=O.filter(x=>x.g===g.c);return items.length?`<h5>${esc(g.n)}</h5>`+items.map(x=>`<a class="row" href="#story-${x.s}"><b>${esc(x.t)}</b></a>`).join(''):''}).join('')}</div></div></div></div>`}
+function storyPage(slug){const P=storyOrder(),i=P.findIndex(x=>x.s===slug);if(i<0){storyHome();return}const p=P[i],pv=P[i-1],nx=P[i+1];
+  $('#app').innerHTML=`<div class="wrap"><div class="docs two">${storySide(slug)}<article class="main"><div class="crumb"><a href="#home">Codex</a> / <a href="#story">Story</a> / ${esc(p.t.split(':')[0])}</div><h1 class="t">${esc(p.t)}</h1>
     <div class="prose">${p.html}</div>
-    <nav class="pager">${pv?`<a href="#story-${pv.slug}"><small>Previous</small>${esc(pv.title)}</a>`:'<a href="#story"><small>Back to</small>Contents</a>'}${nx?`<a class="nx" href="#story-${nx.slug}"><small>Next</small>${esc(nx.title)}</a>`:'<a class="nx" href="#story"><small>Back to</small>Contents</a>'}</nav></article></div></div>`}
+    <nav class="pager">${pv?`<a href="#story-${pv.s}"><small>Previous</small>${esc(pv.t)}</a>`:'<a href="#story"><small>Back to</small>Contents</a>'}${nx?`<a class="nx" href="#story-${nx.s}"><small>Next</small>${esc(nx.t)}</a>`:'<a class="nx" href="#story"><small>Back to</small>Contents</a>'}</nav></article></div></div>`}
 function storyRoute(h){const draw=()=>{h==='story'?storyHome():storyPage(h.slice(6));scrollTo(0,0)};
   if(STORY)return draw();
   $('#app').innerHTML='<div class="wrap"><div class="empty">Opening the manuscript…</div></div>';
   getStory().then(()=>{if((location.hash||'#home').slice(1)===h)draw()}).catch(()=>{$('#app').innerHTML='<div class="wrap"><div class="empty">The manuscript could not be loaded. Please reload the page.</div></div>'})}
+document.addEventListener('toggle',e=>{const d=e.target;if(d.tagName!=='DETAILS'||!d.open||!d.dataset.acc)return;document.querySelectorAll(`details[data-acc="${d.dataset.acc}"]`).forEach(x=>{if(x!==d)x.open=false})},true);
 /* lightbox */
 const LB={list:[],i:0,last:null};const lbEl=$('#lb');
 function lbShow(){const x=LB.list[LB.i],img=$('img',lbEl),n=LB.list.length;img.src=x.src;img.alt=x.alt||x.caption||'';

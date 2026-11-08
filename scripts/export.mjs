@@ -34,13 +34,15 @@ const fileUrl = (bucket, file) =>
 const LINE_KIND = { occupation_perimeter: 'occ', russian_perimeter: 'rus', escape_route: 'esc' };
 const POINT_KIND = { outpost: 'out', node: 'node', gate: 'gate', occupier: 'rus', other: 'kos' };
 
-const [categories, entries, relations, relTypes, sections, appearances, locF, chrF, objF, lorF,
+const [categories, entries, relations, relTypes, sections, groups, marks, appearances, locF, chrF, objF, lorF,
   images, audio, video, files, points, lines] = await Promise.all([
   table('categories', 'code,label,mark,sort_order', 'sort_order'),
   table('entries', '*', 'ref'),
   table('relations', 'from_ref,to_ref,type,position', 'from_ref,position,to_ref'),
   table('relation_types', 'code,label,inverse_label,position', 'position'),
-  table('story_sections', 'slug,title,position', 'position'),
+  table('story_sections', 'slug,title,position,kind,label,group_code', 'position'),
+  table('story_groups', 'code,name,position', 'position'),
+  table('marks', 'code,category,label,position', 'category,position'),
   table('entry_appearances', 'entry_ref,section,position', 'entry_ref,position'),
   table('location_facts', '*', 'ref'),
   table('character_facts', '*', 'ref'),
@@ -58,6 +60,7 @@ const typeOrder = categories.map((c) => c.code);
 const slugOf = Object.fromEntries(entries.map((e) => [e.ref, e.slug]));
 const RT = Object.fromEntries(relTypes.map((t) => [t.code, t]));
 const SECTION = Object.fromEntries(sections.map((s) => [s.slug, s.title]));
+const LABEL = Object.fromEntries(sections.map((s) => [s.slug, s.label]));
 const FACTS = Object.fromEntries([...locF, ...chrF, ...objF, ...lorF].map((f) => [f.ref, f]));
 const by = (rows, ref) => rows.filter((r) => r.entry_ref === ref);
 const clean = (o) => Object.fromEntries(Object.entries(o).filter(([, v]) => v !== null && v !== '' && v !== undefined));
@@ -94,7 +97,7 @@ const DATA = entries
       updated: (e.updated_at || '').slice(0, 10),
       facts: clean(facts),
       rel,
-      apps: by(appearances, e.ref).filter((a) => SECTION[a.section]).map((a) => ({ s: a.section, t: SECTION[a.section] })),
+      apps: by(appearances, e.ref).filter((a) => SECTION[a.section]).map((a) => ({ s: a.section, t: SECTION[a.section], l: LABEL[a.section] || '' })),
       images: by(images, e.ref).slice(0, 10).map((x) => clean({ src: fileUrl('images', x.file), alt: x.alt, caption: x.caption, credit: x.credit })),
       audio: by(audio, e.ref).map((x) => clean({ src: fileUrl('audio', x.file), label: x.label, meta: x.meta, note: x.note })),
       video: by(video, e.ref).map((x) => clean({ src: fileUrl('video', x.file), caption: x.caption })),
@@ -105,7 +108,17 @@ const DATA = entries
     return d;
   });
 
-const META = Object.fromEntries(categories.map((c) => [c.code, { label: c.label, mark: c.mark }]));
+const META = Object.fromEntries(categories.map((c) => [c.code, {
+  label: c.label,
+  mark: c.mark,
+  marks: marks.filter((m) => m.category === c.code).map((m) => ({ c: m.code, l: m.label || '' })),
+}]));
+
+// The chapter table (ENTRY_PROTOCOL.md section 8): reading order, kind, full title, short label, group.
+const STORY = {
+  groups: groups.map((g) => ({ c: g.code, n: g.name })),
+  sections: sections.map((s) => ({ s: s.slug, o: s.position, k: s.kind, t: s.title, l: s.label, g: s.group_code })),
+};
 
 const MAP = {
   lines: lines.map((l) => ({ k: LINE_KIND[l.kind], n: l.name, c: l.coordinates })),
@@ -120,7 +133,7 @@ const MAP = {
   })),
 };
 
-const out = JSON.stringify({ META, DATA, MAP }, null, 1) + '\n';
+const out = JSON.stringify({ META, DATA, MAP, STORY }, null, 1) + '\n';
 await mkdir(new URL('../data/', import.meta.url), { recursive: true });
 await writeFile(new URL('../data/codex.json', import.meta.url), out);
 console.log(`Exported data/codex.json: ${DATA.length} entries, ${MAP.pts.length} map points.`);

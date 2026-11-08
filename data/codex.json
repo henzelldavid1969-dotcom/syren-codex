@@ -2,19 +2,83 @@
  "META": {
   "LOC": {
    "label": "Locations",
-   "mark": "SYNC_PATH"
+   "mark": "SYNC_PATH",
+   "marks": [
+    {
+     "c": "PROX_SCAN",
+     "l": "Survivor outposts"
+    },
+    {
+     "c": "TRIGGER_V1",
+     "l": "Russian positions"
+    },
+    {
+     "c": "ACT_SYNC",
+     "l": "Escape routes"
+    }
+   ]
   },
   "CHR": {
    "label": "Characters",
-   "mark": "PROB_VAL_0.9"
+   "mark": "PROB_VAL_0.9",
+   "marks": [
+    {
+     "c": "CHROMA_VAL",
+     "l": "Primary"
+    },
+    {
+     "c": "TORUS_VAL",
+     "l": "Secondary"
+    },
+    {
+     "c": "GRID_FAIL",
+     "l": "Antagonists"
+    }
+   ]
   },
   "OBJ": {
    "label": "Objects",
-   "mark": "FLUX_LOCK_09"
+   "mark": "FLUX_LOCK_09",
+   "marks": [
+    {
+     "c": "SHIFT_REF_04",
+     "l": "Dust"
+    },
+    {
+     "c": "MAG_REF_400",
+     "l": "Dendron and Entity"
+    },
+    {
+     "c": "LINK_SYNC",
+     "l": "Communications"
+    },
+    {
+     "c": "FLUX_SYNC",
+     "l": "Diaries and documents"
+    }
+   ]
   },
   "LOR": {
    "label": "Lore",
-   "mark": "ION_PATH"
+   "mark": "ION_PATH",
+   "marks": [
+    {
+     "c": "LOAD_STRESS",
+     "l": ""
+    },
+    {
+     "c": "DIFF_REF_89",
+     "l": "Historical parallels"
+    },
+    {
+     "c": "REF_SYNC_400",
+     "l": "Cross-references"
+    },
+    {
+     "c": "PORE_SEQ",
+     "l": "Zone vocabulary"
+    }
+   ]
   }
  },
  "DATA": [
@@ -75,15 +139,18 @@
    "apps": [
     {
      "s": "chapter-3-the-zone-protocol-001",
-     "t": "Chapter 3: The Zone (Protocol 001)"
+     "t": "Chapter 3: The Zone (Protocol 001)",
+     "l": "Ch 3 · The Zone · P001"
     },
     {
      "s": "diary-001-the-arrival",
-     "t": "Diary 001: The Arrival"
+     "t": "Diary 001: The Arrival",
+     "l": "Diary 001 · Arrival"
     },
     {
      "s": "prologue-the-barn",
-     "t": "Prologue: The Barn"
+     "t": "Prologue: The Barn",
+     "l": "Pro · The Barn"
     }
    ],
    "images": [],
@@ -148,11 +215,13 @@
    "apps": [
     {
      "s": "chapter-3-the-zone-protocol-001",
-     "t": "Chapter 3: The Zone (Protocol 001)"
+     "t": "Chapter 3: The Zone (Protocol 001)",
+     "l": "Ch 3 · The Zone · P001"
     },
     {
      "s": "chapter-9-the-dendron-protocol-003",
-     "t": "Chapter 9: The Dendron (Protocol 003)"
+     "t": "Chapter 9: The Dendron (Protocol 003)",
+     "l": "Ch 9 · The Dendron · P003"
     }
    ],
    "images": [],
@@ -197,11 +266,13 @@
    "apps": [
     {
      "s": "chapter-3-the-zone-protocol-001",
-     "t": "Chapter 3: The Zone (Protocol 001)"
+     "t": "Chapter 3: The Zone (Protocol 001)",
+     "l": "Ch 3 · The Zone · P001"
     },
     {
      "s": "chapter-9-the-dendron-protocol-003",
-     "t": "Chapter 9: The Dendron (Protocol 003)"
+     "t": "Chapter 9: The Dendron (Protocol 003)",
+     "l": "Ch 9 · The Dendron · P003"
     }
    ],
    "images": [],
@@ -242,7 +313,8 @@
    "apps": [
     {
      "s": "chapter-3-the-zone-protocol-001",
-     "t": "Chapter 3: The Zone (Protocol 001)"
+     "t": "Chapter 3: The Zone (Protocol 001)",
+     "l": "Ch 3 · The Zone · P001"
     }
    ],
    "images": [],
@@ -278,7 +350,8 @@
    "apps": [
     {
      "s": "chapter-3-the-zone-protocol-001",
-     "t": "Chapter 3: The Zone (Protocol 001)"
+     "t": "Chapter 3: The Zone (Protocol 001)",
+     "l": "Ch 3 · The Zone · P001"
     }
    ],
    "images": [],
@@ -314,7 +387,8 @@
    "apps": [
     {
      "s": "chapter-3-the-zone-protocol-001",
-     "t": "Chapter 3: The Zone (Protocol 001)"
+     "t": "Chapter 3: The Zone (Protocol 001)",
+     "l": "Ch 3 · The Zone · P001"
     }
    ],
    "images": [],
@@ -350,7 +424,8 @@
    "apps": [
     {
      "s": "chapter-3-the-zone-protocol-001",
-     "t": "Chapter 3: The Zone (Protocol 001)"
+     "t": "Chapter 3: The Zone (Protocol 001)",
+     "l": "Ch 3 · The Zone · P001"
     }
    ],
    "images": [],
@@ -399,15 +474,18 @@
    "apps": [
     {
      "s": "chapter-3-the-zone-protocol-001",
-     "t": "Chapter 3: The Zone (Protocol 001)"
+     "t": "Chapter 3: The Zone (Protocol 001)",
+     "l": "Ch 3 · The Zone · P001"
     },
     {
      "s": "prologue-the-barn",
-     "t": "Prologue: The Barn"
+     "t": "Prologue: The Barn",
+     "l": "Pro · The Barn"
     },
     {
      "s": "chapter-9-the-dendron-protocol-003",
-     "t": "Chapter 9: The Dendron (Protocol 003)"
+     "t": "Chapter 9: The Dendron (Protocol 003)",
+     "l": "Ch 9 · The Dendron · P003"
     }
    ],
    "images": [],
@@ -443,7 +521,8 @@
    "apps": [
     {
      "s": "chapter-3-the-zone-protocol-001",
-     "t": "Chapter 3: The Zone (Protocol 001)"
+     "t": "Chapter 3: The Zone (Protocol 001)",
+     "l": "Ch 3 · The Zone · P001"
     }
    ],
    "images": [],
@@ -484,7 +563,8 @@
    "apps": [
     {
      "s": "chapter-3-the-zone-protocol-001",
-     "t": "Chapter 3: The Zone (Protocol 001)"
+     "t": "Chapter 3: The Zone (Protocol 001)",
+     "l": "Ch 3 · The Zone · P001"
     }
    ],
    "images": [],
@@ -520,7 +600,8 @@
    "apps": [
     {
      "s": "chapter-3-the-zone-protocol-001",
-     "t": "Chapter 3: The Zone (Protocol 001)"
+     "t": "Chapter 3: The Zone (Protocol 001)",
+     "l": "Ch 3 · The Zone · P001"
     }
    ],
    "images": [],
@@ -565,7 +646,8 @@
    "apps": [
     {
      "s": "chapter-3-the-zone-protocol-001",
-     "t": "Chapter 3: The Zone (Protocol 001)"
+     "t": "Chapter 3: The Zone (Protocol 001)",
+     "l": "Ch 3 · The Zone · P001"
     }
    ],
    "images": [],
@@ -610,15 +692,18 @@
    "apps": [
     {
      "s": "chapter-3-the-zone-protocol-001",
-     "t": "Chapter 3: The Zone (Protocol 001)"
+     "t": "Chapter 3: The Zone (Protocol 001)",
+     "l": "Ch 3 · The Zone · P001"
     },
     {
      "s": "chapter-6-the-occupation-protocol-002",
-     "t": "Chapter 6: The Occupation (Protocol 002)"
+     "t": "Chapter 6: The Occupation (Protocol 002)",
+     "l": "Ch 6 · Occupation · P002"
     },
     {
      "s": "chapter-9-the-dendron-protocol-003",
-     "t": "Chapter 9: The Dendron (Protocol 003)"
+     "t": "Chapter 9: The Dendron (Protocol 003)",
+     "l": "Ch 9 · The Dendron · P003"
     }
    ],
    "images": [],
@@ -660,11 +745,13 @@
    "apps": [
     {
      "s": "chapter-3-the-zone-protocol-001",
-     "t": "Chapter 3: The Zone (Protocol 001)"
+     "t": "Chapter 3: The Zone (Protocol 001)",
+     "l": "Ch 3 · The Zone · P001"
     },
     {
      "s": "chapter-9-the-dendron-protocol-003",
-     "t": "Chapter 9: The Dendron (Protocol 003)"
+     "t": "Chapter 9: The Dendron (Protocol 003)",
+     "l": "Ch 9 · The Dendron · P003"
     }
    ],
    "images": [],
@@ -720,7 +807,8 @@
    "apps": [
     {
      "s": "chapter-6-the-occupation-protocol-002",
-     "t": "Chapter 6: The Occupation (Protocol 002)"
+     "t": "Chapter 6: The Occupation (Protocol 002)",
+     "l": "Ch 6 · Occupation · P002"
     }
    ],
    "images": [],
@@ -772,11 +860,13 @@
    "apps": [
     {
      "s": "chapter-6-the-occupation-protocol-002",
-     "t": "Chapter 6: The Occupation (Protocol 002)"
+     "t": "Chapter 6: The Occupation (Protocol 002)",
+     "l": "Ch 6 · Occupation · P002"
     },
     {
      "s": "interlude-vi-wiktor-szeliga-shelter-9",
-     "t": "Interlude VI: Wiktor Szeliga, Shelter 9"
+     "t": "Interlude VI: Wiktor Szeliga, Shelter 9",
+     "l": "Int VI · Szeliga, S9"
     }
    ],
    "images": [],
@@ -820,7 +910,8 @@
    "apps": [
     {
      "s": "chapter-6-the-occupation-protocol-002",
-     "t": "Chapter 6: The Occupation (Protocol 002)"
+     "t": "Chapter 6: The Occupation (Protocol 002)",
+     "l": "Ch 6 · Occupation · P002"
     }
    ],
    "images": [],
@@ -860,7 +951,8 @@
    "apps": [
     {
      "s": "chapter-6-the-occupation-protocol-002",
-     "t": "Chapter 6: The Occupation (Protocol 002)"
+     "t": "Chapter 6: The Occupation (Protocol 002)",
+     "l": "Ch 6 · Occupation · P002"
     }
    ],
    "images": [],
@@ -904,7 +996,8 @@
    "apps": [
     {
      "s": "chapter-6-the-occupation-protocol-002",
-     "t": "Chapter 6: The Occupation (Protocol 002)"
+     "t": "Chapter 6: The Occupation (Protocol 002)",
+     "l": "Ch 6 · Occupation · P002"
     }
    ],
    "images": [],
@@ -950,11 +1043,13 @@
    "apps": [
     {
      "s": "chapter-6-the-occupation-protocol-002",
-     "t": "Chapter 6: The Occupation (Protocol 002)"
+     "t": "Chapter 6: The Occupation (Protocol 002)",
+     "l": "Ch 6 · Occupation · P002"
     },
     {
      "s": "interlude-ii-sasha-lebedev-observation-post-r0",
-     "t": "Interlude II: Sasha Lebedev, Observation Post R0"
+     "t": "Interlude II: Sasha Lebedev, Observation Post R0",
+     "l": "Int II · Lebedev, R0"
     }
    ],
    "images": [],
@@ -998,7 +1093,8 @@
    "apps": [
     {
      "s": "chapter-6-the-occupation-protocol-002",
-     "t": "Chapter 6: The Occupation (Protocol 002)"
+     "t": "Chapter 6: The Occupation (Protocol 002)",
+     "l": "Ch 6 · Occupation · P002"
     }
    ],
    "images": [],
@@ -1042,7 +1138,8 @@
    "apps": [
     {
      "s": "chapter-6-the-occupation-protocol-002",
-     "t": "Chapter 6: The Occupation (Protocol 002)"
+     "t": "Chapter 6: The Occupation (Protocol 002)",
+     "l": "Ch 6 · Occupation · P002"
     }
    ],
    "images": [],
@@ -1090,7 +1187,8 @@
    "apps": [
     {
      "s": "chapter-6-the-occupation-protocol-002",
-     "t": "Chapter 6: The Occupation (Protocol 002)"
+     "t": "Chapter 6: The Occupation (Protocol 002)",
+     "l": "Ch 6 · Occupation · P002"
     }
    ],
    "images": [],
@@ -1132,7 +1230,8 @@
    "apps": [
     {
      "s": "chapter-6-the-occupation-protocol-002",
-     "t": "Chapter 6: The Occupation (Protocol 002)"
+     "t": "Chapter 6: The Occupation (Protocol 002)",
+     "l": "Ch 6 · Occupation · P002"
     }
    ],
    "images": [],
@@ -1184,7 +1283,8 @@
    "apps": [
     {
      "s": "chapter-6-the-occupation-protocol-002",
-     "t": "Chapter 6: The Occupation (Protocol 002)"
+     "t": "Chapter 6: The Occupation (Protocol 002)",
+     "l": "Ch 6 · Occupation · P002"
     }
    ],
    "images": [],
@@ -1238,11 +1338,13 @@
    "apps": [
     {
      "s": "chapter-6-the-occupation-protocol-002",
-     "t": "Chapter 6: The Occupation (Protocol 002)"
+     "t": "Chapter 6: The Occupation (Protocol 002)",
+     "l": "Ch 6 · Occupation · P002"
     },
     {
      "s": "interlude-vi-wiktor-szeliga-shelter-9",
-     "t": "Interlude VI: Wiktor Szeliga, Shelter 9"
+     "t": "Interlude VI: Wiktor Szeliga, Shelter 9",
+     "l": "Int VI · Szeliga, S9"
     }
    ],
    "images": [],
@@ -1287,11 +1389,13 @@
    "apps": [
     {
      "s": "chapter-3-the-zone-protocol-001",
-     "t": "Chapter 3: The Zone (Protocol 001)"
+     "t": "Chapter 3: The Zone (Protocol 001)",
+     "l": "Ch 3 · The Zone · P001"
     },
     {
      "s": "chapter-6-the-occupation-protocol-002",
-     "t": "Chapter 6: The Occupation (Protocol 002)"
+     "t": "Chapter 6: The Occupation (Protocol 002)",
+     "l": "Ch 6 · Occupation · P002"
     }
    ],
    "images": [],
@@ -1336,11 +1440,13 @@
    "apps": [
     {
      "s": "chapter-9-the-dendron-protocol-003",
-     "t": "Chapter 9: The Dendron (Protocol 003)"
+     "t": "Chapter 9: The Dendron (Protocol 003)",
+     "l": "Ch 9 · The Dendron · P003"
     },
     {
      "s": "chapter-14-the-mouse",
-     "t": "Chapter 14: The Mouse"
+     "t": "Chapter 14: The Mouse",
+     "l": "Ch 14 · The Mouse"
     }
    ],
    "images": [],
@@ -1417,11 +1523,13 @@
    "apps": [
     {
      "s": "prologue-the-barn",
-     "t": "Prologue: The Barn"
+     "t": "Prologue: The Barn",
+     "l": "Pro · The Barn"
     },
     {
      "s": "diary-001-the-arrival",
-     "t": "Diary 001: The Arrival"
+     "t": "Diary 001: The Arrival",
+     "l": "Diary 001 · Arrival"
     }
    ],
    "images": [],
@@ -1466,7 +1574,8 @@
    "apps": [
     {
      "s": "chapter-9-the-dendron-protocol-003",
-     "t": "Chapter 9: The Dendron (Protocol 003)"
+     "t": "Chapter 9: The Dendron (Protocol 003)",
+     "l": "Ch 9 · The Dendron · P003"
     }
    ],
    "images": [],
@@ -1527,11 +1636,13 @@
    "apps": [
     {
      "s": "chapter-3-the-zone-protocol-001",
-     "t": "Chapter 3: The Zone (Protocol 001)"
+     "t": "Chapter 3: The Zone (Protocol 001)",
+     "l": "Ch 3 · The Zone · P001"
     },
     {
      "s": "interlude-i-wiktor-szeliga-block-c",
-     "t": "Interlude I: Wiktor Szeliga, Block C"
+     "t": "Interlude I: Wiktor Szeliga, Block C",
+     "l": "Int I · Szeliga, Block C"
     }
    ],
    "images": [],
@@ -1595,15 +1706,18 @@
    "apps": [
     {
      "s": "chapter-1-the-blasphemer",
-     "t": "Chapter 1: The Blasphemer"
+     "t": "Chapter 1: The Blasphemer",
+     "l": "Ch 1 · The Blasphemer"
     },
     {
      "s": "chapter-3-the-zone-protocol-001",
-     "t": "Chapter 3: The Zone (Protocol 001)"
+     "t": "Chapter 3: The Zone (Protocol 001)",
+     "l": "Ch 3 · The Zone · P001"
     },
     {
      "s": "chapter-4-the-engineer",
-     "t": "Chapter 4: The Engineer"
+     "t": "Chapter 4: The Engineer",
+     "l": "Ch 4 · The Engineer"
     }
    ],
    "images": [],
@@ -1650,11 +1764,13 @@
    "apps": [
     {
      "s": "chapter-2-the-photographer",
-     "t": "Chapter 2: The Photographer"
+     "t": "Chapter 2: The Photographer",
+     "l": "Ch 2 · The Photographer"
     },
     {
      "s": "chapter-3-the-zone-protocol-001",
-     "t": "Chapter 3: The Zone (Protocol 001)"
+     "t": "Chapter 3: The Zone (Protocol 001)",
+     "l": "Ch 3 · The Zone · P001"
     }
    ],
    "images": [],
@@ -1700,7 +1816,8 @@
    "apps": [
     {
      "s": "chapter-5-the-pilgrim",
-     "t": "Chapter 5: The Pilgrim"
+     "t": "Chapter 5: The Pilgrim",
+     "l": "Ch 5 · The Pilgrim"
     }
    ],
    "images": [],
@@ -1750,7 +1867,8 @@
    "apps": [
     {
      "s": "chapter-4-the-engineer",
-     "t": "Chapter 4: The Engineer"
+     "t": "Chapter 4: The Engineer",
+     "l": "Ch 4 · The Engineer"
     }
    ],
    "images": [],
@@ -1789,7 +1907,8 @@
    "apps": [
     {
      "s": "chapter-7-the-musician",
-     "t": "Chapter 7: The Musician"
+     "t": "Chapter 7: The Musician",
+     "l": "Ch 7 · The Musician"
     }
    ],
    "images": [],
@@ -1848,7 +1967,8 @@
    "apps": [
     {
      "s": "chapter-8-the-medic",
-     "t": "Chapter 8: The Medic"
+     "t": "Chapter 8: The Medic",
+     "l": "Ch 8 · The Medic"
     }
    ],
    "images": [],
@@ -1890,11 +2010,13 @@
    "apps": [
     {
      "s": "interlude-i-wiktor-szeliga-block-c",
-     "t": "Interlude I: Wiktor Szeliga, Block C"
+     "t": "Interlude I: Wiktor Szeliga, Block C",
+     "l": "Int I · Szeliga, Block C"
     },
     {
      "s": "chapter-10-the-listener",
-     "t": "Chapter 10: The Listener"
+     "t": "Chapter 10: The Listener",
+     "l": "Ch 10 · The Listener"
     }
    ],
    "images": [],
@@ -1937,7 +2059,8 @@
    "apps": [
     {
      "s": "chapter-11-the-orphan",
-     "t": "Chapter 11: The Orphan"
+     "t": "Chapter 11: The Orphan",
+     "l": "Ch 11 · The Orphan"
     }
    ],
    "images": [],
@@ -1992,11 +2115,13 @@
    "apps": [
     {
      "s": "chapter-13-the-youngest",
-     "t": "Chapter 13: The Youngest"
+     "t": "Chapter 13: The Youngest",
+     "l": "Ch 13 · The Youngest"
     },
     {
      "s": "chapter-8-the-medic",
-     "t": "Chapter 8: The Medic"
+     "t": "Chapter 8: The Medic",
+     "l": "Ch 8 · The Medic"
     }
    ],
    "images": [],
@@ -2045,7 +2170,8 @@
    "apps": [
     {
      "s": "chapter-14-the-mouse",
-     "t": "Chapter 14: The Mouse"
+     "t": "Chapter 14: The Mouse",
+     "l": "Ch 14 · The Mouse"
     }
    ],
    "images": [],
@@ -2100,7 +2226,8 @@
    "apps": [
     {
      "s": "chapter-14-the-mouse",
-     "t": "Chapter 14: The Mouse"
+     "t": "Chapter 14: The Mouse",
+     "l": "Ch 14 · The Mouse"
     }
    ],
    "images": [],
@@ -2145,11 +2272,13 @@
    "apps": [
     {
      "s": "chapter-3-the-zone-protocol-001",
-     "t": "Chapter 3: The Zone (Protocol 001)"
+     "t": "Chapter 3: The Zone (Protocol 001)",
+     "l": "Ch 3 · The Zone · P001"
     },
     {
      "s": "chapter-4-the-engineer",
-     "t": "Chapter 4: The Engineer"
+     "t": "Chapter 4: The Engineer",
+     "l": "Ch 4 · The Engineer"
     }
    ],
    "images": [],
@@ -2240,7 +2369,8 @@
    "apps": [
     {
      "s": "chapter-5-the-pilgrim",
-     "t": "Chapter 5: The Pilgrim"
+     "t": "Chapter 5: The Pilgrim",
+     "l": "Ch 5 · The Pilgrim"
     }
    ],
    "images": [],
@@ -2279,7 +2409,8 @@
    "apps": [
     {
      "s": "chapter-5-the-pilgrim",
-     "t": "Chapter 5: The Pilgrim"
+     "t": "Chapter 5: The Pilgrim",
+     "l": "Ch 5 · The Pilgrim"
     }
    ],
    "images": [],
@@ -2326,11 +2457,13 @@
    "apps": [
     {
      "s": "chapter-3-the-zone-protocol-001",
-     "t": "Chapter 3: The Zone (Protocol 001)"
+     "t": "Chapter 3: The Zone (Protocol 001)",
+     "l": "Ch 3 · The Zone · P001"
     },
     {
      "s": "chapter-1-the-blasphemer",
-     "t": "Chapter 1: The Blasphemer"
+     "t": "Chapter 1: The Blasphemer",
+     "l": "Ch 1 · The Blasphemer"
     }
    ],
    "images": [],
@@ -2427,7 +2560,8 @@
    "apps": [
     {
      "s": "interlude-i-wiktor-szeliga-block-c",
-     "t": "Interlude I: Wiktor Szeliga, Block C"
+     "t": "Interlude I: Wiktor Szeliga, Block C",
+     "l": "Int I · Szeliga, Block C"
     }
    ],
    "images": [],
@@ -2470,7 +2604,8 @@
    "apps": [
     {
      "s": "interlude-ii-sasha-lebedev-observation-post-r0",
-     "t": "Interlude II: Sasha Lebedev, Observation Post R0"
+     "t": "Interlude II: Sasha Lebedev, Observation Post R0",
+     "l": "Int II · Lebedev, R0"
     }
    ],
    "images": [],
@@ -2512,7 +2647,8 @@
    "apps": [
     {
      "s": "chapter-6-the-occupation-protocol-002",
-     "t": "Chapter 6: The Occupation (Protocol 002)"
+     "t": "Chapter 6: The Occupation (Protocol 002)",
+     "l": "Ch 6 · Occupation · P002"
     }
    ],
    "images": [],
@@ -2555,7 +2691,8 @@
    "apps": [
     {
      "s": "interlude-ii-sasha-lebedev-observation-post-r0",
-     "t": "Interlude II: Sasha Lebedev, Observation Post R0"
+     "t": "Interlude II: Sasha Lebedev, Observation Post R0",
+     "l": "Int II · Lebedev, R0"
     }
    ],
    "images": [],
@@ -2632,7 +2769,8 @@
    "apps": [
     {
      "s": "chapter-8-the-medic",
-     "t": "Chapter 8: The Medic"
+     "t": "Chapter 8: The Medic",
+     "l": "Ch 8 · The Medic"
     }
    ],
    "images": [],
@@ -2747,19 +2885,23 @@
    "apps": [
     {
      "s": "chapter-9-the-dendron-protocol-003",
-     "t": "Chapter 9: The Dendron (Protocol 003)"
+     "t": "Chapter 9: The Dendron (Protocol 003)",
+     "l": "Ch 9 · The Dendron · P003"
     },
     {
      "s": "chapter-3-the-zone-protocol-001",
-     "t": "Chapter 3: The Zone (Protocol 001)"
+     "t": "Chapter 3: The Zone (Protocol 001)",
+     "l": "Ch 3 · The Zone · P001"
     },
     {
      "s": "chapter-15-the-aftermath-protocol-005",
-     "t": "Chapter 15: The Aftermath (Protocol 005)"
+     "t": "Chapter 15: The Aftermath (Protocol 005)",
+     "l": "Ch 15 · Aftermath · P005"
     },
     {
      "s": "appendix-the-brief",
-     "t": "Appendix: The Brief"
+     "t": "Appendix: The Brief",
+     "l": "App · The Brief"
     }
    ],
    "images": [
@@ -2805,11 +2947,13 @@
    "apps": [
     {
      "s": "chapter-9-the-dendron-protocol-003",
-     "t": "Chapter 9: The Dendron (Protocol 003)"
+     "t": "Chapter 9: The Dendron (Protocol 003)",
+     "l": "Ch 9 · The Dendron · P003"
     },
     {
      "s": "appendix-the-brief",
-     "t": "Appendix: The Brief"
+     "t": "Appendix: The Brief",
+     "l": "App · The Brief"
     }
    ],
    "images": [],
@@ -2858,7 +3002,8 @@
    "apps": [
     {
      "s": "chapter-3-the-zone-protocol-001",
-     "t": "Chapter 3: The Zone (Protocol 001)"
+     "t": "Chapter 3: The Zone (Protocol 001)",
+     "l": "Ch 3 · The Zone · P001"
     }
    ],
    "images": [],
@@ -2903,11 +3048,13 @@
    "apps": [
     {
      "s": "chapter-15-the-aftermath-protocol-005",
-     "t": "Chapter 15: The Aftermath (Protocol 005)"
+     "t": "Chapter 15: The Aftermath (Protocol 005)",
+     "l": "Ch 15 · Aftermath · P005"
     },
     {
      "s": "appendix-the-brief",
-     "t": "Appendix: The Brief"
+     "t": "Appendix: The Brief",
+     "l": "App · The Brief"
     }
    ],
    "images": [],
@@ -2944,7 +3091,8 @@
    "apps": [
     {
      "s": "chapter-5-the-pilgrim",
-     "t": "Chapter 5: The Pilgrim"
+     "t": "Chapter 5: The Pilgrim",
+     "l": "Ch 5 · The Pilgrim"
     }
    ],
    "images": [],
@@ -2985,7 +3133,8 @@
    "apps": [
     {
      "s": "chapter-2-the-photographer",
-     "t": "Chapter 2: The Photographer"
+     "t": "Chapter 2: The Photographer",
+     "l": "Ch 2 · The Photographer"
     }
    ],
    "images": [],
@@ -3034,11 +3183,13 @@
    "apps": [
     {
      "s": "chapter-15-the-aftermath-protocol-005",
-     "t": "Chapter 15: The Aftermath (Protocol 005)"
+     "t": "Chapter 15: The Aftermath (Protocol 005)",
+     "l": "Ch 15 · Aftermath · P005"
     },
     {
      "s": "appendix-the-brief",
-     "t": "Appendix: The Brief"
+     "t": "Appendix: The Brief",
+     "l": "App · The Brief"
     }
    ],
    "images": [],
@@ -3091,11 +3242,13 @@
    "apps": [
     {
      "s": "interlude-ii-sasha-lebedev-observation-post-r0",
-     "t": "Interlude II: Sasha Lebedev, Observation Post R0"
+     "t": "Interlude II: Sasha Lebedev, Observation Post R0",
+     "l": "Int II · Lebedev, R0"
     },
     {
      "s": "chapter-15-the-aftermath-protocol-005",
-     "t": "Chapter 15: The Aftermath (Protocol 005)"
+     "t": "Chapter 15: The Aftermath (Protocol 005)",
+     "l": "Ch 15 · Aftermath · P005"
     }
    ],
    "images": [],
@@ -3149,7 +3302,8 @@
    "apps": [
     {
      "s": "chapter-6-the-occupation-protocol-002",
-     "t": "Chapter 6: The Occupation (Protocol 002)"
+     "t": "Chapter 6: The Occupation (Protocol 002)",
+     "l": "Ch 6 · Occupation · P002"
     }
    ],
    "images": [],
@@ -3188,7 +3342,8 @@
    "apps": [
     {
      "s": "chapter-3-the-zone-protocol-001",
-     "t": "Chapter 3: The Zone (Protocol 001)"
+     "t": "Chapter 3: The Zone (Protocol 001)",
+     "l": "Ch 3 · The Zone · P001"
     }
    ],
    "images": [],
@@ -3223,7 +3378,8 @@
    "apps": [
     {
      "s": "chapter-3-the-zone-protocol-001",
-     "t": "Chapter 3: The Zone (Protocol 001)"
+     "t": "Chapter 3: The Zone (Protocol 001)",
+     "l": "Ch 3 · The Zone · P001"
     }
    ],
    "images": [],
@@ -6506,6 +6662,280 @@
     "y": 52.1657,
     "e": "loc-025",
     "t": "Approximate position"
+   }
+  ]
+ },
+ "STORY": {
+  "groups": [
+   {
+    "c": "before",
+    "n": "Before the story"
+   },
+   {
+    "c": "part-1",
+    "n": "Part 1 · The Zone"
+   },
+   {
+    "c": "part-2",
+    "n": "Part 2 · The Occupation"
+   },
+   {
+    "c": "part-3",
+    "n": "Part 3 · The Dendron"
+   },
+   {
+    "c": "part-4",
+    "n": "Part 4 · The Codex"
+   },
+   {
+    "c": "part-5",
+    "n": "Part 5 · The Aftermath"
+   },
+   {
+    "c": "after",
+    "n": "After the story"
+   }
+  ],
+  "sections": [
+   {
+    "s": "copyright",
+    "o": 1,
+    "k": "front",
+    "t": "Copyright",
+    "l": "Front · Copyright",
+    "g": "before"
+   },
+   {
+    "s": "dedication",
+    "o": 2,
+    "k": "front",
+    "t": "Dedication",
+    "l": "Front · Dedication",
+    "g": "before"
+   },
+   {
+    "s": "foreword",
+    "o": 3,
+    "k": "front",
+    "t": "Foreword",
+    "l": "Front · Foreword",
+    "g": "before"
+   },
+   {
+    "s": "prologue-the-barn",
+    "o": 4,
+    "k": "prologue",
+    "t": "Prologue: The Barn",
+    "l": "Pro · The Barn",
+    "g": "part-1"
+   },
+   {
+    "s": "diary-001-the-arrival",
+    "o": 5,
+    "k": "diary",
+    "t": "Diary 001: The Arrival",
+    "l": "Diary 001 · Arrival",
+    "g": "part-1"
+   },
+   {
+    "s": "chapter-1-the-blasphemer",
+    "o": 6,
+    "k": "chapter",
+    "t": "Chapter 1: The Blasphemer",
+    "l": "Ch 1 · The Blasphemer",
+    "g": "part-1"
+   },
+   {
+    "s": "interlude-i-wiktor-szeliga-block-c",
+    "o": 7,
+    "k": "interlude",
+    "t": "Interlude I: Wiktor Szeliga, Block C",
+    "l": "Int I · Szeliga, Block C",
+    "g": "part-1"
+   },
+   {
+    "s": "chapter-2-the-photographer",
+    "o": 8,
+    "k": "chapter",
+    "t": "Chapter 2: The Photographer",
+    "l": "Ch 2 · The Photographer",
+    "g": "part-1"
+   },
+   {
+    "s": "chapter-3-the-zone-protocol-001",
+    "o": 9,
+    "k": "protocol",
+    "t": "Chapter 3: The Zone (Protocol 001)",
+    "l": "Ch 3 · The Zone · P001",
+    "g": "part-1"
+   },
+   {
+    "s": "chapter-4-the-engineer",
+    "o": 10,
+    "k": "chapter",
+    "t": "Chapter 4: The Engineer",
+    "l": "Ch 4 · The Engineer",
+    "g": "part-2"
+   },
+   {
+    "s": "interlude-ii-sasha-lebedev-observation-post-r0",
+    "o": 11,
+    "k": "interlude",
+    "t": "Interlude II: Sasha Lebedev, Observation Post R0",
+    "l": "Int II · Lebedev, R0",
+    "g": "part-2"
+   },
+   {
+    "s": "chapter-5-the-pilgrim",
+    "o": 12,
+    "k": "chapter",
+    "t": "Chapter 5: The Pilgrim",
+    "l": "Ch 5 · The Pilgrim",
+    "g": "part-2"
+   },
+   {
+    "s": "interlude-the-second-flood",
+    "o": 13,
+    "k": "interlude",
+    "t": "Interlude: The Second Flood",
+    "l": "Int · Second Flood",
+    "g": "part-2"
+   },
+   {
+    "s": "chapter-6-the-occupation-protocol-002",
+    "o": 14,
+    "k": "protocol",
+    "t": "Chapter 6: The Occupation (Protocol 002)",
+    "l": "Ch 6 · Occupation · P002",
+    "g": "part-2"
+   },
+   {
+    "s": "chapter-7-the-musician",
+    "o": 15,
+    "k": "chapter",
+    "t": "Chapter 7: The Musician",
+    "l": "Ch 7 · The Musician",
+    "g": "part-3"
+   },
+   {
+    "s": "interlude-iii-major-budanov-aleja-szucha",
+    "o": 16,
+    "k": "interlude",
+    "t": "Interlude III: Major Budanov, Aleja Szucha",
+    "l": "Int III · Budanov",
+    "g": "part-3"
+   },
+   {
+    "s": "chapter-8-the-medic",
+    "o": 17,
+    "k": "chapter",
+    "t": "Chapter 8: The Medic",
+    "l": "Ch 8 · The Medic",
+    "g": "part-3"
+   },
+   {
+    "s": "chapter-9-the-dendron-protocol-003",
+    "o": 18,
+    "k": "protocol",
+    "t": "Chapter 9: The Dendron (Protocol 003)",
+    "l": "Ch 9 · The Dendron · P003",
+    "g": "part-3"
+   },
+   {
+    "s": "interlude-iv-the-voice-studio-two",
+    "o": 19,
+    "k": "interlude",
+    "t": "Interlude IV: The Voice, Studio Two",
+    "l": "Int IV · The Voice",
+    "g": "part-4"
+   },
+   {
+    "s": "chapter-10-the-listener",
+    "o": 20,
+    "k": "chapter",
+    "t": "Chapter 10: The Listener",
+    "l": "Ch 10 · The Listener",
+    "g": "part-4"
+   },
+   {
+    "s": "chapter-11-the-orphan",
+    "o": 21,
+    "k": "chapter",
+    "t": "Chapter 11: The Orphan",
+    "l": "Ch 11 · The Orphan",
+    "g": "part-4"
+   },
+   {
+    "s": "interlude-v-account-lead-cohort-review",
+    "o": 22,
+    "k": "interlude",
+    "t": "Interlude V: Account Lead, Cohort Review",
+    "l": "Int V · Cohort Review",
+    "g": "part-4"
+   },
+   {
+    "s": "chapter-12-the-codex-protocol-004",
+    "o": 23,
+    "k": "protocol",
+    "t": "Chapter 12: The Codex (Protocol 004)",
+    "l": "Ch 12 · The Codex · P004",
+    "g": "part-4"
+   },
+   {
+    "s": "chapter-13-the-youngest",
+    "o": 24,
+    "k": "chapter",
+    "t": "Chapter 13: The Youngest",
+    "l": "Ch 13 · The Youngest",
+    "g": "part-5"
+   },
+   {
+    "s": "chapter-14-the-mouse",
+    "o": 25,
+    "k": "chapter",
+    "t": "Chapter 14: The Mouse",
+    "l": "Ch 14 · The Mouse",
+    "g": "part-5"
+   },
+   {
+    "s": "interlude-vi-wiktor-szeliga-shelter-9",
+    "o": 26,
+    "k": "interlude",
+    "t": "Interlude VI: Wiktor Szeliga, Shelter 9",
+    "l": "Int VI · Szeliga, S9",
+    "g": "part-5"
+   },
+   {
+    "s": "chapter-15-the-aftermath-protocol-005",
+    "o": 27,
+    "k": "protocol",
+    "t": "Chapter 15: The Aftermath (Protocol 005)",
+    "l": "Ch 15 · Aftermath · P005",
+    "g": "part-5"
+   },
+   {
+    "s": "chapter-16-the-protocols",
+    "o": 28,
+    "k": "chapter",
+    "t": "Chapter 16: The Protocols",
+    "l": "Ch 16 · The Protocols",
+    "g": "part-5"
+   },
+   {
+    "s": "acknowledgments",
+    "o": 29,
+    "k": "back",
+    "t": "Acknowledgments",
+    "l": "Back · Acknowledgments",
+    "g": "after"
+   },
+   {
+    "s": "appendix-the-brief",
+    "o": 30,
+    "k": "appendix",
+    "t": "Appendix: The Brief",
+    "l": "App · The Brief",
+    "g": "after"
    }
   ]
  }

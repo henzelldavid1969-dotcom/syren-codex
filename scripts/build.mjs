@@ -6,7 +6,7 @@
 import { readFile, writeFile, mkdir } from 'node:fs/promises';
 import { buildStory } from './story-lib.mjs';
 
-const { META, DATA, MAP } = JSON.parse(await readFile(new URL('../data/codex.json', import.meta.url), 'utf8'));
+const { META, DATA, MAP, STORY } = JSON.parse(await readFile(new URL('../data/codex.json', import.meta.url), 'utf8'));
 
 // JSON that is safe inside a <script> element.
 const LS = String.fromCharCode(0x2028), PS = String.fromCharCode(0x2029);
@@ -24,7 +24,8 @@ const html =
   template
     .replace('/*DATA*/', () => js(DATA))
     .replace('/*META*/', () => js(META))
-    .replace('/*MAP*/', () => js(MAP));
+    .replace('/*MAP*/', () => js(MAP))
+    .replace('/*STORY*/', () => js(STORY));
 
 await mkdir(new URL('../dist/', import.meta.url), { recursive: true });
 await writeFile(new URL('../dist/index.html', import.meta.url), html);
