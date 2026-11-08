@@ -317,6 +317,17 @@ footer .cols a:hover{color:var(--fg)}
 .lb button[hidden]{display:none}
 .lb .lx{top:14px;right:16px}.lb .lp{left:16px;top:50%;transform:translateY(-50%)}.lb .ln{right:16px;top:50%;transform:translateY(-50%)}
 @media(max-width:700px){.lb{padding:60px 12px 84px}.lb .lp,.lb .ln{top:auto;bottom:18px;transform:none}.lb .lp{left:calc(50% - 56px)}.lb .ln{right:calc(50% - 56px)}}
+.crumb{text-transform:uppercase;letter-spacing:.04em}
+.ehead{display:flex;flex-direction:column;margin:0 0 14px}
+.ehead .crumb{margin:0;line-height:1}
+.ehead .eref{margin:15.5px 0 0;line-height:1}
+.ehead h1.t{margin:11.5px 0 0;line-height:1}
+.ecover{display:block;margin:0 0 22px;border:1px solid var(--line);border-radius:12px;overflow:hidden;background:var(--surface)}
+.ecover img{display:block;width:100%;height:auto}
+:root{--facts:#151616}
+@media(prefers-color-scheme:light){:root:not([data-theme="dark"]){--facts:#fafaf9}}
+:root[data-theme="light"]{--facts:#fafaf9}
+.facts{background:var(--facts)}
 </style>
 <header class="nav"><div class="wrap">
   <a class="brand" href="#home"><i></i>Syren Codex</a>
@@ -556,8 +567,9 @@ function entry(id){
   const mapBox=own?`<a class="btn p" href="#map-${d.id}" style="width:100%;justify-content:center">${ico('pin')} Show on map</a>`:place?`<a class="btn" href="#map-${place}" style="width:100%;justify-content:center">${ico('pin')} ${esc(short(BYID[place].name))} on the map</a>`:coords?`<a class="btn" href="#map" style="width:100%;justify-content:center">${ico('map')} Open the map</a>`:'';
   const groups=[...new Set(rel.map(r=>r.label))];
   const tags=[META[t].label,d.mark||META[t].mark,...rel.slice(0,6).map(r=>BYID[r.id])];
-  $('#app').innerHTML=`<div class="wrap"><div class="docs">${side(t,id)}<article class="main"><div class="crumb"><a href="#home">Codex</a> / <a href="#c-${t.toLowerCase()}">${META[t].label}</a> / ${d.ref.replace('SYNPTCL/','')}</div>
-    <div class="eref">${d.ref.replace('SYNPTCL/','').replace('/','-')}</div><h1 class="t">${esc(d.name)}</h1><p class="sum it">${esc(d.summary)}</p>
+  $('#app').innerHTML=`<div class="wrap"><div class="docs">${side(t,id)}<article class="main"><header class="ehead"><div class="crumb"><a href="#home">Codex</a> / <a href="#c-${t.toLowerCase()}">${META[t].label}</a> / ${d.ref.replace('SYNPTCL/','')}</div>
+    <div class="eref">${d.ref.replace('SYNPTCL/','').replace('/','-')}</div><h1 class="t">${esc(d.name)}</h1></header><p class="sum it">${esc(d.summary)}</p>
+    ${d.images&&d.images.length?`<a class="ecover" href="${esc(d.images[0].src)}" target="_blank" rel="noopener" data-lb="0" aria-label="Open the cover image"><img src="${esc(d.images[0].src)}" alt="${esc(d.images[0].alt||d.images[0].caption||d.name)}"></a>`:''}
     ${facts(d)}
     <div class="tags">${tags.map(x=>typeof x==='string'?`<span>${esc(x.toLowerCase())}</span>`:`<a href="#e-${x.id}">${esc(short(x.name).toLowerCase())}</a>`).join('')}</div>
     <div class="prose"><p>${esc(d.entry)}</p></div>
