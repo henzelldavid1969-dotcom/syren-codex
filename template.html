@@ -255,6 +255,56 @@ footer h6{margin:0 0 10px;font-size:13px;font-weight:400;color:var(--fg)}
 footer .cols a{display:block;padding:3px 0;color:var(--muted)}
 footer .cols a:hover{color:var(--fg)}
 @media(max-width:760px){footer .cols{grid-template-columns:1fr 1fr}}
+/* entry page, Gdansk-style */
+.eref{font:500 13px "Geist Mono",monospace;letter-spacing:.08em;color:var(--accent);margin-bottom:6px}
+.main .sum.it{font:italic 400 clamp(18px,2.2vw,22px)/1.45 Newsreader,Georgia,serif;color:var(--muted)}
+.facts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border:1px solid var(--line);border-radius:12px;overflow:hidden;background:var(--surface);margin:0 0 18px}
+.facts>div{padding:16px 18px;border-right:1px solid var(--line);border-bottom:1px solid var(--line);margin:0 -1px -1px 0}
+.facts dt{font:400 11px "Geist Mono",monospace;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin:0 0 6px}
+.facts dd{margin:0;font:400 14px "Geist Mono",monospace;color:var(--fg)}
+.facts dd.nr{color:var(--muted);opacity:.7}
+@media(max-width:560px){.facts{grid-template-columns:1fr 1fr}}
+.tags{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 28px}
+.tags a,.tags span{font:400 12.5px "Geist Mono",monospace;border:1px solid var(--line);border-radius:6px;padding:5px 11px;background:var(--surface);color:var(--muted)}
+.tags a:hover{color:var(--fg);border-color:var(--muted)}
+.mh{display:flex;justify-content:space-between;align-items:baseline;gap:12px;margin:34px 0 12px;padding-top:6px}
+.mh h3{margin:0;font:500 12px "Geist Mono",monospace;text-transform:uppercase;letter-spacing:.12em;color:var(--muted)}
+.mh small{font:400 12px "Geist Mono",monospace;color:var(--muted);opacity:.8}
+.ph-tag{font:400 11px "Geist Mono",monospace;letter-spacing:.06em;color:var(--obj);border:1px dashed color-mix(in srgb,var(--obj) 50%,var(--line));border-radius:5px;padding:1px 7px;margin-left:8px;text-transform:uppercase}
+.imgs{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px}
+@media(max-width:700px){.imgs{grid-template-columns:repeat(3,minmax(0,1fr))}}
+.imgs .slot,.imgs figure{aspect-ratio:1;border-radius:10px;border:1px dashed var(--line);background:var(--surface);display:grid;place-items:center;color:var(--muted);margin:0;overflow:hidden;position:relative}
+.imgs .slot:first-child{border-color:color-mix(in srgb,var(--accent) 45%,var(--line));color:var(--accent)}
+.imgs .slot .ico{width:22px;height:22px}
+.imgs .slot span{font:400 11px "Geist Mono",monospace;position:absolute;bottom:7px;left:0;right:0;text-align:center}
+.imgs figure{border-style:solid}.imgs figure img{width:100%;height:100%;object-fit:cover}
+.mp{border:1px solid var(--line);border-radius:12px;overflow:hidden;background:var(--bg)}
+.mp .blk{padding:18px 22px;border-bottom:1px solid var(--line)}
+.mp .blk:last-child{border-bottom:0}
+.mp .blk.alt{background:var(--surface)}
+.mp .bh{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;font:500 13px "Geist Mono",monospace;letter-spacing:.12em;text-transform:uppercase;color:var(--fg)}
+.mp .bh em{font-style:normal;color:var(--accent)}
+.mp .bh small{font:400 12px "Geist Mono",monospace;letter-spacing:0;text-transform:none;color:var(--muted)}
+.mp .bm{font:400 12px "Geist Mono",monospace;color:var(--muted);margin:8px 0 12px;opacity:.85}
+.mp audio,.mp video{width:100%}
+.mp audio.dis{opacity:.55;pointer-events:none}
+.vph{aspect-ratio:16/9;border-radius:10px;border:1px dashed var(--line);background:var(--surface);display:grid;place-items:center;color:var(--muted)}
+.vph .ico{width:34px;height:34px}
+.files{border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.fl{display:flex;gap:14px;align-items:center;padding:14px 18px;border-bottom:1px solid var(--line);background:var(--bg)}
+.fl:last-child{border-bottom:0}
+.fl .ico{width:22px;height:22px;color:var(--muted)}
+.fl b{font-weight:400;font-size:14.5px}
+.fl small{display:block;font:400 12px "Geist Mono",monospace;color:var(--muted)}
+.fl.dash{border:1px dashed var(--line);border-radius:12px;color:var(--muted)}
+.fl .go{margin-left:auto;font:400 12px "Geist Mono",monospace;color:var(--accent)}
+.imgs a{display:block;width:100%;height:100%}
+.rail .grp{font:400 11px "Geist Mono",monospace;color:var(--muted);margin:10px 0 2px;text-transform:uppercase;letter-spacing:.06em}
+.rail .grp:first-of-type{margin-top:0}
+.mp video{aspect-ratio:16/9;background:#000;border-radius:8px}
+.rail dl{margin:0;display:grid;grid-template-columns:auto 1fr;gap:4px 12px}
+.rail dt{color:var(--muted)}.rail dd{margin:0}
+.facts dd a{color:var(--accent)}.facts dd a:hover{text-decoration:underline}
 </style>
 <header class="nav"><div class="wrap">
   <a class="brand" href="#home"><i></i>Syren Codex</a>
@@ -280,6 +330,8 @@ const META=/*META*/;
 const MAP=/*MAP*/;
 const COL={LOC:'var(--loc)',CHR:'var(--chr)',OBJ:'var(--obj)',LOR:'var(--lor)'};
 const IC={
+file:'<path d="M7 3.5h7l4 4V20a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V4.5a1 1 0 0 1 1-1Z"/><path d="M14 3.5V8h4M9 13h6M9 16.5h6"/>',
+plus:'<path d="M12 5v14M5 12h14"/>',
 map:'<path d="M9 4 3 6.5v13L9 17l6 3 6-2.5v-13L15 7 9 4Z"/><path d="M9 4v13M15 7v13"/>',
 pin:'<path d="M12 21s7-6.2 7-11.5A7 7 0 0 0 5 9.5C5 14.8 12 21 12 21Z"/><circle cx="12" cy="9.5" r="2.5"/>',
 user:'<circle cx="12" cy="8" r="3.6"/><path d="M5 20c.6-3.8 3.4-6 7-6s6.4 2.2 7 6"/>',
@@ -452,22 +504,57 @@ function cat(t){
   const paint=()=>{const r=find(q,[t]).filter(x=>!g||x.d.grade===g);$('#rows').innerHTML=r.length?r.map(({d})=>`<a class="row" href="#e-${d.id}" style="--c:${COL[t]}"><div class="rt2"><b>${hl(d.name,q)}</b><span class="gl"><span class="mono" style="font-size:11px;color:var(--muted)">${d.ref.replace('SYNPTCL/','')}</span>${grade(d.grade)}</span></div><p>${hl(snip(d,q),q)}</p></a>`).join(''):'<div class="empty">No entries match.</div>'};
   $('#cf').oninput=e=>{q=e.target.value;paint()};
   $('#gs').onclick=e=>{const b=e.target.closest('button');if(!b)return;g=b.dataset.g;[...$('#gs').children].forEach(x=>x.classList.toggle('on',x===b));paint()};paint()}
-function xrefs(d){const ids=[...new Set([...(d.xrefs||'').matchAll(/SYNPTCL\/(LOC|CHR|OBJ|LOR)\/(\d+)/g)].map(m=>`${m[1].toLowerCase()}-${m[2]}`))].filter(i=>BYID[i]&&i!==d.id);
-  return {ids,pts:MAP.pts.filter(p=>p.e===d.id).length}}
-function mediaHTML(d){const cap=m=>m.caption?`<figcaption>${esc(m.caption)}</figcaption>`:'';
-  return (d.media||[]).map(m=>m.type==='image'?`<figure><img src="${esc(m.src)}" alt="${esc(m.caption||d.name)}" loading="lazy">${cap(m)}</figure>`:m.type==='audio'?`<figure><audio controls src="${esc(m.src)}"></audio>${cap(m)}</figure>`:`<figure><video controls src="${esc(m.src)}"></video>${cap(m)}</figure>`).join('')}
+const NR='<dd class="nr">Not recorded</dd>';
+const cap=s=>s?s[0].toUpperCase()+s.slice(1):s;
+const FACTS={
+ LOC:[['Control',d=>cap(d.facts.control)],['Ground class',d=>d.facts.ground_class&&'Class '+d.facts.ground_class],['Function',d=>d.facts.function],
+  ['Coordinates',d=>d.facts.lat!=null&&d.facts.lon!=null?`${(+d.facts.lat).toFixed(4)}°N ${(+d.facts.lon).toFixed(4)}°E${d.facts.coords_approximate?' (approximate)':''}`:''],
+  ['Water condition',d=>d.facts.water_condition],['Who is here',d=>({html:d.rel.filter(r=>BYID[r.id]&&BYID[r.id].type==='CHR').map(r=>`<a href="#e-${r.id}">${esc(short(BYID[r.id].name))}</a>`).join(', ')})],['Events here',d=>d.facts.events]],
+ CHR:[['Age',d=>d.facts.age&&d.facts.age+(d.facts.age_grade?` (${d.facts.age_grade})`:'')],['Role',d=>d.facts.role],['Group',d=>d.facts.group_name],['Commandment theme',d=>d.facts.commandment_theme],
+  ['First appearance',d=>story(d.facts.first_appearance,d.facts.first_appearance_t)],['Own Protocol',d=>story(d.facts.own_protocol,d.facts.own_protocol_t)],
+  ['Distinguishing trait',d=>d.facts.distinguishing_trait],['Fate',d=>d.facts.fate]],
+ OBJ:[['Type',d=>cap(d.facts.object_type)],['Holder',d=>d.facts.holder],['Origin',d=>d.facts.origin],['Function',d=>d.facts.function],['Last seen',d=>d.facts.last_seen]],
+ LOR:[['Type',d=>cap(d.facts.lore_type)],['Period',d=>d.facts.period],['Parties involved',d=>d.facts.parties],['Consequences',d=>d.facts.consequences]]};
+const short=n=>n.replace(/ \(.*$/,'');
+const story=(slug,t)=>slug?{html:`<a href="#story-${slug}">${esc((t||slug).split(':')[0])}</a>`}:'';
+function facts(d){
+  const cells=[['Reference',d.ref.replace('SYNPTCL/','')],['Category',META[d.type].label],['Mark',d.mark||META[d.type].mark],['Grade',d.grade?d.grade+' '+GRADE[d.grade]:''],['Status',d.status],
+    ...FACTS[d.type].map(([k,f])=>[k,f(d)])];
+  return `<dl class="facts">${cells.map(([k,v])=>`<div><dt>${k}</dt>${v&&v.html!==undefined?(v.html?`<dd>${v.html}</dd>`:NR):v?`<dd>${esc(v)}</dd>`:NR}</div>`).join('')}</dl>`}
+const kb=n=>n>=1048576?(n/1048576).toFixed(1)+' MB':n>=1024?Math.round(n/1024)+' KB':n+' bytes';
+function mediaBlocks(d){
+  const im=d.images||[],au=d.audio||[],vi=d.video||[],fi=d.files||[];
+  const hd=(t,ph,hint)=>`<div class="mh"><h3>${t}${ph?'<span class="ph-tag">placeholder</span>':''}</h3><small>${hint}</small></div>`;
+  let h=hd('Images',!im.length,im.length+' of 10');
+  h+=`<div class="imgs">${im.map(x=>`<figure title="${esc([x.caption,x.credit].filter(Boolean).join(' · '))}"><a href="${esc(x.src)}" target="_blank" rel="noopener"><img src="${esc(x.src)}" alt="${esc(x.alt||x.caption||d.name)}" loading="lazy"></a></figure>`).join('')}${Array.from({length:10-im.length},(_,i)=>{const n=im.length+i;return `<div class="slot">${n===0?ico('plus'):ico('image')}<span>${n===0?'Add image':String(n+1).padStart(2,'0')}</span></div>`}).join('')}</div>`;
+  if(im.some(x=>x.caption||x.credit))h+=`<div class="bm mono" style="font-size:12px;color:var(--muted);margin-top:8px">${im.map((x,i)=>x.caption||x.credit?`${String(i+1).padStart(2,'0')} ${esc([x.caption,x.credit&&'Credit: '+x.credit].filter(Boolean).join('. '))}`:'').filter(Boolean).join('<br>')}</div>`;
+  h+=hd('Audio',!au.length,au.length?au.length+' file'+(au.length>1?'s':''):'WAV or MP3');
+  h+=`<div class="mp">${au.length?au.map((x,i)=>`<div class="blk ${i%2?'alt':''}"><div class="bh"><span>${i===0?'<em>':''}${esc(x.label||'Audio')}${i===0?'</em>':''}</span><small>${esc(x.meta||'')}</small></div>${x.note?`<div class="bm">${esc(x.note)}</div>`:'<div style="height:10px"></div>'}<audio controls preload="none" src="${esc(x.src)}"></audio></div>`).join(''):`<div class="blk"><div class="bh"><span>Audio · <em>Recording</em></span><small>0:00 · WAV 24bit/96kHz</small></div><div class="bm">Source · Place · Date · Recordist</div><audio class="dis" controls></audio></div>`}</div>`;
+  h+=hd('Video',!vi.length,vi.length?vi.length+' file'+(vi.length>1?'s':''):'MP4');
+  h+=vi.length?vi.map(x=>`<div class="mp" style="margin-bottom:10px"><div class="blk"><video controls preload="metadata" src="${esc(x.src)}"></video>${x.caption?`<div class="bm">${esc(x.caption)}</div>`:''}</div></div>`).join(''):`<div class="vph">${ico('play')}</div>`;
+  h+=hd('Files',!fi.length,fi.length?fi.length+' file'+(fi.length>1?'s':''):'PDF');
+  h+=fi.length?`<div class="files">${fi.map(x=>{const ext=(x.src.split('?')[0].match(/\.([a-z0-9]+)$/i)||[,'file'])[1].toUpperCase();return `<a class="fl" href="${esc(x.src)}" target="_blank" rel="noopener">${ico('file')}<div><b>${esc(x.label)}</b><small>${[ext,x.pages?x.pages+' page'+(x.pages>1?'s':''):'',x.size?kb(x.size):''].filter(Boolean).join(' · ')}</small></div><span class="go">Open</span></a>`}).join('')}</div>`:`<div class="fl dash">${ico('file')}<div><b>Document name.pdf</b><small>PDF · 0 pages · 0 MB</small></div></div>`;
+  return h}
+const longDate=s=>{if(!s)return '';const [y,m,dd]=s.split('-');return `${+dd} ${['January','February','March','April','May','June','July','August','September','October','November','December'][m-1]} ${y}`};
 function entry(id){
-  const d=BYID[id];if(!d){home();return}const {ids,pts}=xrefs(d);const t=d.type;
+  const d=BYID[id];if(!d){home();return}const t=d.type;const rel=d.rel.filter(r=>BYID[r.id]);
+  const own=MAP.pts.some(p=>p.e===d.id);const place=!own&&rel.map(r=>r.id).find(i=>MAP.pts.some(p=>p.e===i));
+  const coords=t==='LOC'&&d.facts.lat!=null;
+  const mapBox=own?`<a class="btn p" href="#map-${d.id}" style="width:100%;justify-content:center">${ico('pin')} Show on map</a>`:place?`<a class="btn" href="#map-${place}" style="width:100%;justify-content:center">${ico('pin')} ${esc(short(BYID[place].name))} on the map</a>`:coords?`<a class="btn" href="#map" style="width:100%;justify-content:center">${ico('map')} Open the map</a>`:'';
+  const groups=[...new Set(rel.map(r=>r.label))];
+  const tags=[META[t].label,d.mark||META[t].mark,...rel.slice(0,6).map(r=>BYID[r.id])];
   $('#app').innerHTML=`<div class="wrap"><div class="docs">${side(t,id)}<article class="main"><div class="crumb"><a href="#home">Codex</a> / <a href="#c-${t.toLowerCase()}">${META[t].label}</a> / ${d.ref.replace('SYNPTCL/','')}</div>
-    <div class="ph"><span class="tag" style="--c:${COL[t]}">${d.mark||META[t].mark}</span>${grade(d.grade)}</div><h1 class="t">${esc(d.name)}</h1><p class="sum">${esc(d.summary)}</p>
-    ${(d.media&&d.media.length)?`<div class="media">${mediaHTML(d)}</div>`:''}
-    <div class="prose"><p>${esc(d.entry)}</p></div></article>
+    <div class="eref">${d.ref.replace('SYNPTCL/','').replace('/','-')}</div><h1 class="t">${esc(d.name)}</h1><p class="sum it">${esc(d.summary)}</p>
+    ${facts(d)}
+    <div class="tags">${tags.map(x=>typeof x==='string'?`<span>${esc(x.toLowerCase())}</span>`:`<a href="#e-${x.id}">${esc(short(x.name).toLowerCase())}</a>`).join('')}</div>
+    <div class="prose"><p>${esc(d.entry)}</p></div>
+    ${mediaBlocks(d)}</article>
     <aside class="rail">
-      ${pts?`<div class="box"><h6>Map</h6><a class="btn p" href="#map-${d.id}" style="width:100%;justify-content:center">${ico('pin')} Show on map</a></div>`:''}
-      <div class="box"><h6>Evidence</h6><p>${d.grade?`<span class="gl"><span class="g ${d.grade}">${d.grade}</span> ${GRADE[d.grade]}</span>`:'Not yet graded.'}</p>${d.reliability?`<p style="margin-top:8px">${esc(d.reliability)}</p>`:''}</div>
-      ${d.appears?`<div class="box"><h6>Appears in</h6><p>${esc(d.appears)}</p></div>`:''}
-      ${ids.length?`<div class="box"><h6>Connected entries</h6>${ids.map(i=>`<a class="x" href="#e-${i}">${dot(BYID[i].type)} ${esc(BYID[i].name.replace(/ \(.*$/,''))}</a>`).join('')}</div>`:''}
-      <div class="box"><h6>Media</h6><p>${(d.media&&d.media.length)?d.media.length+' attached':'None attached yet.'}</p></div>
+      ${mapBox?`<div class="box"><h6>Map</h6>${mapBox}</div>`:''}
+      <div class="box"><h6>Evidence</h6><p>${d.grade?`<span class="gl"><span class="g ${d.grade}">${d.grade}</span> ${GRADE[d.grade]}${d.sources!=null?` · ${d.sources} source${d.sources===1?'':'s'}`:''}</span>`:'Not yet graded.'}</p>${d.reliability?`<p style="margin-top:8px">${esc(d.reliability)}</p>`:''}</div>
+      <div class="box"><h6>Appears in</h6>${d.apps.length?d.apps.map(a=>`<a class="x" href="#story-${a.s}">${ico('book')} ${esc(a.t)}</a>`).join(''):''}${d.appears?`<p style="margin-top:${d.apps.length?8:0}px">${esc(d.appears)}</p>`:'<p>Not recorded</p>'}</div>
+      <div class="box"><h6>Connected entries</h6>${rel.length?groups.map(g=>`${groups.length>1||g!=='Connected'?`<div class="grp">${esc(g)}</div>`:''}${rel.filter(r=>r.label===g).map(r=>`<a class="x" href="#e-${r.id}">${dot(BYID[r.id].type)} ${esc(short(BYID[r.id].name))}</a>`).join('')}`).join(''):`<p>${esc(d.xnote||'None recorded.')}</p>`}</div>
+      <div class="box"><h6>Record</h6><dl><dt>Status</dt><dd>${esc(d.status)}</dd><dt>Updated</dt><dd>${longDate(d.updated)||'Not recorded'}</dd>${d.aliases?`<dt>Also</dt><dd>${esc(d.aliases)}</dd>`:''}</dl>${d.note?`<p style="margin-top:10px">${esc(d.note)}</p>`:''}</div>
     </aside></div></div>`}
 /* story */
 let STORY=null,storyLoad=null;
