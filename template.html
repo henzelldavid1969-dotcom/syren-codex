@@ -356,6 +356,9 @@ details>summary{list-style:none}details>summary::-webkit-details-marker{display:
 .side:hover::-webkit-scrollbar,.rail:hover::-webkit-scrollbar,.mlist:hover::-webkit-scrollbar,.pr:hover::-webkit-scrollbar,.win .body:hover::-webkit-scrollbar{width:6px;height:6px}
 .side::-webkit-scrollbar-thumb,.rail::-webkit-scrollbar-thumb,.mlist::-webkit-scrollbar-thumb,.pr::-webkit-scrollbar-thumb,.win .body::-webkit-scrollbar-thumb{background:var(--line);border-radius:3px}
 @media(max-width:1020px){.rail{max-height:none;overflow:visible}}
+.ecover{position:relative}
+.ecover .ph-tag,.imgs figure.phimg:after{position:absolute;top:12px;left:12px;margin:0;background:color-mix(in srgb,var(--bg) 72%,transparent)}
+.imgs figure.phimg:after{content:"placeholder";top:auto;bottom:7px;left:50%;transform:translateX(-50%);font:400 10px "Geist Mono",monospace;letter-spacing:.06em;text-transform:uppercase;color:var(--obj);border:1px dashed color-mix(in srgb,var(--obj) 50%,var(--line));border-radius:5px;padding:1px 6px}
 /* home page revision */
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 .brand{flex:none}
@@ -640,11 +643,12 @@ function facts(d){
     ...FACTS[d.type].map(([k,f])=>[k,f(d)])];
   return `<dl class="facts">${cells.map(([k,v])=>`<div><dt>${k}</dt>${v&&v.html!==undefined?(v.html?`<dd>${v.html}</dd>`:NR):v?`<dd>${esc(v)}</dd>`:NR}</div>`).join('')}</dl>`}
 const kb=n=>n>=1048576?(n/1048576).toFixed(1)+' MB':n>=1024?Math.round(n/1024)+' KB':n+' bytes';
+const shown=d=>d.images&&d.images.length?d.images:(HOME.site.placeholder_image?[{src:HOME.site.placeholder_image,alt:'Placeholder image',caption:'Placeholder image',ph:1}]:[]);
 function mediaBlocks(d){
-  const im=d.images||[],au=d.audio||[],vi=d.video||[],fi=d.files||[];
+  const real=d.images||[],im=shown(d),au=d.audio||[],vi=d.video||[],fi=d.files||[];
   const hd=(t,ph,hint)=>`<div class="mh"><h3>${t}${ph?'<span class="ph-tag">placeholder</span>':''}</h3><small>${hint}</small></div>`;
-  let h=hd('Images',!im.length,im.length+' of 10');
-  h+=`<div class="imgs">${im.map((x,i)=>`<figure title="${esc([x.caption,x.credit].filter(Boolean).join(' · '))}"><a href="${esc(x.src)}" target="_blank" rel="noopener" data-lb="${i}" aria-label="Open image ${i+1} of ${im.length}"><img src="${esc(x.src)}" alt="${esc(x.alt||x.caption||d.name)}" loading="lazy"></a></figure>`).join('')}${Array.from({length:10-im.length},(_,i)=>{const n=im.length+i;return `<div class="slot">${n===0?ico('plus'):ico('image')}<span>${n===0?'Add image':String(n+1).padStart(2,'0')}</span></div>`}).join('')}</div>`;
+  let h=hd('Images',!real.length,real.length+' of 10');
+  h+=`<div class="imgs">${im.map((x,i)=>`<figure class="${x.ph?'phimg':''}" title="${esc(x.ph?'Placeholder':[x.caption,x.credit].filter(Boolean).join(' · '))}"><a href="${esc(x.src)}" target="_blank" rel="noopener" data-lb="${i}" aria-label="Open image ${i+1} of ${im.length}"><img src="${esc(x.src)}" alt="${esc(x.alt||x.caption||d.name)}" loading="lazy"></a></figure>`).join('')}${Array.from({length:10-im.length},(_,i)=>{const n=im.length+i;return `<div class="slot">${n===0?ico('plus'):ico('image')}<span>${n===0?'Add image':String(n+1).padStart(2,'0')}</span></div>`}).join('')}</div>`;
   if(im.some(x=>x.caption||x.credit))h+=`<div class="bm mono" style="font-size:12px;color:var(--muted);margin-top:8px">${im.map((x,i)=>x.caption||x.credit?`${String(i+1).padStart(2,'0')} ${esc([x.caption,x.credit&&'Credit: '+x.credit].filter(Boolean).join('. '))}`:'').filter(Boolean).join('<br>')}</div>`;
   h+=hd('Audio',!au.length,au.length?au.length+' file'+(au.length>1?'s':''):'WAV or MP3');
   h+=`<div class="mp">${au.length?au.map((x,i)=>`<div class="blk ${i%2?'alt':''}"><div class="bh"><span>${i===0?'<em>':''}${esc(x.label||'Audio')}${i===0?'</em>':''}</span><small>${esc(x.meta||'')}</small></div>${x.note?`<div class="bm">${esc(x.note)}</div>`:'<div style="height:10px"></div>'}<audio controls preload="none" src="${esc(x.src)}"></audio></div>`).join(''):`<div class="blk"><div class="bh"><span>Audio · <em>Recording</em></span><small>0:00 · WAV 24bit/96kHz</small></div><div class="bm">Source · Place · Date · Recordist</div><audio class="dis" controls></audio></div>`}</div>`;
@@ -666,7 +670,7 @@ function entry(id){
   const tags=[META[t].label,d.mark||META[t].mark,...rel.slice(0,6).map(r=>BYID[r.id])];
   $('#app').innerHTML=`<div class="wrap"><div class="docs">${side(t,id)}<article class="main"><header class="ehead"><div class="crumb"><a href="#home">Codex</a> / <a href="#c-${t.toLowerCase()}">${META[t].label}</a> / ${d.ref.replace('SYNPTCL/','')}</div>
     <div class="eref">${d.ref.replace('SYNPTCL/','').replace('/','-')}</div><h1 class="t">${esc(d.name)}</h1></header><p class="sum it">${esc(d.summary)}</p>
-    ${d.images&&d.images.length?`<a class="ecover" href="${esc(d.images[0].src)}" target="_blank" rel="noopener" data-lb="0" aria-label="Open the cover image"><img src="${esc(d.images[0].src)}" alt="${esc(d.images[0].alt||d.images[0].caption||d.name)}"></a>`:''}
+    ${shown(d).length?`<a class="ecover" href="${esc(shown(d)[0].src)}" target="_blank" rel="noopener" data-lb="0" aria-label="Open the cover image"><img src="${esc(shown(d)[0].src)}" alt="${esc(shown(d)[0].alt||shown(d)[0].caption||d.name)}">${shown(d)[0].ph?'<span class="ph-tag">placeholder</span>':''}</a>`:''}
     ${facts(d)}
     <div class="tags">${tags.map(x=>typeof x==='string'?`<span>${esc(x.toLowerCase())}</span>`:`<a href="#e-${x.id}">${esc(short(x.name).toLowerCase())}</a>`).join('')}</div>
     <div class="prose"><p>${esc(d.entry)}</p></div>
@@ -679,7 +683,7 @@ function entry(id){
       ${panel('Connected entries',rel.length,rel.length?groups.map(g=>`${groups.length>1||g!=='Connected'?`<div class="grp">${esc(g)}</div>`:''}${rel.filter(r=>r.label===g).map(r=>`<a class="rl" href="#e-${r.id}" title="${esc(BYID[r.id].name)}"><span class="rp">${BYID[r.id].ref.replace('SYNPTCL/','')}</span><span class="tt">${esc(BYID[r.id].name)}</span></a>`).join('')}`).join(''):`<p>${esc(d.xnote||'None recorded.')}</p>`,false)}
       ${panel('Record',2+(d.aliases?1:0)+(d.note?1:0),`<dl><dt>Status</dt><dd>${esc(d.status)}</dd><dt>Updated</dt><dd>${longDate(d.updated)||'Not recorded'}</dd>${d.aliases?`<dt>Also</dt><dd>${esc(d.aliases)}</dd>`:''}</dl>${d.note?`<p style="margin-top:10px">${esc(d.note)}</p>`:''}`,false)}
     </aside></div></div>`;
-  $('#app').querySelectorAll('[data-lb]').forEach(a=>a.onclick=e=>{e.preventDefault();lbOpen(d.images,+a.dataset.lb)})}
+  $('#app').querySelectorAll('[data-lb]').forEach(a=>a.onclick=e=>{e.preventDefault();lbOpen(shown(d),+a.dataset.lb)})}
 /* story */
 let STORY=null,storyLoad=null;
 const getStory=()=>storyLoad||(storyLoad=fetch('story.json').then(r=>{if(!r.ok)throw new Error(r.status);return r.json()}).then(s=>STORY=s).catch(e=>{storyLoad=null;throw e}));
