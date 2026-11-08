@@ -513,6 +513,51 @@ details>summary{list-style:none}details>summary::-webkit-details-marker{display:
  .nav.open .links{display:flex}.links a{padding:10px 10px;font-size:15px}}
 @media(max-width:560px){.nav .btn.p{display:none}.links a.only-m{display:block}}
 .hero .lede.lt{margin-top:12px;opacity:.72}
+/* menu: on wide screens a plain row (extras hidden); in the phone and tablet
+   menu, icons, a Codex heading with counts, search, and an acid bar for the
+   current section */
+.links .nic,.links .nh,.links .nc,.links .nsr{display:none}
+@media(max-width:1080px){
+ .links{max-height:calc(100dvh - 56px);overflow:auto;padding:10px max(16px,env(safe-area-inset-left)) 16px;gap:0}
+ .links a,.links .nsr{position:relative;display:flex;align-items:center;gap:12px;padding:11px 12px;font-size:15px;border-radius:8px;background:none;color:var(--fg)}
+ .links a:hover{background:var(--raise)}
+ .links a.on{background:none;font-weight:500}
+ .links a.on:before{content:"";position:absolute;left:0;top:10px;bottom:10px;width:3px;border-radius:2px;background:var(--accent)}
+ .links .nic{display:block;width:19px;height:19px;flex:none;stroke:currentColor;fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;color:var(--muted)}
+ .links a.on .nic{color:var(--fg)}
+ .links .nc{display:block;margin-left:auto;font:400 12px "Geist Mono",monospace;color:var(--muted);font-variant-numeric:tabular-nums}
+ .links .nh{display:block;margin:10px 12px 2px;padding-top:14px;border-top:1px solid var(--line);font:500 11px "Geist Mono",monospace;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+ .links .nsr{width:100%;margin-top:10px;border:0;border-top:1px solid var(--line);border-radius:0;padding-top:16px;font:inherit;font-size:15px;color:var(--muted);cursor:pointer;text-align:left}}
+/* "where you are" bar and contents panel (phones and tablets) */
+.ctx{display:none}
+@media(max-width:1020px){
+ .ctx.on{display:flex;position:sticky;top:56px;z-index:39;align-items:center;gap:2px;height:46px;padding:0 max(8px,env(safe-area-inset-left));background:color-mix(in srgb,var(--bg) 90%,transparent);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}}
+.cx-a{flex:none;width:38px;height:38px;display:grid;place-items:center;border-radius:8px;color:var(--fg)}
+.cx-a .ico{width:18px;height:18px}
+.cx-a:hover{background:var(--raise)}
+.cx-a.off{opacity:.22}
+.cx-t{flex:1;min-width:0;display:flex;align-items:center;justify-content:center;gap:9px;height:38px;padding:0 6px;border:0;border-radius:8px;background:none;font:500 11.5px "Geist Mono",monospace;letter-spacing:.06em;text-transform:uppercase;color:var(--fg);cursor:pointer}
+.cx-t:hover{background:var(--raise)}
+.cx-t span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.cx-t .chev{flex:none;width:6px;height:6px;border-right:1.4px solid currentColor;border-bottom:1.4px solid currentColor;transform:rotate(45deg);margin-top:-4px}
+.cx-a:focus-visible,.cx-t:focus-visible,.sh-x:focus-visible{outline:2px solid var(--fg);outline-offset:-2px}
+.cx-p{position:absolute;left:0;right:0;bottom:-1px;height:2px;pointer-events:none}
+.cx-p i{display:block;height:100%;width:calc(var(--p,0) * 100%);background:var(--accent)}
+.sheet{position:fixed;inset:0;z-index:70}
+.sheet[hidden]{display:none}
+.sh-bd{position:absolute;inset:0;background:rgba(0,0,0,.4);opacity:0;transition:opacity .28s}
+.sh-p{position:absolute;left:0;right:0;bottom:0;margin:0 auto;max-width:640px;max-height:84vh;display:flex;flex-direction:column;background:var(--bg);border:1px solid var(--line);border-bottom:0;border-radius:18px 18px 0 0;padding-bottom:env(safe-area-inset-bottom,0px);transform:translateY(100%);transition:transform .32s cubic-bezier(.2,.8,.2,1);box-shadow:0 -20px 50px -30px rgba(0,0,0,.5)}
+.sh-p:before{content:"";position:absolute;top:7px;left:50%;width:38px;height:4px;margin-left:-19px;border-radius:2px;background:var(--line)}
+.sheet.on .sh-bd{opacity:1}
+.sheet.on .sh-p{transform:none}
+.sh-h{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:18px 12px 10px 20px;border-bottom:1px solid var(--line);font:500 11.5px "Geist Mono",monospace;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.sh-x{width:36px;height:36px;display:grid;place-items:center;border:0;border-radius:8px;background:none;color:var(--fg);cursor:pointer}
+.sh-x .ico{width:18px;height:18px}
+.sh-b{overflow:auto;overscroll-behavior:contain;padding:8px 12px 20px 14px}
+.sheet .side{display:block;position:static;max-height:none;overflow:visible;padding-right:0}
+.sheet .side a{padding:9px 8px;font-size:15px}
+.sheet .side summary{padding:10px 8px}
+@media(prefers-reduced-motion:reduce){.sh-bd,.sh-p{transition:none}}
 /* intro: no single word left alone on the last line. text-wrap does it where
    supported; the non-breaking space before the last word covers the rest. */
 .hero .lede{text-wrap:pretty}
@@ -745,6 +790,8 @@ details>summary{list-style:none}details>summary::-webkit-details-marker{display:
   <button class="tog" id="theme" aria-label="Toggle theme">◐</button>
   <button class="mbtn" id="menu" aria-label="Menu" aria-expanded="false" aria-controls="links"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
 </div></header>
+<div class="ctx" id="ctx"></div>
+<div class="sheet" id="sheet" hidden><div class="sh-bd"></div><div class="sh-p" role="dialog" aria-modal="true" aria-labelledby="sh-t"><div class="sh-h"><span id="sh-t"></span><button class="sh-x" aria-label="Close contents"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></button></div><div class="sh-b"></div></div></div>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
 <symbol id="i-loc" viewBox="0 0 24 24"><path d="M12 21s6-5.4 6-10.5a6 6 0 0 0-12 0C6 15.6 12 21 12 21z"/><circle cx="12" cy="10.5" r="2.2"/><path d="M12 1.5v2M2.5 10.5h2M19.5 10.5h2"/></symbol>
 <symbol id="i-chr" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4.5 21c0-4 3.4-6.5 7.5-6.5s7.5 2.5 7.5 6.5"/><path d="M8.2 7.2h7.6" stroke-width="3.2"/></symbol>
@@ -830,8 +877,14 @@ function snip(d,q){const toks=norm(q).split(/\s+/).filter(Boolean);if(!toks.leng
 const refno=d=>`<span class="rno">${esc(d.ref.split('/').pop())}</span>`;
 const grade=g=>g?`<span class="g ${g}" title="${GRADE[g]}">${g}</span>`:'';
 const count=t=>DATA.filter(d=>d.type===t).length;
-const NAV=[['story','Story','book'],['map','Map','map'],['c-loc','Locations','pin'],['c-chr','Characters','user'],['c-obj','Objects','cube'],['c-lor','Lore','waves']];
-function navPaint(h){$('#links').innerHTML=NAV.map(([k,l,ic])=>{const on=h===k||h.startsWith(k+'-')||(k.startsWith('c-')&&h.startsWith('e-'+k.slice(2)+'-'))||(k==='map'&&h.startsWith('map'));return `<a href="#${k}" class="${on?'on':''}">${l}</a>`}).join('')+'<a class="only-m" href="#story">Read the story</a>'}
+const NAV=[['story','Story','i-book'],['map','Map','i-map'],['c-loc','Locations','i-loc'],['c-chr','Characters','i-chr'],['c-obj','Objects','i-obj'],['c-lor','Lore','i-lor']];
+// The header links. On wide screens a plain row; in the phone and tablet menu
+// the same links gain icons, a Codex heading with live counts, and search.
+function navPaint(h){$('#links').innerHTML=NAV.map(([k,l,ic],i)=>{const on=h===k||h.startsWith(k+'-')||(k.startsWith('c-')&&h.startsWith('e-'+k.slice(2)+'-'))||(k==='map'&&h.startsWith('map'));
+    const t=k.startsWith('c-')?k.slice(2).toUpperCase():'';
+    return `${i===2?'<span class="nh">The Codex</span>':''}<a href="#${k}" class="${on?'on':''}"${on?' aria-current="page"':''}><svg class="nic" aria-hidden="true"><use href="#${ic}"/></svg><span>${l}</span>${t?`<small class="nc">${count(t)}</small>`:''}</a>`}).join('')
+  +`<button class="nsr" type="button"><svg class="nic" viewBox="0 0 24 24" aria-hidden="true">${IC.search||''}</svg><span>Search the archive</span></button>`;
+  $('.nsr',$('#links')).onclick=()=>{menuSet(false);pOpen()}}
 let pTypes=[],pSel=0,pRes=[];
 function pOpen(){$('#ov').classList.add('on');const i=$('#q');i.value='';pTypes=[];pSel=0;pPaint();i.focus()}
 function pClose(){$('#ov').classList.remove('on')}
@@ -1203,7 +1256,7 @@ function storyPage(slug){const P=storyOrder(),i=P.findIndex(x=>x.s===slug);if(i<
   $('#app').innerHTML=`<div class="wrap"><div class="docs two">${storySide(slug)}<article class="main"><div class="crumb"><a href="#home">Codex</a> / <a href="#story">Story</a> / ${esc(p.t.split(':')[0])}</div><h1 class="t">${esc(p.t)}</h1>
     <div class="prose sprose">${p.html}</div>
     <nav class="pager">${pv?`<a href="#story-${pv.s}"><small>Previous</small>${esc(pv.t)}</a>`:'<a href="#story"><small>Back to</small>Contents</a>'}${nx?`<a class="nx" href="#story-${nx.s}"><small>Next</small>${esc(nx.t)}</a>`:'<a class="nx" href="#story"><small>Back to</small>Contents</a>'}</nav></article></div></div>`}
-function storyRoute(h){const draw=()=>{h==='story'?storyHome():storyPage(h.slice(6));scrollTo(0,0)};
+function storyRoute(h){const draw=()=>{h==='story'?storyHome():storyPage(h.slice(6));ctxPaint(h);scrollTo(0,0)};
   if(STORY)return draw();
   $('#app').innerHTML='<div class="wrap"><div class="empty">Opening the manuscript…</div></div>';
   getStory().then(()=>{if((location.hash||'#home').slice(1)===h)draw()}).catch(()=>{$('#app').innerHTML='<div class="wrap"><div class="empty">The manuscript could not be loaded. Please reload the page.</div></div>'})}
@@ -1231,12 +1284,41 @@ document.addEventListener('keydown',e=>{if(!lbEl.classList.contains('on'))return
   else{e.stopImmediatePropagation();return}e.preventDefault();e.stopImmediatePropagation()},true);
 let lbX=null;$('img',lbEl).addEventListener('pointerdown',e=>{lbX=e.clientX});
 $('img',lbEl).addEventListener('pointerup',e=>{if(lbX!==null&&Math.abs(e.clientX-lbX)>50)lbGo(e.clientX<lbX?1:-1);lbX=null});
-function route(){const h=(location.hash||'#home').slice(1);navPaint(h);menuSet(false);lbClose();
+function route(){const h=(location.hash||'#home').slice(1);navPaint(h);menuSet(false);lbClose();sheetClose(true);ctxPaint(h);
   if(h==='story'||h.startsWith('story-'))storyRoute(h);
   else if(h==='map')mapView();else if(h.startsWith('map-'))mapView(h.slice(4));
   else if(h.startsWith('c-')&&META[h.slice(2).toUpperCase()])cat(h.slice(2));
   else if(h.startsWith('e-'))entry(h.slice(2));else home();
   scrollTo(0,0)}
+// ---------------------------------------------------------------------------
+// "Where you are" bar (phones and tablets, where the sidebars are hidden):
+// the current chapter or entry, previous and next, and a panel with the full
+// contents. In chapters a thin line shows how far through you are.
+// ---------------------------------------------------------------------------
+const ctxEl=$('#ctx'),shEl=$('#sheet');let ctxBody=null,ctxTitle='',shLast=null;
+const chevL='<svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5.5 8.5 12l6.5 6.5"/></svg>',chevR='<svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5.5 15.5 12 9 18.5"/></svg>';
+function ctxPaint(h){let lab='',prev=null,next=null,prog=false;ctxBody=null;
+  if(h.startsWith('story-')&&STORY){const P=storyOrder(),i=P.findIndex(x=>x.s===h.slice(6));if(i>-1){const p=P[i];lab=p.l||p.t;prev=P[i-1]?['#story-'+P[i-1].s,P[i-1].t]:'';next=P[i+1]?['#story-'+P[i+1].s,P[i+1].t]:'';ctxBody=()=>storySide(p.s);ctxTitle='Contents';prog=true}}
+  else if(h.startsWith('e-')&&BYID[h.slice(2)]){const d=BYID[h.slice(2)],L=markGroups(d.type).flatMap(g=>g.items),i=L.indexOf(d);lab=d.ref.replace('SYNPTCL/','')+' · '+d.name.replace(/ \(.*$/,'');
+    prev=L[i-1]?['#e-'+L[i-1].id,L[i-1].name]:'';next=L[i+1]?['#e-'+L[i+1].id,L[i+1].name]:'';ctxBody=()=>side(d.type,d.id);ctxTitle='The Codex · '+META[d.type].label}
+  else if(h.startsWith('c-')&&META[h.slice(2).toUpperCase()]){const t=h.slice(2).toUpperCase();lab=META[t].label+' · '+count(t)+' entries';ctxBody=()=>side(t,'');ctxTitle='The Codex'}
+  if(!ctxBody){ctxEl.className='ctx';ctxEl.innerHTML='';return}
+  const arr=(x,ic,rel)=>x===null?'':x?`<a class="cx-a" href="${x[0]}" aria-label="${rel}: ${esc(x[1])}">${ic}</a>`:`<span class="cx-a off" aria-hidden="true">${ic}</span>`;
+  ctxEl.className='ctx on'+(prog?' prog':'');ctxEl.style.setProperty('--p',0);
+  ctxEl.innerHTML=`${arr(prev,chevL,'Previous')}<button class="cx-t" type="button" aria-haspopup="dialog" aria-expanded="false" aria-label="${esc(lab)}. Open the contents"><span>${esc(lab)}</span><i class="chev" aria-hidden="true"></i></button>${arr(next,chevR,'Next')}${prog?'<div class="cx-p" aria-hidden="true"><i></i></div>':''}`;
+  $('.cx-t',ctxEl).onclick=sheetOpen;ctxProg()}
+function ctxProg(){if(!ctxEl.classList.contains('prog'))return;const a=$('.sprose');if(!a)return;const r=a.getBoundingClientRect(),vh=innerHeight;
+  const p=Math.min(1,Math.max(0,(vh*.35-r.top)/Math.max(1,r.height-vh*.5)));ctxEl.style.setProperty('--p',p.toFixed(4))}
+addEventListener('scroll',ctxProg,{passive:true});addEventListener('resize',ctxProg,{passive:true});
+function sheetOpen(){if(!ctxBody)return;shLast=document.activeElement;$('#sh-t').textContent=ctxTitle;const b=$('.sh-b',shEl);b.innerHTML=ctxBody().replace(/ name="/g,' name="sh-');
+  shEl.hidden=false;document.body.style.overflow='hidden';const t=$('.cx-t',ctxEl);t&&t.setAttribute('aria-expanded','true');
+  requestAnimationFrame(()=>{shEl.classList.add('on');const c=$('a.on',b);if(c)c.scrollIntoView({block:'center'});$('.sh-x',shEl).focus()})}
+function sheetClose(keepFocus){if(shEl.hidden)return;shEl.classList.remove('on');document.body.style.overflow='';const t=$('.cx-t',ctxEl);t&&t.setAttribute('aria-expanded','false');
+  setTimeout(()=>{if(!shEl.classList.contains('on'))shEl.hidden=true},matchMedia('(prefers-reduced-motion:reduce)').matches?0:320);if(!keepFocus&&shLast&&shLast.isConnected)shLast.focus()}
+$('.sh-x',shEl).onclick=()=>sheetClose();$('.sh-bd',shEl).onclick=()=>sheetClose();
+shEl.addEventListener('click',e=>{if(e.target.closest('a[href^="#"]'))sheetClose(true)});
+document.addEventListener('keydown',e=>{if(shEl.hidden)return;if(e.key==='Escape'){e.preventDefault();sheetClose()}
+  else if(e.key==='Tab'){const f=[...shEl.querySelectorAll('button,a[href],summary')].filter(x=>x.offsetParent),i=f.indexOf(document.activeElement);if(f.length){e.preventDefault();f[(i+(e.shiftKey?-1:1)+f.length)%f.length].focus()}}});
 addEventListener('hashchange',route);
 $('#stamp').textContent=DATA.length+' entries, '+MAP.pts.length+' map points';
 route();
