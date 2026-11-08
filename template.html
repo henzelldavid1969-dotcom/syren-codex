@@ -305,6 +305,18 @@ footer .cols a:hover{color:var(--fg)}
 .rail dl{margin:0;display:grid;grid-template-columns:auto 1fr;gap:4px 12px}
 .rail dt{color:var(--muted)}.rail dd{margin:0}
 .facts dd a{color:var(--accent)}.facts dd a:hover{text-decoration:underline}
+.lb{position:fixed;inset:0;z-index:120;background:rgba(6,8,8,.9);backdrop-filter:blur(4px);display:none;align-items:center;justify-content:center;padding:64px 76px}
+.lb.on{display:flex}
+.lb figure{margin:0;display:flex;flex-direction:column;align-items:center;gap:14px;max-width:100%;max-height:100%;min-width:0}
+.lb img{display:block;max-width:min(1400px,100%);max-height:calc(100vh - 170px);object-fit:contain;border-radius:8px;box-shadow:0 20px 60px rgba(0,0,0,.6);touch-action:pan-y;user-select:none}
+.lb figcaption{font:400 13px/1.5 "Geist Mono",monospace;color:#c8ccca;text-align:center;max-width:60em}
+.lb figcaption:empty{display:none}
+.lb .lbn{position:absolute;top:22px;left:24px;font:400 12px "Geist Mono",monospace;color:#c8ccca;letter-spacing:.06em}
+.lb button{position:absolute;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.2);color:#fff;border-radius:50%;width:44px;height:44px;display:grid;place-items:center;font-size:20px;line-height:1}
+.lb button:hover,.lb button:focus-visible{background:rgba(255,255,255,.18);outline:none}
+.lb button[hidden]{display:none}
+.lb .lx{top:14px;right:16px}.lb .lp{left:16px;top:50%;transform:translateY(-50%)}.lb .ln{right:16px;top:50%;transform:translateY(-50%)}
+@media(max-width:700px){.lb{padding:60px 12px 84px}.lb .lp,.lb .ln{top:auto;bottom:18px;transform:none}.lb .lp{left:calc(50% - 56px)}.lb .ln{right:calc(50% - 56px)}}
 </style>
 <header class="nav"><div class="wrap">
   <a class="brand" href="#home"><i></i>Syren Codex</a>
@@ -324,6 +336,7 @@ footer .cols a:hover{color:var(--fg)}
   <div class="pf" id="pf"></div>
   <div class="pr" id="pr"></div>
 </div></div>
+<div class="lb" id="lb" role="dialog" aria-modal="true" aria-label="Image viewer"><span class="lbn"></span><button class="lx" aria-label="Close">×</button><button class="lp" aria-label="Previous image">‹</button><figure><img alt=""><figcaption></figcaption></figure><button class="ln" aria-label="Next image">›</button></div>
 <script>
 const DATA=/*DATA*/;
 const META=/*META*/;
@@ -526,7 +539,7 @@ function mediaBlocks(d){
   const im=d.images||[],au=d.audio||[],vi=d.video||[],fi=d.files||[];
   const hd=(t,ph,hint)=>`<div class="mh"><h3>${t}${ph?'<span class="ph-tag">placeholder</span>':''}</h3><small>${hint}</small></div>`;
   let h=hd('Images',!im.length,im.length+' of 10');
-  h+=`<div class="imgs">${im.map(x=>`<figure title="${esc([x.caption,x.credit].filter(Boolean).join(' · '))}"><a href="${esc(x.src)}" target="_blank" rel="noopener"><img src="${esc(x.src)}" alt="${esc(x.alt||x.caption||d.name)}" loading="lazy"></a></figure>`).join('')}${Array.from({length:10-im.length},(_,i)=>{const n=im.length+i;return `<div class="slot">${n===0?ico('plus'):ico('image')}<span>${n===0?'Add image':String(n+1).padStart(2,'0')}</span></div>`}).join('')}</div>`;
+  h+=`<div class="imgs">${im.map((x,i)=>`<figure title="${esc([x.caption,x.credit].filter(Boolean).join(' · '))}"><a href="${esc(x.src)}" target="_blank" rel="noopener" data-lb="${i}" aria-label="Open image ${i+1} of ${im.length}"><img src="${esc(x.src)}" alt="${esc(x.alt||x.caption||d.name)}" loading="lazy"></a></figure>`).join('')}${Array.from({length:10-im.length},(_,i)=>{const n=im.length+i;return `<div class="slot">${n===0?ico('plus'):ico('image')}<span>${n===0?'Add image':String(n+1).padStart(2,'0')}</span></div>`}).join('')}</div>`;
   if(im.some(x=>x.caption||x.credit))h+=`<div class="bm mono" style="font-size:12px;color:var(--muted);margin-top:8px">${im.map((x,i)=>x.caption||x.credit?`${String(i+1).padStart(2,'0')} ${esc([x.caption,x.credit&&'Credit: '+x.credit].filter(Boolean).join('. '))}`:'').filter(Boolean).join('<br>')}</div>`;
   h+=hd('Audio',!au.length,au.length?au.length+' file'+(au.length>1?'s':''):'WAV or MP3');
   h+=`<div class="mp">${au.length?au.map((x,i)=>`<div class="blk ${i%2?'alt':''}"><div class="bh"><span>${i===0?'<em>':''}${esc(x.label||'Audio')}${i===0?'</em>':''}</span><small>${esc(x.meta||'')}</small></div>${x.note?`<div class="bm">${esc(x.note)}</div>`:'<div style="height:10px"></div>'}<audio controls preload="none" src="${esc(x.src)}"></audio></div>`).join(''):`<div class="blk"><div class="bh"><span>Audio · <em>Recording</em></span><small>0:00 · WAV 24bit/96kHz</small></div><div class="bm">Source · Place · Date · Recordist</div><audio class="dis" controls></audio></div>`}</div>`;
@@ -555,7 +568,8 @@ function entry(id){
       <div class="box"><h6>Appears in</h6>${d.apps.length?d.apps.map(a=>`<a class="x" href="#story-${a.s}">${ico('book')} ${esc(a.t)}</a>`).join(''):''}${d.appears?`<p style="margin-top:${d.apps.length?8:0}px">${esc(d.appears)}</p>`:'<p>Not recorded</p>'}</div>
       <div class="box"><h6>Connected entries</h6>${rel.length?groups.map(g=>`${groups.length>1||g!=='Connected'?`<div class="grp">${esc(g)}</div>`:''}${rel.filter(r=>r.label===g).map(r=>`<a class="x" href="#e-${r.id}">${dot(BYID[r.id].type)} ${esc(short(BYID[r.id].name))}</a>`).join('')}`).join(''):`<p>${esc(d.xnote||'None recorded.')}</p>`}</div>
       <div class="box"><h6>Record</h6><dl><dt>Status</dt><dd>${esc(d.status)}</dd><dt>Updated</dt><dd>${longDate(d.updated)||'Not recorded'}</dd>${d.aliases?`<dt>Also</dt><dd>${esc(d.aliases)}</dd>`:''}</dl>${d.note?`<p style="margin-top:10px">${esc(d.note)}</p>`:''}</div>
-    </aside></div></div>`}
+    </aside></div></div>`;
+  $('#app').querySelectorAll('[data-lb]').forEach(a=>a.onclick=e=>{e.preventDefault();lbOpen(d.images,+a.dataset.lb)})}
 /* story */
 let STORY=null,storyLoad=null;
 const getStory=()=>storyLoad||(storyLoad=fetch('story.json').then(r=>{if(!r.ok)throw new Error(r.status);return r.json()}).then(s=>STORY=s).catch(e=>{storyLoad=null;throw e}));
@@ -574,7 +588,24 @@ function storyRoute(h){const draw=()=>{h==='story'?storyHome():storyPage(h.slice
   if(STORY)return draw();
   $('#app').innerHTML='<div class="wrap"><div class="empty">Opening the manuscript…</div></div>';
   getStory().then(()=>{if((location.hash||'#home').slice(1)===h)draw()}).catch(()=>{$('#app').innerHTML='<div class="wrap"><div class="empty">The manuscript could not be loaded. Please reload the page.</div></div>'})}
-function route(){const h=(location.hash||'#home').slice(1);navPaint(h);
+/* lightbox */
+const LB={list:[],i:0,last:null};const lbEl=$('#lb');
+function lbShow(){const x=LB.list[LB.i],img=$('img',lbEl),n=LB.list.length;img.src=x.src;img.alt=x.alt||x.caption||'';
+  $('figcaption',lbEl).textContent=[x.caption,x.credit&&'Credit: '+x.credit].filter(Boolean).join(' · ');
+  $('.lbn',lbEl).textContent=n>1?`${LB.i+1} / ${n}`:'';$('.lp',lbEl).hidden=$('.ln',lbEl).hidden=n<2;
+  if(n>1)[1,-1].forEach(k=>{new Image().src=LB.list[(LB.i+k+n)%n].src})}
+function lbOpen(list,i){LB.list=list;LB.i=i;LB.last=document.activeElement;lbShow();lbEl.classList.add('on');document.body.style.overflow='hidden';$('.lx',lbEl).focus()}
+function lbClose(){if(!lbEl.classList.contains('on'))return;lbEl.classList.remove('on');document.body.style.overflow='';$('img',lbEl).removeAttribute('src');LB.last&&LB.last.focus&&LB.last.focus()}
+function lbGo(k){const n=LB.list.length;if(n<2)return;LB.i=(LB.i+k+n)%n;lbShow()}
+$('.lx',lbEl).onclick=lbClose;$('.lp',lbEl).onclick=()=>lbGo(-1);$('.ln',lbEl).onclick=()=>lbGo(1);
+lbEl.addEventListener('click',e=>{if(e.target===lbEl||e.target.tagName==='FIGURE')lbClose()});
+document.addEventListener('keydown',e=>{if(!lbEl.classList.contains('on'))return;
+  if(e.key==='Escape')lbClose();else if(e.key==='ArrowRight')lbGo(1);else if(e.key==='ArrowLeft')lbGo(-1);
+  else if(e.key==='Tab'){const f=[...lbEl.querySelectorAll('button:not([hidden])')],i=f.indexOf(document.activeElement);f[(i+(e.shiftKey?-1:1)+f.length)%f.length].focus()}
+  else{e.stopImmediatePropagation();return}e.preventDefault();e.stopImmediatePropagation()},true);
+let lbX=null;$('img',lbEl).addEventListener('pointerdown',e=>{lbX=e.clientX});
+$('img',lbEl).addEventListener('pointerup',e=>{if(lbX!==null&&Math.abs(e.clientX-lbX)>50)lbGo(e.clientX<lbX?1:-1);lbX=null});
+function route(){const h=(location.hash||'#home').slice(1);navPaint(h);lbClose();
   if(h==='story'||h.startsWith('story-'))storyRoute(h);
   else if(h==='map')mapView();else if(h.startsWith('map-'))mapView(h.slice(4));
   else if(h.startsWith('c-')&&META[h.slice(2).toUpperCase()])cat(h.slice(2));
