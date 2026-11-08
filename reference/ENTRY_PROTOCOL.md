@@ -117,7 +117,7 @@ The five Protocol chapters (3, 6, 9, 12, 15) each close a part of the book, so t
 | 15 | chapter | Chapter 7: The Musician | Ch 7 · The Musician | Part 3 |
 | 16 | interlude | Interlude III: Major Budanov, Aleja Szucha | Int III · Budanov | Part 3 |
 | 17 | chapter | Chapter 8: The Medic | Ch 8 · The Medic | Part 3 |
-| 18 | protocol | Chapter 9: The Dendron (Protocol 003) | Ch 9 · The Dendron · P003 | Part 3 |
+| 18 | protocol | Chapter 9: The Dendron (Protocol 003) | Ch 9 · Dendron · P003 | Part 3 |
 | 19 | interlude | Interlude IV: The Voice, Studio Two | Int IV · The Voice | Part 4 |
 | 20 | chapter | Chapter 10: The Listener | Ch 10 · The Listener | Part 4 |
 | 21 | chapter | Chapter 11: The Orphan | Ch 11 · The Orphan | Part 4 |

@@ -64,7 +64,7 @@
    "marks": [
     {
      "c": "LOAD_STRESS",
-     "l": ""
+     "l": "Programme and compliance"
     },
     {
      "c": "DIFF_REF_89",
@@ -221,7 +221,7 @@
     {
      "s": "chapter-9-the-dendron-protocol-003",
      "t": "Chapter 9: The Dendron (Protocol 003)",
-     "l": "Ch 9 · The Dendron · P003"
+     "l": "Ch 9 · Dendron · P003"
     }
    ],
    "images": [],
@@ -272,7 +272,7 @@
     {
      "s": "chapter-9-the-dendron-protocol-003",
      "t": "Chapter 9: The Dendron (Protocol 003)",
-     "l": "Ch 9 · The Dendron · P003"
+     "l": "Ch 9 · Dendron · P003"
     }
    ],
    "images": [],
@@ -485,7 +485,7 @@
     {
      "s": "chapter-9-the-dendron-protocol-003",
      "t": "Chapter 9: The Dendron (Protocol 003)",
-     "l": "Ch 9 · The Dendron · P003"
+     "l": "Ch 9 · Dendron · P003"
     }
    ],
    "images": [],
@@ -703,7 +703,7 @@
     {
      "s": "chapter-9-the-dendron-protocol-003",
      "t": "Chapter 9: The Dendron (Protocol 003)",
-     "l": "Ch 9 · The Dendron · P003"
+     "l": "Ch 9 · Dendron · P003"
     }
    ],
    "images": [],
@@ -751,7 +751,7 @@
     {
      "s": "chapter-9-the-dendron-protocol-003",
      "t": "Chapter 9: The Dendron (Protocol 003)",
-     "l": "Ch 9 · The Dendron · P003"
+     "l": "Ch 9 · Dendron · P003"
     }
    ],
    "images": [],
@@ -1441,7 +1441,7 @@
     {
      "s": "chapter-9-the-dendron-protocol-003",
      "t": "Chapter 9: The Dendron (Protocol 003)",
-     "l": "Ch 9 · The Dendron · P003"
+     "l": "Ch 9 · Dendron · P003"
     },
     {
      "s": "chapter-14-the-mouse",
@@ -1575,7 +1575,7 @@
     {
      "s": "chapter-9-the-dendron-protocol-003",
      "t": "Chapter 9: The Dendron (Protocol 003)",
-     "l": "Ch 9 · The Dendron · P003"
+     "l": "Ch 9 · Dendron · P003"
     }
    ],
    "images": [],
@@ -2886,7 +2886,7 @@
     {
      "s": "chapter-9-the-dendron-protocol-003",
      "t": "Chapter 9: The Dendron (Protocol 003)",
-     "l": "Ch 9 · The Dendron · P003"
+     "l": "Ch 9 · Dendron · P003"
     },
     {
      "s": "chapter-3-the-zone-protocol-001",
@@ -2948,7 +2948,7 @@
     {
      "s": "chapter-9-the-dendron-protocol-003",
      "t": "Chapter 9: The Dendron (Protocol 003)",
-     "l": "Ch 9 · The Dendron · P003"
+     "l": "Ch 9 · Dendron · P003"
     },
     {
      "s": "appendix-the-brief",
@@ -6838,7 +6838,7 @@
     "o": 18,
     "k": "protocol",
     "t": "Chapter 9: The Dendron (Protocol 003)",
-    "l": "Ch 9 · The Dendron · P003",
+    "l": "Ch 9 · Dendron · P003",
     "g": "part-3"
    },
    {

@@ -17,7 +17,7 @@ update public.story_sections set position = 14, kind = 'protocol', label = 'Ch 6
 update public.story_sections set position = 15, kind = 'chapter', label = 'Ch 7 · The Musician', group_code = 'part-3' where slug = 'chapter-7-the-musician';
 update public.story_sections set position = 16, kind = 'interlude', label = 'Int III · Budanov', group_code = 'part-3' where slug = 'interlude-iii-major-budanov-aleja-szucha';
 update public.story_sections set position = 17, kind = 'chapter', label = 'Ch 8 · The Medic', group_code = 'part-3' where slug = 'chapter-8-the-medic';
-update public.story_sections set position = 18, kind = 'protocol', label = 'Ch 9 · The Dendron · P003', group_code = 'part-3' where slug = 'chapter-9-the-dendron-protocol-003';
+update public.story_sections set position = 18, kind = 'protocol', label = 'Ch 9 · Dendron · P003', group_code = 'part-3' where slug = 'chapter-9-the-dendron-protocol-003';
 update public.story_sections set position = 19, kind = 'interlude', label = 'Int IV · The Voice', group_code = 'part-4' where slug = 'interlude-iv-the-voice-studio-two';
 update public.story_sections set position = 20, kind = 'chapter', label = 'Ch 10 · The Listener', group_code = 'part-4' where slug = 'chapter-10-the-listener';
 update public.story_sections set position = 21, kind = 'chapter', label = 'Ch 11 · The Orphan', group_code = 'part-4' where slug = 'chapter-11-the-orphan';
