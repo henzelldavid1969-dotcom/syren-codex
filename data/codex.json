@@ -2762,7 +2762,12 @@
      "t": "Appendix: The Brief"
     }
    ],
-   "images": [],
+   "images": [
+    {
+     "src": "https://qldxlphmvjjovzlmeguw.supabase.co/storage/v1/object/public/images/dendron-01.jpg",
+     "alt": "Silhouetted hands press against a window laced with dark, vine-like tendrils. Beyond the glass, tower blocks stand in fog."
+    }
+   ],
    "audio": [],
    "video": [],
    "files": []
