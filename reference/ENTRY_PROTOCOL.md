@@ -75,3 +75,66 @@ Locations SYNC_PATH (PROX_SCAN outposts, TRIGGER_V1 Russian positions, ACT_SYNC 
 ## 7. Immediate gap to close
 
 The site currently shows only summary and entry for Locations, Objects and Lore, while Characters carry the full field set. The Codex Doc holds fuller records for the Locations, Objects and Lore entries. Load those, bring all 67 up to this protocol, and fix the known cross-reference numbering faults (CHR/022 should be CHR/019, LOR/004 should be LOR/003, LOR/008 and CHR/024 Mrs Kaczmarek point at nothing).
+
+## 8. Story structure and chapter labels
+
+The Story view and every "Appears in" row use one list of sections. Each section has a kind, a group, the full title (exactly as the manuscript heading reads), and a short label of at most 24 characters for the sidebar and the right column. Labels are entered once, here, and never typed again on an entry.
+
+Short label pattern: `Ch 9 · The Dendron`, `Int I · Wiktor Szeliga`, `Front · Foreword`. Protocol chapters carry the Protocol number in the label's tail: `Ch 3 · The Zone · P001`.
+
+### Groups (the collapsible sidebar sections)
+
+The five Protocol chapters (3, 6, 9, 12, 15) each close a part of the book, so the story is grouped into five parts, each ending in its Protocol chapter, plus Before and After. Only the group holding the current page is open.
+
+| Group | Contents |
+|---|---|
+| Before the story | Copyright, Dedication, Foreword |
+| Part 1 · The Zone | Prologue, Diary 001, Chapters 1 to 3, Interlude I |
+| Part 2 · The Occupation | Chapters 4 to 6, Interlude II, Interlude: The Second Flood |
+| Part 3 · The Dendron | Chapters 7 to 9, Interlude III |
+| Part 4 · The Codex | Interlude IV, Chapters 10 to 12, Interlude V |
+| Part 5 · The Aftermath | Chapters 13 to 16, Interlude VI |
+| After the story | Acknowledgments, Appendix: The Brief |
+
+### Sections in reading order
+
+| Order | Kind | Full title | Short label | Group |
+|---|---|---|---|---|
+| 1 | front | Copyright | Front · Copyright | Before |
+| 2 | front | Dedication | Front · Dedication | Before |
+| 3 | front | Foreword | Front · Foreword | Before |
+| 4 | prologue | Prologue: The Barn | Pro · The Barn | Part 1 |
+| 5 | diary | Diary 001: The Arrival | Diary 001 · Arrival | Part 1 |
+| 6 | chapter | Chapter 1: The Blasphemer | Ch 1 · The Blasphemer | Part 1 |
+| 7 | interlude | Interlude I: Wiktor Szeliga, Block C | Int I · Szeliga, Block C | Part 1 |
+| 8 | chapter | Chapter 2: The Photographer | Ch 2 · The Photographer | Part 1 |
+| 9 | protocol | Chapter 3: The Zone (Protocol 001) | Ch 3 · The Zone · P001 | Part 1 |
+| 10 | chapter | Chapter 4: The Engineer | Ch 4 · The Engineer | Part 2 |
+| 11 | interlude | Interlude II: Sasha Lebedev, Observation Post R0 | Int II · Lebedev, R0 | Part 2 |
+| 12 | chapter | Chapter 5: The Pilgrim | Ch 5 · The Pilgrim | Part 2 |
+| 13 | interlude | Interlude: The Second Flood | Int · Second Flood | Part 2 |
+| 14 | protocol | Chapter 6: The Occupation (Protocol 002) | Ch 6 · Occupation · P002 | Part 2 |
+| 15 | chapter | Chapter 7: The Musician | Ch 7 · The Musician | Part 3 |
+| 16 | interlude | Interlude III: Major Budanov, Aleja Szucha | Int III · Budanov | Part 3 |
+| 17 | chapter | Chapter 8: The Medic | Ch 8 · The Medic | Part 3 |
+| 18 | protocol | Chapter 9: The Dendron (Protocol 003) | Ch 9 · The Dendron · P003 | Part 3 |
+| 19 | interlude | Interlude IV: The Voice, Studio Two | Int IV · The Voice | Part 4 |
+| 20 | chapter | Chapter 10: The Listener | Ch 10 · The Listener | Part 4 |
+| 21 | chapter | Chapter 11: The Orphan | Ch 11 · The Orphan | Part 4 |
+| 22 | interlude | Interlude V: Account Lead, Cohort Review | Int V · Cohort Review | Part 4 |
+| 23 | protocol | Chapter 12: The Codex (Protocol 004) | Ch 12 · The Codex · P004 | Part 4 |
+| 24 | chapter | Chapter 13: The Youngest | Ch 13 · The Youngest | Part 5 |
+| 25 | chapter | Chapter 14: The Mouse | Ch 14 · The Mouse | Part 5 |
+| 26 | interlude | Interlude VI: Wiktor Szeliga, Shelter 9 | Int VI · Szeliga, S9 | Part 5 |
+| 27 | protocol | Chapter 15: The Aftermath (Protocol 005) | Ch 15 · Aftermath · P005 | Part 5 |
+| 28 | chapter | Chapter 16: The Protocols | Ch 16 · The Protocols | Part 5 |
+| 29 | back | Acknowledgments | Back · Acknowledgments | After |
+| 30 | appendix | Appendix: The Brief | App · The Brief | After |
+
+Rules: the full title is read from the manuscript heading and never retyped by hand. If a heading changes in the manuscript, the label is reviewed. The group names are proposals for David to overrule. Previous and next links follow the Order column.
+
+## 9. Sidebar and right column behaviour
+
+- Left sidebar: collapsible groups, one open at a time, the current page's group open by default. Entries are grouped by taxonomy mark: Locations (Survivor outposts, Russian positions, Escape routes), Characters (Primary, Secondary, Antagonists), Objects and Lore by their marks. No inner scrollbar; if one is unavoidable it is thin and shown only on hover.
+- Previous and next links at the foot of every chapter and entry.
+- Right column: each panel collapsible with a count in its heading. Evidence and Appears in start open, the others folded. Each relation is one line: a short mono prefix (the section short label, or the entry reference) then a title truncated with an ellipsis, with the full title on hover. Long explanatory text under "Appears in" sits inside a "Note" fold.
