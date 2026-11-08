@@ -60,7 +60,7 @@
     "_read_me": "The four cards, in this order. title is the large heading, code and label make the line beneath it, text is an optional description, left empty for now ({n} is the live entry count). href is where the card goes (search opens the search box); leave it empty for a card that is not ready yet, and put a word such as Coming in status. art is a picture placed behind the graphic: null for none, or an image address.",
     "cards": [
       { "key": "story",   "title": "The Story",   "code": "MS",  "label": "Manuscript", "text": "",       "href": "#story", "status": "",       "art": null },
-      { "key": "podcast", "title": "The Podcast", "code": "EP",  "label": "Podcast",    "text": "",            "href": "",       "status": "Coming", "art": null },
+      { "key": "podcast", "title": "The Podcast", "code": "EP",  "label": "Podcast",    "text": "",            "href": "",       "status": "Coming soon", "art": null },
       { "key": "map",     "title": "The Map",     "code": "GEO", "label": "Map",        "text": "", "href": "#map",   "status": "",       "art": null },
       { "key": "archive", "title": "The Archive", "code": "IDX", "label": "Archive",    "text": "",   "href": "search", "status": "",       "art": null }
     ]
