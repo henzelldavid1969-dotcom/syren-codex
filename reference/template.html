@@ -1,0 +1,531 @@
+<title>Syren Codex</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@200..700&family=Geist+Mono:wght@400;500&family=Newsreader:ital,wght@0,400;0,500;1,400&display=swap">
+<style>
+:root{--bg:#0e0f0f;--surface:#151616;--raise:#1d1f1f;--line:#2a2d2c;--fg:#ededed;--muted:#9ba09e;--accent:#3ecf8e;--accent-fg:#06130d;
+--loc:#3ecf8e;--chr:#7aa7ff;--obj:#e3b562;--lor:#c58bd9;--gc:#3ecf8e;--ge:#e3b562;--gu:#e08a7a;--rus:#e5625a;--glow:rgba(62,207,142,.14);--mapbg:#0b0d0d;color-scheme:dark}
+@media(prefers-color-scheme:light){:root:not([data-theme="dark"]){--bg:#fcfcfb;--surface:#f6f6f4;--raise:#ffffff;--line:#e2e3e0;--fg:#161817;--muted:#626865;--accent:#1f9d68;--accent-fg:#ffffff;--loc:#1f9d68;--chr:#3b6fd6;--obj:#a9741a;--lor:#9345ab;--gc:#1f9d68;--ge:#a9741a;--gu:#c0503f;--rus:#c9382f;--glow:rgba(31,157,104,.10);--mapbg:#f1f2ef;color-scheme:light}}
+:root[data-theme="light"]{--bg:#fcfcfb;--surface:#f6f6f4;--raise:#ffffff;--line:#e2e3e0;--fg:#161817;--muted:#626865;--accent:#1f9d68;--accent-fg:#ffffff;--loc:#1f9d68;--chr:#3b6fd6;--obj:#a9741a;--lor:#9345ab;--gc:#1f9d68;--ge:#a9741a;--gu:#c0503f;--rus:#c9382f;--glow:rgba(31,157,104,.10);--mapbg:#f1f2ef;color-scheme:light}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--fg);font:300 15.5px/1.65 Geist,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit;cursor:pointer}
+.mono{font-family:"Geist Mono",ui-monospace,monospace}
+.wrap{max-width:1180px;margin:0 auto;padding:0 max(16px,env(safe-area-inset-left))}
+.nav{position:sticky;top:0;z-index:40;background:color-mix(in srgb,var(--bg) 82%,transparent);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.nav .wrap{display:flex;align-items:center;gap:20px;height:56px}
+.brand{display:flex;align-items:center;gap:9px;font-weight:400;letter-spacing:-.01em;white-space:nowrap}
+.brand i{width:20px;height:20px;border-radius:5px;background:var(--accent);display:grid;place-items:center}
+.brand i:before{content:"";width:8px;height:8px;border:2px solid var(--accent-fg);border-radius:50%}
+.links{display:flex;gap:2px;flex:1;overflow-x:auto;scrollbar-width:none}
+.links a{padding:6px 10px;border-radius:6px;color:var(--muted);font-size:14px;white-space:nowrap}
+.links a:hover,.links a.on{color:var(--fg);background:var(--raise)}
+.sbtn{display:flex;align-items:center;gap:10px;background:var(--surface);border:1px solid var(--line);border-radius:7px;padding:6px 10px;color:var(--muted);font-size:13px;min-width:0}
+.sbtn:hover{border-color:var(--muted)}
+.sbtn kbd,.kbd{font:11px "Geist Mono",monospace;border:1px solid var(--line);border-radius:4px;padding:1px 5px;color:var(--muted)}
+.btn{display:inline-flex;align-items:center;gap:8px;border-radius:8px;padding:9px 16px;font-weight:400;font-size:14px;border:1px solid var(--line);background:var(--raise)}
+.btn:hover{border-color:var(--muted)}
+.btn.p{background:var(--accent);color:var(--accent-fg);border-color:var(--accent)}
+.btn.p:hover{filter:brightness(1.08)}
+.story{font-size:13px;color:var(--muted);white-space:nowrap}
+.story:hover{color:var(--fg)}
+@media(max-width:760px){.sbtn span.t,.sbtn kbd,.story{display:none}.nav .wrap{gap:10px}}
+.hero{position:relative;padding:96px 0 48px;text-align:center;background:radial-gradient(60% 70% at 50% 0%,var(--glow),transparent 70%)}.hero:before{content:'';position:absolute;inset:0;background-image:radial-gradient(var(--line) 1px,transparent 1px);background-size:22px 22px;-webkit-mask-image:radial-gradient(60% 80% at 50% 20%,#000,transparent 75%);mask-image:radial-gradient(60% 80% at 50% 20%,#000,transparent 75%);opacity:.7;pointer-events:none}.hero .wrap{position:relative}.ico{width:1em;height:1em;stroke:currentColor;fill:none;stroke-width:1.4;stroke-linecap:round;stroke-linejoin:round;flex:none}.card .ic .ico{width:19px;height:19px}.card .arr{position:absolute;top:22px;right:22px;color:var(--muted);transition:transform .15s,color .15s}a.card:hover .arr{color:var(--c);transform:translate(2px,-2px)}.sugg{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-top:14px}.sugg button{background:none;border:1px solid var(--line);border-radius:99px;padding:4px 12px;font-size:13px;color:var(--muted)}.sugg button:hover{color:var(--fg);border-color:var(--muted)}.sechead{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;flex-wrap:wrap;margin-bottom:6px}
+.pill{display:inline-flex;gap:8px;align-items:center;border:1px solid var(--line);background:var(--surface);border-radius:99px;padding:4px 12px 4px 6px;font-size:13px;color:var(--muted)}
+.pill b{background:var(--accent);color:var(--accent-fg);border-radius:99px;padding:0 8px;font-weight:500;font-size:12px}
+h1{font-size:clamp(36px,6.2vw,66px);line-height:1.06;letter-spacing:-.04em;font-weight:300;margin:22px auto 0;max-width:15em}
+h1 em{font-style:normal;color:var(--accent);display:block;font-weight:300}
+.lede{color:var(--muted);font-size:clamp(16px,2vw,19px);max-width:36em;margin:20px auto 0}
+.cta{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:28px}
+.herosearch{max-width:560px;margin:26px auto 0}
+.bigs{width:100%;display:flex;align-items:center;gap:12px;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:15px 18px;box-shadow:0 8px 30px -12px rgba(0,0,0,.25);font-weight:300;font-size:16px;color:var(--muted);text-align:left}
+.bigs:hover{border-color:var(--muted)}
+.bigs span{flex:1}
+.sec{padding:36px 0}
+.sec h2{font-size:clamp(26px,3.4vw,36px);letter-spacing:-.03em;font-weight:300;margin:0 0 6px}
+.sec .sub{color:var(--muted);margin:0 0 22px;max-width:40em}
+.eyebrow{font:500 12px "Geist Mono",monospace;text-transform:uppercase;letter-spacing:.08em;color:var(--accent);margin-bottom:10px}
+.bento{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.card{position:relative;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:24px;overflow:hidden;display:flex;flex-direction:column;gap:10px;min-height:230px;transition:border-color .15s,transform .15s}
+a.card:hover{border-color:var(--c,var(--accent));transform:translateY(-2px)}
+.card:before{content:"";position:absolute;inset:0;background:radial-gradient(70% 60% at 0% 0%,color-mix(in srgb,var(--c) 14%,transparent),transparent 70%);pointer-events:none}
+.card .ic{width:40px;height:40px;border-radius:10px;border:1px solid color-mix(in srgb,var(--c) 35%,var(--line));display:grid;place-items:center;color:var(--c);font:500 14px "Geist Mono",monospace;background:color-mix(in srgb,var(--c) 10%,transparent)}
+.card h3{margin:8px 0 0;font-size:18px;letter-spacing:-.01em;font-weight:400}
+.card p{margin:0;color:var(--muted);font-size:14px;flex:1}
+.card .foot{display:flex;justify-content:space-between;align-items:center;font:12px "Geist Mono",monospace;color:var(--muted)}
+.card .n{color:var(--c)}
+.card.wide{grid-column:span 2}
+@media(max-width:960px){.bento{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:520px){.bento{grid-template-columns:1fr}.card.wide{grid-column:auto}}
+.mediarow{display:flex;gap:8px;flex-wrap:wrap}
+.chip .ico{width:13px;height:13px}.chip{display:inline-flex;gap:6px;align-items:center;border:1px solid var(--line);border-radius:99px;padding:3px 10px;font-size:12px;color:var(--muted);background:var(--raise)}
+.mapwrap{display:grid;grid-template-columns:300px 1fr;border:1px solid var(--line);border-radius:12px;overflow:hidden;background:var(--mapbg);height:var(--mh,560px)}
+.mapwrap.compact{grid-template-columns:1fr}
+.mapwrap.compact .mpanel{display:none}
+.mpanel{border-right:1px solid var(--line);background:var(--surface);display:flex;flex-direction:column;min-height:0}
+.mpanel .ms{padding:10px;border-bottom:1px solid var(--line)}
+.mpanel input{width:100%;background:var(--bg);border:1px solid var(--line);border-radius:7px;padding:8px 10px;color:var(--fg);font:inherit;font-size:14px}
+.mpanel input:focus,.palette input:focus,.fin:focus{outline:2px solid var(--accent);outline-offset:-1px}
+.mlist{overflow:auto;flex:1;padding:6px}
+.mlist h4{font:500 11px "Geist Mono",monospace;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin:12px 8px 4px}
+.mi{display:flex;gap:10px;align-items:center;width:100%;text-align:left;background:none;border:0;border-radius:6px;padding:7px 8px;font-size:14px}
+.mi:hover,.mi.on{background:var(--raise)}
+.dot{width:10px;height:10px;border-radius:50%;flex:none;background:var(--dc)}
+.mi small{margin-left:auto;font:11px "Geist Mono",monospace;color:var(--muted)}
+.mcanvas{position:relative;min-height:0;overflow:hidden;touch-action:none;cursor:grab}
+.mcanvas:active{cursor:grabbing}
+.mcanvas svg{width:100%;height:100%;display:block}
+.mcanvas svg .gr{stroke:var(--line);stroke-width:.4;vector-effect:non-scaling-stroke;opacity:.7}
+.mcanvas svg .perim{fill-opacity:.05;stroke-width:1.4;vector-effect:non-scaling-stroke;stroke-linejoin:round}
+.mcanvas svg .rt{fill:none;stroke:var(--accent);stroke-width:2;vector-effect:non-scaling-stroke;stroke-dasharray:6 4;stroke-linecap:round}
+.mcanvas svg circle.pt{r:calc(6px*var(--k));fill:var(--dc);stroke:var(--mapbg);stroke-width:calc(1.6px*var(--k));cursor:pointer}
+.mcanvas svg circle.pt.sq{r:calc(4.4px*var(--k))}
+.mcanvas svg circle.halo{r:calc(13px*var(--k));fill:none;stroke:var(--dc);stroke-width:calc(1.5px*var(--k));opacity:.9}
+.mcanvas svg circle.hit{r:calc(14px*var(--k));fill:transparent;cursor:pointer}
+.mcanvas svg text{font:500 calc(11.5px*var(--k)) Geist,sans-serif;fill:var(--fg);paint-order:stroke;stroke:var(--mapbg);stroke-width:calc(3px*var(--k));pointer-events:none}
+.mtools{position:absolute;top:10px;left:10px;display:flex;gap:6px;flex-wrap:wrap;max-width:calc(100% - 70px)}
+.mtools .chip{cursor:pointer;background:color-mix(in srgb,var(--surface) 90%,transparent);backdrop-filter:blur(6px)}
+.mtools .chip.off{opacity:.45;text-decoration:line-through}
+.mzoom{position:absolute;top:10px;right:10px;display:flex;flex-direction:column;gap:4px}
+.mzoom button{width:32px;height:32px;border-radius:7px;border:1px solid var(--line);background:var(--surface);font-size:17px;line-height:1}
+.mzoom button:hover{border-color:var(--muted)}
+.mcard{position:absolute;left:10px;right:10px;bottom:10px;max-width:420px;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:14px 16px;display:none;box-shadow:0 12px 40px rgba(0,0,0,.35)}
+.mcard.on{display:block}
+.mcard h4{font-weight:400;margin:0 0 2px;font-size:16px;letter-spacing:-.01em}
+.mcard p{margin:0 0 10px;color:var(--muted);font-size:13.5px}
+.mcard .x{position:absolute;top:8px;right:10px;background:none;border:0;color:var(--muted);font-size:18px}
+.mnote{position:absolute;right:10px;bottom:8px;font-size:11px;color:var(--muted);max-width:50%;text-align:right;pointer-events:none}
+@media(max-width:760px){.mapwrap{grid-template-columns:1fr;grid-template-rows:auto 1fr;height:auto}.mapwrap .mcanvas{height:62vh;order:-1}.mpanel{border-right:0;border-top:1px solid var(--line);max-height:300px}.mnote{display:none}}
+.docs{display:grid;grid-template-columns:260px minmax(0,1fr) 250px;gap:36px;padding:28px 0 70px}
+.docs.two{grid-template-columns:260px minmax(0,1fr)}
+.side{position:sticky;top:76px;align-self:start;max-height:calc(100vh - 96px);overflow:auto;padding-right:6px}
+.side h5{font:500 11px "Geist Mono",monospace;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin:16px 8px 6px}
+.side a{display:flex;gap:8px;align-items:center;padding:5px 8px;border-radius:6px;color:var(--muted);font-size:14px}
+.side a:hover,.side a.on{color:var(--fg);background:var(--raise)}
+.rail{position:sticky;top:76px;align-self:start;font-size:13.5px}
+.rail .box{border:1px solid var(--line);border-radius:10px;padding:14px;background:var(--surface);margin-bottom:12px}
+.rail h6{margin:0 0 8px;font:500 11px "Geist Mono",monospace;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}
+.rail p{margin:0;color:var(--muted)}
+.rail a.x{display:block;padding:3px 0;color:var(--fg)}
+.rail a.x:hover{color:var(--accent)}
+@media(max-width:1020px){.docs,.docs.two{grid-template-columns:minmax(0,1fr)}.side,.rail{position:static;max-height:none}.side{display:none}}
+.crumb{font:12px "Geist Mono",monospace;color:var(--muted);margin-bottom:10px}
+.crumb a:hover{color:var(--fg)}
+.ph{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:6px}
+.tag{font:500 11px "Geist Mono",monospace;letter-spacing:.04em;border-radius:5px;padding:2px 7px;border:1px solid color-mix(in srgb,var(--c) 40%,var(--line));color:var(--c);background:color-mix(in srgb,var(--c) 9%,transparent)}
+.main h1.t{font-weight:300;font-size:clamp(30px,4.4vw,44px);margin:6px 0 10px;text-align:left;max-width:none;letter-spacing:-.03em}
+.main .sum{font-size:18px;color:var(--muted);margin:0 0 22px;line-height:1.5}
+.prose{font:400 18px/1.75 Newsreader,Georgia,serif;max-width:40em}
+.prose p{margin:0 0 1em}
+.media{display:grid;gap:12px;margin:0 0 24px}
+.media img,.media video{width:100%;border-radius:10px;border:1px solid var(--line)}
+.media audio{width:100%}
+.media figcaption{font-size:13px;color:var(--muted);margin-top:6px}
+.g{display:inline-grid;place-items:center;width:20px;height:20px;border-radius:5px;font:600 11px "Geist Mono",monospace;color:#07120c;background:var(--gc)}
+.g.E{background:var(--ge)}.g.U{background:var(--gu)}
+.gl{display:flex;gap:6px;align-items:center}
+.ctl{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin:0 0 16px}
+.fin{flex:1;min-width:200px;background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:9px 12px;color:var(--fg);font:inherit;font-size:14px}
+.seg{display:flex;border:1px solid var(--line);border-radius:8px;overflow:hidden}
+.seg button{background:var(--surface);border:0;padding:8px 12px;font-size:13px;color:var(--muted);border-right:1px solid var(--line)}
+.seg button:last-child{border:0}
+.seg button.on{background:var(--raise);color:var(--fg)}
+.row{display:block;border:1px solid var(--line);border-radius:10px;padding:14px 16px;margin-bottom:8px;background:var(--surface)}
+.row:hover{border-color:var(--c,var(--accent))}
+.row .rt2{display:flex;gap:10px;align-items:center;justify-content:space-between}
+.row b{font-weight:400;font-size:16px;letter-spacing:-.01em}
+.row p{margin:4px 0 0;color:var(--muted);font-size:14px}
+mark{background:color-mix(in srgb,var(--accent) 28%,transparent);color:inherit;border-radius:2px}
+.empty{color:var(--muted);padding:30px 0;text-align:center}
+.ov{position:fixed;inset:0;z-index:100;background:rgba(0,0,0,.55);backdrop-filter:blur(3px);display:none;align-items:flex-start;justify-content:center;padding:10vh 16px 0}
+.ov.on{display:flex}
+.palette{width:100%;max-width:640px;background:var(--surface);border:1px solid var(--line);border-radius:14px;box-shadow:0 30px 80px rgba(0,0,0,.5);overflow:hidden}
+.palette input{width:100%;background:none;border:0;border-bottom:1px solid var(--line);padding:16px 18px;font:inherit;font-size:17px;color:var(--fg);outline:none}
+.pf{display:flex;gap:6px;padding:8px 12px;border-bottom:1px solid var(--line);flex-wrap:wrap}
+.pf .chip{cursor:pointer}.pf .chip.on{border-color:var(--accent);color:var(--fg)}
+.pr{max-height:52vh;overflow:auto;padding:6px}
+.pi{display:flex;gap:12px;align-items:flex-start;padding:9px 10px;border-radius:8px}
+.pi.sel{background:var(--raise)}
+.pi .dot{margin-top:7px}
+.pi b{font-weight:400}
+.pi p{margin:1px 0 0;color:var(--muted);font-size:13px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.pi small{margin-left:auto;font:11px "Geist Mono",monospace;color:var(--muted);white-space:nowrap;padding-top:3px}
+footer{border-top:1px solid var(--line);padding:28px 0 40px;color:var(--muted);font-size:13px}
+footer .wrap{display:flex;gap:16px;justify-content:space-between;flex-wrap:wrap}
+.tog{background:none;border:1px solid var(--line);border-radius:7px;width:32px;height:32px;color:var(--muted)}
+
+/* supabase-style home */
+.hero{text-align:left;padding:72px 0 40px;background:none}
+.hero:before{display:none}
+.h2col{display:grid;grid-template-columns:1.5fr 1fr;gap:48px;align-items:end}
+.hero h1{margin:0;max-width:none;font-weight:400;font-size:clamp(34px,4.2vw,52px);letter-spacing:-.035em;line-height:1.08}
+.hero h1 em{font-weight:400}
+.hero .lede{margin:0;max-width:30em;font-size:16px}
+.hero .cta{justify-content:flex-start;margin-top:22px}
+@media(max-width:860px){.h2col{grid-template-columns:1fr;gap:20px}}
+.grid7{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border:1px solid var(--line);border-radius:12px;overflow:hidden;background:var(--bg)}
+.cell{position:relative;padding:22px 22px 0;min-height:290px;display:flex;flex-direction:column;border-right:1px solid var(--line);border-bottom:1px solid var(--line);overflow:hidden;background:var(--bg);transition:background .15s}
+.cell:hover{background:var(--surface)}
+.cell.w2{grid-column:span 2}
+.grid7{margin-right:0}.cell{border-top:0;border-left:0}button.cell{width:100%;border-radius:0;font:inherit}.grid7{border-right:0;border-bottom:0}
+.cell h3{margin:0 0 6px;font-size:15px;font-weight:400;display:flex;gap:8px;align-items:center}
+.cell h3 .ico{color:var(--c);width:16px;height:16px}
+.cell p{margin:0;font-size:14px;color:var(--muted);max-width:30em}
+.cell p b{color:var(--fg);font-weight:500}
+.cell .art{margin-top:auto;padding:16px 0 22px;display:flex;align-items:flex-end;justify-content:center;min-height:130px}
+.cell .art svg{max-width:100%;height:auto}
+@media(max-width:960px){.grid7{grid-template-columns:repeat(2,1fr)}.cell.w2{grid-column:span 2}}
+@media(max-width:560px){.grid7{grid-template-columns:1fr}.cell.w2{grid-column:auto}}
+.av{display:flex}.av i{width:34px;height:34px;border-radius:50%;border:2px solid var(--bg);margin-left:-8px;display:grid;place-items:center;font:500 12px "Geist Mono",monospace;font-style:normal;color:#fff}
+.av i:first-child{margin-left:0}
+.fakesearch{width:100%;border:1px solid var(--line);border-radius:10px;background:var(--surface);overflow:hidden;margin-bottom:-1px;border-bottom:0;border-radius:10px 10px 0 0;font-size:13px}
+.fakesearch .fi{padding:9px 12px;border-bottom:1px solid var(--line);display:flex;gap:8px;align-items:center}
+.fakesearch .fr{padding:7px 12px;color:var(--muted);display:flex;justify-content:space-between}
+.fakesearch .fr:first-of-type{background:var(--raise);color:var(--fg)}
+.bars{width:100%;display:grid;gap:8px;margin-bottom:18px}
+.bars div{display:flex;height:9px;border-radius:3px;overflow:hidden;background:var(--raise)}
+.bars span{display:block;height:100%}
+.tline{text-align:left;color:var(--muted);margin:20px 0 0;font-size:16px}
+.tline b{color:var(--fg);font-weight:400}
+.strip{display:flex;gap:28px 40px;flex-wrap:wrap;justify-content:space-between;align-items:center;color:var(--muted);padding:6px 0 4px}
+.strip span{display:flex;gap:9px;align-items:center;font-size:17px;font-weight:300;letter-spacing:-.01em}
+.strip .ico{width:20px;height:20px}
+.stl{font-size:12.5px;color:var(--muted);margin-bottom:16px}
+.tabs{display:flex;gap:6px;margin:0 0 16px}
+.tabs button{border:1px solid transparent;background:none;border-radius:7px;padding:6px 12px;font-size:13.5px;color:var(--muted)}
+.tabs button.on{border-color:var(--line);background:var(--raise);color:var(--fg)}
+.win{border:1px solid var(--line);border-radius:12px;overflow:hidden;background:var(--surface)}
+.win .bar{display:flex;gap:6px;padding:11px 14px;border-bottom:1px solid var(--line)}
+.win .bar i{width:9px;height:9px;border-radius:50%;background:var(--line)}
+.win .body{max-height:380px;overflow:auto}
+.tbl{width:100%;border-collapse:collapse;font-size:13.5px}
+.tbl th{position:sticky;top:0;background:var(--surface);text-align:left;font:500 11px "Geist Mono",monospace;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);padding:9px 14px;border-bottom:1px solid var(--line)}
+.tbl td{padding:8px 14px;border-bottom:1px solid var(--line);white-space:nowrap}
+.tbl tr:hover td{background:var(--raise)}
+.tbl a:hover{color:var(--accent)}
+.split{display:grid;grid-template-columns:1fr 1.25fr;gap:48px;align-items:center}
+@media(max-width:860px){.split{grid-template-columns:1fr}}
+.split h2{margin:0 0 10px}
+.code{border:1px solid var(--line);border-radius:12px;background:var(--surface);padding:18px 20px;font:400 12.5px/1.8 "Geist Mono",monospace;overflow:auto}
+.code .k{color:var(--accent)}.code .v{color:var(--muted)}.code .n{color:var(--chr)}
+.code div{white-space:pre}
+.tpl{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+@media(max-width:860px){.tpl{grid-template-columns:1fr 1fr}}@media(max-width:520px){.tpl{grid-template-columns:1fr}}
+.tc{display:flex;flex-direction:column;gap:8px;border:1px solid var(--line);border-radius:12px;padding:18px;background:var(--bg);transition:border-color .15s}
+.tc:hover{border-color:var(--c)}
+.tc .tt{display:flex;gap:8px;align-items:center;color:var(--c);font-size:12px;font-family:"Geist Mono",monospace}
+.tc b{font-weight:400;font-size:16px;letter-spacing:-.01em}
+.tc p{margin:0;color:var(--muted);font-size:13.5px;flex:1}
+.tc small{color:var(--muted);font-size:12.5px}
+.voices{display:grid;grid-template-columns:2.6fr repeat(4,.6fr);gap:10px;min-height:340px}
+@media(max-width:860px){.voices{grid-template-columns:1fr 1fr}.voices .big{grid-column:span 2;min-height:300px}.voices .tile{min-height:160px}}
+.voices .big,.voices .tile{border-radius:12px;color:#fff;padding:22px;display:flex;flex-direction:column;justify-content:flex-end;position:relative;overflow:hidden}
+.voices .big{background:linear-gradient(160deg,#e8456b 0%,#f2711c 55%,#f7a21b 100%)}
+.voices .big p{font-size:clamp(18px,2.2vw,24px);line-height:1.35;font-weight:300;margin:0 0 18px;max-width:22em;letter-spacing:-.01em}
+.voices .big small,.voices .tile small{opacity:.85;font-size:13px}
+.voices .tile{writing-mode:horizontal-tb}
+.voices .tile b{font-weight:400;font-size:15px;line-height:1.25}
+.voices a:hover{filter:brightness(1.06)}
+.cta2{text-align:center;padding:70px 0 50px}
+.cta2 h2{font-size:clamp(28px,4vw,40px);font-weight:300;letter-spacing:-.03em;margin:0 0 20px}
+.cta2 h2 em{font-style:normal;color:var(--accent)}
+.cta2 .cta{justify-content:center;margin-top:0}
+.badges{display:flex;gap:26px;justify-content:center;flex-wrap:wrap;border-top:1px solid var(--line);padding:22px 0;font-size:13px;color:var(--muted)}
+.badges span{display:flex;gap:7px;align-items:center}
+footer .cols{display:grid;grid-template-columns:1.4fr repeat(4,1fr);gap:28px;width:100%}
+footer h6{margin:0 0 10px;font-size:13px;font-weight:400;color:var(--fg)}
+footer .cols a{display:block;padding:3px 0;color:var(--muted)}
+footer .cols a:hover{color:var(--fg)}
+@media(max-width:760px){footer .cols{grid-template-columns:1fr 1fr}}
+
+/* entry page, Gdansk-style */
+.eref{font:500 13px "Geist Mono",monospace;letter-spacing:.08em;color:var(--accent);margin-bottom:6px}
+.main .sum.it{font:italic 400 clamp(18px,2.2vw,22px)/1.45 Newsreader,Georgia,serif;color:var(--muted)}
+.facts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border:1px solid var(--line);border-radius:12px;overflow:hidden;background:var(--surface);margin:0 0 18px}
+.facts>div{padding:16px 18px;border-right:1px solid var(--line);border-bottom:1px solid var(--line);margin:0 -1px -1px 0}
+.facts dt{font:400 11px "Geist Mono",monospace;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin:0 0 6px}
+.facts dd{margin:0;font:400 14px "Geist Mono",monospace;color:var(--fg)}
+.facts dd.nr{color:var(--muted);opacity:.7}
+@media(max-width:560px){.facts{grid-template-columns:1fr 1fr}}
+.tags{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 28px}
+.tags a,.tags span{font:400 12.5px "Geist Mono",monospace;border:1px solid var(--line);border-radius:6px;padding:5px 11px;background:var(--surface);color:var(--muted)}
+.tags a:hover{color:var(--fg);border-color:var(--muted)}
+.mh{display:flex;justify-content:space-between;align-items:baseline;gap:12px;margin:34px 0 12px;padding-top:6px}
+.mh h3{margin:0;font:500 12px "Geist Mono",monospace;text-transform:uppercase;letter-spacing:.12em;color:var(--muted)}
+.mh small{font:400 12px "Geist Mono",monospace;color:var(--muted);opacity:.8}
+.ph-tag{font:400 11px "Geist Mono",monospace;letter-spacing:.06em;color:var(--obj);border:1px dashed color-mix(in srgb,var(--obj) 50%,var(--line));border-radius:5px;padding:1px 7px;margin-left:8px;text-transform:uppercase}
+.imgs{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px}
+@media(max-width:700px){.imgs{grid-template-columns:repeat(3,minmax(0,1fr))}}
+.imgs .slot,.imgs figure{aspect-ratio:1;border-radius:10px;border:1px dashed var(--line);background:var(--surface);display:grid;place-items:center;color:var(--muted);margin:0;overflow:hidden;position:relative}
+.imgs .slot:first-child{border-color:color-mix(in srgb,var(--accent) 45%,var(--line));color:var(--accent)}
+.imgs .slot .ico{width:22px;height:22px}
+.imgs .slot span{font:400 11px "Geist Mono",monospace;position:absolute;bottom:7px;left:0;right:0;text-align:center}
+.imgs figure{border-style:solid}.imgs figure img{width:100%;height:100%;object-fit:cover}
+.mp{border:1px solid var(--line);border-radius:12px;overflow:hidden;background:var(--bg)}
+.mp .blk{padding:18px 22px;border-bottom:1px solid var(--line)}
+.mp .blk:last-child{border-bottom:0}
+.mp .blk.alt{background:var(--surface)}
+.mp .bh{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;font:500 13px "Geist Mono",monospace;letter-spacing:.12em;text-transform:uppercase;color:var(--fg)}
+.mp .bh em{font-style:normal;color:var(--accent)}
+.mp .bh small{font:400 12px "Geist Mono",monospace;letter-spacing:0;text-transform:none;color:var(--muted)}
+.mp .bm{font:400 12px "Geist Mono",monospace;color:var(--muted);margin:8px 0 12px;opacity:.85}
+.mp audio,.mp video{width:100%}
+.mp audio.dis{opacity:.55;pointer-events:none}
+.vph{aspect-ratio:16/9;border-radius:10px;border:1px dashed var(--line);background:var(--surface);display:grid;place-items:center;color:var(--muted)}
+.vph .ico{width:34px;height:34px}
+.files{border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.fl{display:flex;gap:14px;align-items:center;padding:14px 18px;border-bottom:1px solid var(--line);background:var(--bg)}
+.fl:last-child{border-bottom:0}
+.fl .ico{width:22px;height:22px;color:var(--muted)}
+.fl b{font-weight:400;font-size:14.5px}
+.fl small{display:block;font:400 12px "Geist Mono",monospace;color:var(--muted)}
+.fl.dash{border:1px dashed var(--line);border-radius:12px;color:var(--muted)}
+.fl .go{margin-left:auto;font:400 12px "Geist Mono",monospace;color:var(--accent)}
+</style>
+<header class="nav"><div class="wrap">
+  <a class="brand" href="#home"><i></i>Syren Codex</a>
+  <nav class="links" id="links"></nav>
+  <button class="sbtn" id="sopen" aria-label="Search the archive"><span id="sico"></span><span class="t">Search the archive</span><kbd>/</kbd></button>
+  <a class="btn p" style="padding:6px 12px;font-size:13px" href="https://claude.ai/artifact/HKnA4aW9ugwCasSP3kkugA" target="_blank" rel="noopener">Read the story</a>
+  <button class="tog" id="theme" aria-label="Toggle theme">◐</button>
+</div></header>
+<main id="app"></main>
+<footer><div class="wrap"><div class="cols"><div><a class="brand" href="#home" style="color:var(--fg)"><i></i>Syren Codex</a><p style="margin:12px 0 0;max-width:20em">The archive behind The Syren Protocols. The manuscript is the authority on story facts.</p></div>
+<div><h6>Explore</h6><a href="#map">Map</a><a href="#c-loc">Locations</a><a href="#c-chr">Characters</a><a href="#c-obj">Objects</a><a href="#c-lor">Lore</a></div>
+<div><h6>Evidence</h6><a href="#c-chr">Confirmed (C)</a><a href="#c-chr">Estimated (E)</a><a href="#c-chr">Unconfirmed (U)</a></div>
+<div><h6>The story</h6><a href="https://claude.ai/artifact/HKnA4aW9ugwCasSP3kkugA" target="_blank" rel="noopener">Read the manuscript</a></div>
+<div><h6>Archive</h6><span class="mono" id="stamp"></span></div></div></div></footer>
+<div class="ov" id="ov"><div class="palette" role="dialog" aria-label="Search">
+  <input id="q" placeholder="Search names, places, objects, lore" autocomplete="off">
+  <div class="pf" id="pf"></div>
+  <div class="pr" id="pr"></div>
+</div></div>
+<script>
+const DATA=/*DATA*/;
+const META=/*META*/;
+const MAP=/*MAP*/;
+const COL={LOC:'var(--loc)',CHR:'var(--chr)',OBJ:'var(--obj)',LOR:'var(--lor)'};
+const IC={
+file:'<path d="M7 3.5h7l4 4V20a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V4.5a1 1 0 0 1 1-1Z"/><path d="M14 3.5V8h4M9 13h6M9 16.5h6"/>',
+plus:'<path d="M12 5v14M5 12h14"/>',
+map:'<path d="M9 4 3 6.5v13L9 17l6 3 6-2.5v-13L15 7 9 4Z"/><path d="M9 4v13M15 7v13"/>',
+pin:'<path d="M12 21s7-6.2 7-11.5A7 7 0 0 0 5 9.5C5 14.8 12 21 12 21Z"/><circle cx="12" cy="9.5" r="2.5"/>',
+user:'<circle cx="12" cy="8" r="3.6"/><path d="M5 20c.6-3.8 3.4-6 7-6s6.4 2.2 7 6"/>',
+cube:'<path d="m12 3 8 4.5v9L12 21l-8-4.5v-9L12 3Z"/><path d="m4 7.5 8 4.5 8-4.5M12 12v9"/>',
+waves:'<path d="M3 8c2.5-2 4.5-2 7 0s4.5 2 7 0 2.5-1 4-.5M3 13c2.5-2 4.5-2 7 0s4.5 2 7 0 2.5-1 4-.5M3 18c2.5-2 4.5-2 7 0s4.5 2 7 0 2.5-1 4-.5"/>',
+search:'<circle cx="11" cy="11" r="6.5"/><path d="m20 20-4.2-4.2"/>',
+arrow:'<path d="M7 17 17 7M8 7h9v9"/>',
+shield:'<path d="M12 3 5 6v5.5c0 4.4 3 7.7 7 9.5 4-1.8 7-5.1 7-9.5V6l-7-3Z"/><path d="m9 12 2.2 2.2L15.5 10"/>',
+play:'<rect x="3" y="5" width="18" height="14" rx="3"/><path d="m10.5 9.5 4 2.5-4 2.5v-5Z"/>',
+image:'<rect x="3.5" y="4.5" width="17" height="15" rx="2.5"/><circle cx="9" cy="10" r="1.6"/><path d="m4 17 5-4.5 4 3.5 3-2.5 4 3.5"/>',
+audio:'<path d="M4 10v4M8 7v10M12 4v16M16 8v8M20 10.5v3"/>',
+book:'<path d="M5 4.5h11a3 3 0 0 1 3 3V20H8a3 3 0 0 1-3-3V4.5Z"/><path d="M5 17a3 3 0 0 1 3-3h11"/>',
+compass:'<circle cx="12" cy="12" r="8.5"/><path d="m15.5 8.5-2 5-5 2 2-5 5-2Z"/>',
+route:'<circle cx="6" cy="18" r="2"/><circle cx="18" cy="6" r="2"/><path d="M8 18h6a3 3 0 0 0 0-6h-4a3 3 0 0 1 0-6h6"/>'};
+const ico=n=>`<svg class="ico" viewBox="0 0 24 24" aria-hidden="true">${IC[n]}</svg>`;
+const ICON={LOC:ico('pin'),CHR:ico('user'),OBJ:ico('cube'),LOR:ico('waves')};
+const BLURB={LOC:'Outposts, Russian positions and escape routes. Each one sits on the map.',CHR:'The survivors, the Runners and the occupiers, with the passages that show them.',OBJ:'The Dendron, the Dust, the Protocols and the things people carried.',LOR:'The programme, the stages of compliance, the flood and the history behind them.'};
+const GRADE={C:'Confirmed',E:'Estimated',U:'Unconfirmed'};
+const BYID=Object.fromEntries(DATA.map(d=>[d.id,d]));
+const $=(s,r=document)=>r.querySelector(s);
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const norm=s=>[...String(s)].map(c=>c==='ł'||c==='Ł'?'l':c.normalize('NFD')[0].toLowerCase()).join('');
+DATA.forEach(d=>{d._n=norm(d.name);d._s=norm(d.summary);d._e=norm(d.entry+' '+(d.appears||''));d._r=norm(d.ref)});
+function score(d,toks){let s=0;for(const t of toks){let m=0;
+  if(d._n.startsWith(t))m=16;else if(d._n.includes(' '+t))m=13;else if(d._n.includes(t))m=10;
+  else if(d._r.includes(t))m=6;else if(d._s.includes(t))m=4;else if(d._e.includes(t))m=2;
+  if(!m)return 0;s+=m}return s}
+function find(q,types,pool){const toks=norm(q).split(/\s+/).filter(Boolean);
+  let list=(pool||DATA).filter(d=>!types||!types.length||types.includes(d.type));
+  if(!toks.length)return list.map(d=>({d,s:0}));
+  return list.map(d=>({d,s:score(d,toks)})).filter(x=>x.s).sort((a,b)=>b.s-a.s)}
+function hl(text,q){const toks=norm(q).split(/\s+/).filter(Boolean);if(!toks.length)return esc(text);
+  const n=norm(text);const mark=new Array(text.length).fill(0);
+  toks.forEach(t=>{let i=n.indexOf(t);while(i>-1){for(let j=i;j<i+t.length;j++)mark[j]=1;i=n.indexOf(t,i+t.length)}});
+  let o='',on=0;[...text].forEach((c,i)=>{if(mark[i]&&!on){o+='<mark>';on=1}if(!mark[i]&&on){o+='</mark>';on=0}o+=esc(c)});return o+(on?'</mark>':'')}
+function snip(d,q){const toks=norm(q).split(/\s+/).filter(Boolean);if(!toks.length)return d.summary;
+  if(toks.some(t=>d._s.includes(t)||d._n.includes(t)))return d.summary;
+  const t=toks.find(t=>norm(d.entry).includes(t));if(!t)return d.summary;
+  const n=norm(d.entry),i=n.indexOf(t),a=Math.max(0,i-60);return (a?'… ':'')+d.entry.slice(a,i+110)+' …'}
+const dot=t=>`<span class="dot" style="--dc:${COL[t]}"></span>`;
+const grade=g=>g?`<span class="g ${g}" title="${GRADE[g]}">${g}</span>`:'';
+const count=t=>DATA.filter(d=>d.type===t).length;
+const NAV=[['map','Map','map'],['c-loc','Locations','pin'],['c-chr','Characters','user'],['c-obj','Objects','cube'],['c-lor','Lore','waves']];
+function navPaint(h){$('#links').innerHTML=NAV.map(([k,l,ic])=>{const on=h===k||h.startsWith(k+'-')||(k.startsWith('c-')&&h.startsWith('e-'+k.slice(2)+'-'))||(k==='map'&&h.startsWith('map'));return `<a href="#${k}" class="${on?'on':''}">${l}</a>`}).join('')}
+let pTypes=[],pSel=0,pRes=[];
+function pOpen(){$('#ov').classList.add('on');const i=$('#q');i.value='';pTypes=[];pSel=0;pPaint();i.focus()}
+function pClose(){$('#ov').classList.remove('on')}
+function pPaint(){const q=$('#q').value;pRes=find(q,pTypes).slice(0,40);pSel=Math.min(pSel,Math.max(0,pRes.length-1));
+  $('#pf').innerHTML=Object.keys(META).map(t=>`<span class="chip ${pTypes.includes(t)?'on':''}" data-t="${t}">${dot(t)}${META[t].label}</span>`).join('');
+  $('#pr').innerHTML=pRes.length?pRes.map((x,i)=>`<a class="pi ${i===pSel?'sel':''}" href="#e-${x.d.id}">${dot(x.d.type)}<div><b>${hl(x.d.name,q)}</b><p>${hl(snip(x.d,q),q)}</p></div><small>${x.d.ref.replace('SYNPTCL/','')}</small></a>`).join(''):'<div class="empty">Nothing in the archive matches that.</div>'}
+$('#sopen').onclick=pOpen;$('#sico').innerHTML=ico('search');
+$('#ov').addEventListener('click',e=>{if(e.target.id==='ov')pClose();const c=e.target.closest('.chip');if(c){const t=c.dataset.t;pTypes=pTypes.includes(t)?pTypes.filter(x=>x!==t):[...pTypes,t];pSel=0;pPaint();$('#q').focus()}if(e.target.closest('.pi'))pClose()});
+$('#q').addEventListener('input',()=>{pSel=0;pPaint()});
+$('#q').addEventListener('keydown',e=>{if(e.key==='ArrowDown'){pSel=Math.min(pSel+1,pRes.length-1);pPaint();e.preventDefault();$('.pi.sel')?.scrollIntoView({block:'nearest'})}
+  if(e.key==='ArrowUp'){pSel=Math.max(0,pSel-1);pPaint();e.preventDefault();$('.pi.sel')?.scrollIntoView({block:'nearest'})}
+  if(e.key==='Enter'&&pRes[pSel]){location.hash='e-'+pRes[pSel].d.id;pClose()}});
+document.addEventListener('keydown',e=>{const typing=/INPUT|TEXTAREA/.test(document.activeElement.tagName);
+  if((e.key==='k'&&(e.metaKey||e.ctrlKey))||(e.key==='/'&&!typing)){e.preventDefault();pOpen()}if(e.key==='Escape')pClose()});
+$('#theme').onclick=()=>{const r=document.documentElement,cur=r.dataset.theme||(matchMedia('(prefers-color-scheme:light)').matches?'light':'dark');r.dataset.theme=cur==='dark'?'light':'dark'};
+/* map */
+const LON0=20.89,LAT0=52.455,KX=Math.cos(52.23*Math.PI/180)*1000,KY=1000;
+const prj=(x,y)=>[(x-LON0)*KX,(LAT0-y)*KY];
+const KIND={out:['Survivor outposts','var(--loc)'],node:['Route nodes','var(--accent)'],gate:['Gates','var(--accent)'],rus:['Occupier positions','var(--rus)'],kos:['Other markers','var(--muted)']};
+const FULL={x:0,y:0,w:(21.57-LON0)*KX,h:(LAT0-52.05)*KY};
+function mountMap(root,opt){
+  const compact=!!opt.compact;let vb={...FULL};let sel=null;
+  const on={out:1,node:1,gate:1,rus:1,kos:1,rt:1,per:1};
+  root.innerHTML=`<div class="mapwrap ${compact?'compact':''}" style="--mh:${opt.h||560}px"><aside class="mpanel"><div class="ms"><input placeholder="Find a place on the map" aria-label="Find a place"></div><div class="mlist"></div></aside><div class="mcanvas"><svg></svg><div class="mtools"></div><div class="mzoom"><button data-z="1.5" aria-label="Zoom in">+</button><button data-z="0.67" aria-label="Zoom out">−</button><button data-z="0" aria-label="Reset view">⌖</button></div><div class="mcard"></div><div class="mnote">Schematic. Occupier positions are approximate.</div></div></div>`;
+  const svg=$('svg',root),cv=$('.mcanvas',root),list=$('.mlist',root),card=$('.mcard',root);
+  const path=c=>c.map((p,i)=>(i?'L':'M')+prj(p[0],p[1]).map(v=>v.toFixed(1)).join(' ')).join('');
+  function draw(){
+    let g='';for(let lo=20.9;lo<21.6;lo+=.1){const x=((lo-LON0)*KX).toFixed(1);g+=`<line class="gr" x1="${x}" x2="${x}" y1="0" y2="${FULL.h}"/>`}
+    for(let la=52.1;la<52.46;la+=.05){const y=((LAT0-la)*KY).toFixed(1);g+=`<line class="gr" y1="${y}" y2="${y}" x1="0" x2="${FULL.w}"/>`}
+    let L='';MAP.lines.forEach(l=>{const d=path(l.c);
+      if(l.k==='rus'&&on.per)L+=`<path class="perim" d="${d}Z" fill="var(--rus)" stroke="var(--rus)"/>`;
+      if(l.k==='occ'&&on.per)L+=`<path class="perim" d="${d}Z" fill="var(--obj)" stroke="var(--obj)"/>`;
+      if(l.k==='esc'&&on.rt)L+=`<path class="rt" d="${d}"><title>${esc(l.n)}</title></path>`});
+    let P='',T='';MAP.pts.forEach((p,i)=>{if(!on[p.k])return;const [x,y]=prj(p.x,p.y);const c=KIND[p.k][1];
+      if(sel===i)P+=`<circle class="halo" cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" style="--dc:${c}"/>`;
+      P+=`<circle class="pt ${p.k==='out'||p.k==='rus'?'':'sq'}" cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" style="--dc:${c}"/><circle class="hit" data-i="${i}" cx="${x.toFixed(1)}" cy="${y.toFixed(1)}"><title>${esc(p.n)}</title></circle>`;
+      if(p.k==='out'||p.k==='rus'||sel===i)T+=`<text x="${(x+9*vb.w/(svg.clientWidth||800)).toFixed(1)}" y="${(y+3.5*vb.w/(svg.clientWidth||800)).toFixed(1)}">${esc(p.n.split(',')[0])}</text>`});
+    svg.innerHTML=g+L+P+T;view()}
+  function view(){svg.setAttribute('viewBox',`${vb.x} ${vb.y} ${vb.w} ${vb.h}`);svg.style.setProperty('--k',(vb.w/(svg.clientWidth||800)).toFixed(4))}
+  function fit(){const r=svg.getBoundingClientRect();if(!r.width)return;const a=r.width/r.height;vb={...FULL};if(FULL.w/FULL.h<a){vb.w=FULL.h*a;vb.x=-(vb.w-FULL.w)/2}else{vb.h=FULL.w/a;vb.y=-(vb.h-FULL.h)/2}draw()}
+  function zoom(f,cx,cy){const r=svg.getBoundingClientRect();const px=cx==null?.5:(cx-r.left)/r.width,py=cy==null?.5:(cy-r.top)/r.height;
+    const nw=Math.min(Math.max(vb.w/f,30),FULL.w*1.3),k=nw/vb.w;const nh=vb.h*k;vb.x+=(vb.w-nw)*px;vb.y+=(vb.h-nh)*py;vb.w=nw;vb.h=nh;draw()}
+  function pick(i,fly){sel=i;const p=MAP.pts[i];if(!p){card.classList.remove('on');draw();return}
+    if(fly){const [x,y]=prj(p.x,p.y);const r=svg.getBoundingClientRect();vb.w=Math.min(vb.w,110);vb.h=vb.w*r.height/r.width;vb.x=x-vb.w/2;vb.y=y-vb.h/2}
+    const e=BYID[p.e];card.innerHTML=`<button class="x" aria-label="Close">×</button><div class="eyebrow" style="margin:0 0 6px;color:${KIND[p.k][1]}">${KIND[p.k][0]}</div><h4>${esc(p.n)}</h4><p>${esc(p.t)}</p>${e?`<a class="btn p" href="#e-${e.id}">Open entry ${e.ref.replace('SYNPTCL/','')}</a>`:'<span class="chip">No entry yet</span>'}`;
+    card.classList.add('on');draw();paintList()}
+  function paintList(){const q=$('input',root).value;let h='';
+    Object.keys(KIND).forEach(k=>{const items=MAP.pts.map((p,i)=>[p,i]).filter(([p])=>p.k===k&&(!q||norm(p.n+' '+p.c+' '+p.t).includes(norm(q))));
+      if(items.length)h+=`<h4>${KIND[k][0]}</h4>`+items.map(([p,i])=>`<button class="mi ${sel===i?'on':''}" data-i="${i}"><span class="dot" style="--dc:${KIND[k][1]}"></span><span>${hl(p.n,q)}</span><small>${esc(p.c)}</small></button>`).join('')});
+    list.innerHTML=h||'<div class="empty">No match.</div>'}
+  const tools=$('.mtools',root);
+  function paintTools(){tools.innerHTML=[['out','Outposts','var(--loc)'],['rus','Occupier','var(--rus)'],['node','Nodes','var(--accent)'],['gate','Gates','var(--accent)'],['rt','Routes','var(--accent)'],['per','Perimeters','var(--obj)']].map(([k,l,c])=>`<span class="chip ${on[k]?'':'off'}" data-k="${k}"><span class="dot" style="--dc:${c}"></span>${l}</span>`).join('')}
+  tools.onclick=e=>{const c=e.target.closest('.chip');if(!c)return;on[c.dataset.k]=!on[c.dataset.k];paintTools();draw()};
+  $('.mzoom',root).onclick=e=>{const b=e.target.closest('button');if(!b)return;const z=+b.dataset.z;z?zoom(z):fit()};
+  card.onclick=e=>{if(e.target.closest('.x')){sel=null;card.classList.remove('on');draw();paintList()}};
+  list.onclick=e=>{const b=e.target.closest('.mi');if(b)pick(+b.dataset.i,true)};
+  $('input',root).oninput=paintList;
+  let drag=null,moved=false;const ptrs=new Map();let pd=0;
+  svg.addEventListener('click',e=>{const h=e.target.closest('.hit');if(h&&!moved)pick(+h.dataset.i,false)});
+  cv.addEventListener('wheel',e=>{if(compact&&!e.ctrlKey&&!e.metaKey)return;e.preventDefault();zoom(e.deltaY<0?1.2:1/1.2,e.clientX,e.clientY)},{passive:false});
+  cv.addEventListener('pointerdown',e=>{ptrs.set(e.pointerId,e);moved=false;drag={x:e.clientX,y:e.clientY,vx:vb.x,vy:vb.y};if(ptrs.size===2){const [a,b]=[...ptrs.values()];pd=Math.hypot(a.clientX-b.clientX,a.clientY-b.clientY)}});
+  cv.addEventListener('pointermove',e=>{if(!ptrs.has(e.pointerId))return;ptrs.set(e.pointerId,e);
+    if(ptrs.size===2){const [a,b]=[...ptrs.values()];const d=Math.hypot(a.clientX-b.clientX,a.clientY-b.clientY);if(pd)zoom(d/pd,(a.clientX+b.clientX)/2,(a.clientY+b.clientY)/2);pd=d;moved=true;return}
+    if(!drag)return;const r=svg.getBoundingClientRect(),dx=e.clientX-drag.x,dy=e.clientY-drag.y;if(Math.abs(dx)+Math.abs(dy)>4)moved=true;
+    if(moved){vb.x=drag.vx-dx*vb.w/r.width;vb.y=drag.vy-dy*vb.h/r.height;svg.setAttribute('viewBox',`${vb.x} ${vb.y} ${vb.w} ${vb.h}`)}});
+  const up=e=>{ptrs.delete(e.pointerId);pd=0;drag=null;setTimeout(()=>{moved=false},0)};
+  cv.addEventListener('pointerup',up);cv.addEventListener('pointercancel',up);
+  paintTools();paintList();fit();
+  new ResizeObserver(()=>{if(sel===null)fit()}).observe(cv);
+  if(opt.focus){const idx=MAP.pts.map((p,i)=>p.e===opt.focus?i:-1).filter(i=>i>-1);if(idx.length===1)pick(idx[0],true)}
+}
+function home(){
+  const pal=['#e8456b','#f2711c','#3b6fd6','#1f9d68','#9345ab','#b8860b'];
+  const chars=DATA.filter(d=>d.type==='CHR').slice(0,6);
+  const gradeCount=t=>['C','E','U',''].map(g=>DATA.filter(d=>d.type===t&&d.grade===g).length);
+  const bars=['LOC','CHR','OBJ','LOR'].map(t=>{const c=gradeCount(t),n=count(t);return `<div>${c.map((v,i)=>`<span style="width:${v/n*100}%;background:${['var(--gc)','var(--ge)','var(--gu)','var(--line)'][i]}"></span>`).join('')}</div>`}).join('');
+  const esc2=MAP.lines.filter(l=>l.k==='esc').map(l=>l.c);
+  const mini=(()=>{const W=200,H=130,sx=W/((21.57-LON0)*KX),sy=H/((LAT0-52.05)*KY),k=Math.min(sx,sy);
+    const p=c=>c.map((q,i)=>(i?'L':'M')+((q[0]-LON0)*KX*k).toFixed(1)+' '+((LAT0-q[1])*KY*k).toFixed(1)).join('');
+    const per=MAP.lines.filter(l=>l.k!=='esc').map(l=>`<path d="${p(l.c)}Z" fill="${l.k==='rus'?'var(--rus)':'var(--obj)'}" fill-opacity=".08" stroke="${l.k==='rus'?'var(--rus)':'var(--obj)'}" stroke-width=".8"/>`).join('');
+    const rt=esc2.map(c=>`<path d="${p(c)}" fill="none" stroke="var(--accent)" stroke-width="1" stroke-dasharray="3 2"/>`).join('');
+    const pts=MAP.pts.filter(q=>q.k==='out').map(q=>`<circle cx="${((q.x-LON0)*KX*k).toFixed(1)}" cy="${((LAT0-q.y)*KY*k).toFixed(1)}" r="2" fill="var(--loc)"/>`).join('');
+    return `<svg viewBox="0 0 ${W} ${H}" width="320">${per}${rt}${pts}</svg>`})();
+  const cell=(t,cls,body)=>`<a class="cell ${cls||''}" href="#c-${t}" style="--c:${COL[t.toUpperCase()]}">${body}</a>`;
+  const strip=[['book','Diaries'],['audio','Testimony'],['compass','Field notes'],['audio','Cassette tapes'],['cube','Memory cards'],['image','Photographs'],['map','Maps']];
+  const tableRows=DATA.map(d=>`<tr><td class="mono" style="color:var(--muted)">${d.ref.replace('SYNPTCL/','')}</td><td><a href="#e-${d.id}">${esc(d.name.replace(/ \(.*$/,''))}</a></td><td>${dot(d.type)} ${META[d.type].label}</td><td>${grade(d.grade)}</td></tr>`).join('');
+  const kn=['Reference','Name','Category','Summary','Reliability','Status'];const r=BYID['chr-002'];
+  const recVals={Reference:r.ref,Name:r.name,Category:'Characters / '+r.mark,Summary:r.summary,Reliability:(r.reliability||'').slice(0,60)+'…',Status:r.status||'Draft'};
+  const rec=kn.map(k=>`<div><span class="k">${k.padEnd(12)}</span><span class="v">${esc(String(recVals[k]).length>70?String(recVals[k]).slice(0,68)+'…':recVals[k])}</span></div>`).join('');
+  const feat=['chr-001','obj-001','obj-002','lor-001','loc-001','obj-003'].map(i=>BYID[i]).filter(Boolean);
+  const v=BYID['chr-001'];const tiles=['chr-002','chr-003','chr-004','chr-007'].map(i=>BYID[i]).filter(Boolean);
+  const tcol=['#1f2a44','#0f5c4a','#5a2a6b','#7a3b1c'];
+  $('#app').innerHTML=`<section class="hero"><div class="wrap"><div class="h2col"><h1>Everything the archive knows<em>and how well it knows it.</em></h1><div><p class="lede">Warsaw, 2034 to 2036. Places, people, objects and history behind The Syren Protocols: a map, ${DATA.length} entries, and an evidence grade on each one.</p><div class="cta"><a class="btn p" href="#map">Open the map</a><button class="btn" id="hs2">${ico('search')} Search the archive</button></div></div></div></div></section>
+  <section style="padding:8px 0 18px"><div class="wrap"><div class="grid7">
+   ${cell('loc','w2',`<h3>${ico('pin')} Locations</h3><p><b>${count('LOC')} places.</b> Outposts, Russian positions and the escape routes, each on the map.</p><div class="art">${mini}</div>`)}
+   ${cell('chr','',`<h3>${ico('user')} Characters</h3><p><b>${count('CHR')} people.</b> Survivors, Runners and occupiers.</p><div class="art"><div class="av">${chars.map((c,i)=>`<i style="background:${pal[i]}">${esc(c.name[0])}</i>`).join('')}</div></div>`)}
+   ${cell('obj','',`<h3>${ico('cube')} Objects</h3><p><b>${count('OBJ')} things.</b> The Dendron, the Dust, the Protocols.</p><div class="art"><svg viewBox="0 0 24 24" width="96" style="stroke:var(--obj);fill:none;stroke-width:.5">${IC.cube}</svg></div>`)}
+   ${cell('lor','',`<h3>${ico('waves')} Lore</h3><p><b>${count('LOR')} threads.</b> The programme, the flood, 1944.</p><div class="art"><svg viewBox="0 0 24 24" width="104" style="stroke:var(--lor);fill:none;stroke-width:.5">${IC.waves}</svg></div>`)}
+   <a class="cell" href="#map" style="--c:var(--accent)"><h3>${ico('route')} Escape routes</h3><p><b>Four routes</b> out through the occupier's ring.</p><div class="art"><svg viewBox="0 0 24 24" width="96" style="stroke:var(--accent);fill:none;stroke-width:.5">${IC.route}</svg></div></a>
+   <button class="cell" id="hs3" style="--c:var(--accent);text-align:left;font:inherit;color:inherit;cursor:pointer"><h3>${ico('search')} Search</h3><p><b>One search</b> across names, places and text.</p><div class="art"><div class="fakesearch"><div class="fi">${ico('search')} water</div><div class="fr"><span>Filtry</span><span>LOC/013</span></div><div class="fr"><span>Rising water</span><span>LOR/005</span></div></div></div></button>
+   <a class="cell" href="#c-chr" style="--c:var(--accent)"><h3>${ico('shield')} Evidence</h3><p><b>C, E or U</b> on every entry, by how far the sources agree.</p><div class="art"><div class="bars">${bars}</div></div></a>
+  </div><p class="tline"><b>Read one entry or follow the whole archive.</b> Every entry links to the places and people it touches.</p></div></section>
+  <section class="sec"><div class="wrap"><div class="sechead"><h2>Start with where it happened.</h2><a class="btn" href="#map">${ico('compass')} Open the full map</a></div><p class="sub">Select any point to open its entry. Occupier positions are approximate.</p><div id="mm"></div></div></section>
+  <section class="sec"><div class="wrap"><div class="stl">Drawn from the Protocols</div><div class="strip">${strip.map(([i,l])=>`<span>${ico(i)}${l}</span>`).join('')}</div></div></section>
+  <section class="sec"><div class="wrap"><h2>Browse everything<br><span style="color:var(--muted)">without leaving the page</span></h2><div class="tabs" id="tabs"><button class="on" data-t="t">Entry table</button><button data-t="e">Evidence</button><button data-t="m">Map points</button></div>
+    <div class="win"><div class="bar"><i></i><i></i><i></i></div><div class="body" id="tbody"></div></div></div></section>
+  <section class="sec"><div class="wrap split"><div><div class="eyebrow">Format</div><h2>Every entry has the same shape.</h2><p class="sub">Reference, name, category, summary, reliability and status. Cross-references link the entries together, and a media field takes images, sound and video.</p><a class="btn" href="#e-chr-002">${ico('book')} See an entry</a></div><div class="code">${rec}</div></div></section>
+  <section class="sec"><div class="wrap"><div class="sechead"><h2>Start with these entries.</h2><a class="btn" href="#c-chr">All characters</a></div><p class="sub">Six places to begin.</p><div class="tpl">${feat.map(d=>`<a class="tc" href="#e-${d.id}" style="--c:${COL[d.type]}"><span class="tt">${ICON[d.type]} ${d.ref.replace('SYNPTCL/','')}</span><b>${esc(d.name.replace(/ \(.*$/,''))}</b><p>${esc(d.summary)}</p><small>Read entry →</small></a>`).join('')}</div></div></section>
+  <section class="sec"><div class="wrap"><div class="sechead"><h2>Voices in the archive.</h2><a class="btn" href="#c-chr">Meet the characters</a></div><p class="sub">Each Protocol belongs to one survivor.</p><div class="voices"><a class="big" href="#e-${v.id}"><p>${esc(v.summary)}</p><small>${esc(v.name)}, ${v.ref.replace('SYNPTCL/','')}</small></a>${tiles.map((t,i)=>`<a class="tile" href="#e-${t.id}" style="background:${tcol[i]}"><b>${esc(t.name.replace(/ \(.*$/,'').replace(/"[^"]*" /,''))}</b><small>${t.ref.replace('SYNPTCL/','')}</small></a>`).join('')}</div></div></section>
+  <section class="sec"><div class="wrap split"><div><div class="eyebrow">Manuscript first</div><h2>The story stays the authority.</h2><p class="sub">When the archive and the manuscript disagree, the manuscript wins. Read it in full, then come back here to look things up.</p><a class="btn" href="https://claude.ai/artifact/HKnA4aW9ugwCasSP3kkugA" target="_blank" rel="noopener">Read the story ↗</a></div><div class="code"><div><span class="k">Authority   </span><span class="v">manuscript</span></div><div><span class="k">Grades      </span><span class="v">C confirmed · E estimated · U unconfirmed</span></div><div><span class="k">Entries     </span><span class="v">${DATA.length}</span></div><div><span class="k">Map points  </span><span class="v">${MAP.pts.length}</span></div></div></div></section>
+  <section class="cta2"><div class="wrap"><h2>Search the archive, <em>follow the map.</em></h2><div class="cta"><a class="btn p" href="#map">Open the map</a><button class="btn" id="hs4">Search the archive</button></div></div></section>
+  <div class="wrap"><div class="badges"><span>${ico('shield')} Manuscript is the authority</span><span>${ico('book')} Every entry graded</span><span>${ico('pin')} Every place on the map</span></div></div>`;
+  const tb=$('#tbody');const tabs={t:()=>`<table class="tbl"><thead><tr><th>Ref</th><th>Name</th><th>Category</th><th>Grade</th></tr></thead><tbody>${tableRows}</tbody></table>`,
+   e:()=>`<table class="tbl"><thead><tr><th>Category</th><th>C</th><th>E</th><th>U</th><th>Not yet graded</th></tr></thead><tbody>${['LOC','CHR','OBJ','LOR'].map(t=>`<tr><td>${dot(t)} ${META[t].label}</td>${gradeCount(t).map(n=>`<td>${n}</td>`).join('')}</tr>`).join('')}</tbody></table>`,
+   m:()=>`<table class="tbl"><thead><tr><th>Code</th><th>Point</th><th>Kind</th><th>Entry</th></tr></thead><tbody>${MAP.pts.map(p=>`<tr><td class="mono" style="color:var(--muted)">${esc(p.c)}</td><td>${esc(p.n)}</td><td>${KIND[p.k][0]}</td><td>${p.e?`<a href="#map-${p.e}">${BYID[p.e].ref.replace('SYNPTCL/','')}</a>`:''}</td></tr>`).join('')}</tbody></table>`};
+  tb.innerHTML=tabs.t();$('#tabs').onclick=e=>{const b=e.target.closest('button');if(!b)return;[...$('#tabs').children].forEach(x=>x.classList.toggle('on',x===b));tb.innerHTML=tabs[b.dataset.t]()};
+  ['hs2','hs3','hs4'].forEach(i=>{const el=$('#'+i);if(el)el.onclick=pOpen});mountMap($('#mm'),{compact:true,h:520})}
+function mapView(focus){
+  $('#app').innerHTML=`<div class="wrap" style="padding-top:22px;padding-bottom:50px"><div class="crumb"><a href="#home">Codex</a> / Map</div><h1 class="t" style="font-size:clamp(26px,4vw,36px);text-align:left;margin:0 0 14px;max-width:none">Warsaw and the corridor</h1><div id="mm"></div></div>`;
+  mountMap($('#mm'),{h:Math.max(520,innerHeight-230),focus})}
+function side(t,cur){return `<aside class="side">${Object.keys(META).map(k=>`<h5>${META[k].label}</h5>`+(k===t?DATA.filter(d=>d.type===k).map(d=>`<a href="#e-${d.id}" class="${d.id===cur?'on':''}">${dot(k)}<span>${esc(d.name.replace(/ \(.*$/,''))}</span></a>`).join(''):`<a href="#c-${k.toLowerCase()}">${dot(k)}<span>All ${count(k)} entries</span></a>`)).join('')}</aside>`}
+function cat(t){
+  t=t.toUpperCase();const m=META[t];let g='',q='';
+  $('#app').innerHTML=`<div class="wrap"><div class="docs two">${side(t,'')}<div class="main"><div class="crumb"><a href="#home">Codex</a> / ${m.label}</div><div class="ph"><span class="tag" style="--c:${COL[t]}">${m.mark}</span></div><h1 class="t">${m.label}</h1><p class="sum">${BLURB[t]}</p>
+    <div class="ctl"><input class="fin" id="cf" placeholder="Search ${m.label.toLowerCase()}"><div class="seg" id="gs"><button data-g="" class="on">All</button><button data-g="C">C</button><button data-g="E">E</button><button data-g="U">U</button></div>${t==='LOC'?'<a class="btn" href="#map">View on map</a>':''}</div><div id="rows"></div></div></div></div>`;
+  const paint=()=>{const r=find(q,[t]).filter(x=>!g||x.d.grade===g);$('#rows').innerHTML=r.length?r.map(({d})=>`<a class="row" href="#e-${d.id}" style="--c:${COL[t]}"><div class="rt2"><b>${hl(d.name,q)}</b><span class="gl"><span class="mono" style="font-size:11px;color:var(--muted)">${d.ref.replace('SYNPTCL/','')}</span>${grade(d.grade)}</span></div><p>${hl(snip(d,q),q)}</p></a>`).join(''):'<div class="empty">No entries match.</div>'};
+  $('#cf').oninput=e=>{q=e.target.value;paint()};
+  $('#gs').onclick=e=>{const b=e.target.closest('button');if(!b)return;g=b.dataset.g;[...$('#gs').children].forEach(x=>x.classList.toggle('on',x===b));paint()};paint()}
+function xrefs(d){const ids=[...new Set([...(d.xrefs||'').matchAll(/SYNPTCL\/(LOC|CHR|OBJ|LOR)\/(\d+)/g)].map(m=>`${m[1].toLowerCase()}-${m[2]}`))].filter(i=>BYID[i]&&i!==d.id);
+  return {ids,pts:MAP.pts.filter(p=>p.e===d.id).length}}
+function mediaBlocks(d){
+  const m=d.media||[];const by=t=>m.filter(x=>x.type===t);const im=by('image').slice(0,10),fi=by('file'),au=by('audio'),vi=by('video');
+  const hd=(t,n,ph,hint)=>`<div class="mh"><h3>${t}${ph?'<span class="ph-tag">placeholder</span>':''}</h3><small>${hint}</small></div>`;
+  let h='';
+  h+=hd('Images',im.length,!im.length,im.length+' of 10');
+  h+=`<div class="imgs">${im.map(x=>`<figure><img src="${esc(x.src)}" alt="${esc(x.caption||d.name)}" loading="lazy"></figure>`).join('')}${Array.from({length:Math.max(0,im.length?0:10)},(_,i)=>`<div class="slot">${i===0?ico('plus'):ico('image')}<span>${i===0?'Add image':String(i+1).padStart(2,'0')}</span></div>`).join('')}</div>`;
+  h+=hd('Audio',au.length,!au.length,au.length?au.length+' file'+(au.length>1?'s':''):'WAV or MP3');
+  h+=`<div class="mp">${au.length?au.map((x,i)=>`<div class="blk ${i%2?'alt':''}"><div class="bh"><span>${i===0?'<em>':''}${esc(x.label||'Audio')}${i===0?'</em>':''}</span><small>${esc(x.meta||'')}</small></div>${x.note?`<div class="bm">${esc(x.note)}</div>`:'<div style="height:10px"></div>'}<audio controls src="${esc(x.src)}"></audio></div>`).join(''):`<div class="blk"><div class="bh"><span>Audio · <em>Recording</em></span><small>0:00 · WAV 24bit/96kHz</small></div><div class="bm">Source · Place · Date · Recordist</div><audio class="dis" controls></audio></div>`}</div>`;
+  h+=hd('Video',vi.length,!vi.length,vi.length?vi.length+' file'+(vi.length>1?'s':''):'MP4');
+  h+=vi.length?vi.map(x=>`<div class="mp" style="margin-bottom:10px"><div class="blk"><video controls src="${esc(x.src)}"></video>${x.caption?`<div class="bm">${esc(x.caption)}</div>`:''}</div></div>`).join(''):`<div class="vph">${ico('play')}</div>`;
+  h+=hd('Files',fi.length,!fi.length,fi.length?fi.length+' file'+(fi.length>1?'s':''):'PDF');
+  h+=fi.length?`<div class="files">${fi.map(x=>`<a class="fl" href="${esc(x.src)}" target="_blank" rel="noopener">${ico('file')}<div><b>${esc(x.label||x.src)}</b><small>${esc(x.meta||'PDF')}</small></div><span class="go">Open</span></a>`).join('')}</div>`:`<div class="fl dash">${ico('file')}<div><b>Document name.pdf</b><small>PDF · 0 pages · 0 MB</small></div></div>`;
+  return h}
+function facts(d,pts){
+  const t=d.type;const pt=pts[0];const row=(k,v)=>`<div><dt>${k}</dt><dd class="${v?'':'nr'}">${v?esc(v):'Not recorded'}</dd></div>`;
+  const n=a=>a;
+  const ctl=pt?({out:'Survivor',node:'Survivor route',gate:'Survivor route',rus:'Occupier',kos:'Other'})[pt.k]:'';
+  const cells=[['Reference',d.ref.replace('SYNPTCL/','')],['Category',META[t].label],['Mark',d.mark||META[t].mark],['Grade',d.grade?d.grade+' '+GRADE[d.grade]:''],['Status',d.status?d.status.split('.')[0]:'Draft']];
+  if(t==='LOC')cells.push(['Control',ctl],['Coordinates',pt?pt.y.toFixed(4)+'°N '+pt.x.toFixed(4)+'°E':''],['Ground class',(d.entry.match(/Class ([A-D]) ground/)||[])[1]?'Class '+d.entry.match(/Class ([A-D]) ground/)[1]:'']);
+  else if(t==='CHR')cells.push(['Age',(d.summary.match(/aged (\d+)/)||d.entry.match(/\b(\d+) years old/)||[])[1]||''],['Own Protocol','' ],['Fate','']);
+  else if(t==='OBJ')cells.push(['Type',''],['Holder',''],['Origin','']);
+  else cells.push(['Type',''],['Period',''],['Parties','']);
+  return `<dl class="facts">${cells.map(([k,v])=>row(k,v)).join('')}</dl>`}
+function entry(id){
+  const d=BYID[id];if(!d){home();return}const {ids}=xrefs(d);const t=d.type;const pts=MAP.pts.filter(p=>p.e===d.id);
+  const tags=[META[t].label,d.mark||META[t].mark,...ids.slice(0,6).map(i=>BYID[i])].filter(Boolean);
+  $('#app').innerHTML=`<div class="wrap"><div class="docs">${side(t,id)}<article class="main"><div class="crumb"><a href="#home">Codex</a> / <a href="#c-${t.toLowerCase()}">${META[t].label}</a> / ${d.ref.replace('SYNPTCL/','')}</div>
+    <div class="eref">${d.ref.replace('SYNPTCL/','').replace('/','-')}</div><h1 class="t">${esc(d.name)}</h1><p class="sum it">${esc(d.summary)}</p>
+    ${facts(d,pts)}
+    <div class="tags">${tags.map(x=>typeof x==='string'?`<span>${esc(x.toLowerCase())}</span>`:`<a href="#e-${x.id}">${esc(x.name.replace(/ \(.*$/,'').toLowerCase())}</a>`).join('')}</div>
+    <div class="prose"><p>${esc(d.entry)}</p></div>
+    ${mediaBlocks(d)}</article>
+    <aside class="rail">
+      ${pts.length?`<div class="box"><h6>Map</h6><a class="btn p" href="#map-${d.id}" style="width:100%;justify-content:center">${ico('pin')} Show on map</a></div>`:''}
+      <div class="box"><h6>Evidence</h6><p>${d.grade?`<span class="gl"><span class="g ${d.grade}">${d.grade}</span> ${GRADE[d.grade]}</span>`:'Not yet graded.'}</p>${d.reliability?`<p style="margin-top:8px">${esc(d.reliability)}</p>`:''}</div>
+      ${d.appears?`<div class="box"><h6>Appears in</h6><p>${esc(d.appears)}</p></div>`:''}
+      ${ids.length?`<div class="box"><h6>Connected entries</h6>${ids.map(i=>`<a class="x" href="#e-${i}">${dot(BYID[i].type)} ${esc(BYID[i].name.replace(/ \(.*$/,''))}</a>`).join('')}</div>`:''}
+    </aside></div></div>`}
+function route(){const h=(location.hash||'#home').slice(1);navPaint(h);
+  if(h==='map')mapView();else if(h.startsWith('map-'))mapView(h.slice(4));
+  else if(h.startsWith('c-')&&META[h.slice(2).toUpperCase()])cat(h.slice(2));
+  else if(h.startsWith('e-'))entry(h.slice(2));else home();
+  scrollTo(0,0)}
+addEventListener('hashchange',route);
+$('#stamp').textContent=DATA.length+' entries, '+MAP.pts.length+' map points';
+route();
+</script>
