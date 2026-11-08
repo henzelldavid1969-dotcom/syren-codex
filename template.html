@@ -267,7 +267,7 @@ footer .wrap{display:flex;gap:16px;justify-content:space-between;flex-wrap:wrap}
 .vh{font:400 11.5px "Geist Mono",monospace;letter-spacing:.06em;color:var(--muted);text-transform:uppercase}
 .vh b{background:var(--accent);color:var(--accent-fg);font-weight:500;padding:1px 5px;border-radius:3px}
 .vb h3{margin:16px 0 10px;font-weight:500;font-size:clamp(24px,2.6vw,32px);letter-spacing:-.025em;line-height:1.1;outline:none;max-width:62%}
-.vs{margin:0;color:var(--muted);font-size:16px;line-height:1.55;max-width:min(30em,62%);text-wrap:pretty}
+.vs{margin:0;color:var(--muted);font-size:14px;line-height:1.4;max-width:min(30em,62%);text-wrap:pretty}
 .vf{display:flex;flex-wrap:wrap;gap:8px 26px;margin:20px 0 0;max-width:64%}
 .vf dt{font:500 10.5px "Geist Mono",monospace;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-bottom:4px}
 .vf dd{margin:0;font-size:14px}
@@ -284,7 +284,18 @@ footer .wrap{display:flex;gap:16px;justify-content:space-between;flex-wrap:wrap}
 .vgr{position:absolute;right:12px;top:12px;width:26px;height:26px;box-sizing:border-box;border-radius:50%;display:grid;place-items:center;font:500 11px "Geist Mono",monospace;color:var(--fg);border:1.3px solid var(--accent);background:color-mix(in srgb,var(--accent) 18%,transparent)}
 .vgr.C{background:var(--accent);color:var(--accent-fg)}
 .vgr.U{border-style:dashed;border-color:var(--muted);background:none}
-@media(max-width:760px){
+/* tablets: narrower spines and no dossier card, so the open file has room */
+@media(max-width:1180px) and (min-width:961px){
+ .vac{height:450px}
+ .vp{flex-basis:44px}
+ .vb{width:calc(100cqi - (var(--n) - 1) * 52px);padding:22px 24px}
+ .vt{gap:10px;padding:14px 0 12px}
+ .vt .vn{font-size:13.5px}
+ .vt .vi{width:18px;height:18px}
+ .vg{width:18px;height:18px;font-size:9.5px}
+ .vdos{display:none}
+ .vb h3,.vs,.vf{max-width:none}}
+@media(max-width:960px){
  .vac{flex-direction:column;height:auto;gap:6px}
  .vp,.vp.open{flex:none}
  .vt{position:relative;inset:auto;flex-direction:row;padding:13px 16px;gap:12px;width:100%}
@@ -974,7 +985,7 @@ function home(){
   {const tl=$('#tl'),tx=$('.tlx',tl);if(tl){
     if('IntersectionObserver' in window&&!matchMedia('(prefers-reduced-motion:reduce)').matches){tl.classList.add('pre');const io=new IntersectionObserver(es=>{if(es.some(x=>x.isIntersecting)){io.disconnect();tl.classList.add('in');tl.classList.remove('pre');setTimeout(()=>tl.classList.add('done'),3200)}},{threshold:.25});io.observe(tl)}
     $('#app').querySelectorAll('.tlb').forEach(b=>b.onclick=()=>{const w=($('.te',tl)||{}).offsetWidth||240;tx.scrollBy({left:+b.dataset.d*w,behavior:'smooth'})});}}
-  $('#vac').onclick=e=>{const b=e.target.closest('.vt');if(!b)return;const p=b.parentElement,mob=matchMedia('(max-width:760px)').matches,was=p.classList.contains('open');
+  $('#vac').onclick=e=>{const b=e.target.closest('.vt');if(!b)return;const p=b.parentElement,mob=matchMedia('(max-width:960px)').matches,was=p.classList.contains('open');
     $('#vac').querySelectorAll('.vp').forEach(x=>{x.classList.remove('open');x.querySelector('.vt').setAttribute('aria-expanded','false')});
     if(!(mob&&was)){p.classList.add('open');b.setAttribute('aria-expanded','true');if(!mob)p.querySelector('h3').focus({preventScroll:true})}};mountMap($('#mm'),{compact:true,h:520})}
 function mapView(focus){
