@@ -361,9 +361,16 @@ details>summary{list-style:none}details>summary::-webkit-details-marker{display:
 .imgs figure.phimg:after{content:"placeholder";top:auto;bottom:7px;left:50%;transform:translateX(-50%);font:400 10px "Geist Mono",monospace;letter-spacing:.06em;text-transform:uppercase;color:var(--obj);border:1px dashed color-mix(in srgb,var(--obj) 50%,var(--line));border-radius:5px;padding:1px 6px}
 /* home page revision */
 .hero .h2col{align-items:start}
-@media(min-width:861px){.hero .h2col{grid-template-columns:minmax(0,1fr) 330px}
- .hero h1{font-size:min(52px,calc((min(100vw,1180px) - 434px) / 16.4))}
- .hero h1 .l1,.hero h1 em{display:block;white-space:nowrap}}
+/* headline: full width, two lines that never wrap. The size follows the
+   width: the longer line measures about 15.6em in Geist 600, so 100cqi/16
+   fills the row with a little to spare at every screen width. */
+.hero .wrap{container-type:inline-size}
+.hero .h2col{grid-template-columns:minmax(0,1fr);gap:30px}
+.hero h1{font-size:6vw;font-size:calc(100cqi / 16);font-weight:600;line-height:1.02}
+.hero h1 em{font-weight:600}
+.hero h1 .l1,.hero h1 em{display:block;white-space:nowrap}
+@media(min-width:861px){.hero .h2col>div{display:grid;grid-template-columns:minmax(0,34em) auto;column-gap:48px;justify-content:space-between;align-items:end}
+ .hero .h2col>div>.cta{grid-column:2;grid-row:1/span 2;margin-top:0}}
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 .brand{flex:none}
 .mbtn{display:none;background:none;border:1px solid var(--line);border-radius:7px;width:32px;height:32px;color:var(--muted);place-items:center;flex:none}
