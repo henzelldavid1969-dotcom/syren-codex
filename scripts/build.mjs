@@ -3,7 +3,7 @@
 // dist/story.json for the Story pages. Vercel runs this on every deployment.
 // It needs no network access and no keys.
 
-import { readFile, writeFile, mkdir } from 'node:fs/promises';
+import { readFile, writeFile, mkdir, copyFile } from 'node:fs/promises';
 import { buildStory } from './story-lib.mjs';
 import { buildTiles, buildScan } from './tiles.mjs';
 
@@ -59,6 +59,11 @@ const html =
     .replace(/<title>[^<]*<\/title>/, () => `<title>${attr(HOME.site.title)}</title>`);
 
 await mkdir(new URL('../dist/', import.meta.url), { recursive: true });
+// The street map's software (MapLibre GL), served from the site itself and
+// loaded only when a map is on screen. Its worker file must sit beside it.
+await mkdir(new URL('../dist/vendor/maplibre/', import.meta.url), { recursive: true });
+for (const f of ['maplibre-gl.mjs', 'maplibre-gl-worker.mjs', 'maplibre-gl.css'])
+  await copyFile(new URL('../node_modules/maplibre-gl/dist/' + f, import.meta.url), new URL('../dist/vendor/maplibre/' + f, import.meta.url));
 await writeFile(new URL('../dist/index.html', import.meta.url), html);
 console.log(`Built dist/index.html: ${DATA.length} entries, ${MAP.pts.length} map points, ${html.length} bytes.`);
 

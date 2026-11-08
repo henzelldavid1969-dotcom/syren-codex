@@ -1,10 +1,10 @@
 <title>The Syren Protocols</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@200..700&family=Geist+Mono:wght@300;400;500&family=Newsreader:ital,wght@0,400;0,500;1,400&display=swap">
 <style>
-:root{--bg:#0e0f0f;--surface:#151616;--raise:#1d1f1f;--line:#2a2d2c;--fg:#ededed;--muted:#9ba09e;--accent:#B8DF0D;--accent-fg:#141a00;--accent-ink:#B8DF0D;--edge:transparent;
+:root{--bg:#0e0f0f;--surface:#151616;--raise:#1d1f1f;--line:#2a2d2c;--fg:#ededed;--muted:#9ba09e;--accent:#B8DF0D;--accent-fg:#141a00;--accent-ink:#B8DF0D;--edge:transparent;--attrib-inv:invert(1);
 --loc:#B8DF0D;--chr:#7aa7ff;--obj:#e3b562;--lor:#c58bd9;--gc:#B8DF0D;--ge:#e3b562;--gu:#e08a7a;--rus:#e5625a;--glow:rgba(184,223,13,.14);--mapbg:#0b0d0d;color-scheme:dark}
-@media(prefers-color-scheme:light){:root:not([data-theme="dark"]){--bg:#fcfcfb;--surface:#f6f6f4;--raise:#ffffff;--line:#e2e3e0;--fg:#161817;--muted:#626865;--accent:#B8DF0D;--accent-fg:#141a00;--accent-ink:#161817;--edge:#161817;--loc:#161817;--chr:#3b6fd6;--obj:#a9741a;--lor:#9345ab;--gc:#B8DF0D;--ge:#a9741a;--gu:#c0503f;--rus:#c9382f;--glow:rgba(184,223,13,.12);--mapbg:#f1f2ef;color-scheme:light}}
-:root[data-theme="light"]{--bg:#fcfcfb;--surface:#f6f6f4;--raise:#ffffff;--line:#e2e3e0;--fg:#161817;--muted:#626865;--accent:#B8DF0D;--accent-fg:#141a00;--accent-ink:#161817;--edge:#161817;--loc:#161817;--chr:#3b6fd6;--obj:#a9741a;--lor:#9345ab;--gc:#B8DF0D;--ge:#a9741a;--gu:#c0503f;--rus:#c9382f;--glow:rgba(184,223,13,.12);--mapbg:#f1f2ef;color-scheme:light}
+@media(prefers-color-scheme:light){:root:not([data-theme="dark"]){--bg:#fcfcfb;--surface:#f6f6f4;--raise:#ffffff;--line:#e2e3e0;--fg:#161817;--muted:#626865;--accent:#B8DF0D;--accent-fg:#141a00;--accent-ink:#161817;--edge:#161817;--attrib-inv:none;--loc:#161817;--chr:#3b6fd6;--obj:#a9741a;--lor:#9345ab;--gc:#B8DF0D;--ge:#a9741a;--gu:#c0503f;--rus:#c9382f;--glow:rgba(184,223,13,.12);--mapbg:#f1f2ef;color-scheme:light}}
+:root[data-theme="light"]{--bg:#fcfcfb;--surface:#f6f6f4;--raise:#ffffff;--line:#e2e3e0;--fg:#161817;--muted:#626865;--accent:#B8DF0D;--accent-fg:#141a00;--accent-ink:#161817;--edge:#161817;--attrib-inv:none;--loc:#161817;--chr:#3b6fd6;--obj:#a9741a;--lor:#9345ab;--gc:#B8DF0D;--ge:#a9741a;--gu:#c0503f;--rus:#c9382f;--glow:rgba(184,223,13,.12);--mapbg:#f1f2ef;color-scheme:light}
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
 body{margin:0;background:var(--bg);color:var(--fg);font:300 15.5px/1.65 Geist,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
@@ -87,6 +87,21 @@ a.card:hover{border-color:var(--c,var(--accent));transform:translateY(-2px)}
 :root{--river:color-mix(in srgb,var(--fg) 13%,var(--mapbg))}
 .mcanvas svg .riv{fill:none;stroke:var(--river);stroke-width:max(calc(4px * var(--k)),3.6px);stroke-linecap:round;stroke-linejoin:round}
 .mcanvas svg text.rivl{font:500 calc(9.5px*var(--k)) "Geist Mono",monospace;letter-spacing:.4em;fill:var(--muted);stroke:none;paint-order:normal}
+/* street map */
+.mapwrap.street .mcanvas{cursor:default;touch-action:auto}
+.mgl,.mgl.maplibregl-map{position:absolute;inset:0;width:100%;height:100%}
+.mgl .maplibregl-canvas{outline:none}
+.mapwrap.street .mnote{left:10px;right:auto;text-align:left;bottom:10px}
+.mk{position:relative;display:grid;place-items:center;width:22px;height:22px;padding:0;border:0;background:none;cursor:pointer;color:var(--fg)}
+.mk .gly{width:16px;height:16px}
+.mk.k-node .gly,.mk.k-gate .gly,.mk.k-kos .gly{width:13px;height:13px}
+.mk span{position:absolute;left:21px;top:50%;transform:translateY(-50%);display:none;white-space:nowrap;font:500 12px Geist,system-ui,sans-serif;color:var(--fg);text-shadow:0 0 3px var(--mapbg),0 0 3px var(--mapbg),0 0 2px var(--mapbg);pointer-events:none}
+.mk.lab span{display:block}
+.mk.sel:before{content:"";position:absolute;inset:-6px;border-radius:50%;border:1.5px solid var(--fg);opacity:.8}
+.mk:focus-visible{outline:2px solid var(--fg);outline-offset:3px;border-radius:50%}
+.mapwrap.street .maplibregl-ctrl-attrib{font:11px Geist,system-ui,sans-serif;background:color-mix(in srgb,var(--surface) 85%,transparent);color:var(--muted)}
+.mapwrap.street .maplibregl-ctrl-attrib a{color:var(--muted)}
+.mapwrap.street .maplibregl-ctrl-attrib-button{filter:var(--attrib-inv)}
 .tiles .riv{fill:none;stroke:color-mix(in srgb,var(--fg) 13%,transparent);stroke-width:6;stroke-linecap:round;stroke-linejoin:round}
 .tiles .scan .sriv{fill:none;stroke:color-mix(in srgb,var(--fg) 13%,transparent);stroke-width:8;stroke-linecap:round;stroke-linejoin:round}
 .mtools{position:absolute;top:10px;left:10px;display:flex;gap:6px;flex-wrap:wrap;max-width:calc(100% - 70px)}
@@ -850,7 +865,8 @@ const GLY={out:'<circle class="sy-ring" cx="7" cy="7" r="5.6" stroke-width="1.1"
   rt:'<path class="sy-rt" d="M.5 7h13"/>',per:'<path class="sy-per" d="M2 4.5 6 2l6 2.5-1 6.5-6.5 1L2 9z"/>'};
 const gly=k=>`<svg class="gly" viewBox="0 0 14 14" aria-hidden="true">${GLY[k]}</svg>`;
 const FULL={x:0,y:0,w:(21.57-LON0)*KX,h:(LAT0-52.05)*KY};
-function mountMap(root,opt){
+// The drawn (SVG) map: used wherever the street map cannot run.
+function mountSvgMap(root,opt){
   const compact=!!opt.compact;let vb={...FULL};let sel=null;const rid='riv'+Math.random().toString(36).slice(2,8);
   const on={out:1,node:1,gate:1,rus:1,kos:1,rt:1,per:1};
   root.innerHTML=`<div class="mapwrap ${compact?'compact':''}" style="--mh:${opt.h||560}px"><aside class="mpanel"><div class="ms"><input placeholder="Find a place on the map" aria-label="Find a place"></div><div class="mlist"></div></aside><div class="mcanvas"><svg></svg><div class="mtools"></div><div class="mzoom"><button data-z="1.5" aria-label="Zoom in">+</button><button data-z="0.67" aria-label="Zoom out">−</button><button data-z="0" aria-label="Reset view">⌖</button></div><div class="mcard"></div><div class="mnote">Schematic. Occupier positions are approximate.</div></div></div>`;
@@ -902,6 +918,103 @@ function mountMap(root,opt){
   paintTools();paintList();fit();
   new ResizeObserver(()=>{if(sel===null)fit()}).observe(cv);
   if(opt.focus){const idx=MAP.pts.map((p,i)=>p.e===opt.focus?i:-1).filter(i=>i>-1);if(idx.length===1)pick(idx[0],true)}
+}
+
+// ---------------------------------------------------------------------------
+// The street map: OpenStreetMap streets (via OpenFreeMap) restyled in the
+// site's monochrome palette, with the corridor drawn on top. The software is
+// served from /vendor and loaded only when a map is shown. Any failure (no
+// WebGL, map server unreachable) falls back to the drawn map above.
+// ---------------------------------------------------------------------------
+const BASEMAP='https://tiles.openfreemap.org/styles/positron';
+let ML_P=null,BASE_P=null;const LIVE=[];
+const loadML=()=>ML_P||(ML_P=(async()=>{if(!document.querySelector('link[data-ml]')){const l=document.createElement('link');l.rel='stylesheet';l.href='vendor/maplibre/maplibre-gl.css';l.dataset.ml=1;document.head.appendChild(l)}const m=await import('./vendor/maplibre/maplibre-gl.mjs');return m.default||m})());
+const loadBase=()=>BASE_P||(BASE_P=fetch(BASEMAP).then(r=>{if(!r.ok)throw new Error('basemap');return r.json()}));
+const glOK=(()=>{try{const c=document.createElement('canvas');return !!(c.getContext('webgl2')||c.getContext('webgl'))}catch(e){return false}})();
+const themeNow=()=>document.documentElement.dataset.theme||(matchMedia('(prefers-color-scheme:light)').matches?'light':'dark');
+const PAL={
+  light:{bg:'#f1f2ef',land:'#ecedea',green:'#e8eae5',water:'#c7cccb',bld:'#e4e5e0',bldo:'#d9dad5',road:'#ffffff',casing:'#d8d9d5',minor:'#fbfbfa',path:'#e3e4e0',rail:'#d5d6d2',label:'#6f7471',place:'#2f3331',halo:'#f1f2ef',per:'#626865',fill:'#161817'},
+  dark:{bg:'#0b0d0d',land:'#0d100f',green:'#0f1312',water:'#252c2f',bld:'#151817',bldo:'#1b1f1e',road:'#2b2f2e',casing:'#181b1a',minor:'#202423',path:'#1a1d1c',rail:'#212524',label:'#7f8481',place:'#c4c8c5',halo:'#0b0d0d',per:'#9ba09e',fill:'#ededed'}};
+function streetStyle(base,theme){
+  const P=PAL[theme],st=JSON.parse(JSON.stringify(base));
+  const name=['coalesce',['get','name:en'],['get','name:latin'],['get','name']];
+  st.layers=st.layers.filter(l=>!/^(boundary|highway-shield|road_shield|airport|label_state|label_country|landcover_ice|landcover_glacier)/.test(l.id)&&l.source!=='ne2_shaded');
+  delete st.sources.ne2_shaded;
+  for(const l of st.layers){const p=l.paint=l.paint||{},id=l.id;
+    if(id==='background')p['background-color']=P.bg;
+    else if(id==='park'||id==='landcover_wood')p['fill-color']=P.green;
+    else if(id==='landuse_residential')p['fill-color']=P.land;
+    else if(id==='water')p['fill-color']=P.water;
+    else if(id==='waterway')p['line-color']=P.water;
+    else if(id==='building'){p['fill-color']=P.bld;p['fill-outline-color']=P.bldo}
+    else if(/casing|subtle/.test(id))p['line-color']=P.casing;
+    else if(/_inner$/.test(id))p['line-color']=P.road;
+    else if(id==='highway_minor')p['line-color']=P.minor;
+    else if(id==='highway_path')p['line-color']=P.path;
+    else if(/^railway/.test(id))p['line-color']=/dashline/.test(id)?P.bg:P.rail;
+    else if(/^aeroway/.test(id)){if(l.type==='fill')p['fill-color']=P.land;else p['line-color']=P.casing}
+    else if(/pier/.test(id)){if(l.type==='fill')p['fill-color']=P.bg;else p['line-color']=P.bg}
+    if(id==='label_village')l.minzoom=Math.max(l.minzoom||0,11.5);if(id==='label_other')l.minzoom=Math.max(l.minzoom||0,13);
+    if(l.type==='symbol'){const y=l.layout=l.layout||{};if(y['text-field'])y['text-field']=name;delete y['icon-image'];
+      p['text-color']=/^label_/.test(id)?P.place:P.label;p['text-halo-color']=P.halo;p['text-halo-width']=1.2}}
+  // the corridor, above the streets and below the street names
+  const poly=k=>({type:'Feature',geometry:{type:'Polygon',coordinates:[MAP.lines.find(l=>l.k===k).c]},properties:{}});
+  st.sources.syr_rus={type:'geojson',data:poly('rus')};st.sources.syr_occ={type:'geojson',data:poly('occ')};
+  st.sources.syr_rt={type:'geojson',data:{type:'FeatureCollection',features:MAP.lines.filter(l=>l.k==='esc').map(l=>({type:'Feature',geometry:{type:'LineString',coordinates:l.c},properties:{n:l.n}}))}};
+  const over=[
+    {id:'syr-rus-fill',type:'fill',source:'syr_rus',paint:{'fill-color':P.fill,'fill-opacity':.025}},
+    {id:'syr-rus-line',type:'line',source:'syr_rus',paint:{'line-color':P.per,'line-width':1.1,'line-dasharray':[2,3],'line-opacity':.85}},
+    {id:'syr-occ-fill',type:'fill',source:'syr_occ',paint:{'fill-color':P.fill,'fill-opacity':.05}},
+    {id:'syr-occ-line',type:'line',source:'syr_occ',paint:{'line-color':P.per,'line-width':1.3}},
+    {id:'syr-rt',type:'line',source:'syr_rt',layout:{'line-cap':'round','line-join':'round'},paint:{'line-color':'#B8DF0D','line-width':['interpolate',['linear'],['zoom'],10,2.2,15,4],'line-dasharray':[1.6,1.4]}}];
+  const at=st.layers.findIndex(l=>l.type==='symbol');st.layers.splice(at<0?st.layers.length:at,0,...over);
+  return st}
+const PER_IDS=['syr-rus-fill','syr-rus-line','syr-occ-fill','syr-occ-line'];
+new MutationObserver(()=>LIVE.forEach(m=>m.retheme())).observe(document.documentElement,{attributes:true,attributeFilter:['data-theme']});
+matchMedia('(prefers-color-scheme:light)').addEventListener('change',()=>LIVE.forEach(m=>m.retheme()));
+function mountMap(root,opt){
+  for(let i=LIVE.length-1;i>=0;i--)if(!LIVE[i].el.isConnected){LIVE[i].map.remove();LIVE.splice(i,1)}
+  if(!glOK)return mountSvgMap(root,opt);
+  const compact=!!opt.compact;let sel=null,map=null,markers=[];
+  const on={out:1,node:1,gate:1,rus:1,kos:1,rt:1,per:1};
+  root.innerHTML=`<div class="mapwrap street ${compact?'compact':''}" style="--mh:${opt.h||560}px"><aside class="mpanel"><div class="ms"><input placeholder="Find a place on the map" aria-label="Find a place"></div><div class="mlist"></div></aside><div class="mcanvas"><div class="mgl"></div><div class="mtools"></div><div class="mzoom"><button data-z="1" aria-label="Zoom in">+</button><button data-z="-1" aria-label="Zoom out">−</button><button data-z="0" aria-label="Reset view">⌖</button></div><div class="mcard"></div><div class="mnote">Occupier positions are approximate.</div></div></div>`;
+  const cv=$('.mcanvas',root),gl=$('.mgl',root),list=$('.mlist',root),card=$('.mcard',root),tools=$('.mtools',root);
+  const B=MAP.pts.reduce((b,p)=>[[Math.min(b[0][0],p.x),Math.min(b[0][1],p.y)],[Math.max(b[1][0],p.x),Math.max(b[1][1],p.y)]],[[180,90],[-180,-90]]);
+  const fit=a=>map&&map.fitBounds(B,{padding:compact?24:40,animate:!!a});
+  function paintMarks(){markers.forEach(([m,el,i])=>{const p=MAP.pts[i];el.style.display=on[p.k]?'':'none';el.classList.toggle('sel',sel===i);el.classList.toggle('lab',p.k==='out'||p.k==='rus'||sel===i)})}
+  function pick(i,fly){sel=i;const p=MAP.pts[i];if(!p){card.classList.remove('on');paintMarks();return}
+    if(fly&&map)map.flyTo({center:[p.x,p.y],zoom:Math.max(map.getZoom(),13.2),speed:1.4});
+    const e=BYID[p.e];card.innerHTML=`<button class="x" aria-label="Close">×</button><div class="eyebrow" style="margin:0 0 6px">${KIND[p.k][0]}</div><h4>${esc(p.n)}</h4><p>${esc(p.t)}</p>${e?`<a class="btn p" href="#e-${e.id}">Open entry ${e.ref.replace('SYNPTCL/','')}</a>`:'<span class="chip">No entry yet</span>'}`;
+    card.classList.add('on');paintMarks();paintList()}
+  function paintList(){const q=$('input',root).value;let h='';
+    Object.keys(KIND).forEach(k=>{const items=MAP.pts.map((p,i)=>[p,i]).filter(([p])=>p.k===k&&(!q||norm(p.n+' '+p.c+' '+p.t).includes(norm(q))));
+      if(items.length)h+=`<h4>${KIND[k][0]}</h4>`+items.map(([p,i])=>`<button class="mi ${sel===i?'on':''}" data-i="${i}">${gly(k)}<span>${hl(p.n,q)}</span><small>${esc(p.c)}</small></button>`).join('')});
+    list.innerHTML=h||'<div class="empty">No match.</div>'}
+  function paintTools(){tools.innerHTML=[['out','Outposts'],['rus','Occupier'],['node','Nodes'],['gate','Gates'],['rt','Routes'],['per','Perimeters']].map(([k,l])=>`<span class="chip ${on[k]?'':'off'}" data-k="${k}">${gly(k)}${l}</span>`).join('')}
+  function applyLayers(){if(!map||!map.getLayer('syr-rt'))return;map.setLayoutProperty('syr-rt','visibility',on.rt?'visible':'none');PER_IDS.forEach(id=>map.setLayoutProperty(id,'visibility',on.per?'visible':'none'))}
+  tools.onclick=e=>{const c=e.target.closest('.chip');if(!c)return;on[c.dataset.k]=!on[c.dataset.k];paintTools();paintMarks();applyLayers()};
+  $('.mzoom',root).onclick=e=>{const b=e.target.closest('button');if(!b||!map)return;const z=+b.dataset.z;z>0?map.zoomIn():z<0?map.zoomOut():fit(true)};
+  card.onclick=e=>{if(e.target.closest('.x')){sel=null;card.classList.remove('on');paintMarks();paintList()}};
+  list.onclick=e=>{const b=e.target.closest('.mi');if(b)pick(+b.dataset.i,true)};
+  $('input',root).oninput=paintList;
+  paintTools();paintList();
+  const start=async()=>{try{
+    const [ml,base]=await Promise.all([loadML(),loadBase()]);if(!gl.isConnected)return;
+    let theme=themeNow();
+    map=new ml.Map({container:gl,style:streetStyle(base,theme),bounds:B,fitBoundsOptions:{padding:compact?24:40},minZoom:8,maxZoom:18,attributionControl:false,cooperativeGestures:compact,dragRotate:false,pitchWithRotate:false,touchPitch:false});
+    map.touchZoomRotate.disableRotation();
+    map.addControl(new ml.AttributionControl({compact:true}),'bottom-right');
+    map.on('error',e=>{if(!map.loaded()&&!map._syrFell){map._syrFell=1;map.remove();mountSvgMap(root,opt)}});
+    MAP.pts.forEach((p,i)=>{const el=document.createElement('button');el.className=`mk k-${p.k}`;el.type='button';el.setAttribute('aria-label',p.n);
+      el.innerHTML=`${gly(p.k)}<span>${esc(p.n.split(',')[0])}</span>`;el.onclick=ev=>{ev.stopPropagation();pick(i,false)};
+      markers.push([new ml.Marker({element:el,anchor:'center'}).setLngLat([p.x,p.y]).addTo(map),el,i])});
+    paintMarks();
+    map.on('style.load',applyLayers);
+    LIVE.push({el:gl,map,retheme(){const t=themeNow();if(t!==theme){theme=t;map.setStyle(streetStyle(base,t),{diff:false})}}});
+    if(opt.focus){const idx=MAP.pts.map((p,i)=>p.e===opt.focus?i:-1).filter(i=>i>-1);if(idx.length===1)pick(idx[0],true)}
+  }catch(err){console.warn('Street map unavailable, using the drawn map.',err);if(root.isConnected&&!map)mountSvgMap(root,opt)}};
+  // the home page map waits until it scrolls into view, so the software only loads when needed
+  if(compact&&'IntersectionObserver' in window){const io=new IntersectionObserver(es=>{if(es.some(x=>x.isIntersecting)){io.disconnect();start()}},{rootMargin:'300px'});io.observe(cv)}else start();
 }
 function home(){
   const H=HOME,fill=(s,n)=>String(s).replace(/\{n\}/g,n);
