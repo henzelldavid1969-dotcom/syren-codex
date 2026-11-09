@@ -48,6 +48,11 @@ const [categories, entries, relations, relTypes, sections, groups, marks, appear
   table('map_lines', 'kind,name,coordinates,position', 'position,id'),
   table('factions', 'position,name,slug,mark_file,entry_ref', 'position'),
 ]);
+// The Story text and the site copy (the admin's Story and Home page editors).
+const [bodies, content] = await Promise.all([
+  table('story_sections', 'slug,body', 'position'),
+  table('site_content', 'key,data', 'key'),
+]);
 
 const typeOrder = categories.map((c) => c.code);
 const slugOf = Object.fromEntries(entries.map((e) => [e.ref, e.slug]));
@@ -155,5 +160,10 @@ const FACTIONS = await Promise.all(factionRows.map(async (f) => ({
   svg: await markSvg(f.mark_file),
 })));
 
-return { META, DATA, MAP, STORY, FACTIONS };
+const STORY_TEXT = Object.fromEntries(bodies.filter((b) => b.body != null).map((b) => [b.slug, b.body]));
+const CONTENT = Object.fromEntries(content.map((c) => [c.key, c.data]));
+const out = { META, DATA, MAP, STORY, FACTIONS };
+if (Object.keys(STORY_TEXT).length === sections.length && CONTENT.book) Object.assign(out, { STORY_TEXT, BOOK: CONTENT.book });
+if (CONTENT.home) out.HOME = CONTENT.home;
+return out;
 }

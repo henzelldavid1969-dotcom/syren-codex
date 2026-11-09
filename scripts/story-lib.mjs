@@ -61,7 +61,7 @@ const render = (md) => {
 };
 
 // Split a doc export into its "## " sections.
-function sections(md) {
+export function sections(md) {
   const out = [];
   let cur = null;
   for (const line of md.split('\n')) {
@@ -85,28 +85,45 @@ function sections(md) {
   return out.map((s) => ({ title: s.title, md: s.lines.join('\n').trim() }));
 }
 
-// The manuscript is the single source: every "## " heading is a page, the
-// appendix included (it follows Acknowledgments, in the back matter).
-export function buildStory({ manuscript, backCover }) {
+// The book's title line ("# Name: Subtitle") and back cover sections.
+export function bookFromFiles({ manuscript, backCover }) {
   const title = (manuscript.match(/^# (.*)$/m) || [, 'The Syren Protocols'])[1];
-  const [name, subtitle = ''] = title.split(/:\s*/);
+  const cover = Object.fromEntries(sections(backCover).map((s) => [s.title, s.md]));
+  return { title, tagline: cover['Tagline'] || '', back_cover: cover['Back cover'] || '' };
+}
+
+// Build the Story pages. parts: [{ slug, title, md, group }] in reading
+// order, where group is front, story or back.
+export function buildStoryFrom({ book, parts }) {
+  const [name, subtitle = ''] = book.title.split(/:\s*/);
+  return {
+    name,
+    subtitle,
+    tagline: render(book.tagline || ''),
+    blurb: render(book.back_cover || ''),
+    pages: parts.map((s) => ({ slug: s.slug, title: s.title, group: s.group, html: render(s.md || '') })),
+  };
+}
+
+// The manuscript file as the source: every "## " heading is a page, the
+// appendix included (it follows Acknowledgments, in the back matter).
+export function partsFromManuscript(manuscript) {
   const parts = sections(manuscript);
   const firstStory = parts.findIndex((s) => /^Prologue/i.test(s.title));
   const lastStory = parts.findIndex((s) => /^Acknowledg/i.test(s.title));
   const seen = new Set();
-  const pages = parts.map((s, i) => {
+  return parts.map((s, i) => {
     let slug = slugify(s.title);
     while (seen.has(slug)) slug += '-2';
     seen.add(slug);
     const group = i < firstStory ? 'front' : lastStory > -1 && i >= lastStory ? 'back' : 'story';
-    return { slug, title: s.title, group, html: render(s.md) };
+    return { slug, title: s.title, group, md: s.md };
   });
-  const cover = Object.fromEntries(sections(backCover).map((s) => [s.title, s.md]));
-  return {
-    name,
-    subtitle,
-    tagline: render(cover['Tagline'] || ''),
-    blurb: render(cover['Back cover'] || ''),
-    pages,
-  };
 }
+
+export function buildStory({ manuscript, backCover }) {
+  return buildStoryFrom({ book: bookFromFiles({ manuscript, backCover }), parts: partsFromManuscript(manuscript) });
+}
+
+// The page group for a section kind from the database.
+export const groupOfKind = (kind) => (kind === 'front' ? 'front' : kind === 'back' || kind === 'appendix' ? 'back' : 'story');

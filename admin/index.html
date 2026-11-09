@@ -146,7 +146,10 @@ table.tbl{width:100%;border-collapse:collapse;font-size:14px}
 .sec>summary::-webkit-details-marker{display:none}
 .sec>summary .n{font:500 11px "Geist Mono",monospace;color:var(--muted);letter-spacing:.06em}
 .sec>summary .hint{margin-left:auto;font:400 12px "Geist Mono",monospace;color:var(--muted)}
-.sec>summary .chev{transition:transform .15s;color:var(--muted)}
+.sec>summary .chev{transition:transform .15s;color:var(--muted);margin-left:auto}
+.sec>summary .hint+.chev{margin-left:10px}
+.edside .li .ref{width:auto}
+@media(max-width:1100px){.edgrid.tail .edside{order:0}}
 .sec[open]>summary .chev{transform:rotate(90deg)}
 .sec .body{padding:4px 20px 20px;display:grid;gap:16px;border-top:1px solid var(--line);padding-top:18px}
 .fld{display:grid;gap:6px;min-width:0;align-content:start}
@@ -234,6 +237,18 @@ dialog::backdrop{background:rgba(0,0,0,.45)}
 .toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);z-index:50;background:var(--fg);color:var(--bg);border-radius:9px;padding:10px 16px;font-size:14px;box-shadow:0 10px 30px -10px rgba(0,0,0,.4);max-width:calc(100vw - 32px)}
 .toast.bad{background:var(--bad);color:#fff}
 .loading{color:var(--muted);padding:40px 0}
+/* Story and Home page editors */
+.seg.sm button{padding:3px 10px;font-size:12.5px}
+.fld textarea.ms{min-height:520px}
+.prev{border:1px solid var(--line);background:var(--field);border-radius:8px;padding:6px 22px;font-family:Newsreader,Georgia,serif;font-size:17px;line-height:1.65;overflow:auto}
+.prev h1,.prev h2,.prev h3{font-family:Geist,system-ui,sans-serif;font-weight:600;letter-spacing:-.01em}
+.prev blockquote{margin:1em 0;padding-left:16px;border-left:2px solid var(--line);color:var(--muted)}
+.prev .spk{margin-top:1.6em}
+.prev table{border-collapse:collapse;font-size:14px;font-family:Geist,system-ui,sans-serif}.prev td,.prev th{border:1px solid var(--line);padding:4px 8px}
+.hitem{border:1px solid var(--line);background:var(--raise);border-radius:10px;padding:12px 14px;display:grid;gap:12px}
+.hitem .hh{display:flex;align-items:center;gap:10px;font-size:14px}
+.hitem .hh b{font-weight:500;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+input.mono{font-family:"Geist Mono",ui-monospace,monospace;font-size:13px}
 
 @media(max-width:1100px){.edgrid{grid-template-columns:minmax(0,1fr)}.edside{position:static;order:-1;grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}.g4{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:860px){
@@ -259,6 +274,7 @@ dialog::backdrop{background:rgba(0,0,0,.45)}
 <dialog id="dlg"></dialog>
 
 <script src="supabase.js"></script>
+<script src="marked.js"></script>
 <script>
 'use strict';
 // Public, read-only values. The database's own rules decide who may write.
@@ -338,21 +354,30 @@ async function loadBase() {
     q('categories', '*', ['sort_order']),
     q('marks', '*', ['position']),
     q('relation_types', '*', ['position']),
-    q('story_sections', '*', ['position']),
+    q('story_sections', 'slug,title,position,kind,label,group_code,updated_at', ['position']),
     q('story_groups', '*', ['position']),
     q('entries', '*', ['ref']),
     sb.from('releases').select('id,created_at,entries,note').order('id', { ascending: false }).limit(10),
+    sb.from('site_content').select('key,updated_at'),
   ]);
   const err = r.find((x) => x.error);
   if (err) throw err.error;
-  [S.cats, S.marks, S.rtypes, S.sections, S.groups, S.entries, S.releases] = r.map((x) => x.data);
+  [S.cats, S.marks, S.rtypes, S.sections, S.groups, S.entries, S.releases, S.content] = r.map((x) => x.data);
   S.live = await fetch('/release.json?' + Date.now(), { cache: 'no-store' }).then((x) => x.ok ? x.json() : null).catch(() => null);
 }
 const lastRelease = () => S.releases[0] || null;
+// Everything edited since the last publish: entries, Story sections, copy.
+const CONTENT_NAME = { home: ['Home', 'Home page copy', '#/home'], book: ['Story', 'Book title and cover copy', '#/book'] };
 const changed = () => {
   const r = lastRelease();
-  return S.entries.filter((e) => !r || new Date(e.updated_at) > new Date(r.created_at));
+  const after = (d) => !r || new Date(d) > new Date(r.created_at);
+  return [
+    ...S.entries.filter((e) => after(e.updated_at)).map((e) => ({ ref: e.ref.slice(8), name: e.name, at: e.updated_at, href: '#/e/' + e.slug })),
+    ...S.sections.filter((x) => after(x.updated_at)).map((x) => ({ ref: 'Story', name: x.label || x.title, at: x.updated_at, href: '#/s/' + x.slug })),
+    ...S.content.filter((c) => after(c.updated_at)).map((c) => ({ ref: CONTENT_NAME[c.key][0], name: CONTENT_NAME[c.key][1], at: c.updated_at, href: CONTENT_NAME[c.key][2] })),
+  ].sort((a, b) => new Date(b.at) - new Date(a.at));
 };
+const changes = (n) => `${n} ${n === 1 ? 'change' : 'changes'}`;
 
 // ---------- sign in ----------
 function showSignIn(err) {
@@ -395,8 +420,10 @@ function showNoAccess(email) {
 const NAV = [
   ['#/', 'dash', 'Dashboard'],
   ['#/entries', 'list', 'Entries'],
+  ['#/story', 'book', 'Story'],
+  ['#/home', 'home', 'Home page'],
 ];
-const LATER = [['book', 'Story', 'Next'], ['home', 'Home page', 'Next'], ['image', 'Media library', 'Later'], ['clock', 'History', 'Later']];
+const LATER = [['image', 'Media library', 'Later'], ['clock', 'History', 'Later']];
 function shell() {
   $('#root').innerHTML = `<div class="app">
     <aside class="side">
@@ -422,7 +449,7 @@ function paintPublish() {
   if (!b) return;
   b.hidden = !n;
   b.textContent = n;
-  $('#pubb').title = n ? `${n} edited ${n === 1 ? 'entry has' : 'entries have'} not been published` : 'Everything is published';
+  $('#pubb').title = n ? `${changes(n)} not yet published` : 'Everything is published';
 }
 function setNav(h) {
   $$('#nav a[href], #mnav a[href^="#/"]').forEach((a) => a.classList.toggle('on', a.getAttribute('href') === h));
@@ -446,6 +473,10 @@ function route() {
   if (seg[0] === 'entries') return viewList(p);
   if (seg[0] === 'e' && seg[1]) return viewEntry(seg[1]);
   if (seg[0] === 'new' && seg[1]) return viewEntry(null, seg[1].toUpperCase());
+  if (seg[0] === 'story') return viewStory();
+  if (seg[0] === 's' && seg[1]) return viewSection(seg[1]);
+  if (seg[0] === 'book') return viewBook();
+  if (seg[0] === 'home') return viewHome();
   location.hash = '#/';
 }
 
@@ -455,7 +486,11 @@ function viewDash() {
   crumbs([['Dashboard']]);
   const E = S.entries, rel = lastRelease(), ch = changed();
   const needs = E.filter((e) => missing(e).length);
-  const recent = E.slice().sort((a, b) => new Date(b.updated_at) - new Date(a.updated_at)).slice(0, 8);
+  const recent = [
+    ...E.map((e) => ({ ref: e.ref.slice(8), name: e.name, at: e.updated_at, href: '#/e/' + e.slug })),
+    ...S.sections.map((x) => ({ ref: 'Story', name: x.label || x.title, at: x.updated_at, href: '#/s/' + x.slug })),
+    ...S.content.map((c) => ({ ref: CONTENT_NAME[c.key][0], name: CONTENT_NAME[c.key][1], at: c.updated_at, href: CONTENT_NAME[c.key][2] })),
+  ].sort((a, b) => new Date(b.at) - new Date(a.at)).slice(0, 8);
   const live = S.live && S.live.id;
   const stat = (c) => {
     const xs = E.filter((e) => e.type === c.code), n = xs.length || 1;
@@ -467,7 +502,7 @@ function viewDash() {
   $('#view').innerHTML = `<div class="view">
     <h1 class="pt">Dashboard</h1><p class="lede">The archive at a glance. Edits stay here until you publish them.</p>
     <div class="card" style="margin-bottom:16px"><div class="pub">
-      <div class="txt"><b>${ch.length ? `${ch.length} ${ch.length === 1 ? 'entry' : 'entries'} edited since the last publish` : 'Everything is published'}</b>
+      <div class="txt"><b>${ch.length ? `${changes(ch.length)} since the last publish` : 'Everything is published'}</b>
       <p>${rel ? `Last published ${fmtDate(rel.created_at)}${live ? (live === rel.id ? '. The live site shows it.' : '. The live site is still updating.') : '.'}` : 'Nothing has been published from the admin yet.'}</p></div>
       <button class="btn pri" id="pub2">${ico('upload')}Publish${ch.length ? ` <span class="badge">${ch.length}</span>` : ''}</button></div></div>
     <div class="grid g4" style="margin-bottom:16px">${S.cats.map(stat).join('')}</div>
@@ -475,7 +510,7 @@ function viewDash() {
       <div class="card"><h3>Needs work<span class="r">${needs.length} missing fields · <a href="#/entries?need=1" style="text-decoration:underline">all</a></span></h3>
         <div class="list">${needs.length ? needs.map((e) => `<a class="li" href="#/e/${e.slug}"><span class="ref">${esc(e.ref.slice(8))}</span><span class="nm">${esc(e.name)}</span><span class="miss">${missing(e).map((m) => `<span class="tag warn">${m}</span>`).join('')}</span></a>`).join('') : '<p class="empty">Every entry has its required fields.</p>'}</div>
         <p class="empty" style="margin-top:8px">${E.filter((e) => e.status === 'Draft').length} of ${E.length} entries are Draft. <a href="#/entries?status=Draft" style="text-decoration:underline">See them</a></p></div>
-      <div class="card"><h3>Recently edited</h3><div class="list">${recent.map((e) => `<a class="li" href="#/e/${e.slug}"><span class="ref">${esc(e.ref.slice(8))}</span><span class="nm">${esc(e.name)}</span><span class="meta">${ago(e.updated_at)}</span></a>`).join('')}</div></div>
+      <div class="card"><h3>Recently edited</h3><div class="list">${recent.map((x) => `<a class="li" href="${x.href}"><span class="ref">${esc(x.ref)}</span><span class="nm">${esc(x.name)}</span><span class="meta">${ago(x.at)}</span></a>`).join('')}</div></div>
     </div></div>`;
   $('#pub2').onclick = () => openPublish();
 }
@@ -752,7 +787,7 @@ function paintChecks() {
 function dirty() {
   M.dirty = true;
   $('#smsg').innerHTML = '<b>Unsaved changes.</b> They stay here until you save.';
-  $('#disc').hidden = !M.ref;
+  $('#disc').hidden = M.ref === null;
 }
 
 function moveBtns(list, i, repaint) {
@@ -867,14 +902,264 @@ async function save() {
 }
 window.addEventListener('beforeunload', (ev) => { if (M && M.dirty) { ev.preventDefault(); ev.returnValue = ''; } });
 
+// ---------- shared: plain editors with a save bar ----------
+const KINDS = ['front', 'prologue', 'diary', 'chapter', 'interlude', 'protocol', 'back', 'appendix'];
+const sinceRelease = (at) => { const r = lastRelease(); return !r || new Date(at) > new Date(r.created_at); };
+const preview = (md) => {
+  const html = window.marked ? marked.parse(String(md || ''), { gfm: true }) : `<pre>${esc(md)}</pre>`;
+  return html.replace(/<p><strong>([A-ZĄĆĘŁŃÓŚŹŻ][A-ZĄĆĘŁŃÓŚŹŻ .'-]*)<\/strong> · /g, '<p class="spk"><strong>$1</strong> · ');
+};
+function saveBar(label = 'Save') {
+  return `<div class="savebar"><div class="msg" id="smsg">No unsaved changes.</div>
+    <button class="btn ghost" id="disc" hidden>Discard</button><button class="btn pri" id="save">${ico('check')}${label}</button></div>`;
+}
+function wireSaveBar(onSave) {
+  $('#save').onclick = onSave;
+  $('#disc').onclick = () => { if (confirm('Discard your unsaved changes?')) { M.dirty = false; route(); } };
+  leaveGuard = () => !M || !M.dirty || confirm('You have unsaved changes on this page. Leave without saving?');
+}
+// A Markdown field with Write and Preview tabs.
+function mdField(id, label, val, o = {}) {
+  return `<div class="fld"><div class="lbl" style="justify-content:space-between;width:100%"><label for="${id}">${esc(label)}</label>
+      <span class="seg sm" data-tabs="${id}"><button type="button" data-t="w" class="on">Write</button><button type="button" data-t="p">Preview</button></span></div>
+    <textarea id="${id}" class="long${o.cls ? ' ' + o.cls : ''}" rows="${o.rows || 12}" spellcheck="true">${esc(val)}</textarea>
+    <div class="prev" id="${id}_p" hidden></div>
+    <span class="help">${o.help || ''}<span class="cnt" id="${id}_n" style="float:right"></span></span></div>`;
+}
+function wireMd(id, onChange) {
+  const ta = $('#' + id), pv = $('#' + id + '_p'), n = $('#' + id + '_n');
+  const count = () => { n.textContent = `${words(ta.value).toLocaleString('en-GB')} words`; };
+  ta.addEventListener('input', () => { count(); onChange(ta.value); });
+  $(`[data-tabs="${id}"]`).onclick = (ev) => {
+    const b = ev.target.closest('button');
+    if (!b) return;
+    $$(`[data-tabs="${id}"] button`).forEach((x) => x.classList.toggle('on', x === b));
+    const p = b.dataset.t === 'p';
+    if (p) { pv.innerHTML = preview(ta.value); pv.style.minHeight = ta.offsetHeight + 'px'; }
+    ta.hidden = p; pv.hidden = !p;
+  };
+  count();
+}
+// Save a row only if nobody saved it since it was opened.
+async function guardedUpdate(table, keyCol, key, values) {
+  const { data, error } = await sb.from(table).update(values).eq(keyCol, key).eq('updated_at', M.updated_at).select('updated_at');
+  if (error) throw error;
+  if (!data.length) throw new Error('This was changed somewhere else since you opened it. Reload the page to see the newer version.');
+  return data[0].updated_at;
+}
+async function refreshLists() {
+  const [a, b] = await Promise.all([
+    sb.from('story_sections').select('slug,title,position,kind,label,group_code,updated_at').order('position'),
+    sb.from('site_content').select('key,updated_at'),
+  ]);
+  if (a.data) S.sections = a.data;
+  if (b.data) S.content = b.data;
+  paintPublish();
+}
+
+// ---------- Story: the list ----------
+function viewStory() {
+  setNav('#/story');
+  crumbs([['Story']]);
+  const book = S.content.find((c) => c.key === 'book');
+  $('#view').innerHTML = `<div class="view">
+    <h1 class="pt">Story</h1><p class="lede">The thirty sections of the manuscript, in reading order. Select one to edit its heading, label or text.</p>
+    <a class="card li" href="#/book" style="margin-bottom:16px;display:flex;border-top:1px solid var(--line)"><span class="ref">${ico('book')}</span><span class="nm"><b style="font-weight:500">Book title and cover copy</b><span class="sm" style="display:block;color:var(--muted);font-size:13px">The title, tagline and back cover text on the Story page</span></span>
+      <span class="meta">${book && sinceRelease(book.updated_at) ? '<span class="tag warn">Not published</span> ' : ''}${book ? ago(book.updated_at) : ''}</span></a>
+    ${S.groups.map((g) => {
+      const xs = S.sections.filter((x) => x.group_code === g.code);
+      return `<div class="card" style="margin-bottom:16px"><h3>${esc(g.name)}<span class="r">${xs.length}</span></h3><div class="list">${xs.map((x) =>
+        `<a class="li" href="#/s/${x.slug}"><span class="ref">${String(x.position).padStart(2, '0')}</span><span class="nm"><b style="font-weight:500">${esc(x.label || x.title)}</b> <span class="nr">${esc(x.title)}</span></span><span class="meta">${sinceRelease(x.updated_at) ? '<span class="tag warn">Not published</span> ' : ''}${ago(x.updated_at)}</span></a>`).join('')}</div></div>`;
+    }).join('')}</div>`;
+}
+
+// ---------- Story: one section ----------
+async function viewSection(slug) {
+  setNav('#/story');
+  $('#view').innerHTML = '<div class="view loading">Loading the section</div>';
+  const { data: x, error } = await sb.from('story_sections').select('*').eq('slug', slug).maybeSingle();
+  if (error) return toast(error.message, true);
+  if (!x) { $('#view').innerHTML = '<div class="view"><p class="empty">There is no section at this address.</p></div>'; return; }
+  M = { kind: 'section', slug, updated_at: x.updated_at, v: { title: x.title, label: x.label || '', kind: x.kind || '', group_code: x.group_code || '', body: x.body || '' }, dirty: false };
+  const i = S.sections.findIndex((y) => y.slug === slug), prev = S.sections[i - 1], next = S.sections[i + 1];
+  crumbs([['Story', '#/story'], [x.label || x.title]]);
+  $('#view').innerHTML = `<div class="view">
+    <div class="edhead"><div class="t"><div class="ref">Section ${String(x.position).padStart(2, '0')} of ${S.sections.length} <span>·</span> ${esc(x.kind || '')}</div><h1 id="hname">${esc(x.title)}</h1></div>
+      <a class="btn" href="/#story-${esc(slug)}" target="_blank" rel="noopener">${ico('ext')}View live page</a></div>
+    <div class="edgrid tail"><div>
+      <details class="sec" open><summary><span class="n">01</span>Heading<span class="chev">${ico('chev')}</span></summary><div class="body">
+        <div class="fld"><label for="s_title">Full title</label><input id="s_title" type="text" value="${esc(x.title)}"><span class="help">The heading exactly as the manuscript reads. If it changes, review the short label too.</span></div>
+        <div class="r3">
+          <div class="fld"><label for="s_label">Short label <span class="cnt" id="s_label_n"></span></label><input id="s_label" type="text" value="${esc(x.label || '')}"><span class="help">For the sidebar and the Appears in lists. 24 characters at most.</span></div>
+          <div class="fld"><label for="s_kind">Kind</label><select id="s_kind">${KINDS.map((k) => `<option${k === x.kind ? ' selected' : ''}>${k}</option>`).join('')}</select></div>
+          <div class="fld"><label for="s_group">Part</label><select id="s_group">${S.groups.map((g) => `<option value="${g.code}"${g.code === x.group_code ? ' selected' : ''}>${esc(g.name)}</option>`).join('')}</select></div>
+        </div></div></details>
+      <details class="sec" open><summary><span class="n">02</span>Text<span class="chev">${ico('chev')}</span></summary><div class="body">
+        ${mdField('s_body', 'Section text', x.body || '', { rows: 28, cls: 'ms', help: 'Markdown: *italic*, **bold**, a blank line between paragraphs, and * * * for a section break. ' })}
+      </div></details>
+    </div>
+    <aside class="edside">
+      <div class="card"><h3>Record</h3><dl class="kv">
+        <dt>Address</dt><dd>/#story-${esc(slug)}</dd><dt>Last saved</dt><dd>${fmtDate(x.updated_at)}</dd>
+        <dt>Published</dt><dd>${sinceRelease(x.updated_at) ? 'Has unpublished edits' : 'Up to date'}</dd></dl></div>
+      <div class="card"><h3>Reading order</h3><div class="list">
+        ${prev ? `<a class="li" href="#/s/${prev.slug}"><span class="ref">${ico('back')}</span><span class="nm">${esc(prev.label || prev.title)}</span></a>` : ''}
+        ${next ? `<a class="li" href="#/s/${next.slug}"><span class="ref">${ico('chev')}</span><span class="nm">${esc(next.label || next.title)}</span></a>` : ''}</div></div>
+    </aside></div></div>${saveBar()}`;
+  const lab = () => { const n = $('#s_label').value.length, c = $('#s_label_n'); c.textContent = `${n} of 24`; c.classList.toggle('over', n > 24); };
+  lab();
+  const on = (id, k) => $(id).addEventListener('input', (ev) => { M.v[k] = ev.target.value; if (k === 'title') $('#hname').textContent = ev.target.value; if (k === 'label') lab(); dirty(); });
+  on('#s_title', 'title'); on('#s_label', 'label'); on('#s_kind', 'kind'); on('#s_group', 'group_code');
+  $('#s_kind').onchange = (ev) => { M.v.kind = ev.target.value; dirty(); };
+  $('#s_group').onchange = (ev) => { M.v.group_code = ev.target.value; dirty(); };
+  wireMd('s_body', (v) => { M.v.body = v; dirty(); });
+  wireSaveBar(async () => {
+    if (!M.v.title.trim()) return toast('The section needs a title.', true);
+    if (M.v.label.length > 24) return toast('The short label is longer than 24 characters.', true);
+    $('#save').disabled = true;
+    try {
+      await guardedUpdate('story_sections', 'slug', slug, { title: M.v.title.trim(), label: M.v.label.trim() || null, kind: M.v.kind, group_code: M.v.group_code, body: M.v.body });
+      M.dirty = false;
+      await refreshLists();
+      toast('Saved. Publish when you are ready for it to go live.');
+      viewSection(slug);
+    } catch (err) { toast(err.message, true); $('#save').disabled = false; }
+  });
+}
+
+// ---------- Story: book title and cover copy ----------
+async function viewBook() {
+  setNav('#/story');
+  crumbs([['Story', '#/story'], ['Book title and cover copy']]);
+  const { data: c, error } = await sb.from('site_content').select('*').eq('key', 'book').maybeSingle();
+  if (error || !c) return toast(error ? error.message : 'The book copy is missing.', true);
+  M = { kind: 'content', key: 'book', updated_at: c.updated_at, data: JSON.parse(JSON.stringify(c.data)), dirty: false };
+  $('#view').innerHTML = `<div class="view">
+    <h1 class="pt">Book title and cover copy</h1><p class="lede">Shown at the top of the Story page, before the contents.</p>
+    <div class="sec" style="padding:20px;display:grid;gap:16px">
+      <div class="fld"><label for="b_title">Title</label><input id="b_title" type="text" value="${esc(c.data.title || '')}"><span class="help">The part after a colon becomes the subtitle, for example The Syren Protocols: A Future Oral History.</span></div>
+      ${mdField('b_tag', 'Tagline', c.data.tagline || '', { rows: 4 })}
+      ${mdField('b_back', 'Back cover', c.data.back_cover || '', { rows: 16 })}
+    </div></div>${saveBar()}`;
+  $('#b_title').addEventListener('input', (ev) => { M.data.title = ev.target.value; dirty(); });
+  wireMd('b_tag', (v) => { M.data.tagline = v; dirty(); });
+  wireMd('b_back', (v) => { M.data.back_cover = v; dirty(); });
+  wireSaveBar(() => saveContent(viewBook));
+}
+async function saveContent(again) {
+  $('#save').disabled = true;
+  try {
+    await guardedUpdate('site_content', 'key', M.key, { data: M.data });
+    M.dirty = false;
+    await refreshLists();
+    toast('Saved. Publish when you are ready for it to go live.');
+    again();
+  } catch (err) { toast(err.message, true); $('#save').disabled = false; }
+}
+
+// ---------- Home page copy ----------
+const HOME_PARTS = {
+  site: ['Site', 'The site name and description, used in the browser tab and when a link is shared. The placeholder image is shown on any entry without images of its own; leave it empty to switch it off.'],
+  hero: ['Top of the page', 'The headline, introduction and the two buttons.'],
+  grid: ['Category tiles', 'The seven tiles under the headline. Counts are live. Art is an optional picture placed behind a tile; leave it empty for none.'],
+  map: ['Map', 'The heading and text above the map.'],
+  timeline: ['Timeline', 'One line per moment, in order. Dates are shown as written, and every date and label is taken from the manuscript. A gap draws a break for a stretch of time the timeline skips.'],
+  key_characters: ['Key Characters', 'The ten primary characters are listed automatically. The portrait placeholder is used where a character has no image of their own.'],
+  portal: ['Four ways in', 'The four cards, in this order. Link is where the card goes; leave it empty for a card that is not ready, and put a word such as Coming soon in Status.'],
+  index: ['Archive index', 'Where a line has {n}, the site puts in a live count. Keep {n} where the number belongs.'],
+  popular: ['Popular searches', 'The heading, text and button.'],
+};
+const HOME_LABEL = {
+  headline_accent: 'Headline, second line (accent)', intro_secondary: 'Introduction, second paragraph', button_map: 'Map button', button_search: 'Search button',
+  placeholder_image: 'Placeholder image (address)', portrait_placeholder: 'Portrait placeholder (address)', rows_shown: 'Rows shown before View all',
+  tab_all: 'Tab: all entries', tab_evidence: 'Tab: evidence', tab_points: 'Tab: map points', filter_all: 'Filter: all', view_all: 'View all link',
+  view_all_points: 'View all map points link', view_fewer: 'Show fewer link', href: 'Link', art: 'Art (image address)', story: 'Opens Story section', gap: 'Gap',
+  key: 'Key', code: 'Code', footnote: 'Footnote',
+};
+const TECH = new Set(['key', 'href', 'art', 'placeholder_image', 'portrait_placeholder', 'code']);
+const FIXED = new Set(['key']); // identifies a tile's graphic; not editable
+const TL_KINDS = ['flood', 'occupation', 'person', 'protocol', 'testimony'];
+const hum = (k) => HOME_LABEL[k] || (k.charAt(0).toUpperCase() + k.slice(1)).replace(/_/g, ' ');
+const getAt = (o, path) => path.reduce((a, k) => a[k], o);
+
+async function viewHome() {
+  setNav('#/home');
+  crumbs([['Home page']]);
+  const { data: c, error } = await sb.from('site_content').select('*').eq('key', 'home').maybeSingle();
+  if (error || !c) return toast(error ? error.message : 'The home page copy is missing.', true);
+  M = { kind: 'content', key: 'home', updated_at: c.updated_at, data: JSON.parse(JSON.stringify(c.data)), dirty: false };
+  paintHome();
+  wireSaveBar(() => saveContent(viewHome));
+}
+function homeField(path, k, v) {
+  const p = esc(JSON.stringify(path)), id = 'h_' + path.join('_');
+  const lab = `<label for="${id}">${esc(hum(k))}</label>`;
+  if (FIXED.has(k)) return `<div class="fld">${lab}<input id="${id}" type="text" value="${esc(v)}" disabled class="mono"></div>`;
+  if (k === 'story') return `<div class="fld">${lab}<select id="${id}" data-p="${p}">${sectionOptions(v || '', 'None')}</select></div>`;
+  if (k === 'kind' && path.includes('events')) return `<div class="fld">${lab}<select id="${id}" data-p="${p}">${TL_KINDS.map((x) => `<option${x === v ? ' selected' : ''}>${x}</option>`).join('')}</select></div>`;
+  if (typeof v === 'number') return `<div class="fld">${lab}<input id="${id}" type="number" data-p="${p}" data-num="1" value="${v}"></div>`;
+  const s = v == null ? '' : String(v);
+  const hint = /\{n\}/.test(s) ? '<span class="help">Keep {n}: it becomes the live count.</span>' : '';
+  if (s.length > 90 || s.includes('\n')) return `<div class="fld">${lab}<textarea id="${id}" data-p="${p}" rows="${Math.min(6, Math.ceil(s.length / 90) + 1)}">${esc(s)}</textarea>${hint}</div>`;
+  return `<div class="fld">${lab}<input id="${id}" type="text" data-p="${p}"${TECH.has(k) ? ' class="mono"' : ''}${k === 'art' ? ' placeholder="None"' : ''} value="${esc(s)}">${hint}</div>`;
+}
+function homeObject(o, path) {
+  const keys = Object.keys(o).filter((k) => !k.startsWith('_') && !k.includes('_read_me'));
+  const plain = keys.filter((k) => !Array.isArray(o[k]) && (o[k] === null || typeof o[k] !== 'object'));
+  const nested = keys.filter((k) => !plain.includes(k));
+  return `<div class="r2">${plain.map((k) => homeField([...path, k], k, o[k])).join('')}</div>` + nested.map((k) => Array.isArray(o[k]) ? homeArray(o[k], [...path, k], k) : homeObject(o[k], [...path, k])).join('');
+}
+function homeArray(arr, path, k) {
+  const free = path.join('.') === 'timeline.events'; // the only list that can grow or shrink
+  const title = (x, i) => esc(x.title || x.label || x.date || (x.gap != null ? `Gap: ${x.gap}` : '') || `Item ${i + 1}`);
+  return `<div class="fld"><span class="lbl">${esc(hum(k))} <span class="nr">${arr.length}</span></span><div class="ol">${arr.map((x, i) => `
+    <div class="hitem"><div class="hh"><span class="ix nr">${String(i + 1).padStart(2, '0')}</span><b>${title(x, i)}</b>
+      ${free ? `<span class="mv" style="margin-left:auto"><button class="btn icon ghost" type="button" data-hmv="${esc(JSON.stringify([path, i, -1]))}" title="Move up"${i === 0 ? ' disabled' : ''}>${ico('up')}</button><button class="btn icon ghost" type="button" data-hmv="${esc(JSON.stringify([path, i, 1]))}" title="Move down"${i === arr.length - 1 ? ' disabled' : ''}>${ico('down')}</button><button class="btn icon ghost" type="button" data-hrm="${esc(JSON.stringify([path, i]))}" title="Remove">${ico('x')}</button></span>` : ''}</div>
+      ${x && typeof x === 'object' ? homeObject(x, [...path, i]) : homeField([...path, i], k, x)}</div>`).join('')}</div>
+    ${free ? `<div class="addrow"><button class="btn sm" type="button" data-hadd="${esc(JSON.stringify([path, 'moment']))}">${ico('plus')}Add a moment</button><button class="btn sm" type="button" data-hadd="${esc(JSON.stringify([path, 'gap']))}">${ico('plus')}Add a gap</button></div>` : ''}</div>`;
+}
+function paintHome() {
+  const d = M.data, y = window.scrollY;
+  const parts = Object.keys(d).filter((k) => d[k] && typeof d[k] === 'object' && !Array.isArray(d[k]));
+  $('#view').innerHTML = `<div class="view">
+    <h1 class="pt">Home page</h1><p class="lede">All the words on the home page, section by section, in page order.</p>
+    ${parts.map((k, i) => `<details class="sec"${i < 2 ? ' open' : ''}><summary><span class="n">${String(i + 1).padStart(2, '0')}</span>${esc((HOME_PARTS[k] || [hum(k)])[0])}<span class="chev">${ico('chev')}</span></summary>
+      <div class="body">${HOME_PARTS[k] ? `<p class="help" style="margin:0;color:var(--muted);font-size:13.5px">${esc(HOME_PARTS[k][1])}</p>` : ''}${homeObject(d[k], [k])}</div></details>`).join('')}
+    </div>${saveBar()}`;
+  window.scrollTo(0, y);
+  const v = $('#view');
+  v.oninput = v.onchange = (ev) => {
+    const el = ev.target.closest('[data-p]');
+    if (!el) return;
+    const path = JSON.parse(el.dataset.p), k = path[path.length - 1], parent = getAt(d, path.slice(0, -1));
+    let val = el.value;
+    if (el.dataset.num) val = val === '' ? 0 : Number(val);
+    else if (k === 'art' && val.trim() === '') val = null;
+    parent[k] = val;
+    dirty();
+  };
+  v.onclick = (ev) => {
+    const mv = ev.target.closest('[data-hmv]'), rm = ev.target.closest('[data-hrm]'), add = ev.target.closest('[data-hadd]');
+    if (mv) { const [p, i, dd] = JSON.parse(mv.dataset.hmv), a = getAt(d, p); [a[i], a[i + dd]] = [a[i + dd], a[i]]; }
+    else if (rm) { const [p, i] = JSON.parse(rm.dataset.hrm); if (!confirm('Remove this line from the timeline?')) return; getAt(d, p).splice(i, 1); }
+    else if (add) { const [p, kind] = JSON.parse(add.dataset.hadd); getAt(d, p).push(kind === 'gap' ? { gap: '' } : { date: '', kind: 'testimony', label: '', story: '' }); }
+    else return;
+    const openIx = $$('#view details.sec').map((x) => x.open);
+    paintHome();
+    $$('#view details.sec').forEach((x, i) => { x.open = openIx[i]; });
+    wireSaveBar(() => saveContent(viewHome));
+    dirty();
+  };
+}
+
 // ---------- publish ----------
 function openPublish() {
   const d = $('#dlg'), ch = changed(), rel = lastRelease();
-  if (M && M.dirty) return toast('Save or discard the changes on this entry first.', true);
+  if (M && M.dirty) return toast('Save or discard the changes on this page first.', true);
   d.innerHTML = `<form class="dlg" method="dialog">
     <h2>Publish to the live site</h2>
-    <p>${!rel ? 'This is the first publish from the admin. It sends the whole archive as it is now.' : ch.length ? `${ch.length === 1 ? 'This entry has' : `These ${ch.length} entries have`} changed since the last publish:` : 'Nothing has changed since the last publish. You can still publish again to rebuild the site.'}</p>
-    ${rel && ch.length ? `<div class="chg list">${ch.slice(0, 200).map((e) => `<div class="li"><span class="ref">${esc(e.ref.slice(8))}</span><span class="nm">${esc(e.name)}</span><span class="meta">${ago(e.updated_at)}</span></div>`).join('')}</div>` : ''}
+    <p>${!rel ? 'This is the first publish from the admin. It sends the whole archive as it is now.' : ch.length ? `${ch.length === 1 ? 'This has' : `These ${ch.length} have`} changed since the last publish:` : 'Nothing has changed since the last publish. You can still publish again to rebuild the site.'}</p>
+    ${rel && ch.length ? `<div class="chg list">${ch.slice(0, 200).map((x) => `<div class="li"><span class="ref">${esc(x.ref)}</span><span class="nm">${esc(x.name)}</span><span class="meta">${ago(x.at)}</span></div>`).join('')}</div>` : ''}
     <div class="fld"><label for="pnote">Note for the history <span class="help">Optional</span></label><input id="pnote" type="text" placeholder="For example: Grades for the Locations"></div>
     <div class="steps" id="steps" hidden></div>
     <div class="acts"><button class="btn ghost" value="cancel" id="pcancel">Cancel</button><button class="btn pri" type="button" id="pgo">${ico('upload')}Publish now</button></div></form>`;
