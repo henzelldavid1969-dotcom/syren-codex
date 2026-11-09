@@ -2,5 +2,15 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "framework": null,
   "buildCommand": "node scripts/build.mjs",
-  "outputDirectory": "dist"
+  "outputDirectory": "dist",
+  "headers": [
+    { "source": "/admin/(.*)", "headers": [
+      { "key": "X-Robots-Tag", "value": "noindex, nofollow" },
+      { "key": "Cache-Control", "value": "no-cache" },
+      { "key": "X-Frame-Options", "value": "DENY" },
+      { "key": "Referrer-Policy", "value": "no-referrer" }
+    ] },
+    { "source": "/release.json", "headers": [{ "key": "Cache-Control", "value": "no-store" }] }
+  ],
+  "redirects": [{ "source": "/admin", "destination": "/admin/", "permanent": false }]
 }

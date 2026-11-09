@@ -1,13 +1,35 @@
-// Build the site: put data/codex.json into the template and write
-// dist/index.html, and turn the manuscript exports in story/ into
+// Build the site: put the newest published release into the template and
+// write dist/index.html, and turn the manuscript exports in story/ into
 // dist/story.json for the Story pages. Vercel runs this on every deployment.
-// It needs no network access and no keys.
+//
+// The site data is the newest release saved by the admin's Publish button
+// (public.releases). Edits that have not been published never reach the
+// site. If the database cannot be reached, the build uses the copy kept in
+// data/codex.json. It needs no keys.
 
 import { readFile, writeFile, mkdir, copyFile, readdir } from 'node:fs/promises';
 import { buildStory } from './story-lib.mjs';
 import { buildTiles, buildScan } from './tiles.mjs';
+import { SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY } from './codex-lib.mjs';
 
-const { META, DATA, MAP, STORY, FACTIONS = [] } = JSON.parse(await readFile(new URL('../data/codex.json', import.meta.url), 'utf8'));
+async function newestRelease() {
+  if (process.env.CODEX_OFFLINE) return null;
+  try {
+    const res = await fetch(`${SUPABASE_URL}/rest/v1/releases?select=id,created_at,data&order=id.desc&limit=1`, {
+      headers: { apikey: SUPABASE_PUBLISHABLE_KEY },
+      signal: AbortSignal.timeout(20000),
+    });
+    if (!res.ok) throw new Error(res.status + ' ' + (await res.text()));
+    return (await res.json())[0] || null;
+  } catch (e) {
+    console.warn('Could not read the newest release, using data/codex.json: ' + e.message);
+    return null;
+  }
+}
+const release = await newestRelease();
+const codex = release ? release.data : JSON.parse(await readFile(new URL('../data/codex.json', import.meta.url), 'utf8'));
+const { META, DATA, MAP, STORY, FACTIONS = [] } = codex;
+console.log(release ? `Using release ${release.id} of ${release.created_at}.` : 'Using data/codex.json.');
 
 // The River Vistula: geography, not story data, so it lives in content/
 // rather than the database. Drawn under everything else on every map.
@@ -69,6 +91,17 @@ await mkdir(new URL('../dist/vendor/maplibre/', import.meta.url), { recursive: t
 for (const f of ['maplibre-gl.mjs', 'maplibre-gl-worker.mjs', 'maplibre-gl.css'])
   await copyFile(new URL('../node_modules/maplibre-gl/dist/' + f, import.meta.url), new URL('../dist/vendor/maplibre/' + f, import.meta.url));
 await writeFile(new URL('../dist/index.html', import.meta.url), html);
+// Which release the site shows, so the admin can tell when a publish is live.
+const saved = await readFile(new URL('../data/release.json', import.meta.url), 'utf8').then(JSON.parse).catch(() => ({ id: null }));
+await writeFile(new URL('../dist/release.json', import.meta.url),
+  JSON.stringify(release ? { id: release.id, created_at: release.created_at } : saved));
+
+// The admin at /admin: one page plus the Supabase client library.
+await mkdir(new URL('../dist/admin/', import.meta.url), { recursive: true });
+for (const f of await readdir(new URL('../admin/', import.meta.url)))
+  await copyFile(new URL('../admin/' + f, import.meta.url), new URL('../dist/admin/' + f, import.meta.url));
+await copyFile(new URL('../node_modules/@supabase/supabase-js/dist/umd/supabase.js', import.meta.url),
+  new URL('../dist/admin/supabase.js', import.meta.url));
 console.log(`Built dist/index.html: ${DATA.length} entries, ${MAP.pts.length} map points, ${html.length} bytes.`);
 
 // The Story view's source: one file. To refresh the manuscript, replace
