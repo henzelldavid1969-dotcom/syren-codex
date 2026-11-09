@@ -164,6 +164,9 @@ begin
     end if;
   end if;
 
+  -- Keep this version in the history (migration 010).
+  perform public.record_entry_revision(r);
+
   return (select jsonb_build_object('ref', ref, 'slug', slug, 'updated_at', updated_at) from entries where ref = r);
 end;
 $$;

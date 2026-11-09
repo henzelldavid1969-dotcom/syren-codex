@@ -249,6 +249,23 @@ dialog::backdrop{background:rgba(0,0,0,.45)}
 .hitem .hh{display:flex;align-items:center;gap:10px;font-size:14px}
 .hitem .hh b{font-weight:500;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 input.mono{font-family:"Geist Mono",ui-monospace,monospace;font-size:13px}
+/* History and media library */
+dialog:has(.dlg.wide){width:min(860px,calc(100vw - 32px))}
+.diffs{display:grid;gap:14px;max-height:56vh;overflow:auto;border:1px solid var(--line);border-radius:9px;padding:14px;background:var(--bg)}
+.dif b{display:block;font:500 11px "Geist Mono",monospace;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
+.dtx{font-size:14.5px;line-height:1.6;overflow-wrap:anywhere}
+.dtx p{margin:0 0 8px}
+.dtx .dsame{font:12px "Geist Mono",monospace;color:var(--muted)}
+del{text-decoration:line-through;text-decoration-thickness:1.5px;color:var(--muted)}
+ins{text-decoration:none;background:color-mix(in srgb,var(--accent) 55%,transparent);color:var(--fg);border-radius:2px}
+.pick{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px;max-height:56vh;overflow:auto}
+.pk{display:flex;gap:8px;align-items:center;text-align:left;border:1px solid var(--line);background:var(--raise);border-radius:9px;padding:9px 10px;cursor:pointer;font-size:13px;min-width:0}
+.pk span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.pk:hover{border-color:var(--muted)}
+.pk.img{aspect-ratio:4/3;background:var(--bg) center/cover no-repeat;align-items:flex-end;padding:0}
+.pk.img span{width:100%;background:color-mix(in srgb,var(--surface) 88%,transparent);padding:4px 8px;font:11px "Geist Mono",monospace}
+.mcard a.img{display:block}
+.mcard .bar{flex-wrap:wrap}
 
 @media(max-width:1100px){.edgrid{grid-template-columns:minmax(0,1fr)}.edside{position:static;order:-1;grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}.g4{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:860px){
@@ -422,14 +439,14 @@ const NAV = [
   ['#/entries', 'list', 'Entries'],
   ['#/story', 'book', 'Story'],
   ['#/home', 'home', 'Home page'],
+  ['#/media', 'image', 'Media library'],
+  ['#/history', 'clock', 'History'],
 ];
-const LATER = [['image', 'Media library', 'Later'], ['clock', 'History', 'Later']];
 function shell() {
   $('#root').innerHTML = `<div class="app">
     <aside class="side">
       <a class="brand" href="#/"><i></i><span>Syren Codex<small>Admin</small></span></a>
-      <nav class="nav" id="nav">${NAV.map(([h, i, l]) => `<a href="${h}">${ico(i)}${l}</a>`).join('')}
-        <h4>Coming</h4>${LATER.map(([i, l, s]) => `<a class="off">${ico(i)}${l}<span class="soon">${s}</span></a>`).join('')}</nav>
+      <nav class="nav" id="nav">${NAV.map(([h, i, l]) => `<a href="${h}">${ico(i)}${l}</a>`).join('')}</nav>
       <div class="sidefoot"><span class="who" title="${esc(S.user.email)}">${esc(S.user.email)}</span>
         <div class="row"><a class="btn sm" href="/" target="_blank" rel="noopener">${ico('ext')}Live site</a><button class="btn sm ghost" id="so">${ico('out')}Sign out</button></div></div>
     </aside>
@@ -477,6 +494,8 @@ function route() {
   if (seg[0] === 's' && seg[1]) return viewSection(seg[1]);
   if (seg[0] === 'book') return viewBook();
   if (seg[0] === 'home') return viewHome();
+  if (seg[0] === 'media') return viewMedia(p);
+  if (seg[0] === 'history') return viewHistory();
   location.hash = '#/';
 }
 
@@ -649,6 +668,7 @@ async function viewEntry(slug, newType) {
   };
   crumbs([['Entries', '#/entries'], [ref ? `${ref.slice(8)} ${e.name}` : `New ${catLabel(e.type).replace(/s$/, '').toLowerCase()}`]]);
   renderEditor();
+  if (M.ref) histCard({ kind: 'entry', key: M.ref, compare: entryCompare, apply: entryApply });
   leaveGuard = () => !M || !M.dirty || confirm('You have unsaved changes on this entry. Leave without saving?');
 }
 
@@ -704,7 +724,7 @@ function renderEditor() {
           const rt = S.rtypes.find((x) => x.code === r.type) || { inverse_label: r.type };
           return `<a class="li" href="#/e/${o.slug}"><span class="ref">${esc(rt.inverse_label)}</span><span class="nm">${esc(o.name)}</span><span class="meta">${esc(r.from_ref.slice(8))}</span></a>`;
         }).join('')}</div><span class="help">Edit these on the other entry.</span>` : '<p class="empty">None.</p>'}</div>`, { hint: '<span id="reln"></span>' })}
-      ${section('07', 'Media', isNew ? '<p class="empty">Save the entry first, then add media.</p>' : Object.keys(MEDIA).map((k) => `<div><div class="mh">${MEDIA[k].label} <small id="mn_${k}"></small></div><p class="help" style="margin:2px 0 10px;font-size:12.5px;color:var(--muted)">${MEDIA[k].help}</p><div id="m_${k}"></div></div>`).join('')
+      ${section('07', 'Media', isNew ? '<p class="empty">Save the entry first, then add media.</p>' : Object.keys(MEDIA).map((k) => `<div><div class="mh">${MEDIA[k].label} <small id="mn_${k}"></small></div><p class="help" style="margin:2px 0 10px;font-size:12.5px;color:var(--muted)">${MEDIA[k].help}</p><div id="m_${k}"></div><div class="addrow" style="margin-top:8px"><button class="btn sm" type="button" data-lib="${k}">${ico('image')}Choose from the library</button></div></div>`).join('')
         + (isNew ? '' : `<div class="r2">${fld('entry.lottie', 'Lottie animation', e.lottie, 'text', { help: 'Optional. A file in the lottie bucket, used as the icon or header.' })}<div class="fld"><span class="lbl">Upload an animation</span><label class="drop" style="min-height:0;padding:10px">${ico('upload')} JSON or zip<input type="file" accept="application/json,application/zip,.json,.lottie" id="lotup"></label></div></div>`), { hint: '<span id="medn"></span>' })}
       ${section('08', 'Notes', `
         ${fld('entry.cross_references_note', 'Cross-references note', e.cross_references_note, 'area', { lint: true })}
@@ -721,6 +741,7 @@ function renderEditor() {
         <dt>Reference</dt><dd>${esc(M.ref || 'On save')}</dd><dt>Address</dt><dd>${M.slug ? '/#e-' + esc(M.slug) : 'On save'}</dd>
         <dt>Last saved</dt><dd>${M.updated_at ? fmtDate(M.updated_at) : 'Never'}</dd>
         <dt>Published</dt><dd>${M.ref && lastRelease() ? (new Date(M.updated_at) > new Date(lastRelease().created_at) ? 'Has unpublished edits' : 'Up to date') : 'Not yet'}</dd></dl></div>
+      ${isNew ? '' : '<div class="card"><h3>History</h3><div id="hist"><p class="empty">Loading</p></div></div>'}
     </aside></div></div>
     <div class="savebar"><div class="msg" id="smsg">No unsaved changes.</div>
       <button class="btn ghost" id="disc" hidden>Discard</button><button class="btn pri" id="save">${ico('check')}${isNew ? 'Create entry' : 'Save'}</button></div>`;
@@ -759,6 +780,7 @@ function renderEditor() {
   $('#save').onclick = save;
   $('#disc').onclick = () => { if (confirm('Discard your unsaved changes?')) { M.dirty = false; route(); } };
   paintApps(); paintRels(); paintMedia(); paintChecks();
+  $$('[data-lib]').forEach((b) => { b.onclick = () => pickFromLibrary(b.dataset.lib); });
   $$('[data-lint],[data-cnt]').forEach((x) => paintLint(x.dataset.lint || x.dataset.cnt));
 }
 
@@ -1005,6 +1027,7 @@ async function viewSection(slug) {
       <div class="card"><h3>Reading order</h3><div class="list">
         ${prev ? `<a class="li" href="#/s/${prev.slug}"><span class="ref">${ico('back')}</span><span class="nm">${esc(prev.label || prev.title)}</span></a>` : ''}
         ${next ? `<a class="li" href="#/s/${next.slug}"><span class="ref">${ico('chev')}</span><span class="nm">${esc(next.label || next.title)}</span></a>` : ''}</div></div>
+      <div class="card"><h3>History</h3><div id="hist"><p class="empty">Loading</p></div></div>
     </aside></div></div>${saveBar()}`;
   const lab = () => { const n = $('#s_label').value.length, c = $('#s_label_n'); c.textContent = `${n} of 24`; c.classList.toggle('over', n > 24); };
   lab();
@@ -1013,6 +1036,7 @@ async function viewSection(slug) {
   $('#s_kind').onchange = (ev) => { M.v.kind = ev.target.value; dirty(); };
   $('#s_group').onchange = (ev) => { M.v.group_code = ev.target.value; dirty(); };
   wireMd('s_body', (v) => { M.v.body = v; dirty(); });
+  histCard({ kind: 'section', key: slug, compare: sectionCompare, apply: sectionApply });
   wireSaveBar(async () => {
     if (!M.v.title.trim()) return toast('The section needs a title.', true);
     if (M.v.label.length > 24) return toast('The short label is longer than 24 characters.', true);
@@ -1040,10 +1064,11 @@ async function viewBook() {
       <div class="fld"><label for="b_title">Title</label><input id="b_title" type="text" value="${esc(c.data.title || '')}"><span class="help">The part after a colon becomes the subtitle, for example The Syren Protocols: A Future Oral History.</span></div>
       ${mdField('b_tag', 'Tagline', c.data.tagline || '', { rows: 4 })}
       ${mdField('b_back', 'Back cover', c.data.back_cover || '', { rows: 16 })}
-    </div></div>${saveBar()}`;
+    </div><div class="card"><h3>History</h3><div id="hist"><p class="empty">Loading</p></div></div></div>${saveBar()}`;
   $('#b_title').addEventListener('input', (ev) => { M.data.title = ev.target.value; dirty(); });
   wireMd('b_tag', (v) => { M.data.tagline = v; dirty(); });
   wireMd('b_back', (v) => { M.data.back_cover = v; dirty(); });
+  histCard({ kind: 'content', key: 'book', compare: contentCompare, apply: contentApply });
   wireSaveBar(() => saveContent(viewBook));
 }
 async function saveContent(again) {
@@ -1123,10 +1148,12 @@ function paintHome() {
   const parts = Object.keys(d).filter((k) => d[k] && typeof d[k] === 'object' && !Array.isArray(d[k]));
   $('#view').innerHTML = `<div class="view">
     <h1 class="pt">Home page</h1><p class="lede">All the words on the home page, section by section, in page order.</p>
+    <details class="sec"><summary><span class="n">${ico('clock')}</span>History<span class="chev">${ico('chev')}</span></summary><div class="body"><div id="hist"><p class="empty">Loading</p></div></div></details>
     ${parts.map((k, i) => `<details class="sec"${i < 2 ? ' open' : ''}><summary><span class="n">${String(i + 1).padStart(2, '0')}</span>${esc((HOME_PARTS[k] || [hum(k)])[0])}<span class="chev">${ico('chev')}</span></summary>
       <div class="body">${HOME_PARTS[k] ? `<p class="help" style="margin:0;color:var(--muted);font-size:13.5px">${esc(HOME_PARTS[k][1])}</p>` : ''}${homeObject(d[k], [k])}</div></details>`).join('')}
     </div>${saveBar()}`;
   window.scrollTo(0, y);
+  histCard({ kind: 'content', key: 'home', compare: contentCompare, apply: contentApply });
   const v = $('#view');
   v.oninput = v.onchange = (ev) => {
     const el = ev.target.closest('[data-p]');
@@ -1149,6 +1176,288 @@ function paintHome() {
     $$('#view details.sec').forEach((x, i) => { x.open = openIx[i]; });
     wireSaveBar(() => saveContent(viewHome));
     dirty();
+  };
+}
+
+// ---------- differences between two versions ----------
+function lcsOps(A, B) {
+  const n = A.length, m = B.length, dp = [];
+  for (let i = 0; i <= n; i++) dp.push(new Uint32Array(m + 1));
+  for (let i = n - 1; i >= 0; i--) for (let j = m - 1; j >= 0; j--) dp[i][j] = A[i] === B[j] ? dp[i + 1][j + 1] + 1 : Math.max(dp[i + 1][j], dp[i][j + 1]);
+  const ops = [];
+  let i = 0, j = 0;
+  while (i < n && j < m) {
+    if (A[i] === B[j]) { ops.push(['=', A[i]]); i++; j++; }
+    else if (dp[i + 1][j] >= dp[i][j + 1]) ops.push(['-', A[i++]]);
+    else ops.push(['+', B[j++]]);
+  }
+  while (i < n) ops.push(['-', A[i++]]);
+  while (j < m) ops.push(['+', B[j++]]);
+  return ops;
+}
+// Word by word, within one paragraph. Long unchanged stretches are shortened.
+function wordDiff(a, b) {
+  const A = a.split(/(\s+)/), B = b.split(/(\s+)/);
+  let p = 0;
+  while (p < A.length && p < B.length && A[p] === B[p]) p++;
+  let s = 0;
+  while (s < A.length - p && s < B.length - p && A[A.length - 1 - s] === B[B.length - 1 - s]) s++;
+  const a2 = A.slice(p, A.length - s), b2 = B.slice(p, B.length - s);
+  const mid = a2.length * b2.length > 250000
+    ? (a2.length ? `<del>${esc(a2.join(''))}</del>` : '') + (b2.length ? `<ins>${esc(b2.join(''))}</ins>` : '')
+    : lcsOps(a2, b2).map(([o, t]) => o === '=' ? esc(t) : `<${o === '-' ? 'del' : 'ins'}>${esc(t)}</${o === '-' ? 'del' : 'ins'}>`).join('').replace(/<\/del><del>|<\/ins><ins>/g, '');
+  const clip = (t, end) => { const w = t.split(/(\s+)/); return w.length > 40 ? (end ? '… ' + w.slice(-30).join('') : w.slice(0, 30).join('') + ' …') : t; };
+  return esc(clip(A.slice(0, p).join(''), true)) + mid + esc(clip(A.slice(A.length - s).join(''), false));
+}
+// Paragraph by paragraph, then word by word inside changed paragraphs.
+function diffHtml(a, b, unit = 'paragraph') {
+  const P = (v) => String(v ?? '').split(/\n{2,}/);
+  const ops = lcsOps(P(a), P(b)), out = [];
+  let same = 0, del = [], add = [];
+  const flush = () => {
+    if (same) out.push(`<p class="dsame">${same} unchanged ${unit}${same === 1 ? '' : 's'}</p>`);
+    same = 0;
+    for (let i = 0; i < Math.max(del.length, add.length); i++) out.push(`<p>${wordDiff(del[i] ?? '', add[i] ?? '')}</p>`);
+    del = []; add = [];
+  };
+  for (const [o, t] of ops) {
+    if (o === '=') { if (del.length || add.length) flush(); same++; }
+    else { if (same) { const n = same; same = 0; out.push(`<p class="dsame">${n} unchanged ${unit}${n === 1 ? '' : 's'}</p>`); } (o === '-' ? del : add).push(t); }
+  }
+  flush();
+  return out.join('');
+}
+const asText = (v) => v == null ? '' : typeof v === 'boolean' ? (v ? 'Yes' : 'No') : String(v);
+
+// ---------- history card and version dialog (in every editor) ----------
+// cfg: { kind, key, compare(versionData) => [{ label, now, then }], apply(versionData) }
+async function histCard(cfg) {
+  const box = $('#hist');
+  if (!box) return;
+  const { data, error } = await sb.from('revisions').select('id,created_at,note').eq('kind', cfg.kind).eq('key', cfg.key).order('id', { ascending: false }).limit(40);
+  if (error) { box.innerHTML = `<p class="empty">${esc(error.message)}</p>`; return; }
+  box.innerHTML = data.length ? `<div class="list">${data.map((r, i) => `<a class="li" href="#" data-rev="${r.id}"><span class="nm">${fmtDate(r.created_at)}</span><span class="meta">${i === 0 ? 'Current' : esc(r.note || '')}</span></a>`).join('')}</div>
+    <p class="help" style="font-size:12.5px;color:var(--muted);margin:8px 0 0">Every save is kept. Select one to compare it with the editor and load it back.</p>` : '<p class="empty">No saved versions yet.</p>';
+  box.onclick = async (ev) => {
+    const a = ev.target.closest('[data-rev]');
+    if (!a) return;
+    ev.preventDefault();
+    const { data: rev, error: e2 } = await sb.from('revisions').select('*').eq('id', a.dataset.rev).single();
+    if (e2) return toast(e2.message, true);
+    const diffs = cfg.compare(rev.data).filter((d) => asText(d.now) !== asText(d.then));
+    const d = $('#dlg');
+    d.innerHTML = `<form class="dlg wide" method="dialog">
+      <h2>Version of ${fmtDate(rev.created_at)}</h2>
+      <p>${diffs.length ? `Compared with what is in the editor now. <del>Struck-through text</del> would go; <ins>highlighted text</ins> would come back.` : 'This version is the same as what is in the editor now.'}</p>
+      ${diffs.length ? `<div class="diffs">${diffs.map((x) => `<div class="dif"><b>${esc(x.label)}</b><div class="dtx">${diffHtml(asText(x.now), asText(x.then), x.unit)}</div></div>`).join('')}</div>` : ''}
+      <div class="acts"><button class="btn ghost" value="cancel">Close</button>${diffs.length ? `<button class="btn pri" type="button" id="hload">${ico('clock')}Load this version</button>` : ''}</div></form>`;
+    d.showModal();
+    if ($('#hload')) $('#hload').onclick = () => {
+      cfg.apply(rev.data);
+      d.close();
+      dirty();
+      toast('Loaded into the editor. Save to restore it, or Discard to keep what you had.');
+    };
+  };
+}
+
+// Entries
+function entryCompare(v) {
+  const e = M.entry, t = M.type, out = [];
+  const F = { name: 'Name', aliases: 'Aliases', mark: 'Mark', grade: 'Grade', source_count: 'Source count', summary: 'Summary', entry: 'Entry', appears_in: 'Appears in (text)', reliability: 'Reliability', cross_references_note: 'Cross-references note', archivist_note: 'Archivist note', status: 'Status', published: 'Show on the site', featured_order: 'Featured order', icon: 'Icon', lottie: 'Lottie animation' };
+  for (const [k, l] of Object.entries(F)) out.push({ label: l, now: e[k] ?? '', then: v.entry[k] ?? '' });
+  for (const [k, l] of FACTS[t].map((f) => [f[0], f[1]])) out.push({ label: 'Key fact: ' + l, now: M.facts[k] ?? '', then: (v.facts || {})[k] ?? '' });
+  const sec = (s) => (S.sections.find((x) => x.slug === s) || { label: s }).label || s;
+  const ent = (r) => (S.entries.find((x) => x.ref === r) || { name: r }).name;
+  const rt = (c) => (S.rtypes.find((x) => x.code === c) || { label: c }).label;
+  out.push({ unit: 'line', label: 'Story sections', now: M.appearances.map(sec).join('\n\n'), then: (v.appearances || []).map(sec).join('\n\n') });
+  out.push({ unit: 'line', label: 'Relations', now: M.relations.map((r) => `${rt(r.type)}: ${ent(r.to_ref)}${r.note ? ` (${r.note})` : ''}`).join('\n\n'), then: (v.relations || []).map((r) => `${rt(r.type)}: ${ent(r.to_ref)}${r.note ? ` (${r.note})` : ''}`).join('\n\n') });
+  for (const k of Object.keys(MEDIA)) {
+    const line = (m) => [m.file, m.alt, m.caption, m.credit, m.label, m.meta, m.note, m.page_count && `${m.page_count} pages`].filter(Boolean).join(' · ');
+    out.push({ unit: 'line', label: MEDIA[k].label, now: (M[k] || []).map(line).join('\n\n'), then: (v[k] || []).map(line).join('\n\n') });
+  }
+  out.push({ label: 'Editor note (private)', now: M.editor_note || '', then: v.editor_note || '' });
+  return out;
+}
+function entryApply(v) {
+  const keep = { ref: M.entry.ref, type: M.entry.type, slug: M.entry.slug, updated_at: M.entry.updated_at, created_at: M.entry.created_at };
+  M.entry = { ...M.entry, ...v.entry, ...keep };
+  M.facts = { ...(v.facts || {}) };
+  M.appearances = [...(v.appearances || [])];
+  M.relations = (v.relations || []).map((r) => ({ type: r.type, to_ref: r.to_ref, note: r.note || '' }));
+  for (const k of Object.keys(MEDIA)) M[k] = (v[k] || []).map((x) => ({ ...x }));
+  M.editor_note = v.editor_note || '';
+  renderEditor();
+  histCard({ kind: 'entry', key: M.ref, compare: entryCompare, apply: entryApply });
+}
+
+// Story sections
+function sectionCompare(v) {
+  return [['title', 'Full title'], ['label', 'Short label'], ['kind', 'Kind'], ['group_code', 'Part'], ['body', 'Section text']]
+    .map(([k, l]) => ({ label: l, now: M.v[k] ?? '', then: v[k] ?? '' }));
+}
+function sectionApply(v) {
+  for (const k of ['title', 'label', 'kind', 'group_code', 'body']) M.v[k] = v[k] ?? '';
+  $('#s_title').value = M.v.title; $('#s_label').value = M.v.label; $('#s_kind').value = M.v.kind; $('#s_group').value = M.v.group_code;
+  $('#s_body').value = M.v.body;
+  $('#hname').textContent = M.v.title;
+  ['#s_label', '#s_body'].forEach((s) => $(s).dispatchEvent(new Event('input', { bubbles: true })));
+}
+
+// Book copy and home page copy
+function flat(o, path = [], out = {}) {
+  if (o && typeof o === 'object') {
+    for (const [k, v] of Object.entries(o)) if (!String(k).startsWith('_') && !String(k).includes('_read_me')) flat(v, [...path, k], out);
+  } else out[path.join('.')] = o;
+  return out;
+}
+const homeLabel = (p) => p.split('.').map((k, i) => i === 0 && HOME_PARTS[k] ? HOME_PARTS[k][0] : /^\d+$/.test(k) ? String(+k + 1) : hum(k)).join(' › ');
+function contentCompare(v) {
+  const now = flat(M.data), then = flat(v.data);
+  const keys = [...new Set([...Object.keys(now), ...Object.keys(then)])];
+  if (M.key === 'book') { const L = { title: 'Title', tagline: 'Tagline', back_cover: 'Back cover' }; return keys.map((k) => ({ label: L[k] || k, now: now[k] ?? '', then: then[k] ?? '' })); }
+  return keys.map((k) => ({ label: homeLabel(k), now: now[k] ?? '', then: then[k] ?? '' }));
+}
+function contentApply(v) {
+  M.data = JSON.parse(JSON.stringify(v.data));
+  if (M.key === 'book') {
+    $('#b_title').value = M.data.title || ''; $('#b_tag').value = M.data.tagline || ''; $('#b_back').value = M.data.back_cover || '';
+    ['#b_tag', '#b_back'].forEach((s) => $(s).dispatchEvent(new Event('input', { bubbles: true })));
+    M.data = JSON.parse(JSON.stringify(v.data));
+  } else {
+    paintHome();
+    wireSaveBar(() => saveContent(viewHome));
+  }
+}
+
+// ---------- History page ----------
+async function viewHistory() {
+  setNav('#/history');
+  crumbs([['History']]);
+  $('#view').innerHTML = '<div class="view loading">Loading the history</div>';
+  const [rv, rl] = await Promise.all([
+    sb.from('revisions').select('id,kind,key,created_at,note').order('id', { ascending: false }).limit(80),
+    sb.from('releases').select('id,created_at,entries,note').order('id', { ascending: false }).limit(40),
+  ]);
+  if (rv.error || rl.error) return toast((rv.error || rl.error).message, true);
+  const name = (r) => {
+    if (r.kind === 'entry') { const e = S.entries.find((x) => x.ref === r.key); return [r.key.slice(8), e ? e.name : r.key, e ? '#/e/' + e.slug : '#/entries']; }
+    if (r.kind === 'section') { const x = S.sections.find((y) => y.slug === r.key); return ['Story', x ? x.label || x.title : r.key, '#/s/' + r.key]; }
+    return CONTENT_NAME[r.key] ? [CONTENT_NAME[r.key][0], CONTENT_NAME[r.key][1], CONTENT_NAME[r.key][2]] : ['', r.key, '#/'];
+  };
+  const live = S.live && S.live.id;
+  const saves = rv.data.filter((r) => r.note !== 'Starting version');
+  $('#view').innerHTML = `<div class="view">
+    <h1 class="pt">History</h1><p class="lede">Every save is kept as a version. To go back to one, open the page it belongs to and choose it under History.</p>
+    <div class="grid g2">
+      <div class="card"><h3>Saved versions<span class="r">latest ${saves.length}</span></h3><div class="list">${saves.length ? saves.map((r) => { const [ref, nm, href] = name(r); return `<a class="li" href="${href}"><span class="ref">${esc(ref)}</span><span class="nm">${esc(nm)}</span><span class="meta">${ago(r.created_at)}</span></a>`; }).join('') : '<p class="empty">Nothing has been saved since the history began. The starting version of every entry, section and page is kept.</p>'}</div></div>
+      <div class="card"><h3>Published<span class="r">${rl.data.length}</span></h3><div class="list">${rl.data.map((r) => `<div class="li"><span class="ref">Release ${r.id}</span><span class="nm">${esc(r.note || 'No note')}</span><span class="meta">${r.id === live ? '<span class="tag">Live</span> ' : ''}${fmtDate(r.created_at)}</span></div>`).join('') || '<p class="empty">Nothing published yet.</p>'}</div></div>
+    </div></div>`;
+}
+
+// ---------- Media library ----------
+const BUCKETS = [['images', 'Images', 'image/jpeg,image/png,image/webp,image/gif,image/svg+xml,image/avif'], ['audio', 'Audio', 'audio/*'], ['video', 'Video', 'video/mp4,video/webm,video/quicktime'], ['files', 'Files', 'application/pdf,.doc,.docx,.odt,.rtf,.txt,.epub'], ['lottie', 'Animations', 'application/json,application/zip,.json,.lottie']];
+const fmtSize = (b) => b == null ? '' : b < 1024 ? b + ' B' : b < 1048576 ? (b / 1024).toFixed(0) + ' KB' : (b / 1048576).toFixed(1) + ' MB';
+async function loadMedia() {
+  const [files, im, au, vi, fi, home] = await Promise.all([
+    sb.rpc('media_files'),
+    sb.from('entry_images').select('file,entry_ref'), sb.from('entry_audio').select('file,entry_ref'),
+    sb.from('entry_video').select('file,entry_ref'), sb.from('entry_files').select('file,entry_ref'),
+    sb.from('site_content').select('data').eq('key', 'home').maybeSingle(),
+  ]);
+  const bad = [files, im, au, vi, fi, home].find((x) => x.error);
+  if (bad) throw bad.error;
+  const uses = {};
+  const add = (bucket, file, label, href) => { const k = bucket + '/' + file; (uses[k] = uses[k] || []).push({ label, href }); };
+  const ent = (r) => S.entries.find((x) => x.ref === r) || { name: r, slug: '' };
+  [['images', im], ['audio', au], ['video', vi], ['files', fi]].forEach(([b, r]) => r.data.forEach((x) => { const e = ent(x.entry_ref); add(b, x.file, e.name, '#/e/' + e.slug); }));
+  S.entries.filter((e) => e.lottie).forEach((e) => add('lottie', e.lottie, e.name, '#/e/' + e.slug));
+  const homeText = JSON.stringify(home.data ? home.data.data : '');
+  for (const f of files.data) if (homeText.includes('/' + f.bucket + '/' + f.name)) add(f.bucket, f.name, 'Home page copy', '#/home');
+  S.media = files.data.map((f) => ({ ...f, uses: uses[f.bucket + '/' + f.name] || [] }));
+  return S.media;
+}
+async function viewMedia(p) {
+  setNav('#/media');
+  crumbs([['Media library']]);
+  $('#view').innerHTML = '<div class="view loading">Loading the media library</div>';
+  try { await loadMedia(); } catch (err) { return toast(err.message, true); }
+  const st = { b: BUCKETS.some((x) => x[0] === p.get('b')) ? p.get('b') : 'images', q: '', unused: false };
+  $('#view').innerHTML = `<div class="view">
+    <div style="display:flex;gap:12px;align-items:flex-end;flex-wrap:wrap;margin-bottom:20px"><div style="flex:1"><h1 class="pt">Media library</h1><p class="lede" style="margin:0">Every file in the archive's storage, and where each one is used.</p></div>
+      <label class="btn pri" style="cursor:pointer">${ico('upload')}Upload<input type="file" id="mup" multiple hidden></label></div>
+    <div class="tools"><div class="seg" id="mbk"></div>
+      <label class="chk"><input type="checkbox" id="munused"> Unused only</label>
+      <label class="search">${ico('search')}<input id="mq" placeholder="Search file names" autocomplete="off"></label></div>
+    <p class="count" id="mcount"></p><div id="mlist"></div></div>`;
+  const paint = () => {
+    $('#mbk').innerHTML = BUCKETS.map(([b, l]) => `<button data-b="${b}" class="${b === st.b ? 'on' : ''}">${l} <small>${S.media.filter((f) => f.bucket === b).length}</small></button>`).join('');
+    $('#mup').accept = BUCKETS.find((x) => x[0] === st.b)[2];
+    const xs = S.media.filter((f) => f.bucket === st.b && (!st.unused || !f.uses.length) && (!st.q || f.name.toLowerCase().includes(st.q.toLowerCase())));
+    $('#mcount').textContent = `${xs.length} ${xs.length === 1 ? 'file' : 'files'} · ${fmtSize(xs.reduce((a, f) => a + (f.size || 0), 0))}`;
+    const usedBy = (f) => f.uses.length ? f.uses.map((u) => `<a class="tag" href="${u.href}">${esc(u.label)}</a>`).join(' ') : '<span class="tag warn">Unused</span>';
+    const acts = (f, i) => `<button class="btn sm ghost" type="button" data-copy="${i}">Copy address</button><button class="btn sm ghost" type="button" data-del="${i}"${f.uses.length ? ' disabled title="In use. Remove it from where it is used first."' : ''}>Delete</button>`;
+    $('#mlist').innerHTML = !xs.length ? '<p class="empty">No files here yet.</p>' : st.b === 'images'
+      ? `<div class="mgrid">${xs.map((f, i) => `<div class="mcard"><a class="img" href="${esc(fileUrl(f.bucket, f.name))}" target="_blank" rel="noopener" style="background-image:url('${esc(fileUrl(f.bucket, f.name))}')"></a>
+          <div class="f"><span class="fn mono" title="${esc(f.name)}" style="font-size:12px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${esc(f.name)}</span><span class="nr">${fmtSize(f.size)} · ${fmtDay(f.created_at)}</span><div>${usedBy(f)}</div></div>
+          <div class="bar">${acts(f, i)}</div></div>`).join('')}</div>`
+      : `<div class="ol">${xs.map((f, i) => `<div class="mrow" style="grid-template-columns:24px minmax(0,1fr) auto"><span class="nr">${ico('file')}</span><div class="fs"><a class="fn" href="${esc(fileUrl(f.bucket, f.name))}" target="_blank" rel="noopener" style="color:var(--fg)">${esc(f.name)}</a><span class="nr">${fmtSize(f.size)} · ${fmtDay(f.created_at)}</span><div>${usedBy(f)}</div></div><div style="display:flex;gap:4px;flex-wrap:wrap;justify-content:flex-end">${acts(f, i)}</div></div>`).join('')}</div>`;
+    $('#mlist').onclick = async (ev) => {
+      const c = ev.target.closest('[data-copy]'), dl = ev.target.closest('[data-del]');
+      if (c) { const f = xs[+c.dataset.copy]; try { await navigator.clipboard.writeText(fileUrl(f.bucket, f.name)); toast('Address copied.'); } catch { prompt('The address:', fileUrl(f.bucket, f.name)); } }
+      if (dl && !dl.disabled) {
+        const f = xs[+dl.dataset.del];
+        if (!confirm(`Delete ${f.name}? This cannot be undone.`)) return;
+        const { error } = await sb.storage.from(f.bucket).remove([f.name]);
+        if (error) return toast(error.message, true);
+        S.media = S.media.filter((x) => x !== f);
+        toast('Deleted.');
+        paint();
+      }
+    };
+    history.replaceState(null, '', '#/media?b=' + st.b);
+    lastHash = location.hash;
+  };
+  $('#mbk').onclick = (ev) => { const b = ev.target.closest('button'); if (b) { st.b = b.dataset.b; paint(); } };
+  $('#munused').onchange = (ev) => { st.unused = ev.target.checked; paint(); };
+  $('#mq').oninput = (ev) => { st.q = ev.target.value; paint(); };
+  $('#mup').onchange = async (ev) => {
+    for (const f of ev.target.files) {
+      const clean = f.name.toLowerCase().replace(/[^a-z0-9.]+/g, '-').replace(/^-+|-+$/g, '');
+      toast(`Uploading ${f.name}`);
+      const { error } = await sb.storage.from(st.b).upload(`library/${Date.now().toString(36)}-${clean}`, f, { upsert: false, contentType: f.type || undefined });
+      if (error) toast(/mime|type/i.test(error.message) ? `${f.name}: this kind of file does not belong in ${st.b}.` : error.message, true);
+    }
+    ev.target.value = '';
+    await loadMedia();
+    paint();
+  };
+  paint();
+}
+
+// Pick a file from the library for an entry's media list.
+async function pickFromLibrary(kind) {
+  const cfg = MEDIA[kind];
+  try { await loadMedia(); } catch (err) { return toast(err.message, true); }
+  const have = new Set(M[kind].map((m) => m.file));
+  const xs = S.media.filter((f) => f.bucket === cfg.bucket && !have.has(f.name));
+  const d = $('#dlg');
+  d.innerHTML = `<form class="dlg wide" method="dialog"><h2>Choose from the library</h2>
+    <p>${xs.length ? `${cfg.label} not yet on this entry. Select one to add it.` : `Every file in ${cfg.label.toLowerCase()} is already on this entry, or there are none yet.`}</p>
+    <div class="pick">${xs.map((f, i) => kind === 'images'
+      ? `<button type="button" class="pk img" data-i="${i}" title="${esc(f.name)}" style="background-image:url('${esc(fileUrl(f.bucket, f.name))}')"><span>${esc(f.name.split('/').pop())}</span></button>`
+      : `<button type="button" class="pk" data-i="${i}">${ico('file')} <span>${esc(f.name)}</span> <small class="nr">${fmtSize(f.size)}</small></button>`).join('')}</div>
+    <div class="acts"><button class="btn ghost" value="cancel">Close</button></div></form>`;
+  d.showModal();
+  $('.pick', d).onclick = (ev) => {
+    const b = ev.target.closest('[data-i]');
+    if (!b) return;
+    if (cfg.max && M[kind].length >= cfg.max) { toast(`An entry can have at most ${cfg.max} images.`, true); return; }
+    const f = xs[+b.dataset.i];
+    M[kind].push({ file: f.name, size_bytes: f.size });
+    d.close();
+    dirty();
+    paintMedia();
   };
 }
 
