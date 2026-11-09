@@ -165,7 +165,11 @@ async function buildFonts() {
       const file = (block.match(/url\(\.\/files\/([^)]+)\)/) || [])[1];
       if (!file || !/-latin-(ext-)?/.test(file)) continue;
       await copyFile(new URL('./files/' + file, base), new URL(file, out));
-      css += block.replace(/font-family:\s*'[^']*'/, `font-family: '${family}'`).replace(/url\(\.\/files\//, 'url(') + '\n';
+      // woff2 only: every browser the site supports reads it, so the older
+      // woff fallback some packages list is dropped rather than copied.
+      css += block.replace(/font-family:\s*'[^']*'/, `font-family: '${family}'`)
+        .replace(/,\s*url\(\.\/files\/[^)]+\.woff\)\s*format\('woff'\)/g, '')
+        .replace(/url\(\.\/files\//g, 'url(') + '\n';
     }
   }
   await writeFile(new URL('fonts.css', out), css);
