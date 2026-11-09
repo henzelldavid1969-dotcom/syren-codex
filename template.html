@@ -1094,7 +1094,7 @@ function mountMap(root,opt){
   const start=async()=>{try{
     const [ml,base]=await Promise.all([loadML(),loadBase()]);if(!gl.isConnected)return;
     let theme=themeNow();
-    map=new ml.Map({container:gl,style:streetStyle(base,theme),bounds:B,fitBoundsOptions:{padding:compact?24:40},minZoom:8,maxZoom:18,attributionControl:false,cooperativeGestures:compact,dragRotate:false,pitchWithRotate:false,touchPitch:false});
+    map=new ml.Map({container:gl,style:streetStyle(base,theme),bounds:B,fitBoundsOptions:{padding:compact?24:40},minZoom:8,maxZoom:18,attributionControl:false,cooperativeGestures:compact&&matchMedia('(pointer:coarse)').matches,dragRotate:false,pitchWithRotate:false,touchPitch:false});
     map.touchZoomRotate.disableRotation();
     map.addControl(new ml.AttributionControl({compact:true}),'bottom-right');
     map.on('error',e=>{if(!map.loaded()&&!map._syrFell){map._syrFell=1;map.remove();mountSvgMap(root,opt)}});
