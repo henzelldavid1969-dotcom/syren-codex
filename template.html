@@ -1,5 +1,5 @@
 <title>The Syren Protocols</title>
-<link rel="stylesheet" href="/fonts/fonts.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@200..700&family=Geist+Mono:wght@300;400;500&family=Newsreader:ital,wght@0,400;0,500;1,400&display=swap">
 <style>
 :root{--bg:#0e0f0f;--surface:#151616;--raise:#1d1f1f;--line:#2a2d2c;--fg:#ededed;--muted:#9ba09e;--accent:#B8DF0D;--accent-fg:#141a00;--accent-ink:#B8DF0D;--edge:transparent;--attrib-inv:invert(1);
 --loc:#B8DF0D;--chr:#7aa7ff;--obj:#e3b562;--lor:#c58bd9;--gc:#B8DF0D;--ge:#e3b562;--gu:#e08a7a;--rus:#e5625a;--glow:rgba(184,223,13,.14);--mapbg:#0b0d0d;color-scheme:dark}
@@ -10,7 +10,7 @@ html{scroll-behavior:smooth}
 body{margin:0;background:var(--bg);color:var(--fg);font:300 15.5px/1.65 Geist,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
 a{color:inherit;text-decoration:none}
 button{font:inherit;color:inherit;cursor:pointer}
-.mono{font-family:"JetBrains Mono",ui-monospace,monospace}
+.mono{font-family:"Geist Mono",ui-monospace,monospace}
 .wrap{max-width:1180px;margin:0 auto;padding:0 max(16px,env(safe-area-inset-left))}
 .nav{position:sticky;top:0;z-index:40;background:color-mix(in srgb,var(--bg) 82%,transparent);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
 .nav .wrap{display:flex;align-items:center;gap:20px;height:56px}
@@ -22,7 +22,7 @@ button{font:inherit;color:inherit;cursor:pointer}
 .links a:hover,.links a.on{color:var(--fg);background:var(--raise)}
 .sbtn{display:flex;align-items:center;gap:10px;background:var(--surface);border:1px solid var(--line);border-radius:7px;padding:6px 10px;color:var(--muted);font-size:13px;min-width:0}
 .sbtn:hover{border-color:var(--muted)}
-.sbtn kbd,.kbd{font:11px "JetBrains Mono",monospace;border:1px solid var(--line);border-radius:4px;padding:1px 5px;color:var(--muted)}
+.sbtn kbd,.kbd{font:11px "Geist Mono",monospace;border:1px solid var(--line);border-radius:4px;padding:1px 5px;color:var(--muted)}
 .btn{display:inline-flex;align-items:center;gap:8px;border-radius:8px;padding:9px 16px;font-weight:400;font-size:14px;border:1px solid var(--line);background:var(--raise)}
 .btn:hover{border-color:var(--muted)}
 .btn.p{background:var(--accent);color:var(--accent-fg);border-color:var(--accent)}
@@ -44,15 +44,15 @@ h1 em{font-style:normal;color:var(--accent);display:block;font-weight:300}
 .sec{padding:36px 0}
 .sec h2{font-size:clamp(26px,3.4vw,36px);letter-spacing:-.03em;font-weight:300;margin:0 0 6px}
 .sec .sub{color:var(--muted);margin:0 0 22px;max-width:40em}
-.eyebrow{font:500 12px "JetBrains Mono",monospace;text-transform:uppercase;letter-spacing:.08em;color:var(--accent-ink);margin-bottom:10px}
+.eyebrow{font:500 12px "Geist Mono",monospace;text-transform:uppercase;letter-spacing:.08em;color:var(--accent-ink);margin-bottom:10px}
 .bento{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
 .card{position:relative;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:24px;overflow:hidden;display:flex;flex-direction:column;gap:10px;min-height:230px;transition:border-color .15s,transform .15s}
 a.card:hover{border-color:var(--c,var(--accent));transform:translateY(-2px)}
 .card:before{content:"";position:absolute;inset:0;background:radial-gradient(70% 60% at 0% 0%,color-mix(in srgb,var(--c) 14%,transparent),transparent 70%);pointer-events:none}
-.card .ic{width:40px;height:40px;border-radius:10px;border:1px solid color-mix(in srgb,var(--c) 35%,var(--line));display:grid;place-items:center;color:var(--c);font:500 14px "JetBrains Mono",monospace;background:color-mix(in srgb,var(--c) 10%,transparent)}
+.card .ic{width:40px;height:40px;border-radius:10px;border:1px solid color-mix(in srgb,var(--c) 35%,var(--line));display:grid;place-items:center;color:var(--c);font:500 14px "Geist Mono",monospace;background:color-mix(in srgb,var(--c) 10%,transparent)}
 .card h3{margin:8px 0 0;font-size:18px;letter-spacing:-.01em;font-weight:400}
 .card p{margin:0;color:var(--muted);font-size:14px;flex:1}
-.card .foot{display:flex;justify-content:space-between;align-items:center;font:12px "JetBrains Mono",monospace;color:var(--muted)}
+.card .foot{display:flex;justify-content:space-between;align-items:center;font:12px "Geist Mono",monospace;color:var(--muted)}
 .card .n{color:var(--c)}
 .card.wide{grid-column:span 2}
 @media(max-width:960px){.bento{grid-template-columns:repeat(2,1fr)}}
@@ -67,11 +67,11 @@ a.card:hover{border-color:var(--c,var(--accent));transform:translateY(-2px)}
 .mpanel input{width:100%;background:var(--bg);border:1px solid var(--line);border-radius:7px;padding:8px 10px;color:var(--fg);font:inherit;font-size:14px}
 .mpanel input:focus,.palette input:focus,.fin:focus{outline:2px solid var(--accent-ink);outline-offset:-1px}
 .mlist{overflow:auto;flex:1;padding:6px}
-.mlist h4{font:500 11px "JetBrains Mono",monospace;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin:12px 8px 4px}
+.mlist h4{font:500 11px "Geist Mono",monospace;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin:12px 8px 4px}
 .mi{display:flex;gap:10px;align-items:center;width:100%;text-align:left;background:none;border:0;border-radius:6px;padding:7px 8px;font-size:14px}
 .mi:hover,.mi.on{background:var(--raise)}
 .dot{width:10px;height:10px;border-radius:50%;flex:none;background:var(--dc)}
-.mi small{margin-left:auto;font:11px "JetBrains Mono",monospace;color:var(--muted)}
+.mi small{margin-left:auto;font:11px "Geist Mono",monospace;color:var(--muted)}
 .mcanvas{position:relative;min-height:0;overflow:hidden;touch-action:none;cursor:grab}
 .mcanvas:active{cursor:grabbing}
 .mcanvas svg{width:100%;height:100%;display:block}
@@ -86,7 +86,7 @@ a.card:hover{border-color:var(--c,var(--accent));transform:translateY(-2px)}
 /* the River Vistula on every map: a neutral band, under everything else */
 :root{--river:color-mix(in srgb,var(--fg) 13%,var(--mapbg))}
 .mcanvas svg .riv{fill:none;stroke:var(--river);stroke-width:max(calc(4px * var(--k)),3.6px);stroke-linecap:round;stroke-linejoin:round}
-.mcanvas svg text.rivl{font:500 calc(9.5px*var(--k)) "JetBrains Mono",monospace;letter-spacing:.4em;fill:var(--muted);stroke:none;paint-order:normal}
+.mcanvas svg text.rivl{font:500 calc(9.5px*var(--k)) "Geist Mono",monospace;letter-spacing:.4em;fill:var(--muted);stroke:none;paint-order:normal}
 /* street map */
 .mapwrap.street .mcanvas{cursor:default;touch-action:auto}
 .mgl,.mgl.maplibregl-map{position:absolute;inset:0;width:100%;height:100%}
@@ -120,20 +120,20 @@ a.card:hover{border-color:var(--c,var(--accent));transform:translateY(-2px)}
 .docs{display:grid;grid-template-columns:260px minmax(0,1fr) 250px;gap:36px;padding:28px 0 70px}
 .docs.two{grid-template-columns:260px minmax(0,1fr)}
 .side{position:sticky;top:76px;align-self:start;max-height:calc(100vh - 96px);overflow:auto;padding-right:6px}
-.side h5{font:500 11px "JetBrains Mono",monospace;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin:16px 8px 6px}
+.side h5{font:500 11px "Geist Mono",monospace;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin:16px 8px 6px}
 .side a{display:flex;gap:8px;align-items:center;padding:5px 8px;border-radius:6px;color:var(--muted);font-size:14px}
 .side a:hover,.side a.on{color:var(--fg);background:var(--raise)}
 .rail{position:sticky;top:76px;align-self:start;font-size:13.5px}
 .rail .box{border:1px solid var(--line);border-radius:10px;padding:14px;background:var(--surface);margin-bottom:12px}
-.rail h6{margin:0 0 8px;font:500 11px "JetBrains Mono",monospace;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}
+.rail h6{margin:0 0 8px;font:500 11px "Geist Mono",monospace;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}
 .rail p{margin:0;color:var(--muted)}
 .rail a.x{display:block;padding:3px 0;color:var(--fg)}
 .rail a.x:hover{color:var(--accent-ink)}
 @media(max-width:1020px){.docs,.docs.two{grid-template-columns:minmax(0,1fr)}.side,.rail{position:static;max-height:none}.side{display:none}}
-.crumb{font:12px "JetBrains Mono",monospace;color:var(--muted);margin-bottom:10px}
+.crumb{font:12px "Geist Mono",monospace;color:var(--muted);margin-bottom:10px}
 .crumb a:hover{color:var(--fg)}
 .ph{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:6px}
-.tag{font:500 11px "JetBrains Mono",monospace;letter-spacing:.04em;border-radius:5px;padding:2px 7px;border:1px solid color-mix(in srgb,var(--c) 40%,var(--line));color:var(--c);background:color-mix(in srgb,var(--c) 9%,transparent)}
+.tag{font:500 11px "Geist Mono",monospace;letter-spacing:.04em;border-radius:5px;padding:2px 7px;border:1px solid color-mix(in srgb,var(--c) 40%,var(--line));color:var(--c);background:color-mix(in srgb,var(--c) 9%,transparent)}
 .main h1.t{font-weight:300;font-size:clamp(30px,4.4vw,44px);margin:6px 0 10px;text-align:left;max-width:none;letter-spacing:-.03em}
 .main .sum{font-size:18px;color:var(--muted);margin:0 0 22px;line-height:1.5}
 .prose{font:350 16.5px/1.75 Geist,system-ui,sans-serif;max-width:40em}
@@ -149,7 +149,7 @@ a.card:hover{border-color:var(--c,var(--accent));transform:translateY(-2px)}
 .prose th,.prose td{border:1px solid var(--line);padding:7px 10px;text-align:left;vertical-align:top}
 .prose th{background:var(--surface);font-weight:500}
 .prose ul,.prose ol{padding-left:1.2em;margin:0 0 1em}
-.prose .spk{font:400 12.5px "JetBrains Mono",monospace;letter-spacing:.04em;color:var(--muted);margin:0 0 1.4em}
+.prose .spk{font:400 12.5px "Geist Mono",monospace;letter-spacing:.04em;color:var(--muted);margin:0 0 1.4em}
 .prose .spk strong{color:var(--accent-ink);font-weight:500}
 /* Story pages: clear space between the heading (title and opening speaker line) and the first line of text */
 .sprose>.spk:first-child{margin-bottom:3.4em}
@@ -159,11 +159,11 @@ a.card:hover{border-color:var(--c,var(--accent));transform:translateY(-2px)}
 .pager a{display:flex;flex-direction:column;gap:3px;border:1px solid var(--line);border-radius:10px;padding:12px 16px;background:var(--surface);min-width:0;flex:1}
 .pager a:hover{border-color:var(--accent)}
 .pager a.nx{text-align:right}
-.pager small{font:11px "JetBrains Mono",monospace;color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
+.pager small{font:11px "Geist Mono",monospace;color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
 .toc{max-width:40em;margin-top:30px}
-.toc h5{font:500 11px "JetBrains Mono",monospace;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin:22px 0 8px}
+.toc h5{font:500 11px "Geist Mono",monospace;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin:22px 0 8px}
 .tagline{font-weight:400}.tagline strong{font-weight:500}
-.g{display:inline-grid;place-items:center;width:20px;height:20px;border-radius:5px;font:600 11px "JetBrains Mono",monospace;color:#07120c;background:var(--gc)}
+.g{display:inline-grid;place-items:center;width:20px;height:20px;border-radius:5px;font:600 11px "Geist Mono",monospace;color:#07120c;background:var(--gc)}
 .g{box-sizing:border-box}.g.E{background:color-mix(in srgb,var(--accent) 18%,transparent);border:1.5px solid var(--accent);color:var(--fg)}.g.U{background:none;border:1px dashed var(--muted);color:var(--fg)}
 .gl{display:flex;gap:6px;align-items:center}
 .ctl{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin:0 0 16px}
@@ -191,7 +191,7 @@ mark{background:color-mix(in srgb,var(--accent) 28%,transparent);color:inherit;b
 .pi .tic{margin-top:4px;color:var(--muted)}
 .pi b{font-weight:400}
 .pi p{margin:1px 0 0;color:var(--muted);font-size:13px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
-.pi small{margin-left:auto;font:11px "JetBrains Mono",monospace;color:var(--muted);white-space:nowrap;padding-top:3px}
+.pi small{margin-left:auto;font:11px "Geist Mono",monospace;color:var(--muted);white-space:nowrap;padding-top:3px}
 footer{border-top:1px solid var(--line);padding:28px 0 40px;color:var(--muted);font-size:13px}
 footer .wrap{display:flex;gap:16px;justify-content:space-between;flex-wrap:wrap}
 .tog{background:none;border:1px solid var(--line);border-radius:7px;width:32px;height:32px;color:var(--muted)}
@@ -218,7 +218,7 @@ footer .wrap{display:flex;gap:16px;justify-content:space-between;flex-wrap:wrap}
 .cell .art svg{max-width:100%;height:auto}
 @media(max-width:960px){.grid7{grid-template-columns:repeat(2,1fr)}.cell.w2{grid-column:span 2}}
 @media(max-width:560px){.grid7{grid-template-columns:1fr}.cell.w2{grid-column:auto}}
-.av{display:flex}.av i{width:34px;height:34px;border-radius:50%;border:2px solid var(--bg);margin-left:-8px;display:grid;place-items:center;font:500 12px "JetBrains Mono",monospace;font-style:normal;color:#fff}
+.av{display:flex}.av i{width:34px;height:34px;border-radius:50%;border:2px solid var(--bg);margin-left:-8px;display:grid;place-items:center;font:500 12px "Geist Mono",monospace;font-style:normal;color:#fff}
 .av i:first-child{margin-left:0}
 .fakesearch{width:100%;border:1px solid var(--line);border-radius:10px;background:var(--surface);overflow:hidden;margin-bottom:-1px;border-bottom:0;border-radius:10px 10px 0 0;font-size:13px}
 .fakesearch .fi{padding:9px 12px;border-bottom:1px solid var(--line);display:flex;gap:8px;align-items:center}
@@ -241,21 +241,21 @@ footer .wrap{display:flex;gap:16px;justify-content:space-between;flex-wrap:wrap}
 .win .bar i{width:9px;height:9px;border-radius:50%;background:var(--line)}
 .win .body{max-height:380px;overflow:auto}
 .tbl{width:100%;border-collapse:collapse;font-size:13.5px}
-.tbl th{position:sticky;top:0;background:var(--surface);text-align:left;font:500 11px "JetBrains Mono",monospace;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);padding:9px 14px;border-bottom:1px solid var(--line)}
+.tbl th{position:sticky;top:0;background:var(--surface);text-align:left;font:500 11px "Geist Mono",monospace;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);padding:9px 14px;border-bottom:1px solid var(--line)}
 .tbl td{padding:8px 14px;border-bottom:1px solid var(--line);white-space:nowrap}
 .tbl tr:hover td{background:var(--raise)}
 .tbl a:hover{color:var(--accent-ink)}
 .split{display:grid;grid-template-columns:1fr 1.25fr;gap:48px;align-items:center}
 @media(max-width:860px){.split{grid-template-columns:1fr}}
 .split h2{margin:0 0 10px}
-.code{border:1px solid var(--line);border-radius:12px;background:var(--surface);padding:18px 20px;font:400 12.5px/1.8 "JetBrains Mono",monospace;overflow:auto}
+.code{border:1px solid var(--line);border-radius:12px;background:var(--surface);padding:18px 20px;font:400 12.5px/1.8 "Geist Mono",monospace;overflow:auto}
 .code .k{color:var(--accent-ink)}.code .v{color:var(--muted)}.code .n{color:var(--fg)}
 .code div{white-space:pre}
 .tpl{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
 @media(max-width:860px){.tpl{grid-template-columns:1fr 1fr}}@media(max-width:520px){.tpl{grid-template-columns:1fr}}
 .tc{display:flex;flex-direction:column;gap:8px;border:1px solid var(--line);border-radius:12px;padding:18px;background:var(--bg);transition:border-color .15s}
 .tc:hover{border-color:var(--accent)}
-.tc .tt{display:flex;gap:8px;align-items:center;color:var(--c);font-size:12px;font-family:"JetBrains Mono",monospace}
+.tc .tt{display:flex;gap:8px;align-items:center;color:var(--c);font-size:12px;font-family:"Geist Mono",monospace}
 .tc b{font-weight:400;font-size:16px;letter-spacing:-.01em}
 .tc p{margin:0;color:var(--muted);font-size:13.5px;flex:1}
 .tc small{color:var(--muted);font-size:12.5px}
@@ -280,32 +280,32 @@ footer .wrap{display:flex;gap:16px;justify-content:space-between;flex-wrap:wrap}
 .vt .vi,.vh .vi{width:20px;height:20px;flex:none;stroke:currentColor;fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
 .vt .vn{flex:1;writing-mode:vertical-rl;transform:rotate(180deg);font-size:14.5px;letter-spacing:.01em;color:var(--fg);white-space:nowrap;text-align:left;overflow:hidden}
 .vp:not(.open):hover .vn{color:var(--fg)}
-.vt .vr{font:400 11px "JetBrains Mono",monospace;color:var(--muted);letter-spacing:.04em}
-.vg{width:20px;height:20px;box-sizing:border-box;border-radius:50%;display:grid;place-items:center;font:500 10px "JetBrains Mono",monospace;color:var(--fg);border:1.3px solid var(--accent);background:color-mix(in srgb,var(--accent) 18%,transparent);flex:none}
+.vt .vr{font:400 11px "Geist Mono",monospace;color:var(--muted);letter-spacing:.04em}
+.vg{width:20px;height:20px;box-sizing:border-box;border-radius:50%;display:grid;place-items:center;font:500 10px "Geist Mono",monospace;color:var(--fg);border:1.3px solid var(--accent);background:color-mix(in srgb,var(--accent) 18%,transparent);flex:none}
 .vg.C{background:var(--accent);color:var(--accent-fg)}
 .vg.U{border:1.3px dashed var(--muted);background:none}
 .vchev{display:none}
 .vp.open .vt{opacity:0;visibility:hidden;pointer-events:none}
 .vb{position:absolute;top:0;bottom:0;left:0;width:calc(100cqi - (var(--n) - 1) * 64px);box-sizing:border-box;padding:26px 30px 26px;display:flex;flex-direction:column;opacity:0;visibility:hidden;transition:opacity .2s,visibility 0s .2s}
 .vp.open .vb{opacity:1;visibility:visible;transition:opacity .35s .25s}
-.vh{font:400 11.5px "JetBrains Mono",monospace;letter-spacing:.06em;color:var(--muted);text-transform:uppercase}
+.vh{font:400 11.5px "Geist Mono",monospace;letter-spacing:.06em;color:var(--muted);text-transform:uppercase}
 .vh b{background:var(--accent);color:var(--accent-fg);font-weight:500;padding:1px 5px;border-radius:3px}
 .vb h3{margin:16px 0 10px;font-weight:500;font-size:clamp(24px,2.6vw,32px);letter-spacing:-.025em;line-height:1.1;outline:none;max-width:62%}
 .vs{margin:0;color:var(--muted);font-size:14px;line-height:1.4;max-width:min(30em,62%);text-wrap:pretty}
 .vf{display:flex;flex-wrap:wrap;gap:8px 26px;margin:20px 0 0;max-width:64%}
-.vf dt{font:500 10.5px "JetBrains Mono",monospace;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-bottom:4px}
+.vf dt{font:500 10.5px "Geist Mono",monospace;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-bottom:4px}
 .vf dd{margin:0;font-size:14px}
 .vl{display:flex;flex-wrap:wrap;gap:8px;margin-top:auto;position:relative;z-index:2}
 .vdos{position:absolute;right:-18px;bottom:-30px;width:170px;height:226px;border-radius:12px;background:var(--raise);border:1px solid var(--line);padding:14px;box-sizing:border-box;transform:rotate(-6deg);transform-origin:50% 100%;box-shadow:0 18px 40px -26px rgba(0,0,0,.5);transition:transform .6s cubic-bezier(.2,.8,.2,1)}
 .vp.open:hover .vdos{transform:rotate(-9deg) translateY(-6px)}
-.vdos .rf{font:10px "JetBrains Mono",monospace;color:var(--muted);letter-spacing:.06em}
+.vdos .rf{font:10px "Geist Mono",monospace;color:var(--muted);letter-spacing:.06em}
 .vdos .sil{margin:12px auto 10px;width:58px;height:64px;position:relative}
 .vdos .sil:before{content:"";position:absolute;left:14px;top:0;width:28px;height:28px;border-radius:50%;border:1.4px solid var(--fg)}
 .vdos .sil:after{content:"";position:absolute;left:0;top:34px;width:58px;height:30px;border-radius:30px 30px 0 0;border:1.4px solid var(--fg);border-bottom:0}
 .vdos .sil i{position:absolute;left:7px;top:10px;width:44px;height:8px;background:#111;z-index:2;transition:width .6s,left .6s}
 .vp.open:hover .vdos .sil i{width:16px;left:35px}
 .vdos .bar{height:5px;border-radius:3px;background:var(--line);margin:7px 0}
-.vgr{position:absolute;right:12px;top:12px;width:26px;height:26px;box-sizing:border-box;border-radius:50%;display:grid;place-items:center;font:500 11px "JetBrains Mono",monospace;color:var(--fg);border:1.3px solid var(--accent);background:color-mix(in srgb,var(--accent) 18%,transparent)}
+.vgr{position:absolute;right:12px;top:12px;width:26px;height:26px;box-sizing:border-box;border-radius:50%;display:grid;place-items:center;font:500 11px "Geist Mono",monospace;color:var(--fg);border:1.3px solid var(--accent);background:color-mix(in srgb,var(--accent) 18%,transparent)}
 .vgr.C{background:var(--accent);color:var(--accent-fg)}
 .vgr.U{border-style:dashed;border-color:var(--muted);background:none}
 /* tablets: narrower spines and no dossier card, so the open file has room */
@@ -352,13 +352,13 @@ footer .wrap{display:flex;gap:16px;justify-content:space-between;flex-wrap:wrap}
 @keyframes tl-run{from{left:0}to{left:calc(100% - 8px)}}
 .te{flex:none;width:236px;scroll-snap-align:start;position:relative;z-index:1}
 .te>a,.te>div{display:flex;flex-direction:column;gap:0;padding:0 22px 14px 0;color:inherit;text-decoration:none;height:100%;box-sizing:border-box}
-.tdt{height:18px;font:500 11px/18px "JetBrains Mono",monospace;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);white-space:nowrap}
+.tdt{height:18px;font:500 11px/18px "Geist Mono",monospace;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);white-space:nowrap}
 .tnode{margin-top:14px;width:30px;height:30px;box-sizing:border-box;border-radius:50%;border:1.4px solid var(--fg);background:var(--bg);display:grid;place-items:center;color:var(--fg);position:relative;transition:transform .5s cubic-bezier(.2,.8,.2,1),background .25s,border-color .25s,opacity .5s}
 .tnode svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
 .tnode.k-flood{background:var(--accent);border-color:var(--accent);color:var(--accent-fg)}
 .tnode.k-flood:after{content:"";position:absolute;inset:-1.5px;border-radius:50%;border:1.4px solid var(--accent);animation:tl-ping 2.8s ease-out infinite;pointer-events:none}
 .tlab{margin-top:16px;font-size:15px;line-height:1.45;color:var(--fg);text-wrap:pretty;transition:opacity .6s,transform .6s}
-.tgo{margin-top:auto;padding-top:14px;font:400 11px "JetBrains Mono",monospace;letter-spacing:.06em;color:var(--muted);transition:color .2s,opacity .6s,transform .6s}
+.tgo{margin-top:auto;padding-top:14px;font:400 11px "Geist Mono",monospace;letter-spacing:.06em;color:var(--muted);transition:color .2s,opacity .6s,transform .6s}
 .tgo i{font-style:normal;display:inline-block;transition:transform .2s}
 .te a:hover .tnode{transform:scale(1.12);background:var(--accent);border-color:var(--accent);color:var(--accent-fg)}
 .te a:hover .tgo{color:var(--fg)}
@@ -367,7 +367,7 @@ footer .wrap{display:flex;gap:16px;justify-content:space-between;flex-wrap:wrap}
 .tgap{flex:none;width:118px;position:relative;z-index:2}
 .tgap:before{content:"";position:absolute;left:6px;right:18px;top:44px;height:6px;background:var(--bg)}
 .tgap:after{content:"";position:absolute;left:10px;right:22px;top:46px;border-top:1.5px dashed var(--muted)}
-.tgap span{position:absolute;left:10px;top:58px;font:500 10.5px "JetBrains Mono",monospace;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);white-space:nowrap}
+.tgap span{position:absolute;left:10px;top:58px;font:500 10.5px "Geist Mono",monospace;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);white-space:nowrap}
 .tl.pre .tlp{transform:scaleX(0)}
 .tl.pre .tnode{transform:scale(.4);opacity:0}
 .tl.pre .tlab,.tl.pre .tgo,.tl.pre .tdt{opacity:0;transform:translateY(8px)}
@@ -388,36 +388,36 @@ footer .cols a{display:block;padding:3px 0;color:var(--muted)}
 footer .cols a:hover{color:var(--fg)}
 @media(max-width:760px){footer .cols{grid-template-columns:1fr 1fr}}
 /* entry page, Gdansk-style */
-.eref{font:500 13px "JetBrains Mono",monospace;letter-spacing:.08em;color:var(--accent-ink);margin-bottom:6px}
+.eref{font:500 13px "Geist Mono",monospace;letter-spacing:.08em;color:var(--accent-ink);margin-bottom:6px}
 .main .sum.it{font:italic 400 clamp(16.5px,1.8vw,19px)/1.45 Newsreader,Georgia,serif;color:var(--muted)}
 .facts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border:1px solid var(--line);border-radius:12px;overflow:hidden;background:var(--surface);margin:0 0 18px}
 .facts>div{padding:16px 18px;border-right:1px solid var(--line);border-bottom:1px solid var(--line);margin:0 -1px -1px 0}
-.facts dt{font:400 11px "JetBrains Mono",monospace;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin:0 0 6px}
-.facts dd{margin:0;font:400 14px "JetBrains Mono",monospace;color:var(--fg)}
+.facts dt{font:400 11px "Geist Mono",monospace;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin:0 0 6px}
+.facts dd{margin:0;font:400 14px "Geist Mono",monospace;color:var(--fg)}
 .facts dd.nr{color:var(--muted);opacity:.7}
 @media(max-width:560px){.facts{grid-template-columns:1fr 1fr}}
 .tags{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 28px}
-.tags a,.tags span{font:400 12.5px "JetBrains Mono",monospace;border:1px solid var(--line);border-radius:6px;padding:5px 11px;background:var(--surface);color:var(--muted)}
+.tags a,.tags span{font:400 12.5px "Geist Mono",monospace;border:1px solid var(--line);border-radius:6px;padding:5px 11px;background:var(--surface);color:var(--muted)}
 .tags a:hover{color:var(--fg);border-color:var(--muted)}
 .mh{display:flex;justify-content:space-between;align-items:baseline;gap:12px;margin:34px 0 12px;padding-top:6px}
-.mh h3{margin:0;font:500 12px "JetBrains Mono",monospace;text-transform:uppercase;letter-spacing:.12em;color:var(--muted)}
-.mh small{font:400 12px "JetBrains Mono",monospace;color:var(--muted);opacity:.8}
-.ph-tag{font:400 11px "JetBrains Mono",monospace;letter-spacing:.06em;color:var(--muted);border:1px dashed color-mix(in srgb,var(--muted) 50%,var(--line));border-radius:5px;padding:1px 7px;margin-left:8px;text-transform:uppercase}
+.mh h3{margin:0;font:500 12px "Geist Mono",monospace;text-transform:uppercase;letter-spacing:.12em;color:var(--muted)}
+.mh small{font:400 12px "Geist Mono",monospace;color:var(--muted);opacity:.8}
+.ph-tag{font:400 11px "Geist Mono",monospace;letter-spacing:.06em;color:var(--muted);border:1px dashed color-mix(in srgb,var(--muted) 50%,var(--line));border-radius:5px;padding:1px 7px;margin-left:8px;text-transform:uppercase}
 .imgs{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px}
 @media(max-width:700px){.imgs{grid-template-columns:repeat(3,minmax(0,1fr))}}
 .imgs .slot,.imgs figure{aspect-ratio:1;border-radius:10px;border:1px dashed var(--line);background:var(--surface);display:grid;place-items:center;color:var(--muted);margin:0;overflow:hidden;position:relative}
 .imgs .slot:first-child{border-color:color-mix(in srgb,var(--accent) 45%,var(--line));color:var(--accent-ink)}
 .imgs .slot .ico{width:22px;height:22px}
-.imgs .slot span{font:400 11px "JetBrains Mono",monospace;position:absolute;bottom:7px;left:0;right:0;text-align:center}
+.imgs .slot span{font:400 11px "Geist Mono",monospace;position:absolute;bottom:7px;left:0;right:0;text-align:center}
 .imgs figure{border-style:solid}.imgs figure img{width:100%;height:100%;object-fit:cover}
 .mp{border:1px solid var(--line);border-radius:12px;overflow:hidden;background:var(--bg)}
 .mp .blk{padding:18px 22px;border-bottom:1px solid var(--line)}
 .mp .blk:last-child{border-bottom:0}
 .mp .blk.alt{background:var(--surface)}
-.mp .bh{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;font:500 13px "JetBrains Mono",monospace;letter-spacing:.12em;text-transform:uppercase;color:var(--fg)}
+.mp .bh{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;font:500 13px "Geist Mono",monospace;letter-spacing:.12em;text-transform:uppercase;color:var(--fg)}
 .mp .bh em{font-style:normal;color:var(--accent-ink)}
-.mp .bh small{font:400 12px "JetBrains Mono",monospace;letter-spacing:0;text-transform:none;color:var(--muted)}
-.mp .bm{font:400 12px "JetBrains Mono",monospace;color:var(--muted);margin:8px 0 12px;opacity:.85}
+.mp .bh small{font:400 12px "Geist Mono",monospace;letter-spacing:0;text-transform:none;color:var(--muted)}
+.mp .bm{font:400 12px "Geist Mono",monospace;color:var(--muted);margin:8px 0 12px;opacity:.85}
 .mp audio,.mp video{width:100%}
 .mp audio.dis{opacity:.55;pointer-events:none}
 .vph{aspect-ratio:16/9;border-radius:10px;border:1px dashed var(--line);background:var(--surface);display:grid;place-items:center;color:var(--muted)}
@@ -427,11 +427,11 @@ footer .cols a:hover{color:var(--fg)}
 .fl:last-child{border-bottom:0}
 .fl .ico{width:22px;height:22px;color:var(--muted)}
 .fl b{font-weight:400;font-size:14.5px}
-.fl small{display:block;font:400 12px "JetBrains Mono",monospace;color:var(--muted)}
+.fl small{display:block;font:400 12px "Geist Mono",monospace;color:var(--muted)}
 .fl.dash{border:1px dashed var(--line);border-radius:12px;color:var(--muted)}
-.fl .go{margin-left:auto;font:400 12px "JetBrains Mono",monospace;color:var(--accent-ink)}
+.fl .go{margin-left:auto;font:400 12px "Geist Mono",monospace;color:var(--accent-ink)}
 .imgs a{display:block;width:100%;height:100%}
-.rail .grp{font:400 11px "JetBrains Mono",monospace;color:var(--muted);margin:10px 0 2px;text-transform:uppercase;letter-spacing:.06em}
+.rail .grp{font:400 11px "Geist Mono",monospace;color:var(--muted);margin:10px 0 2px;text-transform:uppercase;letter-spacing:.06em}
 .rail .grp:first-of-type{margin-top:0}
 .mp video{aspect-ratio:16/9;background:#000;border-radius:8px}
 .rail dl{margin:0;display:grid;grid-template-columns:auto 1fr;gap:4px 12px}
@@ -441,9 +441,9 @@ footer .cols a:hover{color:var(--fg)}
 .lb.on{display:flex}
 .lb figure{margin:0;display:flex;flex-direction:column;align-items:center;gap:14px;max-width:100%;max-height:100%;min-width:0}
 .lb img{display:block;max-width:min(1400px,100%);max-height:calc(100vh - 170px);object-fit:contain;border-radius:8px;box-shadow:0 20px 60px rgba(0,0,0,.6);touch-action:pan-y;user-select:none}
-.lb figcaption{font:400 13px/1.5 "JetBrains Mono",monospace;color:#c8ccca;text-align:center;max-width:60em}
+.lb figcaption{font:400 13px/1.5 "Geist Mono",monospace;color:#c8ccca;text-align:center;max-width:60em}
 .lb figcaption:empty{display:none}
-.lb .lbn{position:absolute;top:22px;left:24px;font:400 12px "JetBrains Mono",monospace;color:#c8ccca;letter-spacing:.06em}
+.lb .lbn{position:absolute;top:22px;left:24px;font:400 12px "Geist Mono",monospace;color:#c8ccca;letter-spacing:.06em}
 .lb button{position:absolute;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.2);color:#fff;border-radius:50%;width:44px;height:44px;display:grid;place-items:center;font-size:20px;line-height:1}
 .lb button:hover,.lb button:focus-visible{background:rgba(255,255,255,.18);outline:none}
 .lb button[hidden]{display:none}
@@ -462,9 +462,9 @@ footer .cols a:hover{color:var(--fg)}
 .facts{background:var(--facts)}
 /* folds, relation lines and scrollbars (ENTRY_PROTOCOL.md sections 8 and 9) */
 details>summary{list-style:none}details>summary::-webkit-details-marker{display:none}
-.side summary{display:flex;align-items:center;gap:8px;margin:2px 0;padding:6px 8px;border-radius:6px;cursor:pointer;font:500 11px "JetBrains Mono",monospace;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}
+.side summary{display:flex;align-items:center;gap:8px;margin:2px 0;padding:6px 8px;border-radius:6px;cursor:pointer;font:500 11px "Geist Mono",monospace;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}
 .side summary:hover{color:var(--fg);background:var(--raise)}
-.side summary .n,.rail summary .n{margin-left:auto;font:400 11px "JetBrains Mono",monospace;letter-spacing:0;color:var(--muted)}
+.side summary .n,.rail summary .n{margin-left:auto;font:400 11px "Geist Mono",monospace;letter-spacing:0;color:var(--muted)}
 .side summary:after,.rail summary:after{content:"";flex:none;width:5px;height:5px;border-right:1.3px solid currentColor;border-bottom:1.3px solid currentColor;transform:rotate(-45deg);transition:transform .15s;margin:0 2px 0 4px}
 .side details[open]>summary:after,.rail details[open]>summary:after{transform:rotate(45deg)}
 .side details>a{margin-left:6px}
@@ -474,11 +474,11 @@ details>summary{list-style:none}details>summary::-webkit-details-marker{display:
 .rail details.box>summary:hover h6{color:var(--fg)}
 .rail details.box>.bd{padding:0 14px 14px}
 .rail .rl{display:flex;gap:10px;align-items:baseline;padding:3px 0;color:var(--fg);min-width:0}
-.rail .rl .rp{flex:none;min-width:5.6em;font:400 11px "JetBrains Mono",monospace;color:var(--muted)}
+.rail .rl .rp{flex:none;min-width:5.6em;font:400 11px "Geist Mono",monospace;color:var(--muted)}
 .rail .rl .tt{min-width:0;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
 .rail .rl:hover .tt{color:var(--accent-ink)}
 .rail details.note{margin-top:8px}
-.rail details.note>summary{display:flex;align-items:center;gap:6px;cursor:pointer;font:400 11px "JetBrains Mono",monospace;text-transform:uppercase;letter-spacing:.06em;color:var(--muted)}
+.rail details.note>summary{display:flex;align-items:center;gap:6px;cursor:pointer;font:400 11px "Geist Mono",monospace;text-transform:uppercase;letter-spacing:.06em;color:var(--muted)}
 .rail details.note>summary:hover{color:var(--fg)}
 .rail details.note p{margin-top:6px}
 .rail{max-height:calc(100vh - 96px);overflow:auto}
@@ -490,16 +490,15 @@ details>summary{list-style:none}details>summary::-webkit-details-marker{display:
 @media(max-width:1020px){.rail{max-height:none;overflow:visible}}
 .ecover{position:relative}
 .ecover .ph-tag,.imgs figure.phimg:after{position:absolute;top:12px;left:12px;margin:0;background:color-mix(in srgb,var(--bg) 72%,transparent)}
-.imgs figure.phimg:after{content:"placeholder";top:auto;bottom:7px;left:50%;transform:translateX(-50%);font:400 10px "JetBrains Mono",monospace;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);border:1px dashed color-mix(in srgb,var(--muted) 50%,var(--line));border-radius:5px;padding:1px 6px}
+.imgs figure.phimg:after{content:"placeholder";top:auto;bottom:7px;left:50%;transform:translateX(-50%);font:400 10px "Geist Mono",monospace;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);border:1px dashed color-mix(in srgb,var(--muted) 50%,var(--line));border-radius:5px;padding:1px 6px}
 /* home page revision */
 .hero .h2col{align-items:start}
 /* headline: full width, two lines that never wrap. The size follows the
-   width: the longer line measures about 12.26em in Barlow Condensed 600, so
-   100cqi/12.6 (--hero-em, set with the brand typography below) fills the row
-   with a little to spare at every screen width. */
+   width: the longer line measures about 15.6em in Geist 600, so 100cqi/16
+   fills the row with a little to spare at every screen width. */
 .hero .wrap{container-type:inline-size}
 .hero .h2col{grid-template-columns:minmax(0,1fr);gap:30px}
-.hero h1{font-size:6vw;font-size:calc(100cqi / var(--hero-em,16));font-weight:600;line-height:1.02}
+.hero h1{font-size:6vw;font-size:calc(100cqi / 16);font-weight:600;line-height:1.02}
 .hero h1 em{font-weight:600;color:var(--accent)}
 .hero h1 .l1,.hero h1 em{display:block;white-space:nowrap}
 @media(min-width:861px){.hero .h2col>div{display:grid;grid-template-columns:minmax(0,34em) auto;column-gap:48px;justify-content:space-between;align-items:end}
@@ -526,8 +525,8 @@ details>summary{list-style:none}details>summary::-webkit-details-marker{display:
  .links a.on:before{content:"";position:absolute;left:0;top:10px;bottom:10px;width:3px;border-radius:2px;background:var(--accent)}
  .links .nic{display:block;width:19px;height:19px;flex:none;stroke:currentColor;fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;color:var(--muted)}
  .links a.on .nic{color:var(--fg)}
- .links .nc{display:block;margin-left:auto;font:400 12px "JetBrains Mono",monospace;color:var(--muted);font-variant-numeric:tabular-nums}
- .links .nh{display:block;margin:10px 12px 2px;padding-top:14px;border-top:1px solid var(--line);font:500 11px "JetBrains Mono",monospace;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+ .links .nc{display:block;margin-left:auto;font:400 12px "Geist Mono",monospace;color:var(--muted);font-variant-numeric:tabular-nums}
+ .links .nh{display:block;margin:10px 12px 2px;padding-top:14px;border-top:1px solid var(--line);font:500 11px "Geist Mono",monospace;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
  .links .nsr{width:100%;margin-top:10px;border:0;border-top:1px solid var(--line);border-radius:0;padding-top:16px;font:inherit;font-size:15px;color:var(--muted);cursor:pointer;text-align:left}}
 /* "where you are" bar and contents panel (phones and tablets) */
 .ctx{display:none}
@@ -537,7 +536,7 @@ details>summary{list-style:none}details>summary::-webkit-details-marker{display:
 .cx-a .ico{width:18px;height:18px}
 .cx-a:hover{background:var(--raise)}
 .cx-a.off{opacity:.22}
-.cx-t{flex:1;min-width:0;display:flex;align-items:center;justify-content:center;gap:9px;height:38px;padding:0 6px;border:0;border-radius:8px;background:none;font:500 11.5px "JetBrains Mono",monospace;letter-spacing:.06em;text-transform:uppercase;color:var(--fg);cursor:pointer}
+.cx-t{flex:1;min-width:0;display:flex;align-items:center;justify-content:center;gap:9px;height:38px;padding:0 6px;border:0;border-radius:8px;background:none;font:500 11.5px "Geist Mono",monospace;letter-spacing:.06em;text-transform:uppercase;color:var(--fg);cursor:pointer}
 .cx-t:hover{background:var(--raise)}
 .cx-t span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .cx-t .chev{flex:none;width:6px;height:6px;border-right:1.4px solid currentColor;border-bottom:1.4px solid currentColor;transform:rotate(45deg);margin-top:-4px}
@@ -551,7 +550,7 @@ details>summary{list-style:none}details>summary::-webkit-details-marker{display:
 .sh-p:before{content:"";position:absolute;top:7px;left:50%;width:38px;height:4px;margin-left:-19px;border-radius:2px;background:var(--line)}
 .sheet.on .sh-bd{opacity:1}
 .sheet.on .sh-p{transform:none}
-.sh-h{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:18px 12px 10px 20px;border-bottom:1px solid var(--line);font:500 11.5px "JetBrains Mono",monospace;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.sh-h{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:18px 12px 10px 20px;border-bottom:1px solid var(--line);font:500 11.5px "Geist Mono",monospace;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
 .sh-x{width:36px;height:36px;display:grid;place-items:center;border:0;border-radius:8px;background:none;color:var(--fg);cursor:pointer}
 .sh-x .ico{width:18px;height:18px}
 .sh-b{overflow:auto;overscroll-behavior:contain;padding:8px 12px 20px 14px}
@@ -573,7 +572,7 @@ details>summary{list-style:none}details>summary::-webkit-details-marker{display:
 .side a{position:relative}
 .side a.on,.side a.on:hover{background:none;font-weight:500}
 .side a.on:before{content:"";position:absolute;left:-5px;top:5px;bottom:5px;width:3px;border-radius:2px;background:var(--accent)}
-.rno{font:400 11.5px "JetBrains Mono",monospace;color:var(--muted);opacity:.8;min-width:3ch;flex:none;font-variant-numeric:tabular-nums}
+.rno{font:400 11.5px "Geist Mono",monospace;color:var(--muted);opacity:.8;min-width:3ch;flex:none;font-variant-numeric:tabular-nums}
 .side a.on .rno{color:var(--fg);opacity:1}
 .chips .chip.on,.pf .chip.on{background:var(--accent);border-color:var(--accent);color:var(--accent-fg)}
 .chips .chip .tic,.pf .chip .tic{width:13px;height:13px}
@@ -592,21 +591,21 @@ details>summary{list-style:none}details>summary::-webkit-details-marker{display:
 .cell h3.ut~p,.cell h3.ut~.go{padding-left:32px}
 .cell h3.ut .ico{width:22px;height:22px}
 .cell .art img{display:block;max-width:100%;height:auto}
-.cell .go{font:400 12.5px "JetBrains Mono",monospace;color:var(--accent-ink);padding:0 0 22px}
-.cell .go .chip{font-family:"JetBrains Mono",monospace;text-transform:uppercase;letter-spacing:.06em}
+.cell .go{font:400 12.5px "Geist Mono",monospace;color:var(--accent-ink);padding:0 0 22px}
+.cell .go .chip{font-family:"Geist Mono",monospace;text-transform:uppercase;letter-spacing:.06em}
 .fgrid{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));border-top:1px solid var(--line);border-bottom:1px solid var(--line);margin-top:22px}
 .fgrid .fc{display:grid;place-items:center;min-height:118px;padding:22px 14px;text-align:center;color:var(--fg);opacity:.55;filter:grayscale(1);transition:opacity .2s,filter .2s}
 .fgrid .fc:nth-child(n+7){border-top:1px solid var(--line)}
 .fgrid .fc:hover{opacity:1;filter:none}
 .fgrid .fc svg{width:100%;max-width:128px;max-height:56px;height:auto}
-.fgrid .fn{font:300 11.5px/1.5 "JetBrains Mono",monospace;text-transform:uppercase;letter-spacing:.12em;color:var(--muted)}
+.fgrid .fn{font:300 11.5px/1.5 "Geist Mono",monospace;text-transform:uppercase;letter-spacing:.12em;color:var(--muted)}
 .fgrid .fc:hover .fn{color:var(--fg)}
 /* factions: placeholder image above each name, as on the entry pages */
 .fgrid .fc:has(.fimg){opacity:1;filter:none;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;gap:12px}
 .fgrid .fimg{position:relative;width:100%;max-width:124px;aspect-ratio:1;margin:0;border:1px solid var(--line);border-radius:10px;background:var(--surface);overflow:hidden;filter:grayscale(1);opacity:.8;transition:opacity .2s,border-color .2s}
 .fgrid .fimg img{width:100%;height:100%;object-fit:cover;display:block}
 .fgrid .fimg:not(.phimg):after{display:none}
-.fgrid .fimg:after{content:"placeholder";position:absolute;bottom:7px;left:50%;transform:translateX(-50%);font:400 9.5px "JetBrains Mono",monospace;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);border:1px dashed color-mix(in srgb,var(--muted) 50%,var(--line));border-radius:5px;padding:1px 6px;background:color-mix(in srgb,var(--bg) 72%,transparent);white-space:nowrap}
+.fgrid .fimg:after{content:"placeholder";position:absolute;bottom:7px;left:50%;transform:translateX(-50%);font:400 9.5px "Geist Mono",monospace;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);border:1px dashed color-mix(in srgb,var(--muted) 50%,var(--line));border-radius:5px;padding:1px 6px;background:color-mix(in srgb,var(--bg) 72%,transparent);white-space:nowrap}
 .fgrid .fc:hover .fimg{opacity:1;border-color:var(--accent)}
 @media(max-width:760px){.fgrid{grid-template-columns:repeat(3,minmax(0,1fr))}.fgrid .fc:nth-child(n+7){border-top:0}.fgrid .fc:nth-child(n+4){border-top:1px solid var(--line)}}
 /* Key characters: ten portraits, five across (two on phones) */
@@ -625,7 +624,7 @@ details>summary{list-style:none}details>summary::-webkit-details-marker{display:
 .tbl th.sort:hover{color:var(--fg)}
 .tbl th .ar{margin-left:4px}
 .more{display:flex;justify-content:center;padding:12px 14px}
-.more button{background:none;border:0;font:400 13px "JetBrains Mono",monospace;color:var(--accent-ink);cursor:pointer}
+.more button{background:none;border:0;font:400 13px "Geist Mono",monospace;color:var(--accent-ink);cursor:pointer}
 .more button:hover{text-decoration:underline}
 /* home page category tiles (ported from tiles_prototype.html, scoped to .tiles) */
 .tiles .rdot.still{display:none}
@@ -643,10 +642,10 @@ details>summary{list-style:none}details>summary::-webkit-details-marker{display:
 .tiles .ti{display:flex;gap:10px;align-items:center;color:var(--c)}
 .tiles .ti svg{width:26px;height:26px;stroke:currentColor;fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
 .tiles h3{margin:0;white-space:nowrap;font:400 14px/1.2 Geist,system-ui,sans-serif;letter-spacing:.13em;text-transform:uppercase;color:var(--fg)}
-.tiles .tcode{font:400 11.5px "JetBrains Mono",monospace;letter-spacing:.06em;color:var(--muted);margin:10px 24px 0;position:relative;z-index:3;text-transform:uppercase}
+.tiles .tcode{font:400 11.5px "Geist Mono",monospace;letter-spacing:.06em;color:var(--muted);margin:10px 24px 0;position:relative;z-index:3;text-transform:uppercase}
 .tiles .tcode b{background:var(--acid);color:#000;font-weight:500;padding:1px 5px;border-radius:3px}
 .tiles .ln{position:relative;z-index:3;margin:8px 24px 0;max-width:21em;color:var(--muted);font-size:14px}
-.tiles .num{font:200 34px/1 "JetBrains Mono",monospace;color:var(--c);letter-spacing:-.04em}
+.tiles .num{font:200 34px/1 "Geist Mono",monospace;color:var(--c);letter-spacing:-.04em}
 .tiles .gfx{position:absolute;pointer-events:none}
 .tiles .fade:after{content:"";position:absolute;left:0;right:0;bottom:0;height:34%;z-index:2;background:linear-gradient(transparent,var(--surface));pointer-events:none}
 .tiles .map{right:-14%;top:2%;height:150%;width:84%}
@@ -664,18 +663,18 @@ details>summary{list-style:none}details>summary::-webkit-details-marker{display:
 .tiles .node{fill:var(--muted)}
 .tiles .kos{fill:var(--acid);stroke:var(--s);stroke-width:1}
 .tiles .t:hover .route{animation-duration:3s}
-.tiles .coord{position:absolute;left:24px;bottom:18px;z-index:3;font:11px "JetBrains Mono",monospace;color:var(--muted);letter-spacing:.06em}
+.tiles .coord{position:absolute;left:24px;bottom:18px;z-index:3;font:11px "Geist Mono",monospace;color:var(--muted);letter-spacing:.06em}
 .tiles .fan{position:absolute;left:50%;bottom:-8px;width:0;height:0}
 .tiles .cd{position:absolute;left:-62px;bottom:0;width:124px;height:168px;border-radius:10px;background:var(--raise);border:1px solid var(--line);transform-origin:50% 140%;transform:rotate(calc(var(--r)*1deg));transition:transform .5s cubic-bezier(.2,.8,.2,1);padding:10px;box-shadow:0 8px 24px -14px rgba(0,0,0,.4)}
 .tiles .t:hover .cd{transform:rotate(calc(var(--r)*1.5deg)) translateY(-6px)}
-.tiles .cd .rf{font:9px "JetBrains Mono",monospace;color:var(--muted);letter-spacing:.06em}
+.tiles .cd .rf{font:9px "Geist Mono",monospace;color:var(--muted);letter-spacing:.06em}
 .tiles .sil{margin:8px auto 6px;width:44px;height:48px;position:relative}
 .tiles .sil:before{content:"";position:absolute;left:11px;top:0;width:22px;height:22px;border-radius:50%;border:1.3px solid var(--chr)}
 .tiles .sil:after{content:"";position:absolute;left:0;top:26px;width:44px;height:22px;border-radius:22px 22px 0 0;border:1.3px solid var(--chr);border-bottom:0}
 .tiles .sil i{position:absolute;left:6px;top:8px;width:32px;height:6px;background:var(--redact);z-index:2;transition:width .5s,left .5s}
 .tiles .t:hover .cd:nth-child(3) .sil i{width:12px;left:26px}
 .tiles .bar{height:4px;border-radius:2px;background:var(--line);margin:5px 0}
-.tiles .gr{position:absolute;right:9px;bottom:9px;width:22px;height:22px;border-radius:50%;background:var(--acid);display:grid;place-items:center;font:500 11px "JetBrains Mono",monospace;color:#000}
+.tiles .gr{position:absolute;right:9px;bottom:9px;width:22px;height:22px;border-radius:50%;background:var(--acid);display:grid;place-items:center;font:500 11px "Geist Mono",monospace;color:#000}
 .tiles .den{left:0;right:0;bottom:0;width:100%;height:78%}
 .tiles .vn{fill:none;stroke:var(--obj);stroke-linecap:round;stroke-dasharray:1;stroke-dashoffset:1;animation:tl-grow 2.6s ease-out forwards;animation-delay:var(--dp)}
 .tiles .t:hover .vn{animation-name:tl-grow2}
@@ -683,11 +682,11 @@ details>summary{list-style:none}details>summary::-webkit-details-marker{display:
 @keyframes tl-grow2{from{stroke-dashoffset:1}to{stroke-dashoffset:0}}
 .tiles .vt{fill:var(--acid);stroke:var(--tipstroke);stroke-width:.5;opacity:0;animation:tl-tip 3.4s ease-in-out infinite;animation-delay:var(--dp)}
 @keyframes tl-tip{0%,100%{opacity:0}50%{opacity:.95}}
-.tiles .ttag{position:absolute;right:20px;bottom:20px;z-index:4;border:1px solid var(--s);border-radius:99px;padding:3px 12px;font:10.5px "JetBrains Mono",monospace;color:var(--fg);background:var(--surface);letter-spacing:.06em}
+.tiles .ttag{position:absolute;right:20px;bottom:20px;z-index:4;border:1px solid var(--s);border-radius:99px;padding:3px 12px;font:10.5px "Geist Mono",monospace;color:var(--fg);background:var(--surface);letter-spacing:.06em}
 .tiles .lore{left:0;right:0;bottom:0;width:100%;height:54%}
 .tiles .lore .tk{stroke:var(--muted);stroke-width:1;opacity:.55}
 .tiles .lore .lv{stroke:var(--lor);stroke-width:1;stroke-dasharray:2 5;opacity:.7}
-.tiles .lore text{font:10px "JetBrains Mono",monospace;fill:var(--muted);letter-spacing:.05em}
+.tiles .lore text{font:10px "Geist Mono",monospace;fill:var(--muted);letter-spacing:.05em}
 .tiles .wv{fill:var(--acid);opacity:.3;transition:transform 1.4s cubic-bezier(.2,.8,.2,1)}
 .tiles .wv.b{opacity:.5}
 .tiles .wa{animation:tl-sway 9s ease-in-out infinite alternate}
@@ -700,21 +699,21 @@ details>summary{list-style:none}details>summary::-webkit-details-marker{display:
 .tiles .econt{stroke:var(--obj);stroke-width:.7;opacity:.35}
 .tiles .rline{stroke:var(--rte);stroke-width:1.2;stroke-dasharray:2 6;opacity:.8}
 .tiles .rdot{fill:var(--acid);stroke:var(--tipstroke);stroke-width:.9}
-.tiles .rl{font:10px "JetBrains Mono",monospace;fill:var(--muted)}
+.tiles .rl{font:10px "Geist Mono",monospace;fill:var(--muted)}
 .tiles .sb{position:absolute;left:24px;right:24px;top:132px;border:1px solid var(--line);border-radius:12px;background:var(--raise);box-shadow:0 12px 30px -18px rgba(0,0,0,.35);z-index:3}
-.tiles .sq{display:flex;align-items:center;gap:10px;padding:12px 14px;font:14px "JetBrains Mono",monospace;border-bottom:1px solid var(--line)}
+.tiles .sq{display:flex;align-items:center;gap:10px;padding:12px 14px;font:14px "Geist Mono",monospace;border-bottom:1px solid var(--line)}
 .tiles .sq svg{width:16px;height:16px;stroke:var(--muted);fill:none;stroke-width:1.5}
 .tiles .ty{overflow:hidden;white-space:nowrap;width:0;border-right:1.5px solid var(--fg);animation:tl-typ 6s steps(var(--n,5)) infinite}
 @keyframes tl-typ{0%{width:0}30%,90%{width:calc(var(--n,5)*1ch);border-color:var(--fg)}100%{width:calc(var(--n,5)*1ch)}}
 .tiles .rs{display:flex;justify-content:space-between;align-items:center;line-height:1;padding:11px 14px;font-size:13.5px;color:var(--muted);border-bottom:1px solid var(--line);opacity:0;animation:tl-rin 6s infinite}
-.tiles .rs span{font:12px "JetBrains Mono",monospace}
+.tiles .rs span{font:12px "Geist Mono",monospace}
 .tiles .rs:nth-child(2){animation-delay:.1s}
 .tiles .rs:nth-child(3){animation-delay:.25s}
 .tiles .rs:nth-child(4){animation-delay:.4s}
 @keyframes tl-rin{0%,30%{opacity:0;transform:translateY(6px)}40%,92%{opacity:1;transform:none}100%{opacity:0}}
 .tiles .gd{left:24px;right:24px;bottom:28px;display:grid;gap:16px}
 .tiles .gd .r{display:grid;grid-template-columns:30px 1fr;gap:14px;align-items:center}
-.tiles .gd .l{font:500 13px "JetBrains Mono",monospace;width:30px;height:30px;border:1.3px solid var(--s);color:var(--s);border-radius:50%;display:grid;place-items:center}
+.tiles .gd .l{font:500 13px "Geist Mono",monospace;width:30px;height:30px;border:1.3px solid var(--s);color:var(--s);border-radius:50%;display:grid;place-items:center}
 .tiles .gd .r.c .l{background:var(--acid);border-color:var(--acid);color:#000}
 .tiles .gd .tr{position:relative;height:16px;background:var(--line);border-radius:99px;overflow:hidden}
 .tiles .gd .tfill{position:absolute;inset:0 auto 0 0;width:var(--w);border-radius:99px;transform-origin:left;animation:tl-fill 1.4s cubic-bezier(.2,.8,.2,1) both}
@@ -724,7 +723,7 @@ details>summary{list-style:none}details>summary::-webkit-details-marker{display:
 .tiles .gd .u .tfill{background:color-mix(in srgb,var(--acid) 22%,transparent);border:1.3px dashed var(--s)}
 .tiles .gd .rd{position:absolute;top:0;bottom:0;left:calc(var(--rl) - 5%);right:0;border-radius:99px;background:color-mix(in srgb,var(--surface) 55%,transparent);-webkit-backdrop-filter:blur(7px);backdrop-filter:blur(7px);transition:transform 1s cubic-bezier(.2,.8,.2,1)}
 .tiles .t:hover .rd{transform:translateX(104%)}
-.tiles .stamp{position:absolute;right:22px;top:128px;z-index:3;border:1.5px solid var(--s);color:var(--s);padding:2px 10px;font:500 11px "JetBrains Mono",monospace;letter-spacing:.2em;transform:rotate(-8deg);opacity:.8}
+.tiles .stamp{position:absolute;right:22px;top:128px;z-index:3;border:1.5px solid var(--s);color:var(--s);padding:2px 10px;font:500 11px "Geist Mono",monospace;letter-spacing:.2em;transform:rotate(-8deg);opacity:.8}
 @media(max-width:1080px){.tiles{grid-template-columns:1fr 1fr}.tiles .w2{grid-column:span 2}}
 @media(max-width:600px){.tiles{grid-template-columns:1fr}.tiles .w2{grid-column:auto}.tiles .map{width:90%;right:-20%}}
 @media(prefers-reduced-motion:reduce){.tiles .rdot:not(.still){display:none}.tiles .rdot.still{display:inline}.tiles,.tiles *{animation:none!important;transition:none!important}.tiles .vn{stroke-dashoffset:0}.tiles .ty{width:calc(var(--n,5)*1ch)}.tiles .rs{opacity:1}.tiles .vt{opacity:.7}}
@@ -745,7 +744,7 @@ details>summary{list-style:none}details>summary::-webkit-details-marker{display:
 .tiles .t:hover .ms .p3{transform:rotate(9deg) translate(18px,-9px)}
 .tiles .t:hover .ms .p2{transform:rotate(4.5deg) translate(9px,-4px)}
 .tiles .ms .p1{padding:16px 18px;display:flex;flex-direction:column;gap:9px}
-.tiles .ms .mh{flex:none;font:500 9.5px/14px "JetBrains Mono",monospace;letter-spacing:.12em;color:var(--muted);margin-bottom:3px;white-space:nowrap;overflow:hidden;text-overflow:clip}
+.tiles .ms .mh{flex:none;font:500 9.5px/14px "Geist Mono",monospace;letter-spacing:.12em;color:var(--muted);margin-bottom:3px;white-space:nowrap;overflow:hidden;text-overflow:clip}
 .tiles .ms i{flex:none;display:block;height:5px;border-radius:3px;background:color-mix(in srgb,var(--fg) 15%,transparent);width:var(--w);transform-origin:left;animation:tl-wr 9s cubic-bezier(.3,.7,.3,1) infinite both;animation-delay:var(--d)}
 .tiles .ms i.rx{background:var(--redact)}
 .tiles .ms i.hl{background:var(--acid)}
@@ -775,7 +774,7 @@ details>summary{list-style:none}details>summary::-webkit-details-marker{display:
 .tiles .scan .rx{fill:none;stroke:var(--s);stroke-width:1;stroke-dasharray:2 3;opacity:.6}
 .tiles .scan .rb{fill:none;stroke:var(--s);stroke-width:1.6}
 .tiles .scan .rp{fill:none;stroke:var(--s);stroke-width:1.2;transform-box:fill-box;transform-origin:center;animation:tl-ping 1.6s ease-out infinite}
-.tiles .rdo{position:absolute;left:18px;bottom:14px;z-index:3;height:22px;overflow:hidden;border-radius:6px;background:color-mix(in srgb,var(--surface) 88%,transparent);padding:0 6px;font:11px "JetBrains Mono",monospace;color:var(--muted);letter-spacing:.06em}
+.tiles .rdo{position:absolute;left:18px;bottom:14px;z-index:3;height:22px;overflow:hidden;border-radius:6px;background:color-mix(in srgb,var(--surface) 88%,transparent);padding:0 6px;font:11px "Geist Mono",monospace;color:var(--muted);letter-spacing:.06em}
 .tiles .rdo .rl2{display:flex;flex-direction:column}
 .tiles .rdo .rl2 span{height:22px;line-height:22px;white-space:nowrap}
 .tiles .reg{left:24px;right:-8px;bottom:-24px;height:58%;border:1px solid var(--line);border-radius:10px;background:var(--raise);overflow:hidden;box-shadow:0 14px 30px -22px rgba(0,0,0,.45)}
@@ -785,35 +784,18 @@ details>summary{list-style:none}details>summary::-webkit-details-marker{display:
 .tiles .reg .tk{animation:tl-tick 30s linear infinite}
 @keyframes tl-tick{to{transform:translateY(-50%)}}
 .tiles .reg .rw{display:grid;grid-template-columns:58px minmax(0,1fr) 18px;gap:10px;align-items:center;height:32px;padding:0 22px 0 14px;border-bottom:1px solid color-mix(in srgb,var(--line) 70%,transparent);font-size:12.5px}
-.tiles .reg .rw .rf{font:11px "JetBrains Mono",monospace;color:var(--muted)}
+.tiles .reg .rw .rf{font:11px "Geist Mono",monospace;color:var(--muted)}
 .tiles .reg .rw b{font-weight:400;color:var(--fg);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.tiles .reg .gb{width:18px;height:18px;box-sizing:border-box;border-radius:50%;display:grid;place-items:center;font:500 9.5px "JetBrains Mono",monospace;color:var(--fg);border:1.2px solid var(--acid);background:color-mix(in srgb,var(--acid) 18%,transparent)}
+.tiles .reg .gb{width:18px;height:18px;box-sizing:border-box;border-radius:50%;display:grid;place-items:center;font:500 9.5px "Geist Mono",monospace;color:var(--fg);border:1.2px solid var(--acid);background:color-mix(in srgb,var(--acid) 18%,transparent)}
 .tiles .reg .gb.C{background:var(--acid);color:#000}
 .tiles .reg .gb.U{border:1.2px dashed var(--muted);background:none}
 .tiles .reg .band{position:absolute;left:0;right:0;top:92px;height:32px;background:color-mix(in srgb,var(--acid) 14%,transparent);box-shadow:inset 3px 0 0 var(--acid);pointer-events:none}
 @media(prefers-reduced-motion:reduce){.tiles .ms i,.tiles .ms b{opacity:1}}
-/* Brand typography and wordmark (reference/handover/BRAND_BRIEF.md).
-   Titles: Barlow Condensed 600, sentence case, no extra tracking.
-   Codes and labels: JetBrains Mono (set where "JetBrains Mono" appears above).
-   Reading text (Story, entry bodies, summaries): Newsreader 400.
-   Interface text stays in Geist. */
-:root{--title:"Barlow Condensed",Geist,system-ui,sans-serif;--read:Newsreader,Georgia,serif}
-h1,h1 em,.sec h2,.cta2 h2,.cta2 h2 em,.main h1.t,.prose h2{font-family:var(--title);font-weight:600;letter-spacing:0}
-.hero h1{--hero-em:12.6;letter-spacing:0}
-.main h1.t{line-height:1.05}
-.prose{font:400 18px/1.6 var(--read);max-width:29em}
-.prose h2{font-size:26px;line-height:1.15}
-.main .sum{font-family:var(--read);font-size:19px;line-height:1.5}
-.nav .wrap{height:64px}
-.brand{gap:12px}
-.brand .bi{width:40px;height:40px;flex:none;display:block}
-.brand .bt{font:600 18px/1 var(--title);text-transform:uppercase;letter-spacing:.2em}
-footer .brand .bi{width:32px;height:32px}
-@media(max-width:560px){.brand .bt{letter-spacing:.12em;font-size:16px}.brand .bi{width:34px;height:34px}.brand{gap:9px}}
-@media(max-width:380px){.brand .bt{font-size:14px}.brand .bi{width:30px;height:30px}.brand{gap:8px}}
+/* The ring icon (reference/handover/BRAND_BRIEF.md), in place of the old square mark. */
+.brand .bi{width:28px;height:28px;flex:none;display:block}
 </style>
 <header class="nav"><div class="wrap">
-  <a class="brand" href="#home"><img class="bi" src="/brand/syren-icon-dark.svg" alt="" width="40" height="40"><span class="bt">The Syren Protocols</span></a>
+  <a class="brand" href="#home"><img class="bi" src="/brand/syren-icon-dark.svg" alt="" width="28" height="28"><span class="bt">The Syren Protocols</span></a>
   <nav class="links" id="links"></nav>
   <button class="sbtn" id="sopen" aria-label="Search the archive"><span id="sico"></span><span class="t">Search the archive</span><kbd>/</kbd></button>
   <a class="btn p" style="padding:6px 12px;font-size:13px" href="#story">Read the story</a>
@@ -837,7 +819,7 @@ footer .brand .bi{width:32px;height:32px}
 <symbol id="i-idx" viewBox="0 0 24 24"><rect x="3.5" y="3.5" width="17" height="17" rx="2"/><path d="M3.5 8.5h17M7 12.5h3M12.5 12.5h4.5M7 16h3M12.5 16h3"/></symbol>
 </defs></svg>
 <main id="app"></main>
-<footer><div class="wrap"><div class="cols"><div><a class="brand" href="#home" style="color:var(--fg)"><img class="bi" src="/brand/syren-icon-dark.svg" alt="" width="40" height="40"><span class="bt">The Syren Protocols</span></a><p style="margin:12px 0 0;max-width:20em">The archive behind The Syren Protocols. The manuscript is the authority on story facts.</p></div>
+<footer><div class="wrap"><div class="cols"><div><a class="brand" href="#home" style="color:var(--fg)"><img class="bi" src="/brand/syren-icon-dark.svg" alt="" width="28" height="28"><span class="bt">The Syren Protocols</span></a><p style="margin:12px 0 0;max-width:20em">The archive behind The Syren Protocols. The manuscript is the authority on story facts.</p></div>
 <div><h6>Explore</h6><a href="#map">Map</a><a href="#c-loc">Locations</a><a href="#c-chr">Characters</a><a href="#c-obj">Objects</a><a href="#c-lor">Lore</a></div>
 <div><h6>Evidence</h6><a href="#c-chr">Confirmed (C)</a><a href="#c-chr">Estimated (E)</a><a href="#c-chr">Unconfirmed (U)</a></div>
 <div><h6>The story</h6><a href="#story">Read the manuscript</a><a href="#story-appendix-the-brief">Appendix: The Brief</a></div>
