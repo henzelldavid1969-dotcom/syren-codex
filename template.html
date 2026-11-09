@@ -1044,7 +1044,16 @@ function mountMap(root,opt){
   const on={out:1,node:1,gate:1,rus:1,kos:1,rt:1,per:1};
   root.innerHTML=`<div class="mapwrap street ${compact?'compact':''}" style="--mh:${opt.h||560}px"><aside class="mpanel"><div class="ms"><input placeholder="Find a place on the map" aria-label="Find a place"></div><div class="mlist"></div></aside><div class="mcanvas"><div class="mgl"></div><div class="mtools"></div><div class="mzoom"><button data-z="1" aria-label="Zoom in">+</button><button data-z="-1" aria-label="Zoom out">−</button><button data-z="0" aria-label="Reset view">⌖</button></div><div class="mcard"></div><div class="mnote">Occupier positions are approximate.</div></div></div>`;
   const cv=$('.mcanvas',root),gl=$('.mgl',root),list=$('.mlist',root),card=$('.mcard',root),tools=$('.mtools',root);
-  const B=MAP.pts.reduce((b,p)=>[[Math.min(b[0][0],p.x),Math.min(b[0][1],p.y)],[Math.max(b[1][0],p.x),Math.max(b[1][1],p.y)]],[[180,90],[-180,-90]]);
+  // The first view: centred on the survivor outposts (Warsaw), and wide enough
+  // on every side to show the corridor and its perimeters. The far gates and
+  // the ends of the escape routes may sit just beyond the edge.
+  const box=(ps)=>ps.reduce((b,p)=>[[Math.min(b[0][0],p.x),Math.min(b[0][1],p.y)],[Math.max(b[1][0],p.x),Math.max(b[1][1],p.y)]],[[180,90],[-180,-90]]);
+  const outs=MAP.pts.filter(p=>p.k==='out'),core=box(outs.length?outs:MAP.pts);
+  const per=MAP.lines.filter(l=>l.k==='occ'||l.k==='rus').flatMap(l=>l.c.map(([x,y])=>({x,y})));
+  const all=box([...MAP.pts.filter(p=>p.k!=='gate'),...per]);
+  const cx=(core[0][0]+core[1][0])/2,cy=(core[0][1]+core[1][1])/2;
+  const hx=Math.max(cx-all[0][0],all[1][0]-cx),hy=Math.max(cy-all[0][1],all[1][1]-cy);
+  const B=[[cx-hx,cy-hy],[cx+hx,cy+hy]];
   const fit=a=>map&&map.fitBounds(B,{padding:compact?24:40,animate:!!a});
   function paintMarks(){markers.forEach(([m,el,i])=>{const p=MAP.pts[i];el.style.display=on[p.k]?'':'none';el.classList.toggle('sel',sel===i);el.classList.toggle('lab',p.k==='out'||p.k==='rus'||sel===i)})}
   function pick(i,fly){sel=i;const p=MAP.pts[i];if(!p){card.classList.remove('on');paintMarks();return}
