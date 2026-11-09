@@ -1,8 +1,8 @@
 <title>The Syren Protocols</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@200..700&family=Geist+Mono:wght@300;400;500&family=Newsreader:ital,wght@0,400;0,500;1,400&display=swap">
 <style>
-:root{--bg:#0e0f0f;--surface:#151616;--raise:#1d1f1f;--line:#2a2d2c;--fg:#ededed;--muted:#9ba09e;--accent:#B8DF0D;--accent-fg:#141a00;--accent-ink:#B8DF0D;--edge:transparent;--attrib-inv:invert(1);
---loc:#B8DF0D;--chr:#7aa7ff;--obj:#e3b562;--lor:#c58bd9;--gc:#B8DF0D;--ge:#e3b562;--gu:#e08a7a;--rus:#e5625a;--glow:rgba(184,223,13,.14);--mapbg:#0b0d0d;color-scheme:dark}
+:root{--bg:#0e0f0f;--surface:#151616;--raise:#1d1f1f;--line:#2a2d2c;--fg:#ededed;--muted:#9ba09e;--accent:#A7C729;--accent-fg:#141a00;--accent-ink:#A7C729;--edge:transparent;--attrib-inv:invert(1);
+--loc:#B8DF0D;--chr:#7aa7ff;--obj:#e3b562;--lor:#c58bd9;--gc:#A7C729;--ge:#e3b562;--gu:#e08a7a;--rus:#e5625a;--glow:rgba(167,199,41,.14);--mapbg:#0b0d0d;color-scheme:dark}
 @media(prefers-color-scheme:light){:root:not([data-theme="dark"]){--bg:#fcfcfb;--surface:#f6f6f4;--raise:#ffffff;--line:#e2e3e0;--fg:#161817;--muted:#626865;--accent:#B8DF0D;--accent-fg:#141a00;--accent-ink:#161817;--edge:#161817;--attrib-inv:none;--loc:#161817;--chr:#3b6fd6;--obj:#a9741a;--lor:#9345ab;--gc:#B8DF0D;--ge:#a9741a;--gu:#c0503f;--rus:#c9382f;--glow:rgba(184,223,13,.12);--mapbg:#f1f2ef;color-scheme:light}}
 :root[data-theme="light"]{--bg:#fcfcfb;--surface:#f6f6f4;--raise:#ffffff;--line:#e2e3e0;--fg:#161817;--muted:#626865;--accent:#B8DF0D;--accent-fg:#141a00;--accent-ink:#161817;--edge:#161817;--attrib-inv:none;--loc:#161817;--chr:#3b6fd6;--obj:#a9741a;--lor:#9345ab;--gc:#B8DF0D;--ge:#a9741a;--gu:#c0503f;--rus:#c9382f;--glow:rgba(184,223,13,.12);--mapbg:#f1f2ef;color-scheme:light}
 *{box-sizing:border-box}
@@ -27,6 +27,9 @@ button{font:inherit;color:inherit;cursor:pointer}
 .btn:hover{border-color:var(--muted)}
 .btn.p{background:var(--accent);color:var(--accent-fg);border-color:var(--accent)}
 .btn.p:hover{filter:brightness(1.08)}
+/* the header's Read the story is a plain button, so each screen has one green action */
+.nav .btn.p{background:var(--raise);color:var(--fg);border-color:var(--line)}
+.nav .btn.p:hover{filter:none;border-color:var(--muted)}
 .story{font-size:13px;color:var(--muted);white-space:nowrap}
 .story:hover{color:var(--fg)}
 @media(max-width:760px){.sbtn span.t,.sbtn kbd,.story{display:none}.nav .wrap{gap:10px}}
@@ -505,7 +508,7 @@ details>summary{list-style:none}details>summary::-webkit-details-marker{display:
 .hero .wrap{container-type:inline-size}
 .hero .h2col{grid-template-columns:minmax(0,1fr);gap:30px}
 .hero h1{font-size:6vw;font-size:calc(100cqi / 16);font-weight:600;line-height:1.02}
-.hero h1 em{font-weight:600;color:var(--accent)}
+.hero h1 em{font-weight:600;color:var(--muted)}
 .hero h1 .l1,.hero h1 em{display:block;white-space:nowrap}
 @media(min-width:861px){.hero .h2col>div{display:grid;grid-template-columns:minmax(0,34em) auto;column-gap:48px;justify-content:space-between;align-items:end}
  .hero .h2col>div>.cta{grid-column:2;grid-row:1/span 2;margin-top:0}}
@@ -635,8 +638,8 @@ details>summary{list-style:none}details>summary::-webkit-details-marker{display:
 /* home page category tiles (ported from tiles_prototype.html, scoped to .tiles) */
 .tiles .rdot.still{display:none}
 .tiles{--acid:#b8f200;--bg:#fcfcfb;--surface:#f6f6f4;--raise:#fff;--line:#e2e3e0;--fg:#111;--muted:#666b68;--ink:#111;--redact:#111;--s:#111;--tipstroke:#111;--glow:rgba(184,242,0,.22)}
-@media(prefers-color-scheme:dark){:root:not([data-theme=light]) .tiles{--bg:#0a0a0a;--surface:#121212;--raise:#1a1a1a;--line:#2a2a2a;--fg:#f2f2f2;--muted:#9a9a9a;--ink:#f2f2f2;--redact:#000;--s:#b8f200;--tipstroke:transparent;--glow:rgba(184,242,0,.10)}}
-:root[data-theme=dark] .tiles{--bg:#0a0a0a;--surface:#121212;--raise:#1a1a1a;--line:#2a2a2a;--fg:#f2f2f2;--muted:#9a9a9a;--ink:#f2f2f2;--redact:#000;--s:#b8f200;--tipstroke:transparent;--glow:rgba(184,242,0,.10)}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]) .tiles{--bg:#0a0a0a;--surface:#121212;--raise:#1a1a1a;--line:#2a2a2a;--fg:#f2f2f2;--muted:#9a9a9a;--ink:#f2f2f2;--redact:#000;--acid:#A7C729;--s:#A7C729;--tipstroke:transparent;--glow:rgba(167,199,41,.08)}}
+:root[data-theme=dark] .tiles{--bg:#0a0a0a;--surface:#121212;--raise:#1a1a1a;--line:#2a2a2a;--fg:#f2f2f2;--muted:#9a9a9a;--ink:#f2f2f2;--redact:#000;--acid:#A7C729;--s:#A7C729;--tipstroke:transparent;--glow:rgba(167,199,41,.08)}
 .tiles{--loc:var(--s);--chr:var(--s);--obj:var(--s);--lor:var(--s);--rte:var(--s);--gc:var(--s);--ge:var(--s);--gu:var(--s);--rus:var(--ink)}
 .tiles{max-width:1180px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
 .tiles .t{position:relative;overflow:hidden;background:var(--surface);border:1px solid var(--line);border-radius:16px;min-height:330px;display:block;color:inherit;text-decoration:none;isolation:isolate;transition:border-color .2s,transform .2s}
@@ -649,9 +652,9 @@ details>summary{list-style:none}details>summary::-webkit-details-marker{display:
 .tiles .ti svg{width:26px;height:26px;stroke:currentColor;fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
 .tiles h3{margin:0;white-space:nowrap;font:400 14px/1.2 Geist,system-ui,sans-serif;letter-spacing:.13em;text-transform:uppercase;color:var(--fg)}
 .tiles .tcode{font:400 11.5px "Geist Mono",monospace;letter-spacing:.06em;color:var(--muted);margin:10px 24px 0;position:relative;z-index:3;text-transform:uppercase}
-.tiles .tcode b{background:var(--acid);color:#000;font-weight:500;padding:1px 5px;border-radius:3px}
+.tiles .tcode b{background:transparent;color:var(--fg);box-shadow:inset 0 0 0 1px var(--line);font-weight:500;padding:1px 5px;border-radius:3px}
 .tiles .ln{position:relative;z-index:3;margin:8px 24px 0;max-width:21em;color:var(--muted);font-size:14px}
-.tiles .num{font:200 34px/1 "Geist Mono",monospace;color:var(--c);letter-spacing:-.04em}
+.tiles .num{font:200 34px/1 "Geist Mono",monospace;color:var(--fg);letter-spacing:-.04em}
 .tiles .gfx{position:absolute;pointer-events:none}
 .tiles .fade:after{content:"";position:absolute;left:0;right:0;bottom:0;height:34%;z-index:2;background:linear-gradient(transparent,var(--surface));pointer-events:none}
 .tiles .map{right:-14%;top:2%;height:150%;width:84%}
