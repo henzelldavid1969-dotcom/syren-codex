@@ -1,8 +1,10 @@
-# Checks the Supabase database every 15 minutes. If anything has changed,
-# it saves a fresh data/codex.json, and Vercel rebuilds the site from it.
-# Each check also counts as activity, so the free Supabase project does not
-# pause. To publish straight away: Actions tab, "Publish from Supabase",
-# "Run workflow".
+# Edits in the admin go live only when David presses Publish there. Publish
+# saves a release in the database and rebuilds the site straight away (when
+# the Vercel deploy hook is set up). This check runs every 15 minutes as a
+# fallback: if there is a release the repository does not have yet, it saves
+# it to data/, and Vercel rebuilds the site from that commit. It never
+# exports unpublished edits. Each check also counts as activity, so the free
+# Supabase project does not pause.
 name: Publish from Supabase
 
 on:
@@ -25,15 +27,11 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
-      - name: Export from Supabase
-        run: node scripts/export.mjs
-        env:
-          # Public, read-only values. Safe to keep here.
-          SUPABASE_URL: https://qldxlphmvjjovzlmeguw.supabase.co
-          SUPABASE_PUBLISHABLE_KEY: sb_publishable_U4rHZlnmKnyPzdufaovQ9w_odaCFZbP
+      - name: Look for a new release
+        run: node scripts/sync-release.mjs
       - name: Save any changes
         run: |
-          if git diff --quiet -- data/codex.json; then
+          if git diff --quiet -- data/ && [ -z "$(git status --porcelain data/)" ]; then
             # GitHub stops scheduled checks in a repository with no activity
             # for 60 days, so record a check once a month even when quiet.
             last=$(git log -1 --format=%ct)
@@ -46,5 +44,5 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add data/
-          git commit -m "Update Codex data from Supabase"
+          git commit -m "Save the published release from the admin"
           git push
