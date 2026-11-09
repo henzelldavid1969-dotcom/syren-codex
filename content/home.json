@@ -37,9 +37,11 @@
     "button": "Open the full map"
   },
 
-  "factions": {
-    "heading": "The factions",
-    "text": "Those who held the city, fled it, resisted it and occupied it."
+  "key_characters": {
+    "_read_me": "The ten primary characters (mark CHROMA_VAL), in reference order, each linking to its entry. A character's own first image is used where the entry has one; otherwise portrait_placeholder, or the site placeholder if that is empty.",
+    "heading": "Key Characters",
+    "text": "The ten primary characters of the archive. Select a name to open their entry.",
+    "portrait_placeholder": ""
   },
 
   "index": {
