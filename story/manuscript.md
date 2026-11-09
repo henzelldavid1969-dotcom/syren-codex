@@ -603,7 +603,7 @@ Each position is an operating point (OP). The designations below are those in us
 | SK | Siekierki | B | Southern riverside. Industrial. Exposed | 52.2072 N, 21.0870 E | OP-SK |
 | L1 | Las | D | Forest. Concealed. Runner waypoint | 52.1982 N, 21.1145 E | OP-L1 |
 | P2 | Przyloty | B | Deep in the margin. Accessibility seasonal | 52.1456 N, 21.1711 E | OP-P2 |
-| P3 | Pałac (Wilanów) | D | Southernmost. Grounds large. Escape route link | 52.1653 N, 21.0897 E | OP-P3 |
+| P3 | Pałac (Wilanów) | D | Southern end of the corridor. Grounds large. Escape route link | 52.1653 N, 21.0897 E | OP-P3 |
 | F1 | Filtry | D | Water filtration. Critical. Near Russian R0 | 52.2206 N, 21.0080 E | OP-F1 |
 
 Note: the field map carries the code S1 twice (Szpital and Siekierki). This document resolves the collision by using SZ and SK. The field map has not been corrected. It should be.
@@ -1280,7 +1280,7 @@ Three positions stand inside the perimeter. They are the most dangerous facts in
 | RW | Wola | West bank. Inner city control |  | 52.236, 20.965 |
 | R0 | Ochota | West bank, adjacent to the Filtry water station (F1) |  | 52.213, 20.985 |
 
-RM is two kilometres from the Żerań dock. It can be seen from the roof of the control room on a clear morning. It has not fired. It has not needed to. R0 is the post that matters to the water: F1 stands within sight of it, and every litre that reaches the corridor passes under its eye (C).
+RM is about three kilometres from the Żerań dock. It can be seen from the roof of the control room on a clear morning. It has not fired. It has not needed to. R0 is the post that matters to the water: F1 stands within sight of it, and every litre that reaches the corridor passes under its eye (C).
 
 The grey zone between the survivor line and the ring is mostly water. It is crossed by boat or by knowing where the water is shallow. The occupier patrols the main flooded thoroughfares in gunboats, at irregular hours, without lights (C, three sources).
 
@@ -1333,7 +1333,7 @@ Three names are used here. They are given in full, with patronymic, because that
 
 **7.2. Major Alexei Dmitrievich Budanov.** Head of screening and intelligence. Age approximately 44 (E). Operates from Szucha. He is the active officer. It is his name that appears on the orders. He is thorough. He is courteous to those who are brought in and is said to speak good Polish, with an accent that reminds the listener of Kraków (C, two returned persons). I am aware of him before I am aware of the colonel. I believe he is looking for someone. I do not know whom.
 
-**7.3. Sasha Igorevich Lebedev.** Contracted operator, observation net. Age approximately 24 (E). Not a regular officer. Underpaid, by every sign. He is attached to R0 and he reads the post's rota on the radio net every sixth day at 06:00. The voice is young. Two intercepts have the speaker reading the new rota twice, slowly, as a person would who was not sure of it.
+**7.3. Sasha Igorevich Lebedev.** Contracted operator, observation net. Age 23 (E). Not a regular officer. Underpaid, by every sign. He is attached to R0 and he reads the post's rota on the radio net every sixth day at 06:00. The voice is young. Two intercepts have the speaker reading the new rota twice, slowly, as a person would who was not sure of it.
 
 On 2 October the rota was announced with a four-minute gap in the sequence of posts. The gap was not repeated. It was not noted by anyone else on the net (U, one source, my own intercept).
 
@@ -1348,11 +1348,11 @@ I do not know what a four-minute gap is. I have written it down because that is 
 | Radio check, all posts | Every four hours, on the hour | C |
 | Rota change, R0 | Every sixth day, 06:00 | C |
 | Searchlight, Citadel to the river | Sunset | C |
-| Loudspeaker, Palace and Old Town | 08:00 and 20:00 | C |
+| Loudspeaker, Palace and Old Town (main broadcast) | 08:00 and 20:00 | C |
 
 The searchlight at sunset is the most reliable event in the corridor. It sweeps across the east bank once, slowly, for forty seconds, and goes dark. It does not appear to be looking for anything. It is, I believe, a statement.
 
-The broadcasts are propaganda of an elementary kind. They speak of order, restored services, warm beds. They are made by a woman with a very pleasant voice. They do not mention the water.
+The broadcasts are propaganda of an elementary kind. They speak of order, restored services, warm beds. They are made by a woman with a very pleasant voice. They do not mention the water. A shorter form of the same script is also read through the night, on the half hour, and a further reading is made at noon and at 18:00. I have recorded only the two main broadcasts as fixed events.
 
 **9. METHODS**
 
@@ -1644,7 +1644,7 @@ At 15:00 I have a visitor. I won't describe the visitor, because it isn't my bus
 
 At 17:00 I walk in the courtyard. I walk under the plane tree. I walk ten laps, clockwise. The pigeon is on the bench. It's a grey pigeon, a common one, with an iridescent patch on the neck and a left foot that has no toes. I've named it, in my own mind, and I won't say what. It looks at me with an orange eye. I'm aware that it isn't afraid.
 
-At 18:30 I dine. At 19:30 I take the evening papers. At 20:00 I hear, from across the river, thin, borne on the wind, the voice of the woman on the loudspeaker. *There are beds. There's hot water.* I stop with the fork in my hand. I listen for as long as it takes. Then I put the fork down, and I take out a handkerchief, and I fold it into four, and I touch it to my lips.
+At 18:30 I dine. At 19:30 I take the evening papers. At 20:00 I hear, from across the city, thin, borne on the wind, the voice of the woman on the loudspeaker. *There are beds. There's hot water.* I stop with the fork in my hand. I listen for as long as it takes. Then I put the fork down, and I take out a handkerchief, and I fold it into four, and I touch it to my lips.
 
 *\[Transcript. The words are Magda Wiśniewska's, as before. That he stopped to listen, and what he did with the handkerchief, are mine, and I have no authority for either.\]*
 
@@ -1714,7 +1714,7 @@ The last patient left at ten to four. She locked the vault. She put the key into
 
 "That'll do," she said.
 
-Diana met her at Brodno in the first week of October. I've set the entry first because it's the only account in the archive of her at work, and everything she says afterwards is about what the work was for.
+Diana met her at Brodno in the second week of October. I've set the entry first because it's the only account in the archive of her at work, and everything she says afterwards is about what the work was for.
 
 \* \* \*
 
@@ -3579,3 +3579,98 @@ I owe a debt to the books and the films that taught me how to hold many voices a
 I'm grateful to every witness, real and imagined, who survived a catastrophe and then agreed to describe it to a stranger. The idea that testimony is a form of care came from them.
 
 And to Diana, wherever she is.
+
+## Appendix: The Brief
+
+*Reproduced from the second binder, where it is the last item filed. The original is eleven pages, in Russian and in English, on the stationery of a research directorate. It is stamped and numbered. I give the English text. The names of the Western partners are in the original and I have not copied them. Each place where a name stood is marked WITHHELD. The brief is signed with initials, and I have not copied those either. Nothing in this reproduction has been added to the original. Nothing has been improved.*
+
+\* \* \*
+
+**RESEARCH DIRECTORATE**
+
+**OPERATIONAL BRIEF**
+
+**PROGRAMME: NEURAL HARVEST**
+
+**Classification:** Restricted. Not for onward transmission.
+
+**Copy:** 3 of 5.
+
+**Pages:** 11.
+
+**Distribution:** Directorate; Operator; three partner establishments (WITHHELD).
+
+**Ethical review:** Not applicable.
+
+\* \* \*
+
+**1. OBJECTIVE**
+
+Population compliance optimisation.
+
+**2. BACKGROUND**
+
+The organism designated in Annex A was recovered from permafrost and has been held under controlled conditions since its recovery. Its principal property is a chemical emission which acts on the human nervous system. The effect is dose dependent, progressive and, within the observed range, non-lethal.
+
+The directorate supplied the organism. The partner establishments (WITHHELD) supplied the means by which the effect may be enhanced, stabilised in a water supply, and optimised. The partners will not be named in operational correspondence.
+
+**3. THE CHOICE OF TEST AREA**
+
+The area is an urban district with a population of approximately 40,000, to be selected for the following properties.
+
+*Isolated. Contained. Non-attributable. A population of approximately 40,000 under controlled observation, with no external access and no prospect of relief.*
+
+The city of Warsaw is the selected area. The conditions required by the programme will be met by the flooding described in Annex B and by the cordon described in Annex D.
+
+**4. THE TEST COHORT**
+
+The surviving population of the area is designated the test cohort. It is not to be referred to in operational correspondence by any other term.
+
+The flood is the delivery system. Once the organism is established in the water, exposure is continuous and requires no further action by the operator.
+
+**5. BEHAVIOURAL ENDPOINTS**
+
+Effects are classed in four stages. The stages are those of Annex C. They are given here in summary.
+
+| **Stage** | **Endpoint** |
+| --- | --- |
+| 1 | Reduced anxiety. Unusual calm. |
+| 2 | Loss of urgency. Flattened affect. Tasks begun and not completed. |
+| 3 | Apathy. Obedience to simple instructions. Disclosure of information when asked. |
+| 4 | Compliance. The subject follows any instruction from any source. Disclosure without being asked. **The target state.** |
+
+The target for the cohort phase is that not less than 60 per cent of the cohort is assessed at stage 3 or above within 90 days of the establishment of continuous exposure.
+
+A small proportion of the cohort will display atypical resistance. Such subjects are to be identified, monitored and recorded. They are not to be removed from the cohort unless they affect the integrity of the measurement.
+
+**6. OBSERVATION**
+
+The programme is an operation and a study. The cohort is to be observed throughout. The following are to be recorded: decisions, speech, rates of deterioration, and the points at which the cohort resists and the points at which it does not.
+
+The record is held in a joint repository (WITHHELD). Results will be *shared with partners on completion of the cohort phase.*
+
+**7. THE COHORT PHASE**
+
+The cohort phase begins on the establishment of continuous exposure. It ends when the Directorate determines that the measurement is complete. On completion the area is to be released from the cordon in the manner determined by the Operator.
+
+**8. RISKS**
+
+The principal risk to the programme is loss of containment. The secondary risk is loss of the measurement through the emergence of an organised population. The Directorate considers both to be low.
+
+**9. AUTHORISATION**
+
+Authorised for the Directorate: (initials).
+
+Authorised for the Operator: (initials).
+
+Seen by the partner establishments: (initials, WITHHELD).
+
+**ANNEXES**
+
+A. The organism. B. Delivery. C. Behavioural endpoints. D. Observation, cordon and data.
+
+*\[The annexes are in the binder. I have not reproduced them here, on the ground that a document can be followed from the brief to the thing it describes, and I would prefer that it were not.\]*
+
+\* \* \*
+
+*\[Alex. I draw the reader's attention to one sentence only. Section 3 gives a figure for the population of the area. The figure is approximately 40,000. I have recorded in Chapter 15, section 7, that it is correct to within two thousand. I have recorded no opinion of the person who wrote it.\]*

@@ -74,7 +74,6 @@ const read = (path) => readFile(new URL('../' + path, import.meta.url), 'utf8');
 const story = buildStory({
   manuscript: await read(MANUSCRIPT),
   backCover: await read('story/back-cover.md'), // introduction on the Story page
-  appendix: await read('story/appendix.md'),    // Appendix: The Brief
 });
 await writeFile(new URL('../dist/story.json', import.meta.url), JSON.stringify(story));
 console.log(`Built dist/story.json: ${story.pages.length} pages.`);

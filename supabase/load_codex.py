@@ -1,4 +1,4 @@
-"""Build supabase/load_codex.sql: the full Codex records for all 67 entries.
+"""Build supabase/load_codex.sql: the full Codex records for all 69 entries.
 
 Sources, in order of authority for story facts:
   - dist/story.json (the manuscript, built from story/) for chapter speakers
@@ -10,6 +10,11 @@ Text fields are copied exactly. The only change is removing the Markdown
 escape before underscores (SYNC\\_PATH becomes SYNC_PATH).
 A key fact is filled only where a source states it. Otherwise it stays empty
 and the site shows "Not recorded".
+
+Every entry is loaded as Draft (only David sets Verified); the Doc's own
+status line is kept, whole, as the entry's editor note. An entry new in the
+Doc is inserted; its key-facts row is made by the database. A relation to an
+entry that does not exist is an error: it is reported and not loaded.
 
 Run from the repository root after `node scripts/build.mjs`:
     python3 supabase/load_codex.py
@@ -77,9 +82,13 @@ def q(v):
 
 
 def grade_of(rel):
-    m = re.match(r'^([CEU])(?:\s*\((\d+)\)|,\s*(one|two|three|four|five|several) sources?\b|\.|,|$)', rel)
+    """The entry's single grade, where the Reliability line gives one. A line that
+    grades different claims differently ("C for the fence ... E for the
+    crossings") gives no single grade: it is left empty and reported."""
+    m = re.match(r'^([CEU])(?:\s*\((\d+)\b[^)]*\)|,\s*(one|two|three|four|five|several) sources?\b|\.|,|$)', rel)
     if not m:
-        return None, None
+        g = re.search(r'\bGrade ([CEU])\.', rel)
+        return (g.group(1), None) if g else (None, None)
     n = int(m.group(2)) if m.group(2) else WORDS.get(m.group(3))
     return m.group(1), n
 
@@ -103,6 +112,9 @@ def age_of(summary, entry, reliability):
     return None, None
 
 
+MISSING = set()
+
+
 def links(rec):
     """Cross-references in order, with ranges expanded and known faults fixed."""
     out, notes = [], []
@@ -119,14 +131,17 @@ def links(rec):
                 t = FIX[(t, label)]
             if t != rec['Reference'] and t not in out:
                 out.append(t)
+    out = [t for t in out if t not in MISSING or not notes.append(f'ERROR: {t} does not exist') ]
     note = None if 'SYNPTCL' in x or re.fullmatch(r'None yet\.?', x.strip()) else x.strip()
     return out, note, notes
 
 
 def main():
     recs = records()
-    assert len(recs) == 67
+    assert len(recs) == 69, len(recs)
     refs = {r['Reference'] for r in recs}
+    MISSING.clear()
+    MISSING.update(t for r in recs for t in re.findall(REF_RE, r['Cross-references']) if t not in refs)
     story = json.loads((ROOT / 'dist' / 'story.json').read_text(encoding='utf8'))
     pages = story['pages']
     slugs = {p['slug'] for p in pages}
@@ -140,13 +155,25 @@ def main():
         for name, kind in re.findall(r'<p class="spk"><strong>([^<]+)</strong> · (recording|written)', p['html']):
             speaker.setdefault(name.strip().lower(), p['slug'])
 
+    prev = []
+
     def section_for(phrase, rec):
         s = phrase.strip().lower()
         if 'prologue' in s:
             return ['prologue-the-barn']
         found = []
+        for name in ('copyright', 'dedication', 'foreword', 'acknowledgments'):
+            if re.search(rf'\b{name}\b', s):
+                found.append(name)
+        if 'interlude: the second flood' in s or 'second flood interlude' in s:
+            found.append('interlude-the-second-flood')
         for m in re.finditer(r'protocol (\d{3})', s):
             found += [p['slug'] for p in pages if f'(protocol {m.group(1)})' in p['title'].lower()]
+        for m in re.finditer(r'chapters (\d+) to (\d+)\b', s):
+            for n in range(int(m.group(1)), int(m.group(2)) + 1):
+                found += [p['slug'] for p in pages if p['slug'].startswith(f'chapter-{n}-')]
+        if 'the same protocol' in s and prev:
+            found += prev[-1:]
         for m in re.finditer(r'chapter (\d+)\b', s):
             found += [p['slug'] for p in pages if p['slug'].startswith(f'chapter-{m.group(1)}-')]
         for m in re.finditer(r'interlude (vi|v|iv|iii|ii|i)\b', s):
@@ -182,13 +209,15 @@ def main():
         typ = ref.split('/')[1]
         mark = r['Category'].split('/')[-1].strip() if '/' in r['Category'] else None
         status_text = r['Status'].strip()
-        status = (re.match(r'(Draft|Filed|Verified)\b', status_text) or [None, 'Draft'])[1]
+        status = 'Draft'   # never Filed or Verified on import; David sets those
         grade, n = grade_of(r['Reliability'])
         report['grades'] += bool(grade)
+        if not grade:
+            report.setdefault('ungraded', []).append(f"{ref}: {r['Reliability'][:90]}")
         targets, xnote, fixnotes = links(r)
         report['fixes'] += [f'{ref}: {x}' for x in fixnotes]
         rel_rows += [(ref, t, i) for i, t in enumerate(targets)]
-        note = status_text if not re.fullmatch(r'(Draft|Filed|Verified)\.?', status_text) else ''
+        note = 'Codex Doc status: ' + status_text
         if r.get('Media'):
             note = (note + '\n\n' if note else '') + 'Media: ' + r['Media']
         if note:
@@ -200,6 +229,7 @@ def main():
             got = section_for(phrase, r)
             if not got and re.search(r'protocol|interlude|chapter|diary 0|prologue|appendix|testimony', phrase, re.I):
                 report['unresolved'].append(f'{ref}: {phrase.strip()}')
+            prev[:] = got or prev
             for g in got:
                 if g not in seen:
                     seen.append(g)
@@ -244,7 +274,10 @@ def main():
 
     assert all(a in refs and b in refs for a, b, _ in rel_rows)
     assert all(s in slugs for _, s, _ in app_rows)
-    sql += upd + ['']
+    ins = [f"insert into public.entries (ref, type, name, summary, entry) values ({q(r['Reference'])}, "
+           f"{q(r['Reference'].split('/')[1])}, {q(r['Name'])}, {q(r['Summary'])}, {q(r['Entry'])}) on conflict (ref) do nothing;"
+           for r in recs]
+    sql += ins + [''] + upd + ['']
     sql.append('insert into public.relations (from_ref, to_ref, position, type) values')
     sql.append(',\n'.join(f"  ({q(a)}, {q(b)}, {i}, 'connected')" for a, b, i in rel_rows) + ';\n')
     sql.append('insert into public.editor_notes (ref, note) values')
@@ -256,6 +289,13 @@ def main():
 
     print(f'{len(recs)} entries, {len(rel_rows)} relations, {len(note_rows)} editor notes, '
           f'{len(app_rows)} appearances, {report["grades"]} grades, {len(speaker)} own Protocols found')
+    print(f"Entries with no single grade (left empty, shown as Not recorded): {len(report.get('ungraded', []))}")
+    for x in report.get('ungraded', []):
+        print('  ', x)
+    errs = [x for x in report['fixes'] if 'ERROR' in x]
+    print(f'Relations to missing entries (errors, not loaded): {len(errs)}')
+    for x in errs:
+        print('  ', x)
     print('Cross-reference fixes:')
     for x in report['fixes']:
         print('  ', x)

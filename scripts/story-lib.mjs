@@ -85,7 +85,9 @@ function sections(md) {
   return out.map((s) => ({ title: s.title, md: s.lines.join('\n').trim() }));
 }
 
-export function buildStory({ manuscript, backCover, appendix }) {
+// The manuscript is the single source: every "## " heading is a page, the
+// appendix included (it follows Acknowledgments, in the back matter).
+export function buildStory({ manuscript, backCover }) {
   const title = (manuscript.match(/^# (.*)$/m) || [, 'The Syren Protocols'])[1];
   const [name, subtitle = ''] = title.split(/:\s*/);
   const parts = sections(manuscript);
@@ -99,8 +101,6 @@ export function buildStory({ manuscript, backCover, appendix }) {
     const group = i < firstStory ? 'front' : lastStory > -1 && i >= lastStory ? 'back' : 'story';
     return { slug, title: s.title, group, html: render(s.md) };
   });
-  const appTitle = (appendix.match(/^# (.*)$/m) || [, 'Appendix'])[1];
-  pages.push({ slug: slugify(appTitle), title: appTitle, group: 'back', html: render(appendix.replace(/^# .*$/m, '').trim()) });
   const cover = Object.fromEntries(sections(backCover).map((s) => [s.title, s.md]));
   return {
     name,
