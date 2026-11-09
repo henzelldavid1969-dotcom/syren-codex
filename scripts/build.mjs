@@ -8,7 +8,7 @@
 // data/codex.json. It needs no keys.
 
 import { readFile, writeFile, mkdir, copyFile, readdir } from 'node:fs/promises';
-import { buildStory } from './story-lib.mjs';
+import { buildStory, buildStoryFrom, groupOfKind } from './story-lib.mjs';
 import { buildTiles, buildScan } from './tiles.mjs';
 import { SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY } from './codex-lib.mjs';
 
@@ -41,7 +41,9 @@ const LS = String.fromCharCode(0x2028), PS = String.fromCharCode(0x2029);
 const js = (v) => JSON.stringify(v).replace(/</g, '\\u003c').split(LS).join('\\u2028').split(PS).join('\\u2029');
 
 // Home page copy, editable without touching layout code.
-const HOME = JSON.parse(await readFile(new URL('../content/home.json', import.meta.url), 'utf8'));
+// From the release when it carries it (the admin's Home page editor), else
+// from content/home.json.
+const HOME = codex.HOME || JSON.parse(await readFile(new URL('../content/home.json', import.meta.url), 'utf8'));
 const attr = (v) => String(v).replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;');
 
 // A standard page shell, with the site name in the title and sharing tags.
@@ -102,15 +104,18 @@ for (const f of await readdir(new URL('../admin/', import.meta.url)))
   await copyFile(new URL('../admin/' + f, import.meta.url), new URL('../dist/admin/' + f, import.meta.url));
 await copyFile(new URL('../node_modules/@supabase/supabase-js/dist/umd/supabase.js', import.meta.url),
   new URL('../dist/admin/supabase.js', import.meta.url));
+await copyFile(new URL('../node_modules/marked/lib/marked.umd.js', import.meta.url), new URL('../dist/admin/marked.js', import.meta.url));
 console.log(`Built dist/index.html: ${DATA.length} entries, ${MAP.pts.length} map points, ${html.length} bytes.`);
 
-// The Story view's source: one file. To refresh the manuscript, replace
-// story/manuscript.md (Markdown, one "## " heading per section) and rebuild.
-const MANUSCRIPT = 'story/manuscript.md';
+// The Story view's source: the release's Story text when it carries it (the
+// admin's Story editor), else story/manuscript.md (Markdown, one "## "
+// heading per section) and story/back-cover.md.
 const read = (path) => readFile(new URL('../' + path, import.meta.url), 'utf8');
-const story = buildStory({
-  manuscript: await read(MANUSCRIPT),
-  backCover: await read('story/back-cover.md'), // introduction on the Story page
-});
+const story = codex.STORY_TEXT && codex.BOOK
+  ? buildStoryFrom({
+      book: codex.BOOK,
+      parts: STORY.sections.map((s) => ({ slug: s.s, title: s.t, group: groupOfKind(s.k), md: codex.STORY_TEXT[s.s] })),
+    })
+  : buildStory({ manuscript: await read('story/manuscript.md'), backCover: await read('story/back-cover.md') });
 await writeFile(new URL('../dist/story.json', import.meta.url), JSON.stringify(story));
-console.log(`Built dist/story.json: ${story.pages.length} pages.`);
+console.log(`Built dist/story.json: ${story.pages.length} pages, from ${codex.STORY_TEXT ? 'the release' : 'story/manuscript.md'}.`);

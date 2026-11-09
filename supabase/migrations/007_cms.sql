@@ -14,7 +14,7 @@ create table public.releases (
   created_by  uuid default auth.uid(),
   entries     int,
   note        text,
-  data        jsonb not null
+  data        jsonb not null   -- changed to json in 009
 );
 alter table public.releases enable row level security;
 create policy "Public read" on public.releases for select using (true);
