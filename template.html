@@ -110,6 +110,12 @@ a.card:hover{border-color:var(--c,var(--accent));transform:translateY(-2px)}
 .mzoom{position:absolute;top:10px;right:10px;display:flex;flex-direction:column;gap:4px}
 .mzoom button{width:32px;height:32px;border-radius:7px;border:1px solid var(--line);background:var(--surface);font-size:17px;line-height:1}
 .mzoom button:hover{border-color:var(--muted)}
+/* Map page: hide the place list so the map fills the width */
+.mzoom button.ml{margin-top:6px;display:grid;place-items:center}
+.mzoom button.ml svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:1.5}
+.mzoom button.ml.on{background:var(--fg);color:var(--bg);border-color:var(--fg)}
+.mapwrap.nolist{grid-template-columns:1fr}
+.mapwrap.nolist .mpanel{display:none}
 .mcard{position:absolute;left:10px;right:10px;bottom:10px;max-width:420px;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:14px 16px;display:none;box-shadow:0 12px 40px rgba(0,0,0,.35)}
 .mcard.on{display:block}
 .mcard h4{font-weight:400;margin:0 0 2px;font-size:16px;letter-spacing:-.01em}
@@ -931,11 +937,23 @@ const GLY={out:'<circle class="sy-ring" cx="7" cy="7" r="5.6" stroke-width="1.1"
 const gly=k=>`<svg class="gly" viewBox="0 0 14 14" aria-hidden="true">${GLY[k]}</svg>`;
 const FULL={x:0,y:0,w:(21.57-LON0)*KX,h:(LAT0-52.05)*KY};
 // The drawn (SVG) map: used wherever the street map cannot run.
+// The Map page's list button: hides the place list so the map fills the
+// width. The choice is remembered in this browser.
+function listToggle(root,after){
+  const wrap=$('.mapwrap',root),z=$('.mzoom',root);if(!wrap||!z||wrap.classList.contains('compact'))return;
+  let hide=false;try{hide=localStorage.getItem('syren-map-list')==='hidden'}catch(e){}
+  const b=document.createElement('button');b.className='ml';b.type='button';
+  b.innerHTML='<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="4.5" width="17" height="15" rx="2"/><path d="M9 4.5v15"/></svg>';
+  const paint=()=>{wrap.classList.toggle('nolist',hide);b.classList.toggle('on',hide);const l=hide?'Show the place list':'Hide the place list';b.setAttribute('aria-label',l);b.title=l;b.setAttribute('aria-pressed',hide?'true':'false')};
+  b.onclick=()=>{hide=!hide;try{localStorage.setItem('syren-map-list',hide?'hidden':'shown')}catch(e){}paint();requestAnimationFrame(()=>after&&after())};
+  z.append(b);paint();
+}
 function mountSvgMap(root,opt){
   const compact=!!opt.compact;let vb={...FULL};let sel=null;const rid='riv'+Math.random().toString(36).slice(2,8);
   const on={out:1,node:1,gate:1,rus:1,kos:1,rt:1,per:1};
   root.innerHTML=`<div class="mapwrap ${compact?'compact':''}" style="--mh:${opt.h||560}px"><aside class="mpanel"><div class="ms"><input placeholder="Find a place on the map" aria-label="Find a place"></div><div class="mlist"></div></aside><div class="mcanvas"><svg></svg><div class="mtools"></div><div class="mzoom"><button data-z="1.5" aria-label="Zoom in">+</button><button data-z="0.67" aria-label="Zoom out">−</button><button data-z="0" aria-label="Reset view">⌖</button></div><div class="mcard"></div><div class="mnote">Schematic. Occupier positions are approximate.</div></div></div>`;
   const svg=$('svg',root),cv=$('.mcanvas',root),list=$('.mlist',root),card=$('.mcard',root);
+  listToggle(root,()=>draw());
   const path=c=>c.map((p,i)=>(i?'L':'M')+prj(p[0],p[1]).map(v=>v.toFixed(1)).join(' ')).join('');
   function draw(){
     let g='';for(let lo=20.9;lo<21.6;lo+=.1){const x=((lo-LON0)*KX).toFixed(1);g+=`<line class="gr" x1="${x}" x2="${x}" y1="0" y2="${FULL.h}"/>`}
@@ -966,7 +984,7 @@ function mountSvgMap(root,opt){
   const tools=$('.mtools',root);
   function paintTools(){tools.innerHTML=[['out','Outposts'],['rus','Occupier'],['node','Nodes'],['gate','Gates'],['rt','Routes'],['per','Perimeters']].map(([k,l])=>`<span class="chip ${on[k]?'':'off'}" data-k="${k}">${gly(k)}${l}</span>`).join('')}
   tools.onclick=e=>{const c=e.target.closest('.chip');if(!c)return;on[c.dataset.k]=!on[c.dataset.k];paintTools();draw()};
-  $('.mzoom',root).onclick=e=>{const b=e.target.closest('button');if(!b)return;const z=+b.dataset.z;z?zoom(z):fit()};
+  $('.mzoom',root).onclick=e=>{const b=e.target.closest('button');if(!b||b.dataset.z==null)return;const z=+b.dataset.z;z?zoom(z):fit()};
   card.onclick=e=>{if(e.target.closest('.x')){sel=null;card.classList.remove('on');draw();paintList()}};
   list.onclick=e=>{const b=e.target.closest('.mi');if(b)pick(+b.dataset.i,true)};
   $('input',root).oninput=paintList;
@@ -1044,6 +1062,7 @@ function mountMap(root,opt){
   const on={out:1,node:1,gate:1,rus:1,kos:1,rt:1,per:1};
   root.innerHTML=`<div class="mapwrap street ${compact?'compact':''}" style="--mh:${opt.h||560}px"><aside class="mpanel"><div class="ms"><input placeholder="Find a place on the map" aria-label="Find a place"></div><div class="mlist"></div></aside><div class="mcanvas"><div class="mgl"></div><div class="mtools"></div><div class="mzoom"><button data-z="1" aria-label="Zoom in">+</button><button data-z="-1" aria-label="Zoom out">−</button><button data-z="0" aria-label="Reset view">⌖</button></div><div class="mcard"></div><div class="mnote">Occupier positions are approximate.</div></div></div>`;
   const cv=$('.mcanvas',root),gl=$('.mgl',root),list=$('.mlist',root),card=$('.mcard',root),tools=$('.mtools',root);
+  listToggle(root,()=>map&&map.resize());
   // The first view: centred on the survivor outposts (Warsaw), and wide enough
   // on every side to show the corridor and its perimeters. The far gates and
   // the ends of the escape routes may sit just beyond the edge.
@@ -1067,7 +1086,7 @@ function mountMap(root,opt){
   function paintTools(){tools.innerHTML=[['out','Outposts'],['rus','Occupier'],['node','Nodes'],['gate','Gates'],['rt','Routes'],['per','Perimeters']].map(([k,l])=>`<span class="chip ${on[k]?'':'off'}" data-k="${k}">${gly(k)}${l}</span>`).join('')}
   function applyLayers(){if(!map||!map.getLayer('syr-rt'))return;map.setLayoutProperty('syr-rt','visibility',on.rt?'visible':'none');PER_IDS.forEach(id=>map.setLayoutProperty(id,'visibility',on.per?'visible':'none'))}
   tools.onclick=e=>{const c=e.target.closest('.chip');if(!c)return;on[c.dataset.k]=!on[c.dataset.k];paintTools();paintMarks();applyLayers()};
-  $('.mzoom',root).onclick=e=>{const b=e.target.closest('button');if(!b||!map)return;const z=+b.dataset.z;z>0?map.zoomIn():z<0?map.zoomOut():fit(true)};
+  $('.mzoom',root).onclick=e=>{const b=e.target.closest('button');if(!b||!map||b.dataset.z==null)return;const z=+b.dataset.z;z>0?map.zoomIn():z<0?map.zoomOut():fit(true)};
   card.onclick=e=>{if(e.target.closest('.x')){sel=null;card.classList.remove('on');paintMarks();paintList()}};
   list.onclick=e=>{const b=e.target.closest('.mi');if(b)pick(+b.dataset.i,true)};
   $('input',root).oninput=paintList;
@@ -1075,7 +1094,7 @@ function mountMap(root,opt){
   const start=async()=>{try{
     const [ml,base]=await Promise.all([loadML(),loadBase()]);if(!gl.isConnected)return;
     let theme=themeNow();
-    map=new ml.Map({container:gl,style:streetStyle(base,theme),bounds:B,fitBoundsOptions:{padding:compact?24:40},minZoom:8,maxZoom:18,attributionControl:false,cooperativeGestures:compact,dragRotate:false,pitchWithRotate:false,touchPitch:false});
+    map=new ml.Map({container:gl,style:streetStyle(base,theme),bounds:B,fitBoundsOptions:{padding:compact?24:40},minZoom:8,maxZoom:18,attributionControl:false,cooperativeGestures:compact&&matchMedia('(pointer:coarse)').matches,dragRotate:false,pitchWithRotate:false,touchPitch:false});
     map.touchZoomRotate.disableRotation();
     map.addControl(new ml.AttributionControl({compact:true}),'bottom-right');
     map.on('error',e=>{if(!map.loaded()&&!map._syrFell){map._syrFell=1;map.remove();mountSvgMap(root,opt)}});
