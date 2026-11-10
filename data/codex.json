@@ -99,13 +99,16 @@
    "note": "",
    "xnote": "",
    "aliases": "",
-   "updated": "2026-11-09",
+   "updated": "2026-11-10",
    "facts": {
     "control": "survivor",
     "ground_class": "D",
+    "function": "The hub. Power, radio and water access",
     "lon": 20.9964,
     "lat": 52.2926,
-    "coords_approximate": false
+    "coords_approximate": false,
+    "water_condition": "Class D, dry but cut off. The canal is open in summer and frozen in winter, with ice 11 cm thick by 9 December 2034. The dock gauge is read daily at 07:00.",
+    "events": "Diana arrives, 1 June 2034. Goya's recording is made here. The hub is destroyed in the third flood, 1 January 2035: lights out at 02:05, radio contact ends at 03:05."
    },
    "rel": [
     {
@@ -253,13 +256,16 @@
    "note": "",
    "xnote": "",
    "aliases": "",
-   "updated": "2026-11-09",
+   "updated": "2026-11-10",
    "facts": {
     "control": "survivor",
     "ground_class": "D",
+    "function": "Community gathering. Large grounds, good cover",
     "lon": 21.0255,
     "lat": 52.2573,
-    "coords_approximate": false
+    "coords_approximate": false,
+    "water_condition": "Class D, dry but cut off. The Dendron reached the lower Zoo in the second flood.",
+    "events": "The theft at the keeper's house, 26 October 2034. Tanja plays in the lion house, 17 November 2034."
    },
    "rel": [
     {
@@ -385,17 +391,20 @@
    "reliability": "C. Six independent manuscript passages. Function, class and grid reference are from the register. The three who did not become compliant are placed at Brodno in one passage only, in Chapter 16. The count of 3 of 81 is Catalina's, in Protocol 003.",
    "status": "Draft",
    "featured": null,
-   "sources": null,
+   "sources": 6,
    "note": "",
    "xnote": "",
    "aliases": "",
-   "updated": "2026-11-09",
+   "updated": "2026-11-10",
    "facts": {
     "control": "survivor",
     "ground_class": "D",
+    "function": "Medical. Defensible. Multiple buildings",
     "lon": 21.1071,
     "lat": 52.2984,
-    "coords_approximate": false
+    "coords_approximate": false,
+    "water_condition": "Class D. Stands on a low rise and has kept its feet dry. Water is carried from a cistern in the yard.",
+    "events": "Diana sits in the ward, 11 October 2034. Alisia stands at the door at night. The hearing in the chapel."
    },
    "rel": [
     {
@@ -468,17 +477,20 @@
    "reliability": "C. Two independent manuscript passages. The register gives the function and grid reference. Alisia's recording gives the stall and the man with the stick, from a single speaker.",
    "status": "Draft",
    "featured": null,
-   "sources": null,
+   "sources": 2,
    "note": "",
    "xnote": "",
    "aliases": "",
-   "updated": "2026-11-09",
+   "updated": "2026-11-10",
    "facts": {
     "control": "survivor",
     "ground_class": "D",
+    "function": "Market, trade, exchange",
     "lon": 21.031,
     "lat": 52.2483,
-    "coords_approximate": false
+    "coords_approximate": false,
+    "water_condition": "Class D, dry but cut off.",
+    "events": "Alisia takes a tin of peaches from a stallholder and leaves it on Catalina's dispensary shelf."
    },
    "rel": [
     {
@@ -520,17 +532,20 @@
    "reliability": "C. Four independent manuscript passages. The register gives the function and grid reference. The loft and the radios are described in one diary entry, Chapter 10.",
    "status": "Draft",
    "featured": null,
-   "sources": null,
+   "sources": 4,
    "note": "",
    "xnote": "",
    "aliases": "",
-   "updated": "2026-11-09",
+   "updated": "2026-11-10",
    "facts": {
     "control": "survivor",
     "ground_class": "D",
+    "function": "Gathering point. Mid-corridor",
     "lon": 21.0491,
     "lat": 52.2553,
-    "coords_approximate": false
+    "coords_approximate": false,
+    "water_condition": "Class D, dry but cut off.",
+    "events": "Diana spends the night of 21 to 22 September 2034 with Magda in the loft above the pharmacy. In November Magda tells Zoysa of a colonel on the Szucha net."
    },
    "rel": [
     {
@@ -581,17 +596,19 @@
    "reliability": "C. One manuscript passage, the register. Class, function and grid reference are as the register gives them. Nothing else in the manuscript confirms or adds to them.",
    "status": "Draft",
    "featured": null,
-   "sources": null,
+   "sources": 1,
    "note": "",
    "xnote": "",
    "aliases": "",
-   "updated": "2026-11-09",
+   "updated": "2026-11-10",
    "facts": {
     "control": "survivor",
     "ground_class": "C",
+    "function": "Eastern edge. Exposed. Intelligence value high",
     "lon": 21.1246,
     "lat": 52.2357,
-    "coords_approximate": false
+    "coords_approximate": false,
+    "water_condition": "Class C, occasionally waterlogged and unpredictable."
    },
    "rel": [],
    "apps": [
@@ -619,17 +636,19 @@
    "reliability": "C. One manuscript passage, the register. Class, function and grid reference are as the register gives them. Nothing else in the manuscript confirms or adds to them.",
    "status": "Draft",
    "featured": null,
-   "sources": null,
+   "sources": 1,
    "note": "",
    "xnote": "",
    "aliases": "",
-   "updated": "2026-11-09",
+   "updated": "2026-11-10",
    "facts": {
     "control": "survivor",
     "ground_class": "D",
+    "function": "River access. Supply",
     "lon": 21.066,
     "lat": 52.2234,
-    "coords_approximate": false
+    "coords_approximate": false,
+    "water_condition": "Class D, dry but cut off."
    },
    "rel": [],
    "apps": [
@@ -657,17 +676,20 @@
    "reliability": "C. Eight independent manuscript passages. Function, class and grid reference are from the register. The night of 31 December 2034 is given in the Protocol 005 header and in Diana's last diary entry. Her fate is not stated; the entry stops.",
    "status": "Draft",
    "featured": null,
-   "sources": null,
+   "sources": 8,
    "note": "",
    "xnote": "",
    "aliases": "",
-   "updated": "2026-11-09",
+   "updated": "2026-11-10",
    "facts": {
     "control": "survivor",
     "ground_class": "D",
+    "function": "River access. Escape route south",
     "lon": 21.0478,
     "lat": 52.2221,
-    "coords_approximate": false
+    "coords_approximate": false,
+    "water_condition": "Class D. Minus 12 degrees on the embankment before dawn on 1 January 2035, with the river iced.",
+    "events": "A crate with a western label is pulled from the water, 23 October 2034. Protocol 005 is compiled here, 31 December 2034 to 1 January 2035. Diana is last seen here, and Oliwia leaves with her last pages."
    },
    "rel": [
     {
@@ -745,17 +767,19 @@
    "reliability": "C. One manuscript passage, the register, which names the post twice. Class, function and grid reference are as the register gives them.",
    "status": "Draft",
    "featured": null,
-   "sources": null,
+   "sources": 1,
    "note": "",
    "xnote": "",
    "aliases": "",
-   "updated": "2026-11-09",
+   "updated": "2026-11-10",
    "facts": {
     "control": "survivor",
     "ground_class": "B",
+    "function": "Southern riverside. Industrial. Exposed",
     "lon": 21.087,
     "lat": 52.2072,
-    "coords_approximate": false
+    "coords_approximate": false,
+    "water_condition": "Class B, shallow seasonal flood, passable with knowledge."
    },
    "rel": [
     {
@@ -792,17 +816,19 @@
    "reliability": "C. One manuscript passage, the register. Class, function and grid reference are as the register gives them. Nothing else in the manuscript confirms or adds to them.",
    "status": "Draft",
    "featured": null,
-   "sources": null,
+   "sources": 1,
    "note": "",
    "xnote": "",
    "aliases": "",
-   "updated": "2026-11-09",
+   "updated": "2026-11-10",
    "facts": {
     "control": "survivor",
     "ground_class": "D",
+    "function": "Forest. Concealed. Runner waypoint",
     "lon": 21.1145,
     "lat": 52.1982,
-    "coords_approximate": false
+    "coords_approximate": false,
+    "water_condition": "Class D, dry but cut off."
    },
    "rel": [
     {
@@ -835,17 +861,19 @@
    "reliability": "E, one manuscript passage. The register states the name, class, note and grid reference with no source tag, and no other passage names the position.",
    "status": "Draft",
    "featured": null,
-   "sources": null,
+   "sources": 1,
    "note": "",
    "xnote": "",
    "aliases": "",
-   "updated": "2026-11-09",
+   "updated": "2026-11-10",
    "facts": {
     "control": "survivor",
     "ground_class": "B",
+    "function": "Deep in the margin. Accessibility seasonal",
     "lon": 21.1711,
     "lat": 52.1456,
-    "coords_approximate": false
+    "coords_approximate": false,
+    "water_condition": "Class B, shallow seasonal flood. What is passable in June is not passable in January."
    },
    "rel": [
     {
@@ -882,17 +910,20 @@
    "reliability": "C, four passages (Protocol 001, Protocol 002, the Prologue and Chapter 16). The register itself carries no source tag.",
    "status": "Draft",
    "featured": null,
-   "sources": null,
+   "sources": 4,
    "note": "",
    "xnote": "",
    "aliases": "",
-   "updated": "2026-11-09",
+   "updated": "2026-11-10",
    "facts": {
     "control": "survivor",
     "ground_class": "D",
+    "function": "Southern end of the corridor. Grounds large. Escape route link",
     "lon": 21.0897,
     "lat": 52.1653,
-    "coords_approximate": false
+    "coords_approximate": false,
+    "water_condition": "Class D, dry but cut off. The southern escape route is affected by southern flood levels in summer.",
+    "events": "The southern escape route, ZAC, begins here."
    },
    "rel": [
     {
@@ -949,24 +980,26 @@
    "type": "LOC",
    "name": "Filtry (OP-Filtry, F1)",
    "mark": "PROX_SCAN",
-   "grade": "",
+   "grade": "C",
    "summary": "The water filtration station, and the only reliably clean supply in the corridor.",
    "entry": "Filtry. Water filtration. Critical. Near Russian R0. Class D ground. Grid reference 52.2206 N, 21.0080 E. It is the survivor position closest to the western ring. The supply is treated with charcoal and a three-stage sand bed, and it is the only supply in the corridor that is reliably free of the compound. The post at R0 has it in sight. Protocol 002 places R0 in Ochota, on the west bank and adjacent to the station, and says that every litre reaching the corridor passes under its eye. The register also lists a forward Kontakt point, KF, central and near the station, marked dangerous because it is close to the west bank. The Diana first records that the filtration is the reason the occupier has not taken the station, and then withdraws the statement: the occupier has left it alone because it is not worth taking, and the relationship runs the other way round.",
    "appears": "Chapter 3: The Zone (Protocol 001), sections 6 and 7. Chapter 6: The Occupation (Protocol 002), section 4. Chapter 9: The Dendron (Protocol 003), section 6.4.",
    "reliability": "C for the position, the function and the view from R0: three documents (Protocol 001, sections 6 and 7; Protocol 002, section 4, tagged C; Protocol 003). E for the treatment and for the claim that the supply is reliably free of the compound: one passage, Protocol 003, section 6.4, untagged and Diana's own.",
    "status": "Draft",
    "featured": null,
-   "sources": null,
+   "sources": 3,
    "note": "",
    "xnote": "",
    "aliases": "",
-   "updated": "2026-11-09",
+   "updated": "2026-11-10",
    "facts": {
     "control": "survivor",
     "ground_class": "D",
+    "function": "Water filtration. Critical. Near Russian R0",
     "lon": 21.008,
     "lat": 52.2206,
-    "coords_approximate": false
+    "coords_approximate": false,
+    "water_condition": "Class D. The only supply in the corridor reliably free of the compound, treated with charcoal and a three-stage sand bed."
    },
    "rel": [
     {
@@ -1013,14 +1046,17 @@
    "reliability": "The water table is the most reliable series in the corridor, by the manuscript's own account. Grade C. The Docks are named in eight passages, from Protocol 001 to Protocol 005, and two diary entries are set there. Protocol 005 rates the gauge series 0.9. The register gives no grid reference for Termika.",
    "status": "Draft",
    "featured": null,
-   "sources": null,
+   "sources": 8,
    "note": "",
    "xnote": "",
    "aliases": "",
-   "updated": "2026-11-09",
+   "updated": "2026-11-10",
    "facts": {
     "control": "survivor",
-    "coords_approximate": false
+    "function": "Docks. The water gauge and the canal control room",
+    "coords_approximate": false,
+    "water_condition": "Staff gauge at 84.1 m on 26 July 2034. Overtopped at 02:50 on 2 September 2034, and in one flood the Docks became an island.",
+    "events": "Diana follows Lucasz through a day, 26 July 2034. The second flood, 2 September 2034: three lost. A Russian biochemist asks for the engineer, 30 October 2034."
    },
    "rel": [
     {
@@ -1115,16 +1151,19 @@
    "reliability": "C, two documents (Protocol 002 and Protocol 005). The searchlight at sunset is tagged C. The description of the Citadel as the command centre, and the sluice that could be opened from it, are untagged.",
    "status": "Draft",
    "featured": null,
-   "sources": null,
+   "sources": 2,
    "note": "",
    "xnote": "",
    "aliases": "",
-   "updated": "2026-11-09",
+   "updated": "2026-11-10",
    "facts": {
     "control": "occupier",
+    "function": "Command centre. Controls river access from the north",
     "lon": 20.999,
     "lat": 52.265,
-    "coords_approximate": true
+    "coords_approximate": true,
+    "water_condition": "West bank, on the higher and drier ground.",
+    "events": "A searchlight crosses the east bank at sunset each day. On the night of 31 December 2034 it is held on Żerań for two and a half hours from 02:30."
    },
    "rel": [
     {
@@ -1182,16 +1221,19 @@
    "reliability": "C, five passages. The Palace as the seat of the broadcasts is given in Protocol 002 and in the headnote to Interlude I. The studio in the building rests on Interlude IV alone, a reconstruction from a script, an engineer's log and recordings. The fuel stocks rest on one recording.",
    "status": "Draft",
    "featured": null,
-   "sources": null,
+   "sources": 5,
    "note": "",
    "xnote": "",
    "aliases": "",
-   "updated": "2026-11-09",
+   "updated": "2026-11-10",
    "facts": {
     "control": "occupier",
+    "function": "Logistics and supply hub. Broadcast mast and studio",
     "lon": 21.006,
     "lat": 52.2317,
-    "coords_approximate": true
+    "coords_approximate": true,
+    "water_condition": "West bank, on the higher and drier ground.",
+    "events": "Loudspeaker broadcasts at 08:00 and 20:00, with the Old Town."
    },
    "rel": [
     {
@@ -1264,16 +1306,19 @@
    "reliability": "C, three passages. The loudspeakers are tagged C in Protocol 002. The occupation of the district for its symbolism is Diana's judgement, untagged.",
    "status": "Draft",
    "featured": null,
-   "sources": null,
+   "sources": 3,
    "note": "",
    "xnote": "",
    "aliases": "",
-   "updated": "2026-11-09",
+   "updated": "2026-11-10",
    "facts": {
     "control": "occupier",
+    "function": "Occupied for its symbolism. Loudspeakers on the ramparts",
     "lon": 21.0122,
     "lat": 52.2497,
-    "coords_approximate": true
+    "coords_approximate": true,
+    "water_condition": "West bank, on the higher and drier ground.",
+    "events": "Loudspeaker broadcasts at 08:00 and 20:00, with the Palace."
    },
    "rel": [
     {
@@ -1328,16 +1373,18 @@
    "reliability": "U, one manuscript passage, which tags the sighting itself as one source.",
    "status": "Draft",
    "featured": null,
-   "sources": null,
+   "sources": 1,
    "note": "",
    "xnote": "",
    "aliases": "",
-   "updated": "2026-11-09",
+   "updated": "2026-11-10",
    "facts": {
     "control": "occupier",
+    "function": "Air defence. Missile batteries seen between the trees",
     "lon": 21.0357,
     "lat": 52.215,
-    "coords_approximate": true
+    "coords_approximate": true,
+    "water_condition": "West bank, drier than the east."
    },
    "rel": [
     {
@@ -1363,23 +1410,26 @@
    "type": "LOC",
    "name": "Szucha and Pawiak",
    "mark": "TRIGGER_V1",
-   "grade": "",
+   "grade": "C",
    "summary": "Two buildings of interrogation and imprisonment that the occupier has taken over unchanged.",
    "entry": "The German security police took the building at Aleja Szucha 25 in 1939 and used its cellars for interrogation. The Russian force has reoccupied it. A tunnel is reported to run from the cellars to the old prison at Pawiak, which has been reactivated. Persons are taken in. Some are returned. A source who walked past Pawiak on 14 September counted seven lit windows. In each case the occupier has built nothing. Szucha was built to be afraid of. Pawiak was built to hold. Major Alexei Dmitrievich Budanov, head of screening and intelligence, operates from Szucha, and his name is on the orders. Interlude III is set in the building. The bedroom is on the third floor of the north wing and the office is room 214, with a plaster rose on the ceiling. A courtyard has a plane tree. The screening room is on the lower ground floor, was a cell, and has a drain in its rubber floor. Screening runs in seven steps and ends in one of four decisions: release, retain, transfer or treat. In Chapter 10 Magda Wiśniewska says that she gave the occupier eleven names as a child, that four of those people were taken to Szucha, and that two returned. Szucha is also the name of a radio net that Magda monitors. Pawiak is named in no passage other than Protocol 002.",
    "appears": "Chapter 6: The Occupation (Protocol 002), sections 5.5 and 7.2. Interlude III: Major Budanov, Aleja Szucha. Chapter 10: The Listener, Magda Wiśniewska's recording of March 2036. Chapter 11: The Orphan, Diana's diary of 30 November 2034, on the Szucha net. Chapter 12: The Codex (Protocol 004), the intercept from the Szucha net.",
    "reliability": "C for Szucha as the seat of Budanov and of screening: Protocol 002, Interlude III, Chapter 10, Chapter 11 and Protocol 004. U for the tunnel, one source, as Protocol 002 tags it. Pawiak is named in one passage only, Protocol 002, section 5.5, which says without a tag that it has been reactivated and gives one source's count of seven lit windows on 14 September.",
    "status": "Draft",
    "featured": null,
-   "sources": null,
+   "sources": 5,
    "note": "",
    "xnote": "",
    "aliases": "",
-   "updated": "2026-11-09",
+   "updated": "2026-11-10",
    "facts": {
     "control": "occupier",
+    "function": "Interrogation, screening and imprisonment",
     "lon": 21.0236,
     "lat": 52.2188,
-    "coords_approximate": true
+    "coords_approximate": true,
+    "water_condition": "West bank, on the higher and drier ground.",
+    "events": "Seven lit windows counted at Pawiak, 14 September 2034. Interlude III follows one day of screening here."
    },
    "rel": [
     {
@@ -1449,21 +1499,23 @@
    "type": "LOC",
    "name": "R0 and RM",
    "mark": "TRIGGER_V1",
-   "grade": "",
+   "grade": "C",
    "summary": "Two Russian posts on the water, one of which watches the filtration station.",
    "entry": "RM stands about three kilometres from the Żerań dock and can be seen from the roof of the control room on a clear morning. It has not fired. R0 is the post that matters to the water. The filtration station at Filtry stands within sight of it, and every litre that reaches the corridor passes under its eye. R0 is also the call sign under which the rota is read on the observation net. From the observation post a rota is read aloud every sixth day, at 06:00, to six field commanders, who each reply Received and a number. R0 stands in Ochota, on the west bank, adjacent to Filtry. RM stands at Tarchomin, north of Żerąń, and puts direct pressure on the hub; its coordinates are given as approximate. Protocol 002 records a radio check of all posts every four hours, on the hour. On 22 September 2034 Magda Wiśniewska let Diana hear five posts check in at 23:00: R0, RM, RW, RN and R4. On the night of 31 December, Kontakt KB reported many engines to the north, at RM. Interlude II is set in the observation post: a room four metres by three, in cinder block, with a steel shutter raised twenty centimetres over a strip of the city. Through it Sasha Lebedev sees an eleven-storey block whose lower four floors are covered by green growth advancing four to nine centimetres a day. He had been at the post ninety-four days on 4 October and was relieved on 11 October. The survivors call him the Watcher.",
    "appears": "Chapter 3: The Zone (Protocol 001), section 6, where Filtry is listed as near R0. Chapter 6: The Occupation (Protocol 002), sections 4, 7.3, 8 and 11.1. Interlude II: Sasha Lebedev, Observation Post R0. Chapter 10: The Listener, Diana's diary of 22 September 2034. Chapter 15: The Aftermath (Protocol 005), section 3, for RM.",
    "reliability": "C for R0: four documents (Protocol 001, Protocol 002, Interlude II and Chapter 10). E for RM: three passages (Protocol 002, Chapter 10 and Protocol 005), and its coordinates are marked approximate.",
    "status": "Draft",
    "featured": null,
-   "sources": null,
+   "sources": 5,
    "note": "",
    "xnote": "",
    "aliases": "",
-   "updated": "2026-11-09",
+   "updated": "2026-11-10",
    "facts": {
     "control": "occupier",
-    "coords_approximate": false
+    "function": "Observation posts. R0 watches Filtry; RM presses on the Żerań hub",
+    "coords_approximate": false,
+    "events": "The 06:00 transmission from R0 stops for four minutes, 2 October 2034. Sasha Lebedev is relieved, 11 October 2034. Many engines reported at RM on the night of 31 December 2034."
    },
    "rel": [
     {
@@ -1540,16 +1592,19 @@
    "reliability": "E. One manuscript passage (Protocol 002, section 6.1, repeated in its table). The bus count rests on one Runner. No second witness and no one who has been inside.",
    "status": "Draft",
    "featured": null,
-   "sources": null,
+   "sources": 1,
    "note": "",
    "xnote": "",
    "aliases": "",
-   "updated": "2026-11-09",
+   "updated": "2026-11-10",
    "facts": {
     "control": "occupier",
+    "function": "Screening point, in the physical education academy",
     "lon": 20.9752,
     "lat": 52.2745,
-    "coords_approximate": true
+    "coords_approximate": true,
+    "water_condition": "Left bank.",
+    "events": "Two buses a day, at about 07:00 and 16:00, observed 3 September to 20 October 2034."
    },
    "rel": [
     {
@@ -1595,20 +1650,21 @@
    "type": "LOC",
    "name": "SP-2, Torwar",
    "mark": "TRIGGER_V1",
-   "grade": "",
+   "grade": "E",
    "summary": "A screening point in an ice arena at the centre.",
    "entry": "The ice arena and sports hall on Łazienkowska, near the river, in the centre. It receives persons who cross at the central bridges. The lights are on all night. The ice is said to be still kept frozen, and the power for it was the first restored in that district. That is a large use of power for a place that offers warm beds. Protocol 002 gives its position as approximately 52.216 N, 21.040 E. The report of the ice and the power comes from one source, who worked the south shore before the second flood. Interlude III: Major Budanov, Aleja Szucha, describes a checkpoint on the Poniatowski Bridge, where arrivals are assessed on the bridge and passed on to a reception hall on the left bank. The manuscript does not say whether that hall is this arena.",
    "appears": "Chapter 6: The Occupation (Protocol 002), section 6.2 and the table of screening points. Interlude III: Major Budanov, Aleja Szucha, for the bridge checkpoint.",
    "reliability": "E for the crossings and the position. U for the ice and the power: one source. One manuscript passage (Protocol 002, section 6.2, repeated in its table), with no second witness.",
    "status": "Draft",
    "featured": null,
-   "sources": null,
+   "sources": 1,
    "note": "",
    "xnote": "",
    "aliases": "",
-   "updated": "2026-11-09",
+   "updated": "2026-11-10",
    "facts": {
     "control": "occupier",
+    "function": "Screening point, in the ice arena on Łazienkowska",
     "lon": 21.0376,
     "lat": 52.2183,
     "coords_approximate": true
@@ -1662,23 +1718,25 @@
    "type": "LOC",
    "name": "SP-3, Służewiec",
    "mark": "TRIGGER_V1",
-   "grade": "",
+   "grade": "E",
    "summary": "A screening point at the racecourse, the only one with its own fence.",
    "entry": "The racecourse in Mokotów: stables, a grandstand and a very large open ground. It receives persons who cross from Czerniaków and Wilanów, in the south. It is the only point with a fence of its own. The fence is new, two and a half metres high, in pale galvanised wire that shows against the grass in photographs taken from the flood margin. Persons are queued on the open ground, and the queue is said to be orderly. Protocol 002 gives its position as approximately 52.185 N, 20.970 E. Mokotów is on the west bank, on the higher and drier ground. Of the three points the compiler can place, it is the only one for which Protocol 002 cites photographs.",
    "appears": "Chapter 6: The Occupation (Protocol 002), section 6.3 and the table of screening points.",
    "reliability": "C for the fence: two photographs. E for the crossings and the position. U for the queue, which is hearsay. One manuscript passage (Protocol 002, section 6.3, repeated in its table).",
    "status": "Draft",
    "featured": null,
-   "sources": null,
+   "sources": 1,
    "note": "",
    "xnote": "",
    "aliases": "",
-   "updated": "2026-11-09",
+   "updated": "2026-11-10",
    "facts": {
     "control": "occupier",
+    "function": "Screening point at the racecourse. The only one with its own fence",
     "lon": 20.9945,
     "lat": 52.181,
-    "coords_approximate": true
+    "coords_approximate": true,
+    "water_condition": "West bank, on the higher and drier ground."
    },
    "rel": [
     {
@@ -1739,13 +1797,14 @@
    "reliability": "U. One manuscript passage (Protocol 002, section 6.4): one sighting of one bus destination board, with no second witness.",
    "status": "Draft",
    "featured": null,
-   "sources": null,
+   "sources": 1,
    "note": "",
    "xnote": "",
    "aliases": "",
-   "updated": "2026-11-09",
+   "updated": "2026-11-10",
    "facts": {
     "control": "occupier",
+    "function": "Screening point",
     "coords_approximate": false
    },
    "rel": [
@@ -1792,23 +1851,25 @@
    "type": "LOC",
    "name": "Okęcie",
    "mark": "TRIGGER_V1",
-   "grade": "",
+   "grade": "C",
    "summary": "The airport, a supply hub and the subject of a rumour.",
    "entry": "The airport is not a screening point. It is the supply hub, and it is where the aircraft come. Among survivors it is believed that certain persons are not sent on to the shelters at all but are flown out from Okęcie, and that they are the persons the occupier most wishes to keep. The word used is rendered. The belief has been heard in three places that do not speak to one another. Protocol 002 also lists the airport among the posts of the outer ring as RA, Chopin Airport, with the purpose supply hub and air control, at approximately 52.166 N, 20.967 E. It uses RA for the airport and RKS for the post south of Wilanów, to resolve two codes the field map gives twice. In Protocol 001 no route west can be made, because of the airport and the occupied west bank, and three attempts were abandoned. In Protocol 004, link WT-05 of the evidence chain is the route of a single supply flight into the airport, flown three times at night with no declared cargo, and is rated 0.6.",
    "appears": "Chapter 6: The Occupation (Protocol 002), sections 3 and 6.5. Chapter 3: The Zone (Protocol 001), section 4. Chapter 12: The Codex (Protocol 004), section 7, link WT-05.",
    "reliability": "C for the airport as a supply hub: Protocol 002 and the supply flight at link WT-05 of Protocol 004. U for the rendering: heard in three places, seen by no source. Three manuscript passages.",
    "status": "Draft",
    "featured": null,
-   "sources": null,
+   "sources": 3,
    "note": "",
    "xnote": "",
    "aliases": "",
-   "updated": "2026-11-09",
+   "updated": "2026-11-10",
    "facts": {
     "control": "occupier",
+    "function": "Supply hub and air control",
     "lon": 20.9671,
     "lat": 52.1657,
-    "coords_approximate": true
+    "coords_approximate": true,
+    "events": "A supply flight with no declared cargo is flown three times at night (Protocol 004, link WT-05)."
    },
    "rel": [
     {
@@ -1867,14 +1928,17 @@
    "reliability": "E. Four manuscript passages (Protocol 002, section 6.6; Interlude I; Interlude IV; Interlude VI). Shelters 1 to 6 are U, heard from two persons who were not together. Shelter 9 rests on one ledger, and Alex marks which details of the hall are his own reconstruction.",
    "status": "Draft",
    "featured": null,
-   "sources": null,
+   "sources": 4,
    "note": "",
    "xnote": "",
    "aliases": "",
-   "updated": "2026-11-09",
+   "updated": "2026-11-10",
    "facts": {
     "control": "occupier",
-    "coords_approximate": false
+    "function": "Beds for those who pass screening",
+    "coords_approximate": false,
+    "water_condition": "Left bank.",
+    "events": "About 340 persons accept the offer from June 2034. Wiktor Szeliga is in Shelter 9 in June 2035."
    },
    "rel": [
     {
@@ -1946,13 +2010,17 @@
    "reliability": "E. Four manuscript passages (Protocol 001, sections 4, 8 and 9; Protocol 002, section 3), all by one compiler. The routes, distances and durations are her estimates. That the occupier leaves the gaps open is Diana Antonoff's belief, and no source confirms it.",
    "status": "Draft",
    "featured": null,
-   "sources": null,
+   "sources": 4,
    "note": "",
    "xnote": "",
    "aliases": "",
-   "updated": "2026-11-09",
+   "updated": "2026-11-10",
    "facts": {
-    "coords_approximate": false
+    "control": "contested",
+    "function": "Routes out of the corridor, through the gaps in the occupier's ring",
+    "coords_approximate": false,
+    "water_condition": "Seasonal. The north route is high risk in summer and the preferred route over ice in winter. The southern route is affected by southern flood levels in summer.",
+    "events": "Three attempts at a route west were abandoned."
    },
    "rel": [
     {
@@ -1991,20 +2059,24 @@
    "type": "LOC",
    "name": "The sewers",
    "mark": "ACT_SYNC",
-   "grade": "",
+   "grade": "E",
    "summary": "The tunnels under the city, used as a way through in 1944 and again now.",
    "entry": "The sewers are a way through the city. In August 1944 a unit of the Home Army moved through the sewers under Śródmieście. In the present account Anna carried the child Nikita down to the sewers, because that was where one went, and the two travelled through them for three weeks. Nikita, at six, was the best ear in the tunnels. The Dendron has been found in the sewers of Targówek. A mass in a sewer does not remove its function but blocks it, so that the drains back up and the water rises. The account of 1944 is a story that Marek Olszewski tells at the kitchen table on Thursdays, which Diana Antonoff records in her diary of 30 November 2034. The unit's captain held his line for three weeks, and the men later found in his coat a note offering him terms. The account of the three weeks is Nikita's own, written on a pad in Wrocław in February 2036, when she is eight. Anna was thirteen. In the dark Nikita could hear the water in the pipe, people breathing far off and boots overhead, and she signalled to Anna with her fingers on Anna's wrist. She also heard a low sound in the pipes, like a person crying with a hand over the mouth, and it did not frighten her.",
    "appears": "Chapter 9: The Dendron (Protocol 003), section 4. Chapter 11: The Orphan (Diana's diary of 30 November 2034, with Marek's story of the captain). Chapter 14: The Mouse (Nikita's written account).",
    "reliability": "C for the Dendron in the sewers of Targówek: Protocol 003 marks it as several sources. E for the rest: three manuscript passages, each a single telling. The 1944 story is Marek's, and the three weeks are Nikita's, written at eight about events at six.",
    "status": "Draft",
    "featured": null,
-   "sources": null,
+   "sources": 3,
    "note": "",
    "xnote": "",
    "aliases": "",
-   "updated": "2026-11-09",
+   "updated": "2026-11-10",
    "facts": {
-    "coords_approximate": false
+    "control": "contested",
+    "function": "A way through the city, under it",
+    "coords_approximate": false,
+    "water_condition": "Where the Dendron blocks a drain, the water backs up and rises.",
+    "events": "A Home Army unit moves through the sewers under Śródmieście, August 1944. Anna and Nikita spend three weeks in them."
    },
    "rel": [
     {
@@ -2056,20 +2128,25 @@
    "type": "LOC",
    "name": "St Michael's Cathedral",
    "mark": "",
-   "grade": "",
+   "grade": "C",
    "summary": "A flooded cathedral on the Praga shore.",
    "entry": "The cathedral stands on the Praga side of the water and the water has been in it. A tide line runs across the nave pillars at the height of a hip. The roof is open in two places over the north aisle. Pigeons nest there, and there is a smell of wet plaster and old incense. The west door hangs from one hinge. The diary entry is dated 9 August 2034, at 06:15, under overcast and low light, with the water flat and the colour of pewter. Diana stands for a full minute inside the west door to let her eyes find the dark. The nave holds several thousand photographs, laid in rows on the altar steps and along the lowest courses of the pews, each weighted at the corners with a pebble or a spent cartridge, and more are pegged on lines between the pillars. They are sorted by year: weddings in one aisle, holidays in another, school photographs in a long rank. Felicyta Cielinski, nineteen, sits among them on a folding stool and talks to the prints. A child of about six, Nikita, sits on the floor and touches none. A Runner stays at the door and will not come in. In her own testimony Fritha calls the place the church, gives the count as five thousand, and says she brought the prints in by boat and laid them on the steps. Alex notes in Chapter 3 that Fritha's church is in Class D, under the name of a place that was a cathedral.",
    "appears": "Chapter 2: The Photographer, in Diana's diary of 9 August 2034 (SY/FC/0011_DD, headed the Praga shoreline, vicinity St Michael's Cathedral) and in Fritha's recorded testimony (SY/FC/0001_GR). Chapter 3: The Zone (Protocol 001), Alex's note that follows the Protocol.",
    "reliability": "C that Fritha kept her prints in a flooded church on the Praga shore: Diana's diary and Fritha's testimony agree. E for the state of the building: one observer, Diana, on 9 August 2034. Three manuscript passages. Only the diary names St Michael's.",
    "status": "Draft",
    "featured": null,
-   "sources": null,
+   "sources": 3,
    "note": "",
    "xnote": "",
    "aliases": "",
-   "updated": "2026-11-09",
+   "updated": "2026-11-10",
    "facts": {
-    "coords_approximate": false
+    "control": "survivor",
+    "ground_class": "D",
+    "function": "Fritha's church, where she keeps the photographs",
+    "coords_approximate": false,
+    "water_condition": "Flooded. A tide line runs across the nave pillars at hip height.",
+    "events": "Diana's first visit, 9 August 2034 at 06:15. On the twenty-second day Fritha photographs Diana."
    },
    "rel": [
     {
@@ -2119,13 +2196,17 @@
    "reliability": "C. Stated by Alex in the Foreword, and confirmed by the headings and text of Diana's diary entries from Diary 001 onward. At least eight manuscript passages.",
    "status": "Draft",
    "featured": null,
-   "sources": null,
+   "sources": 8,
    "note": "",
    "xnote": "",
    "aliases": "",
-   "updated": "2026-11-09",
+   "updated": "2026-11-10",
    "facts": {
-    "coords_approximate": false
+    "control": "survivor",
+    "function": "Diana's home, an abandoned houseboat",
+    "coords_approximate": false,
+    "water_condition": "Still water at the northern edge of the wetlands. The canal ice is walkable at the margin on 9 December and frozen bank to bank by 28 December 2034.",
+    "events": "Diana goes aboard, 1 June 2034. Her last entries are written from the deck, 30 December 2034."
    },
    "rel": [
     {
@@ -2193,20 +2274,24 @@
    "type": "LOC",
    "name": "Żerań power station",
    "mark": "",
-   "grade": "",
+   "grade": "C",
    "summary": "A power station on which the Dendron does not grow.",
    "entry": "The Dendron does not grow on the bricks of the Żerań power station. Diana Antonoff, who compiled Protocol 003, has no explanation and examined it on four days. The organism grows up to the edge of the old coal yard and stops. It is a note to file, not a finding. From the houseboat across the canal the chimneys of the plant are striped red and white, and the hum of the plant carries at night. The log in Protocol 005 records that the station basement flooded and the lights at Żerań went out at 02:05 on 1 January 2035, and that eleven rounds were fired at 02:40 at the chimney, the control room and the dock. Radio contact with the Żerań station ended at 03:05 in the middle of the sentence \"Tell Diana the chimney is\". Alex later finds the red and white stack standing, the only thing at Żerań not brought down, with reeds grown up around it and a heron at its foot, and does not know why it was spared.",
    "appears": "Chapter 9: The Dendron (Protocol 003), section 11.1. Diary 001: The Arrival (the plant seen from the houseboat). Chapter 15: The Aftermath (Protocol 005), the log of 1 January 2035, section 5, section 10.3 and Alex's closing note.",
    "reliability": "E for the bricks: one manuscript passage (Protocol 003, section 11.1), examined by Diana Antonoff on four days, with no cause given and no second witness. C for the shelling and the loss of power: the Protocol 005 log, its section 5 and Alex's closing note agree. Four passages in all.",
    "status": "Draft",
    "featured": null,
-   "sources": null,
+   "sources": 4,
    "note": "",
    "xnote": "",
    "aliases": "",
-   "updated": "2026-11-09",
+   "updated": "2026-11-10",
    "facts": {
-    "coords_approximate": false
+    "control": "survivor",
+    "function": "Power station",
+    "coords_approximate": false,
+    "water_condition": "The basement flooded on 1 January 2035.",
+    "events": "On 1 January 2035 the lights go out at 02:05, eleven rounds are fired at 02:40 and radio contact ends at 03:05. The chimney is not brought down."
    },
    "rel": [
     {
@@ -2323,7 +2408,7 @@
    "facts": {
     "age": "28",
     "age_grade": "C",
-    "role": "Jounalist",
+    "role": "Journalist",
     "group_name": "Visitor",
     "first_appearance": "foreword",
     "own_protocol": "diary-001-the-arrival",
@@ -2611,12 +2696,18 @@
    "note": "",
    "xnote": "",
    "aliases": "",
-   "updated": "2026-11-09",
+   "updated": "2026-11-10",
    "facts": {
     "age": "42",
     "age_grade": "U",
+    "role": "The Runners' guide through the wetlands",
+    "group_name": "The Runners",
+    "first_appearance": "foreword",
     "own_protocol": "chapter-1-the-blasphemer",
-    "own_protocol_t": "Chapter 1: The Blasphemer"
+    "distinguishing_trait": "Swears at everything. Hears a drone before anyone else. Sits with his back to the wall.",
+    "fate": "Alive in 2036, at a veterans' facility outside Gdańsk.",
+    "own_protocol_t": "Chapter 1: The Blasphemer",
+    "first_appearance_t": "Foreword"
    },
    "rel": [
     {
@@ -2765,8 +2856,14 @@
    "updated": "2026-11-10",
    "facts": {
     "age": "19",
+    "role": "Photographer",
+    "group_name": "Survivor community",
+    "first_appearance": "chapter-2-the-photographer",
     "own_protocol": "chapter-2-the-photographer",
-    "own_protocol_t": "Chapter 2: The Photographer"
+    "distinguishing_trait": "Keeps photographs, and will not be photographed.",
+    "fate": "Alive in 2036, restoring recordings and glass negatives in a museum basement in Berlin.",
+    "own_protocol_t": "Chapter 2: The Photographer",
+    "first_appearance_t": "Chapter 2: The Photographer"
    },
    "rel": [
     {
@@ -2862,10 +2959,17 @@
    "note": "",
    "xnote": "",
    "aliases": "",
-   "updated": "2026-11-09",
+   "updated": "2026-11-10",
    "facts": {
+    "age": "55 in August 2034, 57 when the archivist met him",
+    "role": "Wanderer. Former seminarian",
+    "group_name": "Survivor community",
+    "first_appearance": "chapter-1-the-blasphemer",
     "own_protocol": "chapter-5-the-pilgrim",
-    "own_protocol_t": "Chapter 5: The Pilgrim"
+    "distinguishing_trait": "Owns a coat, a pair of boots and a prayer book.",
+    "fate": "Alive in 2036, making tea at a refugee centre outside Przemyśl.",
+    "own_protocol_t": "Chapter 5: The Pilgrim",
+    "first_appearance_t": "Chapter 1: The Blasphemer"
    },
    "rel": [
     {
@@ -2932,10 +3036,17 @@
    "note": "",
    "xnote": "",
    "aliases": "",
-   "updated": "2026-11-09",
+   "updated": "2026-11-10",
    "facts": {
+    "age": "About 36 in July 2034",
+    "role": "Engineer. Keeps the control room and reads the dock gauge",
+    "group_name": "Survivor community",
+    "first_appearance": "foreword",
     "own_protocol": "chapter-4-the-engineer",
-    "own_protocol_t": "Chapter 4: The Engineer"
+    "distinguishing_trait": "Lays the flat of his hand on a thing before he speaks a figure.",
+    "fate": "Alive in 2036, working on a sluice site on the Martwa Wisła outside Gdańsk.",
+    "own_protocol_t": "Chapter 4: The Engineer",
+    "first_appearance_t": "Foreword"
    },
    "rel": [
     {
@@ -3029,8 +3140,14 @@
    "updated": "2026-11-10",
    "facts": {
     "age": "36",
+    "role": "Violinist and teacher",
+    "group_name": "Survivor community",
+    "first_appearance": "foreword",
     "own_protocol": "chapter-7-the-musician",
-    "own_protocol_t": "Chapter 7: The Musician"
+    "distinguishing_trait": "Plays with a bow of stripped green willow strung with horsehair.",
+    "fate": "Alive in 2036, teaching a mixed class in a former school in Wrocław.",
+    "own_protocol_t": "Chapter 7: The Musician",
+    "first_appearance_t": "Foreword"
    },
    "rel": [
     {
@@ -3123,11 +3240,17 @@
    "note": "",
    "xnote": "",
    "aliases": "",
-   "updated": "2026-11-09",
+   "updated": "2026-11-10",
    "facts": {
     "age": "40 at first account, 41 later",
+    "role": "Medic. Runs the old hospital at Brodno",
+    "group_name": "Survivor community",
+    "first_appearance": "chapter-7-the-musician",
     "own_protocol": "chapter-8-the-medic",
-    "own_protocol_t": "Chapter 8: The Medic"
+    "distinguishing_trait": "Allocates strictly by list, and keeps a ledger of those who will not receive each drug.",
+    "fate": "Alive in 2036, running a clinic in Kraków from a former bank.",
+    "own_protocol_t": "Chapter 8: The Medic",
+    "first_appearance_t": "Chapter 7: The Musician"
    },
    "rel": [
     {
@@ -3238,11 +3361,16 @@
    "aliases": "",
    "updated": "2026-11-10",
    "facts": {
+    "age": "16 in 2034, 18 in 2036",
     "age_grade": "E",
     "role": "Announcer",
+    "group_name": "Survivor community",
+    "first_appearance": "interlude-i-wiktor-szeliga-block-c",
     "own_protocol": "chapter-10-the-listener",
     "distinguishing_trait": "Composed. Eloquent",
-    "own_protocol_t": "Chapter 10: The Listener"
+    "fate": "Alive in 2036, in Lublin.",
+    "own_protocol_t": "Chapter 10: The Listener",
+    "first_appearance_t": "Interlude I: Wiktor Szeliga, Block C"
    },
    "rel": [
     {
@@ -3351,11 +3479,17 @@
    "note": "",
    "xnote": "",
    "aliases": "",
-   "updated": "2026-11-09",
+   "updated": "2026-11-10",
    "facts": {
     "age": "17 at the first account and 19 later",
+    "role": "Captain of the Kosciuszko Group. Later a captain at the Dęblin air academy",
+    "group_name": "Kosciuszko Group",
+    "first_appearance": "chapter-11-the-orphan",
     "own_protocol": "chapter-11-the-orphan",
-    "own_protocol_t": "Chapter 11: The Orphan"
+    "distinguishing_trait": "Stands with her back to the wall. Keeps a pad headed Order.",
+    "fate": "Alive in 2036, at the Dęblin air academy. Visits her father in Lublin on Sundays.",
+    "own_protocol_t": "Chapter 11: The Orphan",
+    "first_appearance_t": "Chapter 11: The Orphan"
    },
    "rel": [
     {
@@ -3416,11 +3550,17 @@
    "note": "",
    "xnote": "",
    "aliases": "",
-   "updated": "2026-11-09",
+   "updated": "2026-11-10",
    "facts": {
     "age": "14 when she stole to keep her mother alive, 16 when the archivist met her",
+    "role": "Thief. Later supply coordinator of the Solidarity Brigade",
+    "group_name": "Solidarity Brigade",
+    "first_appearance": "chapter-8-the-medic",
     "own_protocol": "chapter-13-the-youngest",
-    "own_protocol_t": "Chapter 13: The Youngest"
+    "distinguishing_trait": "Quick hands. Took the archivist's pen within a minute, and gave it back.",
+    "fate": "Alive in 2036, an investigator at an anti-corruption foundation in Warsaw.",
+    "own_protocol_t": "Chapter 13: The Youngest",
+    "first_appearance_t": "Chapter 8: The Medic"
    },
    "rel": [
     {
@@ -3511,9 +3651,15 @@
    "note": "",
    "xnote": "",
    "aliases": "",
-   "updated": "2026-11-09",
+   "updated": "2026-11-10",
    "facts": {
-    "age": "about 13"
+    "age": "about 13",
+    "role": "Nikita's guardian",
+    "group_name": "Survivor community",
+    "first_appearance": "chapter-2-the-photographer",
+    "distinguishing_trait": "Long plait. Keeps the rules of the flat.",
+    "fate": "Alive in 2036, living with Nikita in Wrocław.",
+    "first_appearance_t": "Chapter 2: The Photographer"
    },
    "rel": [
     {
@@ -3584,11 +3730,17 @@
    "note": "",
    "xnote": "",
    "aliases": "",
-   "updated": "2026-11-09",
+   "updated": "2026-11-10",
    "facts": {
     "age": "6",
+    "role": "Child. Hears what the instruments do not",
+    "group_name": "Survivor community",
+    "first_appearance": "foreword",
     "own_protocol": "chapter-14-the-mouse",
-    "own_protocol_t": "Chapter 14: The Mouse"
+    "distinguishing_trait": "Does not speak. Frightened of a single knock.",
+    "fate": "Alive in 2036, living with Anna in Wrocław and painting in watercolours.",
+    "own_protocol_t": "Chapter 14: The Mouse",
+    "first_appearance_t": "Foreword"
    },
    "rel": [
     {
@@ -3681,9 +3833,14 @@
    "note": "",
    "xnote": "",
    "aliases": "",
-   "updated": "2026-11-09",
+   "updated": "2026-11-10",
    "facts": {
-    "age": "about 12"
+    "age": "about 12",
+    "role": "Builds and repairs the radio at Żerań",
+    "group_name": "Survivor community",
+    "first_appearance": "diary-001-the-arrival",
+    "distinguishing_trait": "Reads what makes a machine stall. Makes his own tools.",
+    "first_appearance_t": "Diary 001: The Arrival"
    },
    "rel": [
     {
@@ -3754,9 +3911,15 @@
    "note": "",
    "xnote": "",
    "aliases": "",
-   "updated": "2026-11-09",
+   "updated": "2026-11-10",
    "facts": {
-    "age": "35"
+    "age": "35",
+    "role": "Keeps the stores. Former banker",
+    "group_name": "Survivor community",
+    "first_appearance": "chapter-8-the-medic",
+    "distinguishing_trait": "Will not carry a weapon.",
+    "fate": "Alive in 2036, doing the accounts for Catalina's organisation in Kraków.",
+    "first_appearance_t": "Chapter 8: The Medic"
    },
    "rel": [
     {
@@ -3822,8 +3985,16 @@
    "note": "",
    "xnote": "",
    "aliases": "",
-   "updated": "2026-11-09",
-   "facts": {},
+   "updated": "2026-11-10",
+   "facts": {
+    "age": "About 90. A child in the city in August 1944",
+    "age_grade": "E",
+    "role": "Elder. Tells stories on Thursdays",
+    "group_name": "Survivor community",
+    "first_appearance": "chapter-5-the-pilgrim",
+    "distinguishing_trait": "Tells stories at the kitchen table, with the children under it.",
+    "first_appearance_t": "Chapter 5: The Pilgrim"
+   },
    "rel": [
     {
      "id": "chr-016",
@@ -3889,8 +4060,14 @@
    "note": "",
    "xnote": "",
    "aliases": "",
-   "updated": "2026-11-09",
-   "facts": {},
+   "updated": "2026-11-10",
+   "facts": {
+    "role": "Elder",
+    "group_name": "Survivor community",
+    "first_appearance": "chapter-5-the-pilgrim",
+    "distinguishing_trait": "Makes the tea at Marek's tellings. Gave Janek a room.",
+    "first_appearance_t": "Chapter 5: The Pilgrim"
+   },
    "rel": [
     {
      "id": "chr-015",
@@ -3952,9 +4129,14 @@
    "note": "",
    "xnote": "",
    "aliases": "",
-   "updated": "2026-11-09",
+   "updated": "2026-11-10",
    "facts": {
-    "age": "23"
+    "age": "23",
+    "role": "Couriers",
+    "group_name": "The Runners",
+    "first_appearance": "chapter-1-the-blasphemer",
+    "distinguishing_trait": "Mostly children. Carry messages when the air is jammed.",
+    "first_appearance_t": "Chapter 1: The Blasphemer"
    },
    "rel": [
     {
@@ -4059,8 +4241,14 @@
    "note": "",
    "xnote": "",
    "aliases": "",
-   "updated": "2026-11-09",
-   "facts": {},
+   "updated": "2026-11-10",
+   "facts": {
+    "role": "Journalist. Assembled the archive",
+    "group_name": "Visitor",
+    "first_appearance": "foreword",
+    "distinguishing_trait": "Marks his reconstructions in italics and brackets, and names the source of each passage.",
+    "first_appearance_t": "Foreword"
+   },
    "rel": [
     {
      "id": "chr-001",
@@ -4255,8 +4443,16 @@
    "note": "",
    "xnote": "",
    "aliases": "",
-   "updated": "2026-11-09",
-   "facts": {},
+   "updated": "2026-11-10",
+   "facts": {
+    "role": "Resident of Block C. Later an orderly at Shelter 9",
+    "first_appearance": "interlude-i-wiktor-szeliga-block-c",
+    "own_protocol": "interlude-i-wiktor-szeliga-block-c",
+    "distinguishing_trait": "Counts stairs. A man of order.",
+    "fate": "Unknown. The ledger page after his last night is torn out.",
+    "own_protocol_t": "Interlude I: Wiktor Szeliga, Block C",
+    "first_appearance_t": "Interlude I: Wiktor Szeliga, Block C"
+   },
    "rel": [
     {
      "id": "chr-008",
@@ -4317,9 +4513,17 @@
    "note": "",
    "xnote": "",
    "aliases": "",
-   "updated": "2026-11-09",
+   "updated": "2026-11-10",
    "facts": {
-    "age": "23 (E); in the reconstruction he gives the same age"
+    "age": "23 (E); in the reconstruction he gives the same age",
+    "role": "Contracted operator at Observation Post R0",
+    "group_name": "The Occupation",
+    "first_appearance": "interlude-ii-sasha-lebedev-observation-post-r0",
+    "own_protocol": "interlude-ii-sasha-lebedev-observation-post-r0",
+    "distinguishing_trait": "Reads the rota in the same voice at the same speed.",
+    "fate": "Relieved on 11 October 2034. Nothing further is recorded.",
+    "own_protocol_t": "Interlude II: Sasha Lebedev, Observation Post R0",
+    "first_appearance_t": "Interlude II: Sasha Lebedev, Observation Post R0"
    },
    "rel": [
     {
@@ -4386,10 +4590,15 @@
    "note": "",
    "xnote": "",
    "aliases": "",
-   "updated": "2026-11-09",
+   "updated": "2026-11-10",
    "facts": {
     "age": "approximately 55",
-    "age_grade": "E"
+    "age_grade": "E",
+    "role": "Commanding officer of the occupying force",
+    "group_name": "The Occupation",
+    "first_appearance": "chapter-6-the-occupation-protocol-002",
+    "distinguishing_trait": "Reads. Keeps a clear desk with a single paperback and a glass of water.",
+    "first_appearance_t": "Chapter 6: The Occupation (Protocol 002)"
    },
    "rel": [
     {
@@ -4434,10 +4643,17 @@
    "note": "",
    "xnote": "",
    "aliases": "",
-   "updated": "2026-11-09",
+   "updated": "2026-11-10",
    "facts": {
     "age": "approximately 44",
-    "age_grade": "E"
+    "age_grade": "E",
+    "role": "Head of screening and intelligence, Aleja Szucha",
+    "group_name": "The Occupation",
+    "first_appearance": "interlude-ii-sasha-lebedev-observation-post-r0",
+    "own_protocol": "interlude-iii-major-budanov-aleja-szucha",
+    "distinguishing_trait": "Thorough and courteous. Signs the letter D with a flourish.",
+    "own_protocol_t": "Interlude III: Major Budanov, Aleja Szucha",
+    "first_appearance_t": "Interlude II: Sasha Lebedev, Observation Post R0"
    },
    "rel": [
     {
@@ -4516,9 +4732,14 @@
    "note": "",
    "xnote": "",
    "aliases": "",
-   "updated": "2026-11-09",
+   "updated": "2026-11-10",
    "facts": {
-    "age": "31"
+    "age": "31",
+    "role": "Officer of the day, Poniatowski Bridge checkpoint",
+    "group_name": "The Occupation",
+    "first_appearance": "interlude-iii-major-budanov-aleja-szucha",
+    "distinguishing_trait": "Sweats a little. Declines tea once, then accepts it.",
+    "first_appearance_t": "Interlude III: Major Budanov, Aleja Szucha"
    },
    "rel": [
     {
@@ -4567,9 +4788,15 @@
    "note": "",
    "xnote": "",
    "aliases": "",
-   "updated": "2026-11-09",
+   "updated": "2026-11-10",
    "facts": {
-    "age": "46"
+    "age": "46",
+    "role": "Alisia's mother",
+    "group_name": "Survivor community",
+    "first_appearance": "chapter-8-the-medic",
+    "distinguishing_trait": "Ill with pneumonia, and not on Catalina's list.",
+    "fate": "Lived. Makes jam in Gdynia in 2036.",
+    "first_appearance_t": "Chapter 8: The Medic"
    },
    "rel": [
     {
@@ -4623,8 +4850,14 @@
    "note": "",
    "xnote": "",
    "aliases": "",
-   "updated": "2026-11-09",
-   "facts": {},
+   "updated": "2026-11-10",
+   "facts": {
+    "role": "Keep the keeper's house at the Zoo",
+    "group_name": "Survivor community",
+    "first_appearance": "chapter-13-the-youngest",
+    "distinguishing_trait": "Took in two children, Anna and Nikita.",
+    "first_appearance_t": "Chapter 13: The Youngest"
+   },
    "rel": [
     {
      "id": "chr-011",
@@ -4672,8 +4905,15 @@
    "note": "",
    "xnote": "",
    "aliases": "",
-   "updated": "2026-11-09",
-   "facts": {},
+   "updated": "2026-11-10",
+   "facts": {
+    "role": "Resident of the Zoo",
+    "group_name": "Survivor community",
+    "first_appearance": "chapter-9-the-dendron-protocol-003",
+    "distinguishing_trait": "Leaves a saucer of milk for the Dendron every morning at seven.",
+    "fate": "At stage 1 for three months. Not followed further.",
+    "first_appearance_t": "Chapter 9: The Dendron (Protocol 003)"
+   },
    "rel": [
     {
      "id": "loc-002",
@@ -4730,9 +4970,13 @@
    "note": "",
    "xnote": "",
    "aliases": "",
-   "updated": "2026-11-09",
+   "updated": "2026-11-10",
    "facts": {
-    "object_type": "organism"
+    "object_type": "organism",
+    "holder": "The programme. Supplied by the Russian state",
+    "origin": "Recovered from permafrost in northern Siberia and studied in Soviet laboratories",
+    "function": "Sedates those exposed to its compound, in four stages",
+    "last_seen": "Throughout the corridor, retreating in the cold of December 2034"
    },
    "rel": [
     {
@@ -4877,9 +5121,12 @@
    "note": "",
    "xnote": "",
    "aliases": "",
-   "updated": "2026-11-09",
+   "updated": "2026-11-10",
    "facts": {
-    "object_type": "substance"
+    "object_type": "substance",
+    "holder": "Those who gather it, and members of the resistance",
+    "origin": "Scraped from the surface of mature Dendron masses",
+    "function": "Prepared and taken, a psychedelic used in rituals. Raw, it dulls as the compound does"
    },
    "rel": [
     {
@@ -4925,9 +5172,13 @@
    "note": "",
    "xnote": "",
    "aliases": "",
-   "updated": "2026-11-09",
+   "updated": "2026-11-10",
    "facts": {
-    "object_type": "document"
+    "object_type": "document",
+    "holder": "Alex, the archivist",
+    "origin": "Compiled by Diana Antonoff in 2034",
+    "function": "The source of the archive: binders, tapes, notebooks and photographs",
+    "last_seen": "Beneath a canvas covering at a farm east of Warsaw, where Alex found it"
    },
    "rel": [
     {
@@ -5019,9 +5270,13 @@
    "note": "",
    "xnote": "",
    "aliases": "",
-   "updated": "2026-11-09",
+   "updated": "2026-11-10",
    "facts": {
-    "object_type": "document"
+    "object_type": "document",
+    "holder": "Diana, in binder two. Reproduced by Alex",
+    "origin": "A Russian research directorate. Reached Diana through the Russian scientist",
+    "function": "Sets out Operation Neural Harvest",
+    "last_seen": "Binder two of Diana's bequest"
    },
    "rel": [
     {
@@ -5094,9 +5349,12 @@
    "note": "",
    "xnote": "",
    "aliases": "",
-   "updated": "2026-11-09",
+   "updated": "2026-11-10",
    "facts": {
-    "object_type": "artefact"
+    "object_type": "artefact",
+    "holder": "Janek Dąbrowski",
+    "function": "Prayer book. One of his three possessions",
+    "last_seen": "Przemyśl, January 2036, on the oilcloth between Janek and Alex"
    },
    "rel": [
     {
@@ -5150,9 +5408,13 @@
    "note": "",
    "xnote": "",
    "aliases": "",
-   "updated": "2026-11-09",
+   "updated": "2026-11-10",
    "facts": {
-    "object_type": "artefact"
+    "object_type": "artefact",
+    "holder": "Fritha Cielinski",
+    "origin": "Carried in her father's jacket, found on a railing six days after the flood",
+    "function": "Family photographs. The start of Fritha's collection",
+    "last_seen": "St Michael's, Praga, 9 August 2034, on the altar steps"
    },
    "rel": [
     {
@@ -5202,9 +5464,12 @@
    "note": "",
    "xnote": "",
    "aliases": "",
-   "updated": "2026-11-09",
+   "updated": "2026-11-10",
    "facts": {
-    "lore_type": "programme"
+    "lore_type": "programme",
+    "period": "Before the invasion to 1 January 2035, when Diana believes the cohort phase ended (0.6)",
+    "parties": "The Russian state and at least two Western states, through agencies, military research establishments and private contractors",
+    "consequences": "About forty thousand survivors held as a test cohort, with the flood as the delivery system"
    },
    "rel": [
     {
@@ -5291,9 +5556,12 @@
    "note": "",
    "xnote": "",
    "aliases": "",
-   "updated": "2026-11-09",
+   "updated": "2026-11-10",
    "facts": {
-    "lore_type": "concept"
+    "lore_type": "concept",
+    "period": "The occupation, 2034 to 2035",
+    "parties": "The occupiers, who read the stages by behaviour. Catalina Chmielewska, whose clinical table gives them by exposure",
+    "consequences": "At stage 3 a person gives up a name when asked. Stage 4 is the target state of the programme"
    },
    "rel": [
     {
@@ -5409,10 +5677,12 @@
    "note": "",
    "xnote": "",
    "aliases": "",
-   "updated": "2026-11-09",
+   "updated": "2026-11-10",
    "facts": {
     "lore_type": "history",
-    "period": "1944"
+    "period": "1944",
+    "parties": "The Home Army, the German occupation, and the Red Army on the east bank",
+    "consequences": "The rising was destroyed after sixty-three days and 85 per cent of the left-bank city was razed. The Old Town was rebuilt from photographs and paintings"
    },
    "rel": [
     {
@@ -5491,8 +5761,13 @@
    "note": "",
    "xnote": "",
    "aliases": "",
-   "updated": "2026-11-09",
-   "facts": {},
+   "updated": "2026-11-10",
+   "facts": {
+    "lore_type": "history",
+    "period": "Withdrawn before 1944. In use in the corridor in 2034",
+    "parties": "The survivors, and the municipal authority that withdrew the names",
+    "consequences": "Many streets are passable only under the old names. Annex A lists forty-one"
+   },
    "rel": [
     {
      "id": "obj-003",
@@ -5541,8 +5816,13 @@
    "note": "",
    "xnote": "",
    "aliases": "",
-   "updated": "2026-11-09",
-   "facts": {},
+   "updated": "2026-11-10",
+   "facts": {
+    "lore_type": "event",
+    "period": "From the upstream failures of 11 to 16 October 2028 to the third flood of 31 December 2034",
+    "parties": "The occupiers, who took the canal control room. Lucasz Kowalski, who wrote its gate sequence",
+    "consequences": "The corridor stands at 84 m against a pre-flood datum of 77 m, and the water does not recede"
+   },
    "rel": [
     {
      "id": "loc-001",
@@ -5598,19 +5878,24 @@
    "type": "LOR",
    "name": "Screening",
    "mark": "LOAD_STRESS",
-   "grade": "",
+   "grade": "C",
    "summary": "The occupiers' seven step procedure for establishing the stage of each subject, as run by Major Budanov at Aleja Szucha.",
    "entry": "Screening is the procedure by which the occupiers establish the stage of each person brought to them. Protocol 002 names the screening camps and their head, Major Budanov, and says that what the screening consists of is not known to Diana. Interlude III gives the procedure. It is seven steps, on pages 61 to 88 of a ring-bound procedures binder of 212 pages, in Russian with a Polish translation. A committee wrote it. Budanov revised it in his first week, to take out what was unnecessary, and the word distress in its opening sentence is his. That sentence gives the purpose: to establish, in the shortest time and with the least distress, the stage of each subject. The steps are reception, observation, baseline, the offer, questions, recording and disposition. In observation the subject is watched in silence for between ninety seconds and three minutes, and the stage is read from what the subject does with a glass of water. At stage 1 the subject refuses it. At stage 2 the subject drinks it quickly, with a tremor. At stage 3 the subject drinks it steadily and holds the glass in both hands. At stage 4 the subject neither drinks nor declines. The baseline is five questions, on name, address, date of birth, occupation and nearest relations, with the delay before each answer noted in seconds. In the offer a boiled sweet is held out. About half of the subjects at stage 3 take it, and all at stage 4. The questions then ask for the names of persons hostile to the order of the district, without a raised voice or any touch. A clerk behind glass transcribes the answers in triplicate. The interviewer writes the stage and one of four decisions: Release, Retain, Transfer or Treat. The last two are not explained on any form that Alex has read. A one page annex to the binder, headed Acoustic Conditioning and unsigned, gives a low sound of about 180 hertz with a beat of six seconds, to be played beneath the table for a subject in the first days of exposure. It is not one of the seven steps, and the subject is not told of it. The screening record runs to 4,100 numbered forms, found in eleven boxes in a basement in Praga. Alex has read about three hundred. On one form the box for the sweet is blank. The subject is an interpreter, a woman of forty-one, assessed at stage 0, and the margin carries a note in Budanov's hand that she did not take it and that he is curious about her. The room, the lamp and the manner of the interviewer in the reconstruction are Alex's own and are not tagged to a source.",
    "appears": "Chapter 6: The Occupation (Protocol 002), sections 6 and 7.2, where the screening camps are named and the content of the screening is said to be unknown; Interlude III: Major Budanov, Aleja Szucha, in full",
    "reliability": "C for the seven steps, the page numbers, the four decisions and the form with the blank sweet: one passage, Interlude III, which rests on the binder and the forms as Alex reports them. E for the room and the manner of delivery, which Alex says he supplied. Protocol 002 names the camps and their head, and states that the content of screening is not known to Diana: U. Three passages in all.",
    "status": "Draft",
    "featured": null,
-   "sources": null,
+   "sources": 3,
    "note": "",
    "xnote": "",
    "aliases": "",
-   "updated": "2026-11-09",
-   "facts": {},
+   "updated": "2026-11-10",
+   "facts": {
+    "lore_type": "programme",
+    "period": "The occupation, from 2034",
+    "parties": "Major Budanov and his staff at Aleja Szucha, and the persons brought in",
+    "consequences": "Each subject is released, retained, transferred or treated. The record runs to 4,100 forms"
+   },
    "rel": [
     {
      "id": "chr-022",
