@@ -955,6 +955,12 @@ const FIGS = [
   ['map', 'Map', 'the rows on a small map (a Grid Ref or Coordinates column)'],
   ['routes', 'Routes', 'direction and distance from a centre (a Distance column)'],
   ['seasons', 'Seasons', 'a summer and winter switch (Summer and Winter columns)'],
+  ['clock', 'Clock', 'times of day on a 24-hour dial (a Time column)'],
+  ['stages', 'Stages', 'rows in order, with any measured columns charted across them'],
+  ['chain', 'Chain', 'links shaded by rating (a Rating column from 0 to 1)'],
+  ['ratings', 'Ratings', 'a bar for each rating (a Rating column from 0 to 1)'],
+  ['log', 'Log', 'a night or day of timed events, with any readings in metres as a line'],
+  ['parallel', 'Parallel', 'two columns side by side, joining rows that say the same'],
 ];
 const preview = (md) => {
   const html = (window.marked ? marked.parse(String(md || ''), { gfm: true }) : `<pre>${esc(md)}</pre>`)
