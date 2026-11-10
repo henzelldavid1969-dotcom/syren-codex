@@ -2187,14 +2187,14 @@
    "id": "loc-030",
    "ref": "SYNPTCL/LOC/030",
    "type": "LOC",
-   "name": "The wetlands and the houseboat",
-   "mark": "",
+   "name": "Wetlands & Houseboat",
+   "mark": "PROX_SCAN",
    "grade": "C",
    "summary": "The still water at the north of the corridor where Diana lived.",
    "entry": "Diana Antonoff lived alone on an abandoned houseboat moored at Żerań, at the northern edge of the wetlands, where the water ran quietest. Her diary entries are headed with the date, the place, the weather and the state of the water. Many are set on the deck and in the cabin of the houseboat. The houseboat is an hour or more on foot from the outpost, by way of the one bridge the community holds, though it can be seen across the water. It lies low on the near bank among willow, reed and broad pale leaves, and a passer-by at twenty metres would not know a hull was there. One other boat is moored further along. From the deck the red and white chimneys of the power plant stand across the canal, and at night the hum of the plant carries over. When Diana first goes aboard on 1 June 2034 the cabin has a cup on its side, a calendar left on a month long past, and a folding settee with a worn cover. The canal in summer has reeds, lily pads, a beaver and dragonflies, which Protocol 001 records in its notes. On 9 December the canal ice is walkable at the margin, and by 28 December it is frozen from bank to bank. Diana's last entries are written from the deck on 30 December 2034. The Foreword records that she disappeared from Czerniaków on the night of the third flood, and the houseboat could not be reached afterwards.",
    "appears": "Foreword. Diary 001: The Arrival (1 June 2034). Chapter 1: The Blasphemer (diary of 14 June 2034, in the wetlands). Chapter 3: The Zone (Protocol 001), section 9 and the notes to file. Interlude: The Second Flood (diary of 28 August 2034). Chapter 15: The Aftermath (Protocol 005), Alex's closing note. Chapter 16: The Protocols (the dispatch of 20 June 2034 and the diaries of 9, 28 and 30 December 2034).",
    "reliability": "C. Stated by Alex in the Foreword, and confirmed by the headings and text of Diana's diary entries from Diary 001 onward. At least eight manuscript passages.",
-   "status": "Draft",
+   "status": "Verified",
    "featured": null,
    "sources": 8,
    "note": "",
@@ -2203,6 +2203,7 @@
    "updated": "2026-11-10",
    "facts": {
     "control": "survivor",
+    "ground_class": "B",
     "function": "Diana's home, an abandoned houseboat",
     "coords_approximate": false,
     "water_condition": "Still water at the northern edge of the wetlands. The canal ice is walkable at the margin on 9 December and frozen bank to bank by 28 December 2034.",
@@ -2263,10 +2264,32 @@
      "l": "Ch 16 · The Protocols"
     }
    ],
-   "images": [],
+   "images": [
+    {
+     "src": "https://qldxlphmvjjovzlmeguw.supabase.co/storage/v1/object/public/images/loc-030/mwaxnvtl-lounge.jpg",
+     "caption": "Houseboat. Living Room.",
+     "credit": "D. Antonoff"
+    },
+    {
+     "src": "https://qldxlphmvjjovzlmeguw.supabase.co/storage/v1/object/public/images/loc-030/mwawngyr-houseboat.jpg",
+     "caption": "Houseboat. Żeran. June",
+     "credit": "D. Antonoff"
+    },
+    {
+     "src": "https://qldxlphmvjjovzlmeguw.supabase.co/storage/v1/object/public/images/loc-030/mwawziww-houseboat2.jpg",
+     "caption": "Houseboat. Facing Żeran. June",
+     "credit": "D. Antonoff"
+    },
+    {
+     "src": "https://qldxlphmvjjovzlmeguw.supabase.co/storage/v1/object/public/images/loc-030/mwaxegs6-tozeran.jpg",
+     "caption": "Żeran Power station from Houseboat",
+     "credit": "D. Antonoff"
+    }
+   ],
    "audio": [],
    "video": [],
-   "files": []
+   "files": [],
+   "icon": "compass"
   },
   {
    "id": "loc-031",
@@ -2386,6 +2409,48 @@
    "audio": [],
    "video": [],
    "files": []
+  },
+  {
+   "id": "loc-033",
+   "ref": "SYNPTCL/LOC/033",
+   "type": "LOC",
+   "name": "Announcer",
+   "mark": "TRIGGER_V1",
+   "grade": "C",
+   "summary": "Russian Compliance Announcement Test",
+   "entry": "Recording of daily Compliance Announcement",
+   "appears": "Story",
+   "reliability": "Recorded on many occasions",
+   "status": "Draft",
+   "featured": null,
+   "sources": null,
+   "note": "",
+   "xnote": "",
+   "aliases": "The Voice",
+   "updated": "2026-11-10",
+   "facts": {
+    "control": "occupier",
+    "coords_approximate": false
+   },
+   "rel": [],
+   "apps": [
+    {
+     "s": "interlude-iv-the-voice-studio-two",
+     "t": "Interlude IV: The Voice, Studio Two",
+     "l": "Int IV · The Voice"
+    }
+   ],
+   "images": [],
+   "audio": [
+    {
+     "src": "https://qldxlphmvjjovzlmeguw.supabase.co/storage/v1/object/public/audio/loc-033/mwavj13l-the-voice-heard-from-the-zoo-wet-v2.wav",
+     "label": "Compliance Announcement",
+     "meta": "Zoo"
+    }
+   ],
+   "video": [],
+   "files": [],
+   "icon": "audio"
   },
   {
    "id": "chr-001",
