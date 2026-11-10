@@ -2414,7 +2414,7 @@
     "own_protocol": "diary-001-the-arrival",
     "distinguishing_trait": "Young looking. Observant.",
     "fate": "Unknown",
-    "tuning": "Unison",
+    "tuning": "False note",
     "own_protocol_t": "Diary 001: The Arrival",
     "first_appearance_t": "Foreword"
    },
@@ -2706,6 +2706,7 @@
     "own_protocol": "chapter-1-the-blasphemer",
     "distinguishing_trait": "Swears at everything. Hears a drone before anyone else. Sits with his back to the wall.",
     "fate": "Alive in 2036, at a veterans' facility outside Gdańsk.",
+    "tuning": "Discord",
     "own_protocol_t": "Chapter 1: The Blasphemer",
     "first_appearance_t": "Foreword"
    },
@@ -2862,6 +2863,7 @@
     "own_protocol": "chapter-2-the-photographer",
     "distinguishing_trait": "Keeps photographs, and will not be photographed.",
     "fate": "Alive in 2036, restoring recordings and glass negatives in a museum basement in Berlin.",
+    "tuning": "Echo",
     "own_protocol_t": "Chapter 2: The Photographer",
     "first_appearance_t": "Chapter 2: The Photographer"
    },
@@ -2968,6 +2970,7 @@
     "own_protocol": "chapter-5-the-pilgrim",
     "distinguishing_trait": "Owns a coat, a pair of boots and a prayer book.",
     "fate": "Alive in 2036, making tea at a refugee centre outside Przemyśl.",
+    "tuning": "Sympathetic string",
     "own_protocol_t": "Chapter 5: The Pilgrim",
     "first_appearance_t": "Chapter 1: The Blasphemer"
    },
@@ -3045,6 +3048,7 @@
     "own_protocol": "chapter-4-the-engineer",
     "distinguishing_trait": "Lays the flat of his hand on a thing before he speaks a figure.",
     "fate": "Alive in 2036, working on a sluice site on the Martwa Wisła outside Gdańsk.",
+    "tuning": "Rest",
     "own_protocol_t": "Chapter 4: The Engineer",
     "first_appearance_t": "Foreword"
    },
@@ -3146,6 +3150,7 @@
     "own_protocol": "chapter-7-the-musician",
     "distinguishing_trait": "Plays with a bow of stripped green willow strung with horsehair.",
     "fate": "Alive in 2036, teaching a mixed class in a former school in Wrocław.",
+    "tuning": "Mute",
     "own_protocol_t": "Chapter 7: The Musician",
     "first_appearance_t": "Foreword"
    },
@@ -3249,6 +3254,7 @@
     "own_protocol": "chapter-8-the-medic",
     "distinguishing_trait": "Allocates strictly by list, and keeps a ledger of those who will not receive each drug.",
     "fate": "Alive in 2036, running a clinic in Kraków from a former bank.",
+    "tuning": "Counterpoint",
     "own_protocol_t": "Chapter 8: The Medic",
     "first_appearance_t": "Chapter 7: The Musician"
    },
@@ -3369,6 +3375,7 @@
     "own_protocol": "chapter-10-the-listener",
     "distinguishing_trait": "Composed. Eloquent",
     "fate": "Alive in 2036, in Lublin.",
+    "tuning": "False note",
     "own_protocol_t": "Chapter 10: The Listener",
     "first_appearance_t": "Interlude I: Wiktor Szeliga, Block C"
    },
@@ -3488,6 +3495,7 @@
     "own_protocol": "chapter-11-the-orphan",
     "distinguishing_trait": "Stands with her back to the wall. Keeps a pad headed Order.",
     "fate": "Alive in 2036, at the Dęblin air academy. Visits her father in Lublin on Sundays.",
+    "tuning": "Canon",
     "own_protocol_t": "Chapter 11: The Orphan",
     "first_appearance_t": "Chapter 11: The Orphan"
    },
@@ -3559,6 +3567,7 @@
     "own_protocol": "chapter-13-the-youngest",
     "distinguishing_trait": "Quick hands. Took the archivist's pen within a minute, and gave it back.",
     "fate": "Alive in 2036, an investigator at an anti-corruption foundation in Warsaw.",
+    "tuning": "Borrowed chord",
     "own_protocol_t": "Chapter 13: The Youngest",
     "first_appearance_t": "Chapter 8: The Medic"
    },
@@ -3659,6 +3668,7 @@
     "first_appearance": "chapter-2-the-photographer",
     "distinguishing_trait": "Long plait. Keeps the rules of the flat.",
     "fate": "Alive in 2036, living with Nikita in Wrocław.",
+    "tuning": "Canon",
     "first_appearance_t": "Chapter 2: The Photographer"
    },
    "rel": [
@@ -3739,6 +3749,7 @@
     "own_protocol": "chapter-14-the-mouse",
     "distinguishing_trait": "Does not speak. Frightened of a single knock.",
     "fate": "Alive in 2036, living with Anna in Wrocław and painting in watercolours.",
+    "tuning": "Unison",
     "own_protocol_t": "Chapter 14: The Mouse",
     "first_appearance_t": "Foreword"
    },
@@ -3840,6 +3851,7 @@
     "group_name": "Survivor community",
     "first_appearance": "diary-001-the-arrival",
     "distinguishing_trait": "Reads what makes a machine stall. Makes his own tools.",
+    "tuning": "Rest",
     "first_appearance_t": "Diary 001: The Arrival"
    },
    "rel": [
@@ -3919,6 +3931,7 @@
     "first_appearance": "chapter-8-the-medic",
     "distinguishing_trait": "Will not carry a weapon.",
     "fate": "Alive in 2036, doing the accounts for Catalina's organisation in Kraków.",
+    "tuning": "Borrowed chord",
     "first_appearance_t": "Chapter 8: The Medic"
    },
    "rel": [
@@ -3993,6 +4006,7 @@
     "group_name": "Survivor community",
     "first_appearance": "chapter-5-the-pilgrim",
     "distinguishing_trait": "Tells stories at the kitchen table, with the children under it.",
+    "tuning": "Echo",
     "first_appearance_t": "Chapter 5: The Pilgrim"
    },
    "rel": [
@@ -4066,6 +4080,7 @@
     "group_name": "Survivor community",
     "first_appearance": "chapter-5-the-pilgrim",
     "distinguishing_trait": "Makes the tea at Marek's tellings. Gave Janek a room.",
+    "tuning": "Sympathetic string",
     "first_appearance_t": "Chapter 5: The Pilgrim"
    },
    "rel": [
@@ -4136,6 +4151,7 @@
     "group_name": "The Runners",
     "first_appearance": "chapter-1-the-blasphemer",
     "distinguishing_trait": "Mostly children. Carry messages when the air is jammed.",
+    "tuning": "Unison",
     "first_appearance_t": "Chapter 1: The Blasphemer"
    },
    "rel": [
@@ -4247,6 +4263,7 @@
     "group_name": "Visitor",
     "first_appearance": "foreword",
     "distinguishing_trait": "Marks his reconstructions in italics and brackets, and names the source of each passage.",
+    "tuning": "Echo",
     "first_appearance_t": "Foreword"
    },
    "rel": [
@@ -4450,6 +4467,7 @@
     "own_protocol": "interlude-i-wiktor-szeliga-block-c",
     "distinguishing_trait": "Counts stairs. A man of order.",
     "fate": "Unknown. The ledger page after his last night is torn out.",
+    "tuning": "Canon",
     "own_protocol_t": "Interlude I: Wiktor Szeliga, Block C",
     "first_appearance_t": "Interlude I: Wiktor Szeliga, Block C"
    },
@@ -4522,6 +4540,7 @@
     "own_protocol": "interlude-ii-sasha-lebedev-observation-post-r0",
     "distinguishing_trait": "Reads the rota in the same voice at the same speed.",
     "fate": "Relieved on 11 October 2034. Nothing further is recorded.",
+    "tuning": "Mute",
     "own_protocol_t": "Interlude II: Sasha Lebedev, Observation Post R0",
     "first_appearance_t": "Interlude II: Sasha Lebedev, Observation Post R0"
    },
@@ -4598,6 +4617,7 @@
     "group_name": "The Occupation",
     "first_appearance": "chapter-6-the-occupation-protocol-002",
     "distinguishing_trait": "Reads. Keeps a clear desk with a single paperback and a glass of water.",
+    "tuning": "Unison",
     "first_appearance_t": "Chapter 6: The Occupation (Protocol 002)"
    },
    "rel": [
@@ -4652,6 +4672,7 @@
     "first_appearance": "interlude-ii-sasha-lebedev-observation-post-r0",
     "own_protocol": "interlude-iii-major-budanov-aleja-szucha",
     "distinguishing_trait": "Thorough and courteous. Signs the letter D with a flourish.",
+    "tuning": "False note",
     "own_protocol_t": "Interlude III: Major Budanov, Aleja Szucha",
     "first_appearance_t": "Interlude II: Sasha Lebedev, Observation Post R0"
    },
@@ -4739,6 +4760,7 @@
     "group_name": "The Occupation",
     "first_appearance": "interlude-iii-major-budanov-aleja-szucha",
     "distinguishing_trait": "Sweats a little. Declines tea once, then accepts it.",
+    "tuning": "Mute",
     "first_appearance_t": "Interlude III: Major Budanov, Aleja Szucha"
    },
    "rel": [
@@ -4796,6 +4818,7 @@
     "first_appearance": "chapter-8-the-medic",
     "distinguishing_trait": "Ill with pneumonia, and not on Catalina's list.",
     "fate": "Lived. Makes jam in Gdynia in 2036.",
+    "tuning": "Canon",
     "first_appearance_t": "Chapter 8: The Medic"
    },
    "rel": [
@@ -4856,6 +4879,7 @@
     "group_name": "Survivor community",
     "first_appearance": "chapter-13-the-youngest",
     "distinguishing_trait": "Took in two children, Anna and Nikita.",
+    "tuning": "Rest",
     "first_appearance_t": "Chapter 13: The Youngest"
    },
    "rel": [
@@ -4912,6 +4936,7 @@
     "first_appearance": "chapter-9-the-dendron-protocol-003",
     "distinguishing_trait": "Leaves a saucer of milk for the Dendron every morning at seven.",
     "fate": "At stage 1 for three months. Not followed further.",
+    "tuning": "Unison",
     "first_appearance_t": "Chapter 9: The Dendron (Protocol 003)"
    },
    "rel": [
