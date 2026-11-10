@@ -20,3 +20,22 @@ manuscript into the database instead, replace `manuscript.md`, run
 `node supabase/load_content.mjs` and load the SQL it writes; note that this
 also replaces the home page copy with `content/home.json`, so check that file
 first.
+
+## Figures under tables
+
+A line `<!-- figure: TYPE -->` straight after a table in the Story text draws
+that table as a figure on the site, like a chart beside a spreadsheet. It is
+invisible in the text. The admin's Story editor has an Insert a figure menu
+that adds the line, and its Preview shows where each figure sits. A figure
+reads only the rows of the table above it, so editing the table changes the
+figure. Types (template.html, `FIG`):
+
+- `levels`: a gauge that fills to each level. First column in metres.
+- `timeline`: dated rows on a time axis. Needs a Date column (11 Oct 2028).
+- `classes`: one cross-section per row, from deepest water to dry.
+- `map`: the rows on a small map. Needs a Grid Ref or Coordinates column.
+- `routes`: direction and distance from a centre. Needs a Distance column;
+  the direction is read from the route name or the Direction column.
+- `seasons`: a Summer and Winter switch. Needs Summer and Winter columns.
+
+An unknown type, or a table without the columns a type needs, draws nothing.
