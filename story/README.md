@@ -37,5 +37,16 @@ figure. Types (template.html, `FIG`):
 - `routes`: direction and distance from a centre. Needs a Distance column;
   the direction is read from the route name or the Direction column.
 - `seasons`: a Summer and Winter switch. Needs Summer and Winter columns.
+- `clock`: times of day on a 24-hour dial. Needs a Time column; reads
+  times such as 06:00, ranges such as 23:00 to 03:00, and every four hours.
+- `stages`: rows in order (stage 1, 2, ...), with any columns of
+  measurements charted across them.
+- `chain`: a chain of links, each shaded by its rating. Needs a Rating
+  column from 0 to 1; a row without a number is drawn dashed.
+- `ratings`: a bar for each row's rating. Needs a Rating column from 0 to 1.
+- `log`: timed events on an axis (31 Dec, 18:00), with any readings in
+  metres in the Event column drawn as a line.
+- `parallel`: two columns side by side; rows where both say the same are
+  joined.
 
 An unknown type, or a table without the columns a type needs, draws nothing.

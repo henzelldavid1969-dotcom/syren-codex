@@ -171,7 +171,7 @@ a.card:hover{border-color:var(--c,var(--accent));transform:translateY(-2px)}
 /* figures under Story tables (<!-- figure: TYPE --> in the text), drawn from the table above */
 .fig{--fw:color-mix(in srgb,var(--accent) 15%,transparent);margin:-.4em 0 1.8em;border:1px solid var(--line);border-radius:12px;background:var(--surface);padding:16px 16px 12px}
 .fig .fsvg{display:block;width:100%;height:auto;overflow:visible}
-.fig-map .fsvg{overflow:hidden}
+.fig-map .fsvg,.fig-levels .fsvg,.fig-log .fsvg{overflow:hidden}
 .fig text{font:10px "Geist Mono",monospace;fill:var(--muted);letter-spacing:.05em}
 .fig figcaption{display:flex;justify-content:space-between;gap:4px 12px;flex-wrap:wrap;margin-top:12px;padding-top:10px;border-top:1px solid var(--line);font:500 10.5px "Geist Mono",monospace;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
 .fig figcaption span{font-weight:400;letter-spacing:.04em;text-transform:none;opacity:.8}
@@ -231,6 +231,58 @@ a.card:hover{border-color:var(--c,var(--accent));transform:translateY(-2px)}
 .fsl div{display:grid;grid-template-columns:minmax(0,10em) 1fr;gap:12px;font-size:13px;line-height:1.45}
 .fsl dt{color:var(--muted)}.fsl dd{margin:0;grid-column:2;grid-row:1}
 .fig-seasons[data-s="su"] .sw,.fig-seasons[data-s="wi"] .ss{opacity:0;visibility:hidden}
+.fig .rgl{fill:none;stroke:var(--line);stroke-width:1}
+.fig .rg{opacity:0;transition:opacity .5s var(--d)}.fig.on .rg{opacity:1}
+.fig .rg .arc{fill:none;stroke:var(--fg);stroke-width:4;stroke-linecap:round;opacity:.75}
+.fig .rg .dot{fill:var(--fg)}.fig .rg .k{fill:var(--muted);font-size:9px}
+.fig .rg.hl .rgl{stroke:var(--accent-ink)}.fig .rg.hl .arc,.fig .rg.hl .dot{stroke:var(--accent-ink);fill:var(--accent-ink)}.fig .rg.hl .arc{fill:none}
+.fig .hand{stroke:var(--accent-ink);stroke-width:1.5;transform-origin:150px 150px;transform:rotate(0deg);opacity:0}
+.fig.on:not(.still) .hand{animation:fg-hand 4.5s cubic-bezier(.4,.1,.4,1) forwards}
+@keyframes fg-hand{0%{opacity:.9;transform:rotate(0deg)}90%{opacity:.9}100%{opacity:0;transform:rotate(360deg)}}
+.fkl{list-style:none;margin:0;padding:0;display:grid;gap:9px}
+.fkl li{display:grid;grid-template-columns:20px 1fr;gap:8px;font-size:13px;line-height:1.35;border-radius:6px;padding:2px 4px}
+.fkl li b{font:500 11px "Geist Mono",monospace;color:var(--muted);padding-top:2px}
+.fkl li small{display:block;color:var(--muted);font-size:12px}
+.fkl li.nf span{color:var(--muted)}.fkl li.hl{background:color-mix(in srgb,var(--accent) 12%,transparent)}
+.fst{display:grid;grid-template-columns:repeat(var(--n),minmax(0,1fr));gap:8px;margin-bottom:6px}
+.fst div{position:relative;border:1px solid var(--line);border-radius:10px;padding:12px;overflow:hidden;opacity:0;transform:translateY(6px);transition:opacity .5s var(--d),transform .5s var(--d)}
+.fig.on .fst div{opacity:1;transform:none}
+.fst div:before{content:"";position:absolute;inset:0;background:var(--fw);opacity:var(--k);z-index:0}
+.fst div>*{position:relative}
+.fst b{display:block;font:500 13px Geist,system-ui,sans-serif}
+.fst small{display:block;font:11px "Geist Mono",monospace;color:var(--muted);margin:2px 0 8px}
+.fst span{display:block;font-size:12.5px;line-height:1.45}
+.fms{margin-top:10px}.fms>small{font:500 10.5px "Geist Mono",monospace;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.fms .ln{fill:none;stroke:var(--fg);stroke-width:1.5;stroke-dasharray:1;stroke-dashoffset:1;transition:stroke-dashoffset 1.6s cubic-bezier(.3,.7,.3,1) .6s}
+.fig.on .fms .ln{stroke-dashoffset:0}.fms circle{fill:var(--fg)}.fms text{fill:var(--fg)}
+.fch{list-style:none;margin:6px 0 0;padding:0;display:flex;flex-wrap:wrap;gap:14px 0}
+.fch li{position:relative;width:86px;height:46px;margin-right:-12px;border:2.5px solid var(--fg);border-radius:23px;display:flex;flex-direction:column;align-items:center;justify-content:center;opacity:0;transform:scale(.9);transition:opacity .4s var(--d),transform .4s var(--d)}
+.fch li:nth-child(even){z-index:1}
+.fch li:before{content:"";position:absolute;inset:3px;border-radius:inherit;background:var(--accent);opacity:calc(var(--v)*.55)}
+.fch li>*{position:relative}
+.fig.on .fch li{opacity:1;transform:none}
+.fch li.na{border-style:dashed;border-color:var(--muted)}
+.fch b{font:500 10px "Geist Mono",monospace;letter-spacing:.04em}.fch span{font:11px "Geist Mono",monospace;color:var(--muted)}
+.fsc{display:flex;align-items:center;gap:8px;margin-top:14px;font:10px "Geist Mono",monospace;color:var(--muted)}
+.fsc i{flex:0 0 140px;height:6px;border-radius:3px;background:linear-gradient(90deg,transparent,color-mix(in srgb,var(--accent) 55%,transparent));border:1px solid var(--line)}
+.frr li{grid-template-columns:1fr auto}
+.fig .grid{stroke:var(--line);stroke-width:1}
+.fig .lvl2{fill:none;stroke:var(--accent-ink);stroke-width:2;stroke-linejoin:round}
+.fig .gp{fill:var(--accent-ink)}.fig .gv{fill:var(--fg)}
+.fig .evd{fill:var(--surface);stroke:var(--fg);stroke-width:1.3}
+.fig .mid{fill:var(--fg)}
+.fig .cover{fill:var(--surface);transition:transform 5s linear}.fig.on .cover{transform:translateX(570px)}
+.fpl{display:grid;gap:8px}
+.fpl>div{display:grid;grid-template-columns:1fr minmax(84px,auto) 1fr;gap:10px;align-items:center;font-size:13px;line-height:1.4;opacity:0;transform:translateY(4px);transition:opacity .5s var(--d),transform .5s var(--d)}
+.fig.on .fpl>div{opacity:1;transform:none}
+.fpl>div>span:first-child{text-align:right}
+.fpl em{font:normal 10px "Geist Mono",monospace;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);text-align:center;border-top:1px dashed var(--line);padding-top:4px}
+.fpl .same em{border-top:2px solid var(--accent-ink);color:var(--fg)}
+.fpl .same span{font-weight:500}
+.fpl .op{color:var(--muted);font-style:italic}
+.fpl .h{opacity:1!important;transform:none!important;border-bottom:1px solid var(--line);padding-bottom:6px}
+.fpl .h b{font-weight:500}.fpl .h b:first-child{text-align:right}
+@media(max-width:560px){.fst{grid-template-columns:1fr 1fr}.fpl>div{grid-template-columns:1fr 70px 1fr;font-size:12px}}
 @media(max-width:560px){.fcls{grid-template-columns:1fr 1fr}.frt{grid-template-columns:1fr}.fsl div{grid-template-columns:1fr;gap:0}.fsl dd{grid-column:1;grid-row:2}}
 .fig.still *{transition:none!important;animation:none!important}
 @media(prefers-reduced-motion:reduce){.fig *{transition:none!important;animation:none!important}}
@@ -1383,7 +1435,7 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')menuSet(false)});
    table changes the figure, and nothing is shown that the table does not say.
    Each plays once when it scrolls into view; with reduced motion it is drawn
    already finished. Unknown types and unreadable tables draw nothing. */
-const FIG_COS=Math.cos(52.25*Math.PI/180);
+const FIG_COS=Math.cos(52.25*Math.PI/180);let figN=0;
 const figRM=()=>matchMedia('(prefers-reduced-motion:reduce)').matches;
 const tcol=(T,re,d=-1)=>{const i=T.head.findIndex(h=>re.test(h));return i<0?d:i};
 const fx=n=>(+n).toFixed(1);
@@ -1394,8 +1446,8 @@ const FIG={
  levels:{t:'Levels against the datum',draw(T){const cc=tcol(T,/condition|state|event/i,1),dc=tcol(T,/date/i);
   const L=T.rows.map(r=>({v:parseFloat(r[0]),c:r[cc]||'',d:dc>=0&&!/^n\/?a$/i.test(r[dc])?r[dc]:''})).filter(x=>!isNaN(x.v)).sort((a,b)=>a.v-b.v);
   if(L.length<2)return null;const lo=Math.floor(L[0].v)-1,hi=Math.ceil(L[L.length-1].v)+1,top=18,bot=250,y=v=>bot-(v-lo)/(hi-lo)*(bot-top);
-  let s=`<svg class="fsvg" viewBox="0 0 600 262" role="img" aria-label="${esc(L.map(x=>x.v+' m, '+x.c).join('; '))}"><defs><clipPath id="flv"><rect x="40" y="0" width="600" height="${bot}"/></clipPath></defs>`;
-  s+=`<g clip-path="url(#flv)"><g class="fw" style="transform:translateY(${fx(bot)}px)"><path d="M-40 0c40-7 80 7 120 0s80-7 120 0s80 7 120 0s80-7 120 0s80 7 120 0s80-7 120 0s80 7 120 0V300H-40z"/></g></g>`;
+  let s=`<svg class="fsvg" viewBox="0 0 600 262" role="img" aria-label="${esc(L.map(x=>x.v+' m, '+x.c).join('; '))}"><defs><clipPath id="flv${++figN}"><rect x="40" y="0" width="556" height="${bot}"/></clipPath></defs>`;
+  s+=`<g clip-path="url(#flv${figN})"><g class="fw" style="transform:translateY(${fx(bot)}px)"><path d="M-40 0c40-7 80 7 120 0s80-7 120 0s80 7 120 0s80-7 120 0s80 7 120 0s80-7 120 0s80 7 120 0V300H-40z"/></g></g>`;
   s+=`<g class="tk"><path d="M40 ${top}V${bot}"/>`;for(let v=lo;v<=hi;v++)s+=`<path d="M40 ${fx(y(v))}h${v%5?6:12}"/>`;s+='</g>';
   for(let v=lo;v<=hi;v++)if(v%2===0||v===lo)s+=`<text class="n" x="32" y="${fx(y(v)+3)}" text-anchor="end">${v}</text>`;
   L.forEach((x,i)=>{const yy=y(x.v);s+=`<g class="lvl" data-y="${fx(yy)}"><path d="M48 ${fx(yy)}H596"/><text x="56" y="${fx(yy-6)}">${esc((x.v+' m · '+x.c).toUpperCase())}</text>${x.d?`<text class="r" x="596" y="${fx(yy-6)}" text-anchor="end">${esc(x.d)}</text>`:''}</g>`});
@@ -1419,8 +1471,9 @@ const FIG={
    return `<div class="fc"><svg viewBox="0 0 140 92" aria-hidden="true"><g class="fw" style="--y:${fx(lv)}px;--i:${i}"><path d="M-40 0c20-4 40 4 60 0s40-4 60 0s40 4 60 0s40-4 60 0V120H-40z"/></g><path class="gd" d="M0 92V84C30 84 42 44 70 44S110 84 140 84V92Z"/>${boat?`<path class="bt" style="--y:${fx(lv)}px" d="M98 -6h22l-4 5h-14z M109 -6v-10l7 8"/>`:''}</svg><b>${esc(r[0])}</b><span>${esc(r[dc]||'')}</span></div>`}).join('')+'</div>'},
   play(f){}},
  // Grid references on a small map, with the river for context.
- map:{t:'Positions on the map',draw(T){const gc=tcol(T,/grid|coord/i);if(gc<0)return null;const nc=tcol(T,/name|location/i,1);
-  const P=T.rows.map((r,i)=>{const m=String(r[gc]).match(/(-?\d+(?:\.\d+)?)\s*°?\s*([NS])?\s*[, ]\s*(-?\d+(?:\.\d+)?)\s*°?\s*([EW])?/i);if(!m)return null;
+ map:{t:'Positions on the map',draw(T){const CRE=/(-?\d{1,3}\.\d+)\s*°?\s*([NS])?\s*,\s*(-?\d{1,3}\.\d+)\s*°?\s*([EW])?/i,hits=j=>T.rows.filter(r=>CRE.test(r[j]||'')).length;
+  let gc=tcol(T,/grid|coord/i);if(gc<0||!hits(gc))gc=T.head.map((_,j)=>j).sort((x,y)=>hits(y)-hits(x))[0];if(gc==null||hits(gc)<2)return null;const nc=tcol(T,/name|location/i,1);
+  const P=T.rows.map((r,i)=>{const m=String(r[gc]).match(CRE);if(!m)return null;
    return{i,code:r[0],name:r[nc]||'',lat:/s/i.test(m[2]||'')?-m[1]:+m[1],lon:/w/i.test(m[4]||'')?-m[3]:+m[3]}}).filter(Boolean);
   if(P.length<2)return null;const lons=P.map(p=>p.lon),lats=P.map(p=>p.lat),x0=Math.min(...lons),y1=Math.max(...lats);
   const dx=(Math.max(...lons)-x0)*FIG_COS,dy=y1-Math.min(...lats),pad=Math.max(dx,dy)*.14;let s=560/(dx+2*pad),H=(dy+2*pad)*s;if(H>440){s=440/(dy+2*pad);H=440}
@@ -1438,7 +1491,8 @@ const FIG={
  // Routes by the direction and distance their rows give, from a common centre.
  routes:{t:'Routes by direction and distance',draw(T){const kc=tcol(T,/distance|km/i);if(kc<0)return null;const dc=tcol(T,/direction/i),uc=tcol(T,/duration|time/i);
   const ANG={north:-90,northeast:-45,east:0,southeast:45,south:90,southwest:135,west:180,northwest:-135};
-  const R=T.rows.map(r=>{const w=(r[0]+' '+(dc>=0?r[dc]:'')).toLowerCase().replace(/north-east/g,'northeast').replace(/north-west/g,'northwest').replace(/south-east/g,'southeast').replace(/south-west/g,'southwest').match(/\b(northeast|northwest|southeast|southwest|north|south|east|west)\b/);
+  const PL={'PÓŁ':'north','POŁ':'south','WSC':'east','ZAC':'west','PWS':'northeast'},code=r=>PL[String(r[0]).trim().split(/[\s(]/)[0].toUpperCase()];
+  const R=T.rows.map(r=>{const pl=code(r),w=pl?[pl,pl]:(r[0]+' '+(dc>=0?r[dc]:'')).toLowerCase().replace(/north-east/g,'northeast').replace(/north-west/g,'northwest').replace(/south-east/g,'southeast').replace(/south-west/g,'southwest').match(/\b(northeast|northwest|southeast|southwest|north|south|east|west)\b/);
    return{name:r[0],km:parseFloat(r[kc]),a:w?ANG[w[1]]:null,dir:w?w[1]:'',dur:uc>=0?r[uc]:''}}).filter(x=>!isNaN(x.km));
   if(!R.length)return null;const max=Math.max(...R.map(x=>x.km)),cx=180,cy=154,rad=km=>30+km/max*98;
   let s=`<svg class="fsvg" viewBox="0 0 360 300" role="img" aria-label="${esc(R.map(x=>`${x.name}: ${x.dir||'direction not given'}, ${x.km} km`).join('; '))}"><circle class="cmp" cx="${cx}" cy="${cy}" r="128"/><circle class="cmp" cx="${cx}" cy="${cy}" r="64"/><path class="cmp" d="M${cx} ${cy-134}v-8"/><text class="n" x="${cx+6}" y="${cy-134}">N</text>`;
@@ -1461,6 +1515,63 @@ const FIG={
   wire(f){f.dataset.s='su';f.querySelector('.fseg').onclick=e=>{const b=e.target.closest('button');if(!b)return;f.dataset.touched=1;FIG.seasons.set(f,b.dataset.s)}},
   set(f,v){f.dataset.s=v;f.querySelectorAll('.fseg button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.s===v))},
   play(f,still){if(!still)setTimeout(()=>{if(!f.dataset.touched)FIG.seasons.set(f,'wi')},2200)}},
+ // Times of day on a 24-hour dial: one ring per row that gives a time.
+ clock:{t:'The day',draw(T){const tc=tcol(T,/time|when|hour/i);if(tc<0)return null;
+  const W={one:1,two:2,three:3,four:4,six:6,eight:8,twelve:12},hm=s=>(String(s).match(/\b\d{1,2}:\d{2}\b/g)||[]).map(x=>{const[a,b]=x.split(':');return +a+b/60});
+  const R=T.rows.map(r=>{const s=r[tc]||'',ev=s.match(/every\s+(\w+)\s+hours?/i),t=hm(s);let ticks=[],arc=null;
+   if(ev){const n=W[ev[1].toLowerCase()]||+ev[1];if(n>0)for(let h=0;h<24;h+=n)ticks.push(h)}
+   else if(/\bto\b/i.test(s)&&t.length===2)arc=t;else ticks=t;return{name:r[0],s,ticks,arc}});
+  const placed=R.filter(x=>x.ticks.length||x.arc);if(!placed.length)return null;
+  const cx=150,cy=150,ang=h=>(h/24*360-90)*Math.PI/180,pt=(h,r)=>[cx+Math.cos(ang(h))*r,cy+Math.sin(ang(h))*r].map(fx).join(' ');
+  let s=`<svg class="fsvg" viewBox="0 0 300 300" role="img" aria-label="${esc(R.map(x=>x.name+': '+x.s).join('; '))}"><circle class="cmp" cx="${cx}" cy="${cy}" r="132"/>`;
+  for(let h=0;h<24;h++)s+=`<path class="tk1" d="M${pt(h,132)}L${pt(h,h%6?127:121)}"/>`;
+  [['00:00',0],['06:00',6],['12:00',12],['18:00',18]].forEach(([l,h])=>{const[x,y]=pt(h,146).split(' ');s+=`<text class="n" x="${x}" y="${+y+3}" text-anchor="middle">${l}</text>`});
+  placed.forEach((x,i)=>{const r=112-i*15;s+=`<g class="rg" data-k="${R.indexOf(x)}" style="--d:${400+i*450}ms"><circle class="rgl" cx="${cx}" cy="${cy}" r="${r}"/>`;
+   if(x.arc){let[a,b]=x.arc;if(b<=a)b+=24;s+=`<path class="arc" d="M${pt(a,r)}A${r} ${r} 0 ${b-a>12?1:0} 1 ${pt(b,r)}"/>`}
+   x.ticks.forEach(h=>s+=`<circle class="dot" cx="${pt(h,r).split(' ')[0]}" cy="${pt(h,r).split(' ')[1]}" r="4"/>`);
+   const[nx,ny]=pt(18,r).split(' ');s+=`<text class="k" x="${nx}" y="${+ny-5}" text-anchor="middle">${R.indexOf(x)+1}</text></g>`});
+  s+=`<path class="hand" d="M${cx} ${cy}V${cy-136}"/><circle class="ctr" cx="${cx}" cy="${cy}" r="3"/></svg>`;
+  const list=`<ol class="fkl">${R.map((x,i)=>`<li data-k="${i}"${x.ticks.length||x.arc?'':' class="nf"'}><b>${i+1}</b><span>${esc(x.name)}<small>${esc(x.s)}${x.ticks.length||x.arc?'':' · no fixed hour'}</small></span></li>`).join('')}</ol>`;
+  return `<div class="frt">${s}${list}</div>`},
+  wire(f){f.querySelectorAll('.fkl li').forEach(li=>{const g=f.querySelector(`.rg[data-k="${li.dataset.k}"]`);if(!g)return;const on=v=>{g.classList.toggle('hl',v);li.classList.toggle('hl',v)};
+   [li,g].forEach(el=>{el.addEventListener('mouseenter',()=>on(true));el.addEventListener('mouseleave',()=>on(false))})})},play(f){}},
+ // Stages in order, with any measured columns charted across them.
+ stages:{t:'Stages',draw(T){const n=T.rows.length;if(n<2)return null;const tc=tcol(T,/time|duration|period/i),ec=tcol(T,/effect|endpoint|descr/i,1);
+  const num=c=>{const m=String(c).match(/\d+(?:\.\d+)?/g);if(!m)return NaN;return /\bto\b/.test(c)&&m.length>1?(+m[0]+ +m[1])/2:+m[0]};
+  const meas=T.head.map((h,j)=>j).filter(j=>j>0&&j!==tc&&j!==ec&&T.rows.every(r=>!isNaN(num(r[j]))));
+  const cards=`<div class="fst" style="--n:${n}">${T.rows.map((r,i)=>`<div style="--k:${(i+1)/n};--d:${i*300}ms"><b>${esc(T.head[0].replace(/\*/g,''))} ${esc(r[0])}</b>${tc>=0?`<small>${esc(r[tc])}</small>`:''}<span>${esc(r[ec]||'')}</span></div>`).join('')}</div>`;
+  const short=c=>String(c).replace(/\s*per cent/i,'%').replace(/,.*$/,'');
+  const charts=meas.map(j=>{const v=T.rows.map(r=>num(r[j])),lo=Math.min(...v),hi=Math.max(...v),X=i=>(i+.5)*600/n,Y=x=>hi===lo?30:52-(x-lo)/(hi-lo)*40;
+   return `<div class="fms"><small>${esc(T.head[j])}</small><svg class="fsvg" viewBox="0 0 600 70" aria-label="${esc(T.head[j]+': '+T.rows.map(r=>r[j]).join(', '))}" role="img"><path class="ln" pathLength="1" d="${v.map((x,i)=>(i?'L':'M')+fx(X(i))+' '+fx(Y(x))).join('')}"/>${v.map((x,i)=>`<circle cx="${fx(X(i))}" cy="${fx(Y(x))}" r="3.5"/><text x="${fx(X(i))}" y="${fx(Y(x)-9)}" text-anchor="middle">${esc(short(T.rows[i][j]))}</text>`).join('')}</svg></div>`}).join('');
+  return cards+charts},play(f){}},
+ // Links in a chain, each shaded by its rating; a link without one is dashed.
+ chain:{t:'The chain',draw(T){const rc=tcol(T,/rating|score/i);if(rc<0)return null;const dc=tcol(T,/descr/i,1);
+  return `<ol class="fch">${T.rows.map((r,i)=>{const v=parseFloat(r[rc]);return `<li class="${isNaN(v)?'na':''}" style="--v:${isNaN(v)?0:v};--d:${i*220}ms" title="${esc(r[0]+': '+(r[dc]||''))}"><b>${esc(r[0])}</b><span>${esc(isNaN(v)?r[rc]:r[rc])}</span></li>`}).join('')}</ol><div class="fsc"><span>0</span><i></i><span>1</span></div>`},play(f){}},
+ // A bar for each row's rating, out of 1.
+ ratings:{t:'Ratings',draw(T){const rc=tcol(T,/rating|score/i);if(rc<0)return null;const nc=tcol(T,/source|item|name|person/i,1);
+  const R=T.rows.map(r=>({k:r[0],n:r[nc],v:parseFloat(r[rc]),s:r[rc]})).filter(x=>!isNaN(x.v));if(!R.length)return null;
+  return `<ol class="frl frr">${R.map((x,i)=>`<li style="--w:${fx(Math.min(1,x.v)*100)}%;--d:${i*160}ms"><b>${esc(x.k===x.n?x.n:x.k+' · '+x.n)}</b><span class="km">${esc(x.s)}</span><i></i></li>`).join('')}</ol>`},play(f){}},
+ // A dated log of one night: events on a time axis, with any readings in metres drawn as a line.
+ log:{t:'The night',draw(T){const tc=tcol(T,/^\W*time\W*$|when/i,0),ec=tcol(T,/event/i,1);
+  let day=null,mon=null,yr=2000,prev=-1;const E=[];
+  T.rows.forEach(r=>{const m=String(r[tc]).match(/(?:(\d{1,2})\s+([a-z]{3})[a-z]*,?\s*)?(\d{1,2}):(\d{2})/i);if(!m)return;
+   if(m[1]){const mo=MON[m[2].toLowerCase()];if(mon!=null&&mo<mon)yr++;day=+m[1];mon=mo}if(mon==null)return;
+   let t=Date.UTC(yr,mon,day,+m[3],+m[4])/6e4;if(t<prev)t+=1440;prev=t;const g=String(r[ec]).match(/(\d{2,3}\.\d)\s*m\b/);E.push({t,time:r[tc],ev:r[ec],m:g?+g[1]:null})});
+  if(E.length<3)return null;const t0=E[0].t,t1=E[E.length-1].t,X=t=>40+(t-t0)/(t1-t0)*540,G=E.filter(x=>x.m!=null);
+  const lo=G.length?Math.floor(Math.min(...G.map(x=>x.m))):0,hi=G.length?Math.ceil(Math.max(...G.map(x=>x.m))):1,Y=v=>140-(v-lo)/(hi-lo||1)*110;
+  let s=`<svg class="fsvg" viewBox="0 0 600 220" role="img" aria-label="${esc(E.map(x=>x.time+': '+x.ev).join('; '))}">`;
+  if(G.length>1){for(let v=lo;v<=hi;v++)s+=`<path class="grid" d="M40 ${fx(Y(v))}H580"/><text class="n" x="34" y="${fx(Y(v)+3)}" text-anchor="end">${v} m</text>`;
+   s+=`<path class="lvl2" d="${G.map((x,i)=>(i?'L':'M')+fx(X(x.t))+' '+fx(Y(x.m))).join('')}"/>`;let last=-99;
+   G.forEach((x,i)=>{s+=`<circle class="gp" cx="${fx(X(x.t))}" cy="${fx(Y(x.m))}" r="3"/>`;if(X(x.t)-last>34||i===G.length-1){const st=i===0;s+=`<text class="gv" x="${fx(X(x.t)+(st?6:-7))}" y="${fx(Y(x.m)-6)}" text-anchor="${st?'start':'end'}">${x.m}</text>`;last=X(x.t)}});s+=`<text class="n" x="40" y="12">READINGS IN METRES, FROM THE EVENT COLUMN</text>`}
+  s+=`<path class="ax" d="M40 178H580"/>`;
+  for(let h=Math.ceil(t0/120)*120;h<=t1;h+=120){const d=new Date(h*6e4);s+=`<path class="tk1" d="M${fx(X(h))} 174v8"/><text class="n" x="${fx(X(h))}" y="198" text-anchor="middle">${String(d.getUTCHours()).padStart(2,'0')}:00</text>`;
+   if(d.getUTCHours()===0)s+=`<text class="n mid" x="${fx(X(h))}" y="212" text-anchor="middle">${d.getUTCDate()} ${'JAN FEB MAR APR MAY JUN JUL AUG SEP OCT NOV DEC'.split(' ')[d.getUTCMonth()]}</text>`}
+  E.forEach(x=>s+=`<circle class="evd" cx="${fx(X(x.t))}" cy="178" r="3.5"><title>${esc(x.time+' · '+x.ev)}</title></circle>`);
+  return s+`<rect class="cover" x="36" y="0" width="570" height="220"/></svg>`},play(f){}},
+ // Two columns side by side, row by row; rows that say the same are joined.
+ parallel:{t:'Side by side',draw(T){if(T.head.length<3||T.rows.length<2)return null;const same=(a,b)=>a.trim().toLowerCase()===b.trim().toLowerCase();
+  return `<div class="fpl"><div class="h"><b>${esc(T.head[1])}</b><i></i><b>${esc(T.head[2])}</b></div>${T.rows.map((r,i)=>{const open=/^(to be recorded|not known|n\/a)?$/i;
+   return `<div class="${same(r[1],r[2])?'same':''}" style="--d:${i*260}ms"><span class="${open.test(r[1].trim())?'op':''}">${esc(r[1])}</span><em>${esc(r[0])}</em><span class="${open.test(r[2].trim())?'op':''}">${esc(r[2])}</span></div>`}).join('')}</div>`},play(f){}},
 };
 function figures(root){if(!root)return;const w=document.createTreeWalker(root,NodeFilter.SHOW_COMMENT),found=[];let c;
  while(c=w.nextNode()){const m=c.data.trim().match(/^figure:\s*([a-z-]+)/i);if(m)found.push([c,m[1].toLowerCase()])}
