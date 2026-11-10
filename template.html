@@ -168,6 +168,72 @@ a.card:hover{border-color:var(--c,var(--accent));transform:translateY(-2px)}
 .pager a{display:flex;flex-direction:column;gap:3px;border:1px solid var(--line);border-radius:10px;padding:12px 16px;background:var(--surface);min-width:0;flex:1}
 .pager a:hover{border-color:var(--accent)}
 .pager a.nx{text-align:right}
+/* figures under Story tables (<!-- figure: TYPE --> in the text), drawn from the table above */
+.fig{--fw:color-mix(in srgb,var(--accent) 15%,transparent);margin:-.4em 0 1.8em;border:1px solid var(--line);border-radius:12px;background:var(--surface);padding:16px 16px 12px}
+.fig .fsvg{display:block;width:100%;height:auto;overflow:visible}
+.fig-map .fsvg{overflow:hidden}
+.fig text{font:10px "Geist Mono",monospace;fill:var(--muted);letter-spacing:.05em}
+.fig figcaption{display:flex;justify-content:space-between;gap:4px 12px;flex-wrap:wrap;margin-top:12px;padding-top:10px;border-top:1px solid var(--line);font:500 10.5px "Geist Mono",monospace;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.fig figcaption span{font-weight:400;letter-spacing:.04em;text-transform:none;opacity:.8}
+.fig .fw{fill:var(--fw);transition:transform 1.1s cubic-bezier(.3,.7,.3,1)}
+.fig.on .fw path{animation:fg-sway 7s ease-in-out infinite alternate}
+@keyframes fg-sway{from{transform:translateX(-40px)}to{transform:none}}
+.fig .tk path,.fig .ax,.fig .tk1{stroke:var(--muted);stroke-width:1;opacity:.6;fill:none}
+.fig .lvl path{stroke:var(--fg);stroke-width:1;stroke-dasharray:2 5;opacity:.5}
+.fig .lvl{opacity:.3;transition:opacity .6s}.fig .lvl.on{opacity:1}.fig .lvl.on text{fill:var(--fg)}
+.fig .run{stroke:var(--fg);stroke-width:2;fill:none;stroke-dasharray:1;stroke-dashoffset:1;opacity:.7}
+.fig.run .run{transition:stroke-dashoffset 3.6s linear;stroke-dashoffset:0}
+.fig .ev{opacity:0;transform:translateY(6px);transition:opacity .5s,transform .5s}.fig .ev.on{opacity:1;transform:none}
+.fig .ev path{stroke:var(--muted);stroke-width:1;stroke-dasharray:2 3}
+.fig .ev circle{fill:var(--surface);stroke:var(--fg);stroke-width:1.5}
+.fig .ev text{fill:var(--fg)}.fig .ev .k{fill:var(--accent-ink);font-weight:500}
+.fcls{display:grid;grid-template-columns:repeat(var(--n),minmax(0,1fr));gap:12px}
+.fc svg{display:block;width:100%;height:auto;border-bottom:1px solid var(--line)}
+.fc .gd{fill:color-mix(in srgb,var(--fg) 16%,var(--surface));stroke:var(--muted);stroke-width:1}
+.fc .fw{transform:translateY(92px);transition-delay:calc(var(--i)*.25s)}.fig.on .fc .fw{transform:translateY(var(--y))}
+.fc .bt{fill:none;stroke:var(--fg);stroke-width:1.2;transform:translateY(92px);transition:transform 1.1s cubic-bezier(.3,.7,.3,1)}.fig.on .fc .bt{transform:translateY(var(--y))}
+.fc b{display:block;font:500 20px Geist,system-ui,sans-serif;margin:8px 0 2px}
+.fc span{display:block;font-size:12.5px;line-height:1.45;color:var(--muted)}
+.fig .riv{fill:none;stroke:color-mix(in srgb,var(--fg) 13%,transparent);stroke-width:7;stroke-linecap:round;stroke-linejoin:round}
+.fig .occ{fill:none;stroke:var(--rus);stroke-width:1;stroke-dasharray:3 4;opacity:.55}
+.fig .pin{opacity:0;transition:opacity .4s var(--d)}.fig.on .pin{opacity:1}
+.fig .pin circle{fill:var(--fg)}.fig .pin text{fill:var(--fg);font-weight:500}
+.fig .pin .ring{fill:none;stroke:var(--accent-ink);stroke-width:1.5;opacity:0;transition:opacity .2s}
+.fig .pin.hl .ring{opacity:1}.fig .pin a{cursor:pointer}
+.prose tr.fig-hl td{background:color-mix(in srgb,var(--accent) 12%,transparent)}
+.frt{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:18px;align-items:center}
+.fig .cmp{fill:none;stroke:var(--muted);stroke-width:1;stroke-dasharray:2 4;opacity:.6}
+.fig .ctr{fill:var(--fg)}
+.fig .sp path{fill:none;stroke:var(--fg);stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+.fig .sp path[pathLength]{stroke-dasharray:1;stroke-dashoffset:1;transition:stroke-dashoffset 1s cubic-bezier(.3,.7,.3,1) var(--d)}.fig.on .sp path[pathLength]{stroke-dashoffset:0}
+.fig .sp .hd,.fig .sp text{opacity:0;transition:opacity .4s calc(var(--d) + .8s)}.fig.on .sp .hd,.fig.on .sp text{opacity:1}
+.fig .sp text{fill:var(--fg)}
+.frl{list-style:none;margin:0;padding:0;display:grid;gap:12px}
+.frl li{display:grid;grid-template-columns:1fr auto;gap:3px 10px;font-size:13px;line-height:1.35}
+.frl b{font-weight:500}.frl .km{font:12px "Geist Mono",monospace;color:var(--muted)}
+.frl i{grid-column:1/-1;height:4px;border-radius:2px;background:var(--line);position:relative;overflow:hidden}
+.frl i:after{content:"";position:absolute;inset:0 auto 0 0;width:var(--w);background:color-mix(in srgb,var(--fg) 60%,transparent);transform:scaleX(0);transform-origin:left;transition:transform 1s cubic-bezier(.3,.7,.3,1) var(--d)}
+.fig.on .frl i:after{transform:none}
+.frl small{grid-column:1/-1;color:var(--muted);font-size:12px;line-height:1.4}
+.fseg{display:inline-flex;border:1px solid var(--line);border-radius:99px;padding:2px;margin:0 0 12px;background:var(--bg)}
+.fseg button{font:500 12px Geist,system-ui,sans-serif;border:0;background:none;color:var(--muted);padding:5px 14px;border-radius:99px;cursor:pointer}
+.fseg button[aria-pressed="true"]{background:var(--raise);color:var(--fg);box-shadow:inset 0 0 0 1px var(--line)}
+.fig .bank{fill:color-mix(in srgb,var(--fg) 5%,var(--surface))}.fig .sh{fill:none;stroke:var(--muted);stroke-width:1;opacity:.7}
+.fig .wtr{fill:var(--fw)}
+.fig .ice{fill:color-mix(in srgb,var(--fg) 9%,var(--surface))}
+.fig .lily path{fill:color-mix(in srgb,var(--accent) 22%,transparent);stroke:var(--fg);stroke-width:.8;opacity:.75}
+.fig .reed path{fill:none;stroke:var(--fg);stroke-width:1.2;opacity:.6;stroke-linecap:round}.fig .reed .hd{fill:var(--muted)}.fig .reed.bare path{opacity:.45}
+.fig .crk path{fill:none;stroke:var(--muted);stroke-width:1}
+.fig .snow circle{fill:var(--muted);opacity:.6}
+.fig .su,.fig .wi,.fsl dd{transition:opacity .8s,visibility .8s}
+.fig-seasons[data-s="su"] .wi,.fig-seasons[data-s="wi"] .su{opacity:0}
+.fsl{margin:12px 0 0;display:grid;gap:7px}
+.fsl div{display:grid;grid-template-columns:minmax(0,10em) 1fr;gap:12px;font-size:13px;line-height:1.45}
+.fsl dt{color:var(--muted)}.fsl dd{margin:0;grid-column:2;grid-row:1}
+.fig-seasons[data-s="su"] .sw,.fig-seasons[data-s="wi"] .ss{opacity:0;visibility:hidden}
+@media(max-width:560px){.fcls{grid-template-columns:1fr 1fr}.frt{grid-template-columns:1fr}.fsl div{grid-template-columns:1fr;gap:0}.fsl dd{grid-column:1;grid-row:2}}
+.fig.still *{transition:none!important;animation:none!important}
+@media(prefers-reduced-motion:reduce){.fig *{transition:none!important;animation:none!important}}
 .pager small{font:11px "Geist Mono",monospace;color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
 .toc{max-width:40em;margin-top:30px}
 .toc h5{font:500 11px "Geist Mono",monospace;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin:22px 0 8px}
@@ -1299,7 +1365,7 @@ function storyHome(){const S=STORY,O=storyOrder();const start=O.find(x=>x.s==='f
 function storyPage(slug){const P=storyOrder(),i=P.findIndex(x=>x.s===slug);if(i<0){storyHome();return}const p=P[i],pv=P[i-1],nx=P[i+1];
   $('#app').innerHTML=`<div class="wrap"><div class="docs two">${storySide(slug)}<article class="main"><div class="crumb"><a href="#home">Codex</a> / <a href="#story">Story</a> / ${esc(p.t.split(':')[0])}</div><h1 class="t">${esc(p.t)}</h1>
     <div class="prose sprose">${p.html}</div>
-    <nav class="pager">${pv?`<a href="#story-${pv.s}"><small>Previous</small>${esc(pv.t)}</a>`:'<a href="#story"><small>Back to</small>Contents</a>'}${nx?`<a class="nx" href="#story-${nx.s}"><small>Next</small>${esc(nx.t)}</a>`:'<a class="nx" href="#story"><small>Back to</small>Contents</a>'}</nav></article></div></div>`}
+    <nav class="pager">${pv?`<a href="#story-${pv.s}"><small>Previous</small>${esc(pv.t)}</a>`:'<a href="#story"><small>Back to</small>Contents</a>'}${nx?`<a class="nx" href="#story-${nx.s}"><small>Next</small>${esc(nx.t)}</a>`:'<a class="nx" href="#story"><small>Back to</small>Contents</a>'}</nav></article></div></div>`;figures($('.sprose'))}
 function storyRoute(h){const draw=()=>{h==='story'?storyHome():storyPage(h.slice(6));ctxPaint(h);scrollTo(0,0)};
   if(STORY)return draw();
   $('#app').innerHTML='<div class="wrap"><div class="empty">Opening the manuscript…</div></div>';
@@ -1311,6 +1377,101 @@ const menuSet=o=>{navEl.classList.toggle('open',o);menuBtn.setAttribute('aria-ex
 menuBtn.onclick=()=>menuSet(!navEl.classList.contains('open'));
 document.addEventListener('click',e=>{if(navEl.classList.contains('open')&&!e.target.closest('.nav'))menuSet(false)});
 document.addEventListener('keydown',e=>{if(e.key==='Escape')menuSet(false)});
+/* figures. A marker line under a table in the Story text, <!-- figure: TYPE -->,
+   draws that table as a figure, the way a chart sits beside a spreadsheet.
+   Each figure reads only the rows of the table above it, so an edit to the
+   table changes the figure, and nothing is shown that the table does not say.
+   Each plays once when it scrolls into view; with reduced motion it is drawn
+   already finished. Unknown types and unreadable tables draw nothing. */
+const FIG_COS=Math.cos(52.25*Math.PI/180);
+const figRM=()=>matchMedia('(prefers-reduced-motion:reduce)').matches;
+const tcol=(T,re,d=-1)=>{const i=T.head.findIndex(h=>re.test(h));return i<0?d:i};
+const fx=n=>(+n).toFixed(1);
+const MON={jan:0,feb:1,mar:2,apr:3,may:4,jun:5,jul:6,aug:7,sep:8,oct:9,nov:10,dec:11};
+const figDate=s=>{const m=String(s).match(/(\d{1,2})\s+([a-z]{3})[a-z]*\.?\s+(\d{4})/i);return m&&MON[m[2].toLowerCase()]!=null?Date.UTC(+m[3],MON[m[2].toLowerCase()],+m[1]):NaN};
+const FIG={
+ // Levels against a datum: a staff gauge that fills, level by level.
+ levels:{t:'Levels against the datum',draw(T){const cc=tcol(T,/condition|state|event/i,1),dc=tcol(T,/date/i);
+  const L=T.rows.map(r=>({v:parseFloat(r[0]),c:r[cc]||'',d:dc>=0&&!/^n\/?a$/i.test(r[dc])?r[dc]:''})).filter(x=>!isNaN(x.v)).sort((a,b)=>a.v-b.v);
+  if(L.length<2)return null;const lo=Math.floor(L[0].v)-1,hi=Math.ceil(L[L.length-1].v)+1,top=18,bot=250,y=v=>bot-(v-lo)/(hi-lo)*(bot-top);
+  let s=`<svg class="fsvg" viewBox="0 0 600 262" role="img" aria-label="${esc(L.map(x=>x.v+' m, '+x.c).join('; '))}"><defs><clipPath id="flv"><rect x="40" y="0" width="600" height="${bot}"/></clipPath></defs>`;
+  s+=`<g clip-path="url(#flv)"><g class="fw" style="transform:translateY(${fx(bot)}px)"><path d="M-40 0c40-7 80 7 120 0s80-7 120 0s80 7 120 0s80-7 120 0s80 7 120 0s80-7 120 0s80 7 120 0V300H-40z"/></g></g>`;
+  s+=`<g class="tk"><path d="M40 ${top}V${bot}"/>`;for(let v=lo;v<=hi;v++)s+=`<path d="M40 ${fx(y(v))}h${v%5?6:12}"/>`;s+='</g>';
+  for(let v=lo;v<=hi;v++)if(v%2===0||v===lo)s+=`<text class="n" x="32" y="${fx(y(v)+3)}" text-anchor="end">${v}</text>`;
+  L.forEach((x,i)=>{const yy=y(x.v);s+=`<g class="lvl" data-y="${fx(yy)}"><path d="M48 ${fx(yy)}H596"/><text x="56" y="${fx(yy-6)}">${esc((x.v+' m · '+x.c).toUpperCase())}</text>${x.d?`<text class="r" x="596" y="${fx(yy-6)}" text-anchor="end">${esc(x.d)}</text>`:''}</g>`});
+  return s+'</svg>'},
+  play(f,still){const g=$('.fw',f),ls=[...f.querySelectorAll('.lvl')];
+   if(still){g.style.transform=`translateY(${ls[ls.length-1].dataset.y}px)`;ls.forEach(l=>l.classList.add('on'));return}
+   ls.forEach((l,i)=>setTimeout(()=>{g.style.transform=`translateY(${l.dataset.y}px)`;setTimeout(()=>l.classList.add('on'),500)},250+i*1150))}},
+ // Dated rows on a time axis, each appearing in turn.
+ timeline:{t:'Timeline',draw(T){const dc=tcol(T,/date/i);if(dc<0)return null;const lc=tcol(T,/location|place|event|item/i,1),nc=tcol(T,/^no\.?$/i);
+  const E=T.rows.map((r,i)=>({d:figDate(r[dc]),t:(r[lc]||'').split(',')[0],n:nc>=0?r[nc]:String(i+1),full:r.join(' · ')})).filter(x=>!isNaN(x.d));
+  if(E.length<2)return null;const d0=Math.min(...E.map(x=>x.d)),d1=Math.max(...E.map(x=>x.d)),span=Math.max(1,(d1-d0)/864e5),X=d=>60+(d-d0)/864e5/span*480;
+  let s=`<svg class="fsvg" viewBox="0 0 600 210" role="img" aria-label="${esc(E.map(x=>x.full).join('; '))}"><path class="ax" d="M40 170H560"/>`;
+  for(let k=0;k<=span;k++){const d=new Date(d0+k*864e5),xx=X(d0+k*864e5);s+=`<path class="tk1" d="M${fx(xx)} 166v8"/><text class="n" x="${fx(xx)}" y="192" text-anchor="middle">${d.getUTCDate()} ${'JAN FEB MAR APR MAY JUN JUL AUG SEP OCT NOV DEC'.split(' ')[d.getUTCMonth()]}</text>`}
+  s+=`<path class="run" pathLength="1" d="M${fx(X(d0))} 170H${fx(X(d1))}"/>`;
+  E.forEach((x,i)=>{const xx=X(x.d),h=[118,74][i%2],end=xx>420;s+=`<g class="ev"><title>${esc(x.full)}</title><path d="M${fx(xx)} 170V${170-h}"/><circle cx="${fx(xx)}" cy="170" r="4.5"/><text x="${fx(end?xx-6:xx+6)}" y="${170-h+4}" text-anchor="${end?'end':'start'}"><tspan class="k">${esc(x.n)}</tspan> ${esc(x.t)}</text></g>`});
+  return s+'</svg>'},
+  play(f,still){f.classList.add('run');[...f.querySelectorAll('.ev')].forEach((e,i)=>still?e.classList.add('on'):setTimeout(()=>e.classList.add('on'),300+i*650))}},
+ // Classes of ground: one cross-section per row, deepest water first.
+ classes:{t:'Classes of ground',draw(T){const n=T.rows.length;if(n<2)return null;const dc=tcol(T,/descr|meaning/i,1);
+  return `<div class="fcls" style="--n:${n}">`+T.rows.map((r,i)=>{const lv=22+(74-22)*i/(n-1),boat=/boat/i.test(r[dc]||'');
+   return `<div class="fc"><svg viewBox="0 0 140 92" aria-hidden="true"><g class="fw" style="--y:${fx(lv)}px;--i:${i}"><path d="M-40 0c20-4 40 4 60 0s40-4 60 0s40 4 60 0s40-4 60 0V120H-40z"/></g><path class="gd" d="M0 92V84C30 84 42 44 70 44S110 84 140 84V92Z"/>${boat?`<path class="bt" style="--y:${fx(lv)}px" d="M98 -6h22l-4 5h-14z M109 -6v-10l7 8"/>`:''}</svg><b>${esc(r[0])}</b><span>${esc(r[dc]||'')}</span></div>`}).join('')+'</div>'},
+  play(f){}},
+ // Grid references on a small map, with the river for context.
+ map:{t:'Positions on the map',draw(T){const gc=tcol(T,/grid|coord/i);if(gc<0)return null;const nc=tcol(T,/name|location/i,1);
+  const P=T.rows.map((r,i)=>{const m=String(r[gc]).match(/(-?\d+(?:\.\d+)?)\s*°?\s*([NS])?\s*[, ]\s*(-?\d+(?:\.\d+)?)\s*°?\s*([EW])?/i);if(!m)return null;
+   return{i,code:r[0],name:r[nc]||'',lat:/s/i.test(m[2]||'')?-m[1]:+m[1],lon:/w/i.test(m[4]||'')?-m[3]:+m[3]}}).filter(Boolean);
+  if(P.length<2)return null;const lons=P.map(p=>p.lon),lats=P.map(p=>p.lat),x0=Math.min(...lons),y1=Math.max(...lats);
+  const dx=(Math.max(...lons)-x0)*FIG_COS,dy=y1-Math.min(...lats),pad=Math.max(dx,dy)*.14;let s=560/(dx+2*pad),H=(dy+2*pad)*s;if(H>440){s=440/(dy+2*pad);H=440}
+  const ox=(600-dx*s)/2,oy=pad*s,pr=([lon,lat])=>[ox+(lon-x0)*FIG_COS*s,oy+(y1-lat)*s],pth=c=>c.map((p,i)=>(i?'L':'M')+pr(p).map(fx).join(' ')).join('');
+  let g=`<svg class="fsvg" viewBox="0 0 600 ${fx(H)}" role="img" aria-label="${esc(P.map(p=>p.code+' '+p.name).join(', '))}">`;
+  (MAP.lines||[]).filter(l=>l.k==='riv').forEach(l=>g+=`<path class="riv" d="${pth(l.c)}"/>`);
+  (MAP.lines||[]).filter(l=>l.k==='occ').forEach(l=>g+=`<path class="occ" d="${pth(l.c)}Z"/>`);
+  P.forEach((p,k)=>{const[x,y]=pr([p.lon,p.lat]),pt=MAP.pts.find(q=>q.c===p.code&&q.e),inner=`<circle class="ring" cx="${fx(x)}" cy="${fx(y)}" r="9"/><circle cx="${fx(x)}" cy="${fx(y)}" r="4"/><text x="${fx(x+8)}" y="${fx(y-7)}">${esc(p.code)}</text><title>${esc(p.code+' · '+p.name)}</title>`;
+   g+=`<g class="pin" data-r="${p.i}" style="--d:${k*70}ms">${pt?`<a href="#e-${esc(pt.e)}">${inner}</a>`:inner}</g>`});
+  return g+'</svg>'},
+  wire(f,T){const rows=[...T.el.tBodies[0]?.rows||[]];const pin=i=>f.querySelector(`.pin[data-r="${i}"]`);
+   rows.forEach((tr,i)=>{const p=pin(i);if(!p)return;const on=v=>{p.classList.toggle('hl',v);tr.classList.toggle('fig-hl',v)};
+    tr.addEventListener('mouseenter',()=>on(true));tr.addEventListener('mouseleave',()=>on(false));p.addEventListener('mouseenter',()=>on(true));p.addEventListener('mouseleave',()=>on(false))})},
+  play(f){}},
+ // Routes by the direction and distance their rows give, from a common centre.
+ routes:{t:'Routes by direction and distance',draw(T){const kc=tcol(T,/distance|km/i);if(kc<0)return null;const dc=tcol(T,/direction/i),uc=tcol(T,/duration|time/i);
+  const ANG={north:-90,northeast:-45,east:0,southeast:45,south:90,southwest:135,west:180,northwest:-135};
+  const R=T.rows.map(r=>{const w=(r[0]+' '+(dc>=0?r[dc]:'')).toLowerCase().replace(/north-east/g,'northeast').replace(/north-west/g,'northwest').replace(/south-east/g,'southeast').replace(/south-west/g,'southwest').match(/\b(northeast|northwest|southeast|southwest|north|south|east|west)\b/);
+   return{name:r[0],km:parseFloat(r[kc]),a:w?ANG[w[1]]:null,dir:w?w[1]:'',dur:uc>=0?r[uc]:''}}).filter(x=>!isNaN(x.km));
+  if(!R.length)return null;const max=Math.max(...R.map(x=>x.km)),cx=180,cy=154,rad=km=>30+km/max*98;
+  let s=`<svg class="fsvg" viewBox="0 0 360 300" role="img" aria-label="${esc(R.map(x=>`${x.name}: ${x.dir||'direction not given'}, ${x.km} km`).join('; '))}"><circle class="cmp" cx="${cx}" cy="${cy}" r="128"/><circle class="cmp" cx="${cx}" cy="${cy}" r="64"/><path class="cmp" d="M${cx} ${cy-134}v-8"/><text class="n" x="${cx+6}" y="${cy-134}">N</text>`;
+  R.forEach((x,i)=>{if(x.a==null)return;const a=x.a*Math.PI/180,r=rad(x.km),c=Math.cos(a),sn=Math.sin(a),ex=cx+c*r,ey=cy+sn*r,h=8,l=[a+2.6,a-2.6].map(b=>`${fx(ex+Math.cos(b)*h)} ${fx(ey+Math.sin(b)*h)}`);
+   const tx=cx+c*(r+12),ty=cy+sn*(r+12)+(sn>.3?10:sn<-.3?-2:4),anc=c>.3?'start':c<-.3?'end':'middle';
+   s+=`<g class="sp" style="--d:${i*350}ms"><path pathLength="1" d="M${cx} ${cy}L${fx(ex)} ${fx(ey)}"/><path class="hd" d="M${l[0]}L${fx(ex)} ${fx(ey)}L${l[1]}"/><text x="${fx(tx)}" y="${fx(ty)}" text-anchor="${anc}">${esc(x.name)}</text></g>`});
+  s+=`<circle class="ctr" cx="${cx}" cy="${cy}" r="4"/></svg>`;
+  const list=`<ol class="frl">${R.map((x,i)=>`<li style="--w:${fx(x.km/max*100)}%;--d:${i*350}ms"><b>${esc(x.name)}</b><span class="km">${esc(x.km+' km')}</span><i></i>${x.dur?`<small>${esc(x.dur)}</small>`:''}</li>`).join('')}</ol>`;
+  return `<div class="frt">${s}${list}</div>`},play(f){}},
+ // Two seasons of the same place, from a table with Summer and Winter columns.
+ seasons:{t:'Summer and winter',draw(T){const sc=tcol(T,/summer/i),wc=tcol(T,/winter/i);if(sc<0||wc<0)return null;
+  const band='M0 46Q300 58 600 46V112Q300 102 0 114Z',shore='<path class="sh" d="M0 46Q300 58 600 46"/><path class="sh" d="M0 114Q300 102 600 112"/>';
+  const reeds=(win)=>[[26,46],[40,46],[50,46],[64,46],[418,47],[432,48],[446,47],[530,47],[546,46],[560,46],[90,114],[104,114],[300,104],[314,104],[480,108],[494,108]].map(([x,y],i)=>{const up=y<80?-1:1,h=(win?12:26)+(i%3)*5,lean=win?(i%2?9:-7):(i%3-1)*3,tx=x+lean,ty=y+up*h;
+   return `<path d="M${x} ${y}Q${x+lean*.2} ${y+up*h*.6} ${tx} ${ty}"/>`+(win?'':`<rect class="hd" x="${tx-1.6}" y="${up<0?ty-1:ty-7}" width="3.2" height="8" rx="1.6"/>`)}).join('');
+  let s=`<svg class="fsvg" viewBox="0 0 600 160" aria-hidden="true"><path class="bank" d="M0 0H600V46Q300 58 0 46Z"/><path class="bank" d="M0 160H600V112Q300 102 0 114Z"/>`;
+  s+=`<g class="su"><path class="wtr" d="${band}"/>${shore}<g class="lily">${[[150,78],[172,90],[230,72],[360,92],[392,80],[470,86]].map(([x,y])=>`<path d="M${x+10} ${y}a10 4.2 0 1 1 0 -.01L${x} ${y}Z"/>`).join('')}</g><g class="reed">${reeds(false)}</g></g>`;
+  s+=`<g class="wi"><path class="ice" d="${band}"/>${shore}<g class="crk"><path d="M90 66l40 14 26-6 40 18"/><path d="M330 58l22 20-10 20"/><path d="M440 94l50-12 36 10"/></g><g class="reed bare">${reeds(true)}</g><g class="snow">${Array.from({length:26},(_,i)=>`<circle cx="${(i*97+13)%600}" cy="${(i*53)%36+5}" r="1.2"/>`).join('')}${Array.from({length:14},(_,i)=>`<circle cx="${(i*131+40)%600}" cy="${(i*29)%34+122}" r="1.2"/>`).join('')}</g></g></svg>`;
+  const rows=T.rows.map(r=>`<div><dt>${esc(r[0])}</dt><dd class="ss">${esc(r[sc])}</dd><dd class="sw">${esc(r[wc])}</dd></div>`).join('');
+  return `<div class="fseg" role="group" aria-label="Season"><button type="button" data-s="su" aria-pressed="true">${esc(T.head[sc])}</button><button type="button" data-s="wi" aria-pressed="false">${esc(T.head[wc])}</button></div>${s}<dl class="fsl">${rows}</dl>`},
+  wire(f){f.dataset.s='su';f.querySelector('.fseg').onclick=e=>{const b=e.target.closest('button');if(!b)return;f.dataset.touched=1;FIG.seasons.set(f,b.dataset.s)}},
+  set(f,v){f.dataset.s=v;f.querySelectorAll('.fseg button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.s===v))},
+  play(f,still){if(!still)setTimeout(()=>{if(!f.dataset.touched)FIG.seasons.set(f,'wi')},2200)}},
+};
+function figures(root){if(!root)return;const w=document.createTreeWalker(root,NodeFilter.SHOW_COMMENT),found=[];let c;
+ while(c=w.nextNode()){const m=c.data.trim().match(/^figure:\s*([a-z-]+)/i);if(m)found.push([c,m[1].toLowerCase()])}
+ found.forEach(([c,type])=>{const F=FIG[type];let t=c.previousSibling;while(t&&t.nodeType!==1)t=t.previousSibling;if(!F||!t||t.tagName!=='TABLE')return;
+  const T={el:t,...(()=>{const r=[...t.rows].map(x=>[...x.cells].map(y=>y.textContent.trim()));return{head:r[0]||[],rows:r.slice(1).filter(x=>x.some(Boolean))}})()};
+  let html;try{html=F.draw(T)}catch(e){return}if(!html)return;
+  const f=document.createElement('figure');f.className='fig fig-'+type;f.innerHTML=html+`<figcaption>Figure · ${esc(F.t)}<span>Drawn from the table above</span></figcaption>`;
+  c.parentNode.insertBefore(f,c.nextSibling);if(F.wire)F.wire(f,T);
+  const go=still=>{f.classList.add('on');if(still)f.classList.add('still');F.play(f,still)};
+  if(figRM()||!('IntersectionObserver' in window))go(true);
+  else{const io=new IntersectionObserver(es=>{if(es.some(x=>x.isIntersecting)){io.disconnect();go(false)}},{threshold:.3});io.observe(f)}})}
 /* lightbox */
 const LB={list:[],i:0,last:null};const lbEl=$('#lb');
 function lbShow(){const x=LB.list[LB.i],img=$('img',lbEl),n=LB.list.length;img.src=x.src;img.alt=x.alt||x.caption||'';

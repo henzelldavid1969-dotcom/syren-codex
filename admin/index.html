@@ -213,6 +213,7 @@ table.tbl{width:100%;border-collapse:collapse;font-size:14px}
 .kv dt{color:var(--muted)}
 .kv dd{margin:0;font-family:"Geist Mono",monospace;font-size:12px;text-align:right;overflow:hidden;text-overflow:ellipsis}
 .private{border-left:3px solid var(--fg)}
+.figph{margin:-6px 0 18px;padding:14px;border:1px dashed var(--line);border-radius:10px;font:12px "Geist Mono",monospace;color:var(--muted);text-align:center}
 .savebar{position:sticky;bottom:0;z-index:6;display:flex;align-items:center;gap:10px;padding:12px 28px;border-top:1px solid var(--line);background:color-mix(in srgb,var(--surface) 94%,transparent);backdrop-filter:blur(10px);margin-top:12px}
 .savebar .msg{flex:1;font-size:14px;color:var(--muted);min-width:0}
 .savebar .msg b{color:var(--fg);font-weight:500}
@@ -946,8 +947,18 @@ window.addEventListener('beforeunload', (ev) => { if (M && M.dirty) { ev.prevent
 // ---------- shared: plain editors with a save bar ----------
 const KINDS = ['front', 'prologue', 'diary', 'chapter', 'interlude', 'protocol', 'back', 'appendix'];
 const sinceRelease = (at) => { const r = lastRelease(); return !r || new Date(at) > new Date(r.created_at); };
+// Figures drawn on the site from the table above (template.html, FIG).
+const FIGS = [
+  ['levels', 'Levels', 'a gauge that fills to each level (a first column in metres)'],
+  ['timeline', 'Timeline', 'dated rows on a time axis (a Date column)'],
+  ['classes', 'Classes of ground', 'one cross-section per row, deepest first'],
+  ['map', 'Map', 'the rows on a small map (a Grid Ref or Coordinates column)'],
+  ['routes', 'Routes', 'direction and distance from a centre (a Distance column)'],
+  ['seasons', 'Seasons', 'a summer and winter switch (Summer and Winter columns)'],
+];
 const preview = (md) => {
-  const html = window.marked ? marked.parse(String(md || ''), { gfm: true }) : `<pre>${esc(md)}</pre>`;
+  const html = (window.marked ? marked.parse(String(md || ''), { gfm: true }) : `<pre>${esc(md)}</pre>`)
+    .replace(/<!--\s*figure:\s*([a-z-]+)\s*-->/gi, (m, k) => `<div class="figph">Figure: ${esc((FIGS.find((f) => f[0] === k.toLowerCase()) || [, k])[1])}, drawn from the table above</div>`);
   return html.replace(/<p><strong>([A-ZĄĆĘŁŃÓŚŹŻ][A-ZĄĆĘŁŃÓŚŹŻ .'-]*)<\/strong> · /g, '<p class="spk"><strong>$1</strong> · ');
 };
 function saveBar(label = 'Save') {
@@ -1037,6 +1048,8 @@ async function viewSection(slug) {
         </div></div></details>
       <details class="sec" open><summary><span class="n">02</span>Text<span class="chev">${ico('chev')}</span></summary><div class="body">
         ${mdField('s_body', 'Section text', x.body || '', { rows: 28, cls: 'ms', help: 'Markdown: *italic*, **bold**, a blank line between paragraphs, and * * * for a section break. ' })}
+        <div class="fld"><label for="s_fig">Insert a figure</label><select id="s_fig"><option value="">Choose a figure to put under a table</option>${FIGS.map(([k, l, h]) => `<option value="${k}">${esc(l)}: ${esc(h)}</option>`).join('')}</select>
+          <span class="help">Put the cursor on the line straight after a table, then choose. The figure is drawn on the site from that table's rows, so editing the table changes it. To remove a figure, delete its marker line, &lt;!-- figure: ... --&gt;.</span></div>
       </div></details>
     </div>
     <aside class="edside">
@@ -1055,6 +1068,16 @@ async function viewSection(slug) {
   $('#s_kind').onchange = (ev) => { M.v.kind = ev.target.value; dirty(); };
   $('#s_group').onchange = (ev) => { M.v.group_code = ev.target.value; dirty(); };
   wireMd('s_body', (v) => { M.v.body = v; dirty(); });
+  $('#s_fig').onchange = (ev) => {
+    const k = ev.target.value, ta = $('#s_body');
+    ev.target.value = '';
+    if (!k) return;
+    const at = ta.selectionEnd, before = ta.value.slice(0, at).replace(/\s*$/, ''), after = ta.value.slice(at).replace(/^\s*/, '');
+    ta.value = `${before}\n\n<!-- figure: ${k} -->\n\n${after}`;
+    ta.dispatchEvent(new Event('input'));
+    ta.focus();
+    toast('Figure added. Preview shows where it sits.');
+  };
   histCard({ kind: 'section', key: slug, compare: sectionCompare, apply: sectionApply });
   wireSaveBar(async () => {
     if (!M.v.title.trim()) return toast('The section needs a title.', true);
