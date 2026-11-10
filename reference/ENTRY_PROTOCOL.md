@@ -38,7 +38,7 @@ Empty media fields render as labelled placeholders so the structure is visible b
 ## 2. Category blocks (fixed order, shown as a "Key facts" table)
 
 - **Locations:** control (survivor, occupier, contested, neutral), ground class (A to D, only if the manuscript gives it), function, coordinates (lon, lat, with a flag for approximate), water condition, who is here (relations), events here.
-- **Characters:** age (with grade if only in the brief), role, group, commandment theme, first appearance, own Protocol, distinguishing trait, fate in the story.
+- **Characters:** age (with grade if only in the brief), role, group, tuning (one of a list of options, edited in the admin), first appearance, own Protocol, distinguishing trait, fate in the story.
 - **Objects:** type (document, artefact, organism, substance), holder, origin, function, where last seen.
 - **Lore:** type (programme, event, concept, history), period, parties involved, consequences.
 
