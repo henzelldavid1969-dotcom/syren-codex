@@ -2253,6 +2253,56 @@
    "files": []
   },
   {
+   "id": "loc-032",
+   "ref": "SYNPTCL/LOC/032",
+   "type": "LOC",
+   "name": "The Zone",
+   "mark": "PROX_SCAN",
+   "grade": "C",
+   "summary": "The Russian research programme under which the surviving population of Warsaw was held as a test cohort.",
+   "entry": "Neural Harvest is the name of a research programme described in an operational brief that Diana Antonoff received on 28 December, through the Russian scientist she calls a source in Protocol 003. The brief is eleven pages, in Russian and in English, on the stationery of a research directorate, stamped and numbered. Hers was copy 3 of 5. The brief treats the survivors of the Warsaw corridor, estimated at forty thousand, as a test cohort. It treats the flood as the delivery system. It records the effects of the organism as behavioural endpoints in four stages and names stage 4 as the target state. The brief names loss of containment as the principal risk to the programme, and loss of the measurement through the emergence of an organised population as the secondary risk. It considers both low. A small proportion of the cohort is expected to show atypical resistance. Such subjects are to be identified, monitored and recorded. They are not to be removed from the cohort unless they affect the integrity of the measurement. The target for the cohort phase is that not less than 60 per cent of the cohort is assessed at stage 3 or above within 90 days of the establishment of continuous exposure. The phase ends when the Directorate determines that the measurement is complete. Results are held in a joint repository and are to be shared with the partner establishments on completion of the cohort phase. The brief gives ethical review as not applicable and states no reason. The name comes from the observation section: a harvest is the gathering of what has grown. The brief is reproduced as Appendix: The Brief, with the names of the Western partners and the initials withheld. It lists four annexes: A, the organism; B, delivery; C, behavioural endpoints; and D, observation, cordon and data. They are in the binder and are not reproduced. The programme is described as joint, run by the Russian state and at least two Western states through their agencies, military research establishments and private biotechnology contractors. The Russians supplied the organism and the Western partners supplied the means of enhancing it, stabilising it in a water supply and optimising it. The brief gives the grounds for the choice of city as isolated, contained and non-attributable, with no external access and no prospect of relief. The scientist gave Diana the name on 30 October 2034, and she wrote it in the second binder, not in Protocol 003. She believes the cohort phase ended with the destruction of Żerań on 1 January 2035, and rates that belief 0.6. In Interlude V an account lead works on a contract called the Programme, whose name has two words, one suggesting the brain and one a verb for gathering a crop.",
+   "appears": "Various",
+   "reliability": "The scientist gave Diana the name on 30 October 2034, and she wrote it in the second binder, not in Protocol 003. She believes the cohort phase ended with the destruction of Żerań on 1 January 2035, and rates that belief 0.6. In Interlude V an account lead works on a contract called the Programme, whose name has two words, one suggesting the brain and one a verb for gathering a crop.",
+   "status": "Draft",
+   "featured": null,
+   "sources": 24,
+   "note": "",
+   "xnote": "",
+   "aliases": "Wetlands,Beyond,The Corridor",
+   "updated": "2026-11-10",
+   "facts": {
+    "control": "neutral",
+    "ground_class": "A",
+    "function": "Sanctuary",
+    "lon": 50.0002,
+    "lat": 47.0002,
+    "coords_approximate": true,
+    "water_condition": "Variable",
+    "events": "Survivor Camps, Market, Power"
+   },
+   "rel": [],
+   "apps": [
+    {
+     "s": "foreword",
+     "t": "Foreword",
+     "l": "Front · Foreword"
+    },
+    {
+     "s": "diary-001-the-arrival",
+     "t": "Diary 001: The Arrival",
+     "l": "Diary 001 · Arrival"
+    }
+   ],
+   "images": [
+    {
+     "src": "https://qldxlphmvjjovzlmeguw.supabase.co/storage/v1/object/public/images/loc-032/mwa7nvyr-zoneheader.jpg"
+    }
+   ],
+   "audio": [],
+   "video": [],
+   "files": []
+  },
+  {
    "id": "chr-001",
    "ref": "SYNPTCL/CHR/001",
    "type": "CHR",
@@ -2263,15 +2313,25 @@
    "entry": "Diana Antonoff was a Ukrainian journalist who filed dispatches to Suspilne. She lived alone on an abandoned houseboat moored at Żerań, at the northern edge of the wetlands, where the others said the water ran quietest. She disappeared from the survivor outpost at Czerniaków on the night of the third flood, in the first January of the occupation's seventh year. She was twenty-eight. Her last dispatch was filed the Tuesday before. No body was recovered and no statement was issued. The community she had documented entered her name among the missing and continued the work she had taught them. She is the source of the Codex marks and of the recorded testimonies. A nine-minute tape of her voice survives and is used once in the archive. She entered the corridor on 1 June 2034, by reed boat before first light, having crossed the grey zone alone. Alex met her once, for half an hour, at a farm south of the city shortly before she went in, where she ate energy gels from a sachet and carried a brick of camera batteries wrapped in cloth. Interlude I describes her at twenty-eight as small and dark, her Polish careful and foreign. She opened every diary page in the same order: date, place, conditions, temperature, pressure and flood level. She wrote her notes against each transcript in pencil. She compiled all five Protocols. Her last diary entry, written at OP-Czerniaków on 1 January 2035 under the heading of the third flood, stops in mid-sentence. In it she gives the pouch of final pages to a Runner, tells her that she will follow, and records that this was untrue. The safe on the houseboat held a camera, a spare battery, the key to the boat and a small framed photograph whose description matches the print that Fritha took of her. The manuscript does not say whether she lived. The Foreword says only that if she is alive, she has chosen not to be found.",
    "appears": "Foreword; Prologue: The Barn; Diary 001: The Arrival; Chapter 1: The Blasphemer (diary, 14 June 2034); Interlude I: Wiktor Szeliga, Block C (her visit, and her tape); Chapter 2: The Photographer (diary, 9 August 2034); Chapter 3: The Zone (Protocol 001), as compiler; Chapter 4: The Engineer (diary, 26 July 2034); Chapter 5: The Pilgrim (diary, 19 August 2034); Interlude: The Second Flood (diaries, 28 August and 2 September 2034); Chapter 6: The Occupation (Protocol 002), as compiler; Chapter 7: The Musician (diary, 17 November 2034); Chapter 8: The Medic (diary, 11 October 2034); Chapter 9: The Dendron (Protocol 003), as compiler with clinical notes by Catalina; Chapter 10: The Listener (diary, 22 September 2034); Chapter 11: The Orphan (diary, 30 November 2034); Chapter 12: The Codex (Protocol 004), as compiler; Chapter 13: The Youngest (diary, 26 October 2034); Chapter 14: The Mouse (diary, 4 November 2034); Chapter 15: The Aftermath (Protocol 005), as compiler; Chapter 16: The Protocols (transmission, 20 June 2034; diaries, 9, 28 and 30 December 2034 and 1 January 2035); Acknowledgments",
    "reliability": "C (8). Her age, the houseboat, the disappearance and the missing-person entry are stated in the Foreword and agree with Interlude I, Protocol 005 and her own last diary entry. Her fiancé is named once, in the diary of 9 December 2034 (E, one passage). The date and manner of his death are in the project brief only (U). Whether she lived is not stated.",
-   "status": "Draft",
+   "status": "Verified",
    "featured": 1,
    "sources": 8,
    "note": "",
    "xnote": "",
    "aliases": "",
-   "updated": "2026-11-09",
+   "updated": "2026-11-10",
    "facts": {
-    "age": "28"
+    "age": "28",
+    "age_grade": "C",
+    "role": "Jounalist",
+    "group_name": "Visitor",
+    "first_appearance": "foreword",
+    "own_protocol": "diary-001-the-arrival",
+    "distinguishing_trait": "Young looking. Observant.",
+    "fate": "Unknown",
+    "tuning": "Unison",
+    "own_protocol_t": "Diary 001: The Arrival",
+    "first_appearance_t": "Foreword"
    },
    "rel": [
     {
@@ -2525,7 +2585,9 @@
    ],
    "images": [
     {
-     "src": "https://qldxlphmvjjovzlmeguw.supabase.co/storage/v1/object/public/images/chr-001/mw9jed28-untitled-design.jpg"
+     "src": "https://qldxlphmvjjovzlmeguw.supabase.co/storage/v1/object/public/images/chr-001/mwaeffkc-diana-grunge.jpg",
+     "caption": "Diana Antonoff. OP-Żeran",
+     "credit": "Felicyta \"Fritha\" Cielinski"
     }
    ],
    "audio": [],
@@ -2700,7 +2762,7 @@
    "note": "",
    "xnote": "",
    "aliases": "",
-   "updated": "2026-11-09",
+   "updated": "2026-11-10",
    "facts": {
     "age": "19",
     "own_protocol": "chapter-2-the-photographer",
@@ -2774,7 +2836,9 @@
    ],
    "images": [
     {
-     "src": "https://qldxlphmvjjovzlmeguw.supabase.co/storage/v1/object/public/images/chr-003/mw9lzqlg-fritha.jpg"
+     "src": "https://qldxlphmvjjovzlmeguw.supabase.co/storage/v1/object/public/images/chr-003/mwaf4zb9-fritha-grunge.jpg",
+     "caption": "Felicyta \"Fritha\" Cielinski",
+     "credit": "D. Antanoff"
     }
    ],
    "audio": [],
@@ -2962,7 +3026,7 @@
    "note": "",
    "xnote": "",
    "aliases": "",
-   "updated": "2026-11-09",
+   "updated": "2026-11-10",
    "facts": {
     "age": "36",
     "own_protocol": "chapter-7-the-musician",
@@ -3026,7 +3090,16 @@
    ],
    "images": [
     {
-     "src": "https://qldxlphmvjjovzlmeguw.supabase.co/storage/v1/object/public/images/chr-006/mw9mm1a6-hy.jpg"
+     "src": "https://qldxlphmvjjovzlmeguw.supabase.co/storage/v1/object/public/images/chr-006/mwa9wman-td3.jpg",
+     "alt": "Black and white portrait of Tanja, a woman with shoulder-length fair hair, facing the camera directly. She wears a dark wool coat over a floral dress with a lace collar, and stands in front of a weathered wooden door.",
+     "caption": "Tanja Dopolewka. Print undated.",
+     "credit": "D. Antonoff"
+    },
+    {
+     "src": "https://qldxlphmvjjovzlmeguw.supabase.co/storage/v1/object/public/images/chr-006/mwa9sdyj-td2.jpg",
+     "alt": "Black and white photograph of Tanja standing behind a young boy, guiding his bow hand as he plays a violin. Behind them are a bookcase, a wall map, and a window looking onto a flooded street.",
+     "caption": "Tanja teaching a pupil to hold the bow. Print undated.",
+     "credit": "D. Antonoff"
     }
    ],
    "audio": [],
@@ -3157,15 +3230,18 @@
    "entry": "Magda Wiśniewska listens. She made the written transcript of the Palace loudspeaker broadcasts, morning and evening, and the archivist used her words unaltered. The four-second pause in the broadcast is on her page. Her transcript is the only record of the voice that a resident of Block C, Wiktor Szeliga, heard twice a day. She is called the Listener, a name she dislikes. Diana sat with her through the night of 21 to 22 September 2034 at OP-Rynek, in a long loft above the pharmacy with a sloping ceiling, a table of five radios, a lamp with a green shade and a notebook ruled in six columns. She was sixteen, thin and watchful, in a boy's anorak, and she asked at the door whether Diana wanted tea before she decided whether she was welcome. At the hourly check-in of the five Russian posts she said that the third was lying, and that a man telling the truth takes his breath after he starts to speak. She judged the Polish woman's voice on the northern recording to be a person asked to sound like a recording. Her transcripts are also the source of the words in Interlude III and Interlude VI, and her intercepts of the Russian net are rated 0.7 in Protocol 005. At eleven, in Mokotów, she gave the officers billeted in her house eleven names in return for chocolate and a pass, and four were taken to Szucha. She keeps the list. Alex met her in Lublin in March 2036, when she was eighteen.",
    "appears": "Interlude I: Wiktor Szeliga, Block C (transcript); Interlude III: Major Budanov, Aleja Szucha (transcript); Chapter 10: The Listener (Alex's visit, Diana's diary of 22 September 2034, and her recording); Chapter 11: The Orphan (Diana's diary of 30 November 2034 and Zoysa's recording); Chapter 14: The Mouse (a remark on Nikita); Interlude VI: Wiktor Szeliga, Shelter 9 (transcript); Chapter 15: The Aftermath (Protocol 005), source table",
    "reliability": "C (7). Her role as transcriber is stated in three interludes and Protocol 005. Her work at Rynek, her age (16 in September 2034, 18 in March 2036) and the list of eleven names are in Diana's diary, Alex's account and her own recording, and agree. Her truthfulness is itself in question in the chapter.",
-   "status": "Draft",
+   "status": "Verified",
    "featured": null,
    "sources": 7,
    "note": "",
    "xnote": "",
    "aliases": "",
-   "updated": "2026-11-09",
+   "updated": "2026-11-10",
    "facts": {
+    "age_grade": "E",
+    "role": "Announcer",
     "own_protocol": "chapter-10-the-listener",
+    "distinguishing_trait": "Composed. Eloquent",
     "own_protocol_t": "Chapter 10: The Listener"
    },
    "rel": [
@@ -3249,7 +3325,9 @@
    ],
    "images": [
     {
-     "src": "https://qldxlphmvjjovzlmeguw.supabase.co/storage/v1/object/public/images/chr-008/mw9m7e0t-magda.jpg"
+     "src": "https://qldxlphmvjjovzlmeguw.supabase.co/storage/v1/object/public/images/chr-008/mwafaf63-magda-grunge.jpg",
+     "caption": "Magda Wiśniewska. Warszawa Wschodnia",
+     "credit": "D. Antonoff"
     }
    ],
    "audio": [],
