@@ -1230,7 +1230,7 @@ const FACTS={
  LOC:[['Control',d=>cap(d.facts.control)],['Ground class',d=>d.facts.ground_class&&'Class '+d.facts.ground_class],['Function',d=>d.facts.function],
   ['Coordinates',d=>d.facts.lat!=null&&d.facts.lon!=null?`${(+d.facts.lat).toFixed(4)}°N ${(+d.facts.lon).toFixed(4)}°E${d.facts.coords_approximate?' (approximate)':''}`:''],
   ['Water condition',d=>d.facts.water_condition],['Who is here',d=>({html:d.rel.filter(r=>BYID[r.id]&&BYID[r.id].type==='CHR').map(r=>`<a href="#e-${r.id}">${esc(short(BYID[r.id].name))}</a>`).join(', ')})],['Events here',d=>d.facts.events]],
- CHR:[['Age',d=>d.facts.age&&d.facts.age+(d.facts.age_grade?` (${d.facts.age_grade})`:'')],['Role',d=>d.facts.role],['Group',d=>d.facts.group_name],['Commandment theme',d=>d.facts.commandment_theme],
+ CHR:[['Age',d=>d.facts.age&&d.facts.age+(d.facts.age_grade?` (${d.facts.age_grade})`:'')],['Role',d=>d.facts.role],['Group',d=>d.facts.group_name],['Tuning',d=>d.facts.tuning],
   ['First appearance',d=>story(d.facts.first_appearance,d.facts.first_appearance_t)],['Own Protocol',d=>story(d.facts.own_protocol,d.facts.own_protocol_t)],
   ['Distinguishing trait',d=>d.facts.distinguishing_trait],['Fate',d=>d.facts.fate]],
  OBJ:[['Type',d=>cap(d.facts.object_type)],['Holder',d=>d.facts.holder],['Origin',d=>d.facts.origin],['Function',d=>d.facts.function],['Last seen',d=>d.facts.last_seen]],

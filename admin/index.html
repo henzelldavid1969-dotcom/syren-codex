@@ -358,7 +358,7 @@ function lint(v) {
 const words = (v) => (String(v).trim().match(/\S+/g) || []).length;
 
 // ---------- reference data ----------
-const S = { cats: [], marks: [], rtypes: [], sections: [], groups: [], entries: [], releases: [], live: null, user: null };
+const S = { cats: [], marks: [], rtypes: [], sections: [], groups: [], entries: [], releases: [], tunings: [], pfields: [], live: null, user: null };
 const REQ = [['mark', 'Mark'], ['grade', 'Grade'], ['summary', 'Summary'], ['entry', 'Entry'], ['appears_in', 'Appears in'], ['reliability', 'Reliability']];
 const missing = (e) => REQ.filter(([k]) => !String(e[k] ?? '').trim()).map(([, l]) => l);
 const catLabel = (c) => (S.cats.find((x) => x.code === c) || {}).label || c;
@@ -376,10 +376,14 @@ async function loadBase() {
     q('entries', '*', ['ref']),
     sb.from('releases').select('id,created_at,entries,note').order('id', { ascending: false }).limit(10),
     sb.from('site_content').select('key,updated_at'),
+    q('tunings', '*', ['position']),
+    // Private fields: only the owner can read these, so their names are
+    // not in this page's code.
+    q('private_fields', '*', ['position']),
   ]);
   const err = r.find((x) => x.error);
   if (err) throw err.error;
-  [S.cats, S.marks, S.rtypes, S.sections, S.groups, S.entries, S.releases, S.content] = r.map((x) => x.data);
+  [S.cats, S.marks, S.rtypes, S.sections, S.groups, S.entries, S.releases, S.content, S.tunings, S.pfields] = r.map((x) => x.data);
   S.live = await fetch('/release.json?' + Date.now(), { cache: 'no-store' }).then((x) => x.ok ? x.json() : null).catch(() => null);
 }
 const lastRelease = () => S.releases[0] || null;
@@ -392,7 +396,13 @@ const changed = () => {
     ...S.entries.filter((e) => after(e.updated_at)).map((e) => ({ ref: e.ref.slice(8), name: e.name, at: e.updated_at, href: '#/e/' + e.slug })),
     ...S.sections.filter((x) => after(x.updated_at)).map((x) => ({ ref: 'Story', name: x.label || x.title, at: x.updated_at, href: '#/s/' + x.slug })),
     ...S.content.filter((c) => after(c.updated_at)).map((c) => ({ ref: CONTENT_NAME[c.key][0], name: CONTENT_NAME[c.key][1], at: c.updated_at, href: CONTENT_NAME[c.key][2] })),
+    ...tuningChange(after),
   ].sort((a, b) => new Date(b.at) - new Date(a.at));
+};
+// A renamed Tuning option changes what the site shows.
+const tuningChange = (after) => {
+  const at = S.tunings.map((t) => t.updated_at).filter(after).sort().pop();
+  return at ? [{ ref: 'Lists', name: 'Tuning options', at, href: '#/tunings' }] : [];
 };
 const changes = (n) => `${n} ${n === 1 ? 'change' : 'changes'}`;
 
@@ -440,6 +450,7 @@ const NAV = [
   ['#/story', 'book', 'Story'],
   ['#/home', 'home', 'Home page'],
   ['#/media', 'image', 'Media library'],
+  ['#/tunings', 'list', 'Tuning options'],
   ['#/history', 'clock', 'History'],
 ];
 function shell() {
@@ -495,6 +506,7 @@ function route() {
   if (seg[0] === 'book') return viewBook();
   if (seg[0] === 'home') return viewHome();
   if (seg[0] === 'media') return viewMedia(p);
+  if (seg[0] === 'tunings') return viewTunings();
   if (seg[0] === 'history') return viewHistory();
   location.hash = '#/';
 }
@@ -597,7 +609,7 @@ const FACTS = {
   CHR: [
     ['age', 'Age', 'text'], ['age_grade', 'Age grade', 'select', ['C', 'E', 'U'], 'Set when the age is only in the brief.'],
     ['role', 'Role', 'text'], ['group_name', 'Group', 'text'],
-    ['commandment_theme', 'Commandment theme', 'text'],
+    ['tuning', 'Tuning', 'tuning'],
     ['first_appearance', 'First appearance', 'section'], ['own_protocol', 'Own Protocol', 'section'],
     ['distinguishing_trait', 'Distinguishing trait', 'area'], ['fate', 'Fate in the story', 'area'],
   ],
@@ -645,15 +657,16 @@ async function viewEntry(slug, newType) {
   }
   const ref = e.ref;
   const one = (t, col, order = 'position') => sb.from(t).select('*').eq(col, ref).order(order);
-  const [facts, apps, rout, rin, img, aud, vid, fil, note] = ref ? await Promise.all([
+  const [facts, apps, rout, rin, img, aud, vid, fil, note, priv] = ref ? await Promise.all([
     sb.from(FACT_TABLE[e.type]).select('*').eq('ref', ref).maybeSingle(),
     one('entry_appearances', 'entry_ref'),
     one('relations', 'from_ref'),
     one('relations', 'to_ref'),
     one('entry_images', 'entry_ref'), one('entry_audio', 'entry_ref'), one('entry_video', 'entry_ref'), one('entry_files_view', 'entry_ref'),
     sb.from('editor_notes').select('note').eq('ref', ref).maybeSingle(),
-  ]) : Array(9).fill({ data: null });
-  const bad = [facts, apps, rout, rin, img, aud, vid, fil, note].find((x) => x.error);
+    sb.from('private_values').select('field,value').eq('ref', ref),
+  ]) : Array(10).fill({ data: null });
+  const bad = [facts, apps, rout, rin, img, aud, vid, fil, note, priv].find((x) => x.error);
   if (bad) return toast(bad.error.message, true);
   M = {
     ref, type: e.type, slug: e.slug, updated_at: e.updated_at,
@@ -664,6 +677,7 @@ async function viewEntry(slug, newType) {
     incoming: rin.data || [],
     images: img.data || [], audio: aud.data || [], video: vid.data || [], files: fil.data || [],
     editor_note: (note.data && note.data.note) || '',
+    private: Object.fromEntries((priv.data || []).map((x) => [x.field, x.value])),
     dirty: false,
   };
   crumbs([['Entries', '#/entries'], [ref ? `${ref.slice(8)} ${e.name}` : `New ${catLabel(e.type).replace(/s$/, '').toLowerCase()}`]]);
@@ -688,8 +702,12 @@ function fld(k, label, val, kind = 'text', o = {}) {
 function renderEditor() {
   const e = M.entry, t = M.type, isNew = !M.ref;
   const marks = S.marks.filter((m) => m.category === t).map((m) => [m.code, `${m.label}  (${m.code})`]);
-  const factFields = FACTS[t].map(([k, l, kind, opts, help]) =>
-    fld('facts.' + k, l, M.facts[k], kind, { opts, help, lint: kind === 'text' || kind === 'area', blankLabel: 'Not recorded' }));
+  const factFields = FACTS[t].map(([k, l, kind, opts, help]) => kind === 'tuning'
+    ? fld('facts.' + k, l, M.facts[k], 'select', { opts: S.tunings.map((x) => [x.code, x.label]), blankLabel: 'Not recorded', help: 'Rename or reorder the options on the Tuning options page.' })
+    : fld('facts.' + k, l, M.facts[k], kind, { opts, help, lint: kind === 'text' || kind === 'area', blankLabel: 'Not recorded' }));
+  // Private fields for this kind of entry (owner only, never on the site).
+  const privFields = S.pfields.filter((x) => x.category === t).map((x) =>
+    `<div class="fld private" style="padding-left:12px"><label for="f_private_${esc(x.code)}">${ico('lock')} ${esc(x.label)} <span class="req">Private</span></label><input id="f_private_${esc(x.code)}" type="text" data-f="private.${esc(x.code)}" value="${esc(M.private[x.code] ?? '')}">${x.help ? `<span class="help">${esc(x.help)}</span>` : ''}</div>`);
   const section = (n, title, body, o = {}) => `<details class="sec${o.cls ? ' ' + o.cls : ''}"${o.closed ? '' : ' open'}><summary><span class="n">${n}</span>${title}<span class="hint">${o.hint || ''}</span><span class="chev">${ico('chev')}</span></summary><div class="body">${body}</div></details>`;
 
   $('#view').innerHTML = `<div class="view">
@@ -711,7 +729,7 @@ function renderEditor() {
         <div class="r2"><div class="fld"><span class="lbl">Grade <span class="req">Required to file</span></span><div class="seg" id="grade">${[['', 'None'], ['C', 'C confirmed'], ['E', 'E estimated'], ['U', 'U unconfirmed']].map(([v, l]) => `<button type="button" data-v="${v}">${l}</button>`).join('')}</div></div>
           ${fld('entry.source_count', 'Source count', e.source_count, 'number', { help: 'Independent manuscript passages behind the grade.' })}</div>
         ${fld('entry.reliability', 'Reliability', e.reliability, 'area', { req: true, rows: 3, lint: true, help: 'One line explaining the grade, including anything in the project brief only.' })}`)}
-      ${section('04', 'Key facts', `<p class="help nr" style="margin:0">An empty fact shows on the site as Not recorded. It is never guessed.</p><div class="r2">${factFields.join('')}</div>`, { hint: catLabel(t) })}
+      ${section('04', 'Key facts', `<p class="help nr" style="margin:0">An empty fact shows on the site as Not recorded. It is never guessed.</p><div class="r2">${factFields.join('')}</div>${privFields.length ? `<div class="r2" style="margin-top:14px">${privFields.join('')}</div>` : ''}`, { hint: catLabel(t) })}
       ${section('05', 'Appears in', `
         ${fld('entry.appears_in', 'Appears in, as text', e.appears_in, 'area', { req: true, rows: 3, lint: true, help: 'The note shown under Appears in.' })}
         <div class="fld"><span class="lbl">Story sections, in order <span class="help">Each one links into the Story view.</span></span><div class="ol" id="apps"></div>
@@ -905,6 +923,7 @@ async function save() {
     entry: M.entry, facts: M.facts,
     appearances: M.appearances, relations: M.relations,
     editor_note: M.editor_note,
+    private: Object.fromEntries(S.pfields.filter((x) => x.category === M.type).map((x) => [x.code, M.private[x.code] ?? ''])),
   };
   if (M.ref) {
     payload.expected_updated_at = M.updated_at;
@@ -1266,7 +1285,8 @@ function entryCompare(v) {
   const e = M.entry, t = M.type, out = [];
   const F = { name: 'Name', aliases: 'Aliases', mark: 'Mark', grade: 'Grade', source_count: 'Source count', summary: 'Summary', entry: 'Entry', appears_in: 'Appears in (text)', reliability: 'Reliability', cross_references_note: 'Cross-references note', archivist_note: 'Archivist note', status: 'Status', published: 'Show on the site', featured_order: 'Featured order', icon: 'Icon', lottie: 'Lottie animation' };
   for (const [k, l] of Object.entries(F)) out.push({ label: l, now: e[k] ?? '', then: v.entry[k] ?? '' });
-  for (const [k, l] of FACTS[t].map((f) => [f[0], f[1]])) out.push({ label: 'Key fact: ' + l, now: M.facts[k] ?? '', then: (v.facts || {})[k] ?? '' });
+  const fact = (k, x) => k === 'tuning' && x ? (S.tunings.find((o) => o.code === x) || { label: x }).label : x ?? '';
+  for (const [k, l] of FACTS[t].map((f) => [f[0], f[1]])) out.push({ label: 'Key fact: ' + l, now: fact(k, M.facts[k]), then: fact(k, (v.facts || {})[k]) });
   const sec = (s) => (S.sections.find((x) => x.slug === s) || { label: s }).label || s;
   const ent = (r) => (S.entries.find((x) => x.ref === r) || { name: r }).name;
   const rt = (c) => (S.rtypes.find((x) => x.code === c) || { label: c }).label;
@@ -1277,16 +1297,21 @@ function entryCompare(v) {
     out.push({ unit: 'line', label: MEDIA[k].label, now: (M[k] || []).map(line).join('\n\n'), then: (v[k] || []).map(line).join('\n\n') });
   }
   out.push({ label: 'Editor note (private)', now: M.editor_note || '', then: v.editor_note || '' });
+  // Versions saved before private fields existed have none to compare.
+  if (v.private) for (const x of S.pfields.filter((f) => f.category === t)) out.push({ label: x.label, now: M.private[x.code] || '', then: v.private[x.code] || '' });
   return out;
 }
 function entryApply(v) {
   const keep = { ref: M.entry.ref, type: M.entry.type, slug: M.entry.slug, updated_at: M.entry.updated_at, created_at: M.entry.created_at };
   M.entry = { ...M.entry, ...v.entry, ...keep };
-  M.facts = { ...(v.facts || {}) };
+  // Every key fact is set, so what the editor shows is what Save stores.
+  M.facts = Object.fromEntries(FACTS[M.type].map(([k]) => [k, (v.facts || {})[k] ?? null]));
   M.appearances = [...(v.appearances || [])];
   M.relations = (v.relations || []).map((r) => ({ type: r.type, to_ref: r.to_ref, note: r.note || '' }));
   for (const k of Object.keys(MEDIA)) M[k] = (v[k] || []).map((x) => ({ ...x }));
   M.editor_note = v.editor_note || '';
+  // Versions saved before private fields existed keep the current values.
+  if (v.private) M.private = { ...v.private };
   renderEditor();
   histCard({ kind: 'entry', key: M.ref, compare: entryCompare, apply: entryApply });
 }
@@ -1502,6 +1527,56 @@ function openPublish() {
       go.disabled = false;
     }
   };
+}
+
+// ---------- Tuning options ----------
+// The choices for a character's Tuning. A character keeps its choice when
+// an option is renamed. An option in use cannot be removed.
+async function viewTunings() {
+  setNav('#/tunings');
+  crumbs([['Tuning options']]);
+  $('#view').innerHTML = '<div class="view loading">Loading the options</div>';
+  const { data: rows, error } = await sb.from('character_facts').select('tuning').not('tuning', 'is', null);
+  if (error) return toast(error.message, true);
+  const used = {};
+  for (const r of rows) used[r.tuning] = (used[r.tuning] || 0) + 1;
+  M = { dirty: false, list: S.tunings.map((x) => ({ code: x.code, label: x.label })) };
+  $('#view').innerHTML = `<div class="view">
+    <h1 class="pt">Tuning options</h1><p class="lede">The choices for a character's Tuning, in the order the entry editor lists them. A renamed option is renamed on every character that has it. The site shows the change after you publish.</p>
+    <div class="card"><div class="ol" id="tlist"></div>
+      <div class="addrow"><button class="btn sm" type="button" id="tadd">${ico('plus')}Add an option</button></div></div></div>
+    ${saveBar()}`;
+  const paint = () => {
+    const box = $('#tlist'), L = M.list;
+    box.innerHTML = L.map((x, i) => {
+      const n = x.code ? used[x.code] || 0 : 0;
+      return `<div class="oi"><span class="ix">${String(i + 1).padStart(2, '0')}</span><div class="row">
+        <input data-ti="${i}" value="${esc(x.label)}" placeholder="Option name" aria-label="Option ${i + 1}">
+        <span class="nr" style="white-space:nowrap;font-size:13px">${n ? `${n} ${n === 1 ? 'character' : 'characters'}` : x.code ? 'Not used' : 'New'}</span></div>${moveBtns(L, i)}</div>`;
+    }).join('') || '<p class="empty">No options yet.</p>';
+    L.forEach((x, i) => {
+      if (x.code && used[x.code]) { const b = $(`[data-rm="${i}"]`, box); b.disabled = true; b.title = 'In use: choose another option on those characters first'; }
+    });
+    box.oninput = (ev) => { const el = ev.target.closest('[data-ti]'); if (el) { L[+el.dataset.ti].label = el.value; dirty(); } };
+    wireList(box, L, paint);
+  };
+  $('#tadd').onclick = () => { M.list.push({ code: null, label: '' }); paint(); dirty(); $(`[data-ti="${M.list.length - 1}"]`).focus(); };
+  wireSaveBar(async () => {
+    const names = M.list.map((x) => x.label.trim().toLowerCase());
+    if (names.some((x) => !x)) return toast('Every option needs a name.', true);
+    if (new Set(names).size !== names.length) return toast('Two options have the same name.', true);
+    $('#save').disabled = true;
+    const { error: err } = await sb.rpc('save_tunings', { p: M.list.map((x) => ({ code: x.code, label: x.label.trim() })) });
+    $('#save').disabled = false;
+    if (err) return toast(err.message, true);
+    const { data } = await sb.from('tunings').select('*').order('position');
+    if (data) S.tunings = data;
+    M.dirty = false;
+    paintPublish();
+    toast('Saved. Publish when you are ready for the site to show it.');
+    viewTunings();
+  });
+  paint();
 }
 
 // ---------- start ----------

@@ -27,7 +27,7 @@ const LINE_KIND = { occupation_perimeter: 'occ', russian_perimeter: 'rus', escap
 const POINT_KIND = { outpost: 'out', node: 'node', gate: 'gate', occupier: 'rus', other: 'kos' };
 
 const [categories, entries, relations, relTypes, sections, groups, marks, appearances, locF, chrF, objF, lorF,
-  images, audio, video, files, points, lines, factionRows] = await Promise.all([
+  images, audio, video, files, points, lines, factionRows, tunings] = await Promise.all([
   table('categories', 'code,label,mark,sort_order', 'sort_order'),
   table('entries', '*', 'ref'),
   table('relations', 'from_ref,to_ref,type,position', 'from_ref,position,to_ref'),
@@ -47,6 +47,7 @@ const [categories, entries, relations, relTypes, sections, groups, marks, appear
   table('map_points', '*', 'position,id'),
   table('map_lines', 'kind,name,coordinates,position', 'position,id'),
   table('factions', 'position,name,slug,mark_file,entry_ref', 'position'),
+  table('tunings', 'code,label', 'position'),
 ]);
 // The Story text and the site copy (the admin's Story and Home page editors).
 const [bodies, content] = await Promise.all([
@@ -60,6 +61,8 @@ const RT = Object.fromEntries(relTypes.map((t) => [t.code, t]));
 const SECTION = Object.fromEntries(sections.map((s) => [s.slug, s.title]));
 const LABEL = Object.fromEntries(sections.map((s) => [s.slug, s.label]));
 const FACTS = Object.fromEntries([...locF, ...chrF, ...objF, ...lorF].map((f) => [f.ref, f]));
+// A character's Tuning is stored as an option code; the site shows its label.
+const TUNING = Object.fromEntries(tunings.map((t) => [t.code, t.label]));
 const by = (rows, ref) => rows.filter((r) => r.entry_ref === ref);
 const clean = (o) => Object.fromEntries(Object.entries(o).filter(([, v]) => v !== null && v !== '' && v !== undefined));
 
@@ -76,6 +79,7 @@ const DATA = entries
     relations.filter((r) => r.to_ref === e.ref).forEach((r) => add(r.from_ref, RT[r.type].inverse_label));
     const { ref: _r, ...facts } = FACTS[e.ref] || {};
     for (const k of ['own_protocol', 'first_appearance']) if (facts[k]) facts[k + '_t'] = SECTION[facts[k]] || facts[k];
+    if (facts.tuning) facts.tuning = TUNING[facts.tuning] || null;
     const d = {
       id: e.slug,
       ref: e.ref,
