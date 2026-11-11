@@ -1710,7 +1710,7 @@ function cstShell(){const n=DATA.length;
     <div class="cst-f" role="group" aria-label="Show categories">${Object.keys(META).map(t=>`<button type="button" class="cst-c" data-t="${t}" aria-pressed="true"><i style="--c:var(--t${t})"></i>${esc(META[t].label)}</button>`).join('')}</div>
     <button type="button" class="cst-b" id="cstreset">Reset view</button></div></div>
   <aside class="cst-p" id="cstp" hidden aria-live="polite"></aside>
-  <p class="cst-hint cst-mono" id="csthint">Drag to turn · scroll or pinch to zoom · come close to read the names</p></div>`}
+  <p class="cst-hint cst-mono" id="csthint">Drag to turn · scroll or pinch to zoom · select a point</p></div>`}
 function cstFallback(why){const app=$('#cst');if(!app)return;app.classList.add('flat');$('#cstg').remove();$('#csthint').textContent=why;
   const box=document.createElement('div');box.className='cst-list';
   box.innerHTML=Object.keys(META).map(t=>`<section><h2>${esc(META[t].label)}</h2>${DATA.filter(d=>d.type===t).map(d=>{const r=d.rel.filter(x=>BYID[x.id]);
@@ -1749,15 +1749,19 @@ function cstMount(L,focusId,fit){
     .nodeVisibility(n=>on[n.type]).linkVisibility(l=>on[by[id_(l.source)].type]&&on[by[id_(l.target)].type])
     .onNodeHover(n=>{hov=n;el.style.cursor=n?'pointer':'grab';paint()})
     .onNodeClick(n=>select(n))
-    .onBackgroundClick(()=>{if(sel)close()});
+    .onBackgroundClick(ev=>{const n=nearest(ev);if(n)select(n);else if(sel)close()});
+  // A tap can come before the library has checked what is under the finger,
+  // and a point can be small on a phone: take the nearest point within reach.
+  function nearest(ev){if(!ev)return null;const r=el.getBoundingClientRect(),x=ev.clientX-r.left,y=ev.clientY-r.top,reach=ev.pointerType==='mouse'?12:26;let best=null,bd=reach;
+    nodes.forEach(n=>{if(!n.__m||!on[n.type]||!n.__m.parent?.parent)return;const o=n.__m.parent,sc=G.graph2ScreenCoords(n.x,o.position.y,n.z),d=Math.hypot(sc.x-x,sc.y-y);if(d<bd){bd=d;best=n}});return best}
   CST.G=G;CST.by=by;CST.resize=()=>{fit();G.width(el.clientWidth).height(el.clientHeight)};
   function id_(x){return typeof x==='object'?x.id:x}
   function lc(l){const a=id_(l.source),b=id_(l.target);
     if(sel&&(a===sel.id||b===sel.id))return `rgba(${P.link},.6)`;
     return sel?`rgba(${P.link},.05)`:`rgba(${P.link},.14)`}
   // Layout: linked entries settle together; entries with no relations are pushed to the edge.
-  G.d3Force('charge').strength(-46);G.d3Force('link').distance(l=>34+6*Math.min(4,l.labels.length));
-  G.d3Force('edge',L.forceRadial(n=>n.deg?0:150).strength(n=>n.deg?0:.25));
+  G.d3Force('charge').strength(-80).distanceMax(420);G.d3Force('link').distance(l=>44+6*Math.min(4,l.labels.length));
+  G.d3Force('edge',L.forceRadial(n=>n.deg?0:190).strength(n=>n.deg?0:.25));
   const sc=G.scene();sc.fog=new L.FogExp2(P.bg,(phone?.0016:.0012)*P.fog);
   // The waterline: a faint plane and grid below the graph, placed once the layout has settled.
   const water=new L.Mesh(new L.PlaneGeometry(2400,2400),new L.MeshBasicMaterial({color:P.water,transparent:true,opacity:P.wo,depthWrite:false,side:L.DoubleSide}));
@@ -1816,15 +1820,25 @@ function cstMount(L,focusId,fit){
   const go=id=>{res.hidden=true;q.blur();select(by[id])};
   // Motion: dim breathing for the Dendron's entries, a slow drift for the
   // unconnected, and names that fade in within reach of the camera.
-  const NEAR=phone?120:150,FAR=phone?200:260;
+  const NEAR=phone?140:170,FAR=phone?520:680,maxDeg=Math.max(...nodes.map(n=>n.deg),1);
+  let frame=0;
+  // Names that would overlap on screen: the selected entry and its links
+  // first, then the better connected and the nearer; the rest wait.
+  function declutter(cam){const W=el.clientWidth,H=el.clientHeight,taken=[];
+    const list=nodes.filter(n=>n.__m&&on[n.type]).map(n=>{const dist=Math.hypot(cam.x-n.x,cam.y-n.y,cam.z-n.z);return{n,pr:(n.__keep||0)*1e4+Math.sqrt(n.deg)*40-dist*.15}}).sort((a,b)=>b.pr-a.pr);
+    list.forEach(({n})=>{const o=n.__m.parent,y=o?o.position.y:n.y,sc=G.graph2ScreenCoords(n.x,y,n.z);
+      if(!sc||sc.x<-40||sc.y<-20||sc.x>W+40||sc.y>H+20){n.__room=false;return}
+      const w=(n.__w||(n.__w=n.__lb.offsetWidth||short(n.d.name).length*6.6))+8,r=[sc.x-w/2,sc.y-30,sc.x+w/2,sc.y-6];
+      n.__room=!taken.some(q=>r[0]<q[2]&&r[2]>q[0]&&r[1]<q[3]&&r[3]>q[1]);if(n.__room)taken.push(r)})}
   const loop=now=>{const t=(now-t0)/1000,ph=(Math.sin(t*2*Math.PI/7)+1)/2,cam=G.camera().position;
+    if(frame++%(phone?16:6)===0)declutter(cam);
     if(sel&&sel.__ring)sel.__ring.quaternion.copy(G.camera().quaternion);
     nodes.forEach(n=>{const m=n.__m;if(!m)return;const base=m.userData.o??P.dim;
       if(pulse.has(n.id)&&!RM){m.material.color.copy(n.__base).lerp(ACID,.35+.65*ph);m.material.opacity=Math.min(1,base+.22*ph)}
       else{m.material.opacity=base}
       const o=m.parent;if(o&&!n.deg&&!RM){o.position.y=n.y+Math.sin(t*.35+n.x)*4}
       const shown=o&&o.parent&&on[n.type];let a=0;
-      if(shown){const dist=Math.hypot(cam.x-n.x,cam.y-n.y,cam.z-n.z),near=Math.max(0,Math.min(1,(FAR-dist)/(FAR-NEAR)));a=Math.max(n.__keep||0,near*(sel?.4:.85))}
+      if(shown){const dist=Math.hypot(cam.x-n.x,cam.y-n.y,cam.z-n.z),near=Math.max(0,Math.min(1,(FAR-dist)/(FAR-NEAR))),floor=(sel?.2:.42)+(sel?0:.2*Math.sqrt(n.deg/maxDeg));a=Math.max(n.__keep||0,floor+(1-floor)*near*(sel?.5:1));if(n.__room===false)a=0}
       a=Math.round(a*20)/20;if(a!==n.__lo){n.__lo=a;n.__lb.style.opacity=a;n.__lb.style.visibility=a?'visible':'hidden'}});
     if(CST)CST.raf=requestAnimationFrame(loop)};
   CST.select=select;addEventListener('resize',CST.resize);
