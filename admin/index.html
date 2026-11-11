@@ -1110,10 +1110,20 @@ async function viewBook() {
     <h1 class="pt">Book title and cover copy</h1><p class="lede">Shown at the top of the Story page, before the contents.</p>
     <div class="sec" style="padding:20px;display:grid;gap:16px">
       <div class="fld"><label for="b_title">Title</label><input id="b_title" type="text" value="${esc(c.data.title || '')}"><span class="help">The part after a colon becomes the subtitle, for example The Syren Protocols: A Future Oral History.</span></div>
+      <div class="r2" style="align-items:start"><div style="display:grid;gap:16px">
+        <div class="fld"><label for="b_cover">Cover image</label><input id="b_cover" type="text" value="${esc(c.data.cover || '')}" placeholder="/book/cover.webp"><span class="help">Shown beside the title on the Story page. Upload a new cover in the Media library, select Copy address, and paste it here. /book/cover.webp is the cover kept with the site. Empty shows no cover.</span></div>
+        <div class="fld"><label for="b_cover_alt">Cover description</label><input id="b_cover_alt" type="text" value="${esc(c.data.cover_alt || '')}"><span class="help">For screen readers: what the cover shows.</span></div></div>
+        <div class="fld"><span class="lbl">Preview</span><img id="b_prev" alt="" style="width:160px;aspect-ratio:3/4;object-fit:cover;border:1px solid var(--line);border-radius:6px;background:var(--field)"></div></div>
       ${mdField('b_tag', 'Tagline', c.data.tagline || '', { rows: 4 })}
       ${mdField('b_back', 'Back cover', c.data.back_cover || '', { rows: 16 })}
     </div><div class="card"><h3>History</h3><div id="hist"><p class="empty">Loading</p></div></div></div>${saveBar()}`;
   $('#b_title').addEventListener('input', (ev) => { M.data.title = ev.target.value; dirty(); });
+  // The cover: a full address, a path on the site, or a file in the images bucket.
+  const coverSrc = (v) => { v = String(v || '').trim(); return !v ? '' : /^(https?:)?\/\//.test(v) || v.startsWith('/') ? v : fileUrl('images', v); };
+  const prev = () => { const src = coverSrc(M.data.cover); $('#b_prev').src = src; $('#b_prev').style.visibility = src ? 'visible' : 'hidden'; };
+  $('#b_cover').addEventListener('input', (ev) => { M.data.cover = ev.target.value.trim(); prev(); dirty(); });
+  $('#b_cover_alt').addEventListener('input', (ev) => { M.data.cover_alt = ev.target.value; dirty(); });
+  prev();
   wireMd('b_tag', (v) => { M.data.tagline = v; dirty(); });
   wireMd('b_back', (v) => { M.data.back_cover = v; dirty(); });
   histCard({ kind: 'content', key: 'book', compare: contentCompare, apply: contentApply });

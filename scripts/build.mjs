@@ -107,6 +107,11 @@ for (const f of ['maplibre-gl.mjs', 'maplibre-gl-worker.mjs', 'maplibre-gl.css']
   await copyFile(new URL('../node_modules/maplibre-gl/dist/' + f, import.meta.url), new URL('../dist/vendor/maplibre/' + f, import.meta.url));
 await writeFile(new URL('../dist/index.html', import.meta.url), html);
 
+// The book cover (the Story page). The release's book copy names it; a
+// Media library file or a full address can be used instead.
+await mkdir(new URL('../dist/book/', import.meta.url), { recursive: true });
+for (const f of await readdir(new URL('../assets/book/', import.meta.url)))
+  await copyFile(new URL('../assets/book/' + f, import.meta.url), new URL('../dist/book/' + f, import.meta.url));
 // Brand icons and the web manifest.
 await mkdir(new URL('../dist/brand/', import.meta.url), { recursive: true });
 for (const f of await readdir(new URL('../assets/brand/', import.meta.url)))

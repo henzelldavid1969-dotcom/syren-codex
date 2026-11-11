@@ -351,6 +351,13 @@ a.card:hover{border-color:var(--c,var(--accent));transform:translateY(-2px)}
   .cst-hint{display:none}.cst-lb{font-size:11px;max-width:130px}}
 .pager small{font:11px "Geist Mono",monospace;color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
 .toc{max-width:40em;margin-top:30px}
+/* Story page: the book cover beside the title and back cover copy */
+.bkh.hasc{display:grid;grid-template-columns:minmax(0,1fr) clamp(260px,40%,360px);gap:36px;align-items:start}
+.bkc{display:block;position:sticky;top:84px;border-radius:6px;overflow:hidden;border:1px solid var(--line);box-shadow:0 24px 50px -28px rgba(0,0,0,.55);margin-top:6px;transition:transform .3s,box-shadow .3s}
+.bkc:hover{transform:translateY(-3px);box-shadow:0 30px 60px -28px rgba(0,0,0,.6)}
+.bkc img{display:block;width:100%;height:auto;aspect-ratio:3/4}
+@media(max-width:760px){.bkh.hasc{grid-template-columns:1fr;gap:22px}.bkc{position:static;order:-1;width:min(280px,76%);margin-top:4px}}
+@media(prefers-reduced-motion:reduce){.bkc{transition:none}.bkc:hover{transform:none}}
 .toc h5{font:500 11px "Geist Mono",monospace;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin:22px 0 8px}
 .tagline{font-weight:400}.tagline strong{font-weight:500}
 .g{display:inline-grid;place-items:center;width:20px;height:20px;border-radius:5px;font:600 11px "Geist Mono",monospace;color:#07120c;background:var(--gc)}
@@ -1499,10 +1506,12 @@ function storyOrder(){const have=new Set(STORY.pages.map(p=>p.slug));const byS=O
   return known.concat(extra)}
 function storySide(cur){const O=storyOrder(),c=O.find(x=>x.s===cur);return `<aside class="side">${CHAPTERS.groups.map(g=>{const items=O.filter(x=>x.g===g.c);return items.length?`<details data-acc="story" name="story"${c&&c.g===g.c?' open':''}><summary>${esc(g.n)}<span class="n">${items.length}</span></summary>${items.map(x=>`<a href="#story-${x.s}" class="${x.s===cur?'on':''}" title="${esc(x.t)}"><span>${esc(x.l||x.t)}</span></a>`).join('')}</details>`:''}).join('')}</aside>`}
 function storyHome(){const S=STORY,O=storyOrder();const start=O.find(x=>x.s==='foreword')||O[0];
-  $('#app').innerHTML=`<div class="wrap"><div class="docs two">${storySide('')}<div class="main"><div class="crumb"><a href="#home">Codex</a> / Story</div><div class="ph"><span class="tag" style="--c:var(--accent-ink)">MANUSCRIPT</span><span class="mono" style="font-size:12px;color:var(--muted)">First draft</span></div><h1 class="t">${esc(S.name)}</h1><p class="sum">${esc(S.subtitle)}</p>
+  $('#app').innerHTML=`<div class="wrap"><div class="docs two">${storySide('')}<div class="main"><div class="crumb"><a href="#home">Codex</a> / Story</div><div class="bkh${S.cover?' hasc':''}"><div class="bkt"><div class="ph"><span class="tag" style="--c:var(--accent-ink)">MANUSCRIPT</span><span class="mono" style="font-size:12px;color:var(--muted)">First draft</span></div><h1 class="t">${esc(S.name)}</h1><p class="sum">${esc(S.subtitle)}</p>
     <div class="prose"><div class="tagline">${S.tagline}</div>${S.blurb}</div>
-    <div class="cta" style="justify-content:flex-start"><a class="btn p" href="#story-${start.s}">${ico('book')} Start reading</a><a class="btn" href="#map">${ico('map')} Open the map</a></div>
-    <div class="toc">${CHAPTERS.groups.map(g=>{const items=O.filter(x=>x.g===g.c);return items.length?`<h5>${esc(g.n)}</h5>`+items.map(x=>`<a class="row" href="#story-${x.s}"><b>${esc(x.t)}</b></a>`).join(''):''}).join('')}</div></div></div></div>`}
+    <div class="cta" style="justify-content:flex-start"><a class="btn p" href="#story-${start.s}">${ico('book')} Start reading</a><a class="btn" href="#map">${ico('map')} Open the map</a></div></div>
+    ${S.cover?`<a class="bkc" href="${esc(S.cover)}" aria-label="Open the book cover"><img src="${esc(S.cover)}" alt="${esc(S.cover_alt||'The cover of '+S.name)}" width="1200" height="1600" fetchpriority="high"></a>`:''}</div>
+    <div class="toc">${CHAPTERS.groups.map(g=>{const items=O.filter(x=>x.g===g.c);return items.length?`<h5>${esc(g.n)}</h5>`+items.map(x=>`<a class="row" href="#story-${x.s}"><b>${esc(x.t)}</b></a>`).join(''):''}).join('')}</div></div></div></div>`;
+  const c=$('.bkc');if(c)c.onclick=e=>{e.preventDefault();lbOpen([{src:S.cover,alt:S.cover_alt||'The cover of '+S.name}],0)}}
 function storyPage(slug){const P=storyOrder(),i=P.findIndex(x=>x.s===slug);if(i<0){storyHome();return}const p=P[i],pv=P[i-1],nx=P[i+1];
   $('#app').innerHTML=`<div class="wrap"><div class="docs two">${storySide(slug)}<article class="main"><div class="crumb"><a href="#home">Codex</a> / <a href="#story">Story</a> / ${esc(p.t.split(':')[0])}</div><h1 class="t">${esc(p.t)}</h1>
     <div class="prose sprose">${p.html}</div>
