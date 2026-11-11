@@ -710,6 +710,21 @@ details>summary{list-style:none}details>summary::-webkit-details-marker{display:
    menu, icons, a Codex heading with counts, search, and an acid bar for the
    current section */
 .links .nic,.links .nh,.links .nc,.links .nsr{display:none}
+/* Codex drop-down (wide screens) */
+@media(min-width:1081px){.links{overflow:visible}
+ .ncx{position:relative}
+ .ncx-b{display:inline-flex;align-items:center;gap:4px;padding:6px 8px 6px 10px;border:0;border-radius:6px;background:none;color:var(--muted);font:inherit;font-size:14px;cursor:pointer;white-space:nowrap}
+ .ncx-b:hover,.ncx-b.on,.ncx.open .ncx-b{color:var(--fg);background:var(--raise)}
+ .ncx-c{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;transition:transform .2s}
+ .ncx.open .ncx-c{transform:rotate(180deg)}
+ .ncx-m{display:none;position:absolute;top:calc(100% + 8px);left:0;min-width:210px;flex-direction:column;gap:2px;padding:6px;background:var(--raise);border:1px solid var(--line);border-radius:10px;box-shadow:0 16px 40px -18px rgba(0,0,0,.45);z-index:60}
+ .ncx.open .ncx-m{display:flex}
+ .ncx-m a{display:flex;align-items:center;gap:10px;padding:8px 10px}
+ .ncx-m .nic{display:block;width:17px;height:17px;flex:none;stroke:currentColor;fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;color:var(--muted)}
+ .ncx-m .nc{display:block;margin-left:auto;font:400 12px "Geist Mono",monospace;color:var(--muted);font-variant-numeric:tabular-nums}
+ .ncx-m a.on .nic{color:var(--fg)}}
+@media(max-width:1080px){.ncx,.ncx-m{display:contents}.ncx-b{display:none}}
+@media(prefers-reduced-motion:reduce){.ncx-c{transition:none}}
 @media(max-width:1080px){
  .links{max-height:calc(100dvh - 56px);overflow:auto;padding:10px max(16px,env(safe-area-inset-left)) 16px;gap:0}
  .links a,.links .nsr{position:relative;display:flex;align-items:center;gap:12px;padding:11px 12px;font-size:15px;border-radius:8px;background:none;color:var(--fg)}
@@ -1086,11 +1101,21 @@ const count=t=>DATA.filter(d=>d.type===t).length;
 const NAV=[['story','Story','i-book'],['map','Map','i-map'],['constellation','Constellation','i-cst'],['c-loc','Locations','i-loc'],['c-chr','Characters','i-chr'],['c-obj','Objects','i-obj'],['c-lor','Lore','i-lor']];
 // The header links. On wide screens a plain row; in the phone and tablet menu
 // the same links gain icons, a Codex heading with live counts, and search.
-function navPaint(h){$('#links').innerHTML=NAV.map(([k,l,ic],i)=>{const on=h===k||h.startsWith(k+'-')||(k.startsWith('c-')&&h.startsWith('e-'+k.slice(2)+'-'))||(k==='map'&&h.startsWith('map'));
+// On wide screens the four Codex categories sit in a Codex drop-down; in the
+// phone menu the drop-down opens out flat under a Codex heading.
+function navPaint(h){const link=([k,l,ic])=>{const on=h===k||h.startsWith(k+'-')||(k.startsWith('c-')&&h.startsWith('e-'+k.slice(2)+'-'))||(k==='map'&&h.startsWith('map'));
     const t=k.startsWith('c-')?k.slice(2).toUpperCase():'';
-    return `${k==='c-loc'?'<span class="nh">The Codex</span>':''}<a href="#${k}" class="${on?'on':''}"${on?' aria-current="page"':''}><svg class="nic" aria-hidden="true"><use href="#${ic}"/></svg><span>${l}</span>${t?`<small class="nc">${count(t)}</small>`:''}</a>`}).join('')
+    return `<a href="#${k}" class="${on?'on':''}"${on?' aria-current="page"':''}><svg class="nic" aria-hidden="true"><use href="#${ic}"/></svg><span>${l}</span>${t?`<small class="nc">${count(t)}</small>`:''}</a>`};
+  const main=NAV.filter(x=>!x[0].startsWith('c-')),cx=NAV.filter(x=>x[0].startsWith('c-')),inCx=h.startsWith('c-')||h.startsWith('e-');
+  $('#links').innerHTML=main.map(link).join('')
+  +`<span class="nh">The Codex</span><div class="ncx"><button class="ncx-b${inCx?' on':''}" type="button" aria-expanded="false" aria-controls="ncxm">Codex<svg class="ncx-c" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9.5l6 6 6-6"/></svg></button><div class="ncx-m" id="ncxm">${cx.map(link).join('')}</div></div>`
   +`<button class="nsr" type="button"><svg class="nic" viewBox="0 0 24 24" aria-hidden="true">${IC.search||''}</svg><span>Search the archive</span></button>`;
-  $('.nsr',$('#links')).onclick=()=>{menuSet(false);pOpen()}}
+  $('.nsr',$('#links')).onclick=()=>{menuSet(false);pOpen()};
+  $('.ncx-b',$('#links')).onclick=e=>{e.stopPropagation();cxSet(!$('.ncx').classList.contains('open'))}}
+const cxSet=o=>{const c=$('.ncx');if(!c)return;c.classList.toggle('open',o);$('.ncx-b',c).setAttribute('aria-expanded',o?'true':'false');if(o){const a=$('.ncx-m a.on',c)||$('.ncx-m a',c);a&&a.focus()}};
+document.addEventListener('click',e=>{if(!e.target.closest('.ncx'))cxSet(false)});
+document.addEventListener('keydown',e=>{const c=$('.ncx.open');if(!c)return;if(e.key==='Escape'){cxSet(false);$('.ncx-b').focus()}
+  else if(e.key==='ArrowDown'||e.key==='ArrowUp'){const L=[...c.querySelectorAll('.ncx-m a')],i=L.indexOf(document.activeElement);e.preventDefault();L[(i+(e.key==='ArrowDown'?1:-1)+L.length)%L.length].focus()}});
 let pTypes=[],pSel=0,pRes=[];
 function pOpen(){$('#ov').classList.add('on');const i=$('#q');i.value='';pTypes=[];pSel=0;pPaint();i.focus()}
 function pClose(){$('#ov').classList.remove('on')}
