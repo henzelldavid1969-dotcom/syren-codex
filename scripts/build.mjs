@@ -11,6 +11,7 @@ import { readFile, writeFile, mkdir, copyFile, readdir } from 'node:fs/promises'
 import { buildStory, buildStoryFrom, groupOfKind } from './story-lib.mjs';
 import { buildTiles, buildScan } from './tiles.mjs';
 import { SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY } from './codex-lib.mjs';
+import { build as esbuild } from 'esbuild';
 
 async function newestRelease() {
   if (process.env.CODEX_OFFLINE) return null;
@@ -119,6 +120,14 @@ await writeFile(new URL('../dist/site.webmanifest', import.meta.url), JSON.strin
 const saved = await readFile(new URL('../data/release.json', import.meta.url), 'utf8').then(JSON.parse).catch(() => ({ id: null }));
 await writeFile(new URL('../dist/release.json', import.meta.url),
   JSON.stringify(release ? { id: release.id, created_at: release.created_at } : saved));
+
+// The Constellation view (3D graph of the entries): three.js and
+// 3d-force-graph in one file, loaded only when the view opens.
+await esbuild({
+  entryPoints: [new URL('./constellation-entry.mjs', import.meta.url).pathname],
+  bundle: true, format: 'esm', minify: true, target: 'es2020', logLevel: 'warning',
+  outfile: new URL('../dist/vendor/constellation/graph.mjs', import.meta.url).pathname,
+});
 
 // The admin at /admin: one page plus the Supabase client library.
 await mkdir(new URL('../dist/admin/', import.meta.url), { recursive: true });
