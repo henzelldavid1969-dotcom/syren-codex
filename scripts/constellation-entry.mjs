@@ -4,3 +4,4 @@
 export { default as ForceGraph3D } from '3d-force-graph';
 export { Mesh, Group, SphereGeometry, RingGeometry, PlaneGeometry, MeshBasicMaterial, GridHelper, FogExp2, Color, DoubleSide } from 'three';
 export { forceRadial } from 'd3-force-3d';
+export { CSS2DRenderer, CSS2DObject } from 'three/addons/renderers/CSS2DRenderer.js';
