@@ -5,6 +5,7 @@
 // literal asterisks. Those spaces are moved to the outside of the marker.
 
 import { marked } from 'marked';
+import { SUPABASE_URL } from './codex-lib.mjs';
 
 // Move whitespace from inside emphasis markers to outside, one line at a time.
 export function fixEmphasis(line) {
@@ -92,6 +93,14 @@ export function bookFromFiles({ manuscript, backCover }) {
   return { title, tagline: cover['Tagline'] || '', back_cover: cover['Back cover'] || '' };
 }
 
+// The cover: a full address, a path on this site (/book/cover.webp), or a
+// file in the Media library's images bucket.
+const coverUrl = (c) => {
+  c = String(c || '').trim();
+  if (!c || /^(https?:)?\/\//.test(c) || c.startsWith('/')) return c;
+  return `${SUPABASE_URL}/storage/v1/object/public/images/${c.split('/').map(encodeURIComponent).join('/')}`;
+};
+
 // Build the Story pages. parts: [{ slug, title, md, group }] in reading
 // order, where group is front, story or back.
 export function buildStoryFrom({ book, parts }) {
@@ -101,6 +110,8 @@ export function buildStoryFrom({ book, parts }) {
     subtitle,
     tagline: render(book.tagline || ''),
     blurb: render(book.back_cover || ''),
+    cover: coverUrl(book.cover),
+    cover_alt: book.cover_alt || '',
     pages: parts.map((s) => ({ slug: s.slug, title: s.title, group: s.group, html: render(s.md || '') })),
   };
 }
