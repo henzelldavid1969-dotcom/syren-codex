@@ -99,7 +99,7 @@
    "note": "",
    "xnote": "",
    "aliases": "",
-   "updated": "2026-11-10",
+   "updated": "2026-11-12",
    "facts": {
     "control": "survivor",
     "ground_class": "D",
@@ -234,7 +234,18 @@
      "l": "Ch 16 · The Protocols"
     }
    ],
-   "images": [],
+   "images": [
+    {
+     "src": "https://qldxlphmvjjovzlmeguw.supabase.co/storage/v1/object/public/images/loc-001/mwd1bgcu-zeran01.jpg",
+     "caption": "Żerań (OP-Żerań, Z1)",
+     "credit": "D. Antonoff"
+    },
+    {
+     "src": "https://qldxlphmvjjovzlmeguw.supabase.co/storage/v1/object/public/images/loc-001/mwd1cu4p-tozeran.jpg",
+     "caption": "Żerań (OP-Żerań, Z1) from Boat",
+     "credit": "D. Antonoff"
+    }
+   ],
    "audio": [],
    "video": [],
    "files": []
@@ -3104,7 +3115,7 @@
    "note": "",
    "xnote": "",
    "aliases": "",
-   "updated": "2026-11-10",
+   "updated": "2026-11-12",
    "facts": {
     "age": "About 36 in July 2034",
     "role": "Engineer. Keeps the control room and reads the dock gauge",
@@ -3184,7 +3195,23 @@
      "l": "Ch 15 · Aftermath · P005"
     }
    ],
-   "images": [],
+   "images": [
+    {
+     "src": "https://qldxlphmvjjovzlmeguw.supabase.co/storage/v1/object/public/images/chr-005/mwd3d5zb-lucasz.jpg",
+     "caption": "Lucasz Kowalski at Żerań",
+     "credit": "D. Antonoff"
+    },
+    {
+     "src": "https://qldxlphmvjjovzlmeguw.supabase.co/storage/v1/object/public/images/chr-005/mwd3vt8o-lucaszinterioresting.jpg",
+     "caption": "Lucasz Kowalski at Żerań Pump Room",
+     "credit": "D. Antonoff"
+    },
+    {
+     "src": "https://qldxlphmvjjovzlmeguw.supabase.co/storage/v1/object/public/images/chr-005/mwd45xv6-lucaszdrone.jpg",
+     "caption": "Lucasz building drones at Czerniaków",
+     "credit": "D. Antonoff"
+    }
+   ],
    "audio": [],
    "video": [],
    "files": []
@@ -3310,7 +3337,7 @@
    "note": "",
    "xnote": "",
    "aliases": "",
-   "updated": "2026-11-10",
+   "updated": "2026-11-12",
    "facts": {
     "age": "40 at first account, 41 later",
     "role": "Medic. Runs the old hospital at Brodno",
@@ -3406,7 +3433,9 @@
    ],
    "images": [
     {
-     "src": "https://qldxlphmvjjovzlmeguw.supabase.co/storage/v1/object/public/images/chr-007/mw9lwqgj-catalina.jpg"
+     "src": "https://qldxlphmvjjovzlmeguw.supabase.co/storage/v1/object/public/images/chr-007/mwd0urs9-catalina.jpg",
+     "caption": "Catalina Chmielewska - OP Brodno",
+     "credit": "D. Antonoff"
     }
    ],
    "audio": [],
@@ -3551,7 +3580,7 @@
    "note": "",
    "xnote": "",
    "aliases": "",
-   "updated": "2026-11-10",
+   "updated": "2026-11-12",
    "facts": {
     "age": "17 at the first account and 19 later",
     "role": "Captain of the Kosciuszko Group. Later a captain at the Dęblin air academy",
@@ -3601,7 +3630,18 @@
      "l": "Ch 11 · The Orphan"
     }
    ],
-   "images": [],
+   "images": [
+    {
+     "src": "https://qldxlphmvjjovzlmeguw.supabase.co/storage/v1/object/public/images/chr-009/mwd1gshe-zoysia01.jpg",
+     "caption": "Zoysa Zieliński - OP Palac",
+     "credit": "D. Antonoff"
+    },
+    {
+     "src": "https://qldxlphmvjjovzlmeguw.supabase.co/storage/v1/object/public/images/chr-009/mwd1xd5v-zoysaatdesk.jpg",
+     "caption": "Zoysa at OP Palac",
+     "credit": "D. Antonoff"
+    }
+   ],
    "audio": [],
    "video": [],
    "files": []
@@ -3623,7 +3663,7 @@
    "note": "",
    "xnote": "",
    "aliases": "",
-   "updated": "2026-11-10",
+   "updated": "2026-11-12",
    "facts": {
     "age": "14 when she stole to keep her mother alive, 16 when the archivist met her",
     "role": "Thief. Later supply coordinator of the Solidarity Brigade",
@@ -3703,7 +3743,18 @@
      "l": "Ch 14 · The Mouse"
     }
    ],
-   "images": [],
+   "images": [
+    {
+     "src": "https://qldxlphmvjjovzlmeguw.supabase.co/storage/v1/object/public/images/chr-010/mwd2euw7-alisiaflg.jpg",
+     "caption": "Alisia Lewandowska - Filtry",
+     "credit": "D. Antonoff"
+    },
+    {
+     "src": "https://qldxlphmvjjovzlmeguw.supabase.co/storage/v1/object/public/images/chr-010/mwd30rbl-alisiasortingdroneparts.jpg",
+     "caption": "Alisia Lewandowska - Zoo",
+     "credit": "D. Antonoff"
+    }
+   ],
    "audio": [],
    "video": [],
    "files": []
