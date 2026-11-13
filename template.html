@@ -351,6 +351,13 @@ a.card:hover{border-color:var(--c,var(--accent));transform:translateY(-2px)}
   .cst-hint{display:none}.cst-lb{font-size:11px;max-width:130px}}
 .pager small{font:11px "Geist Mono",monospace;color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
 .toc{max-width:40em;margin-top:30px}
+/* Story language switch (EN / PL) */
+.sth{display:flex;align-items:flex-start;justify-content:space-between;gap:16px}
+.lsw{display:inline-flex;flex:none;margin-top:14px;border:1px solid var(--line);border-radius:99px;padding:2px;background:var(--surface)}
+.lsw a{font:500 12px "Geist Mono",monospace;letter-spacing:.06em;color:var(--muted);padding:5px 11px;border-radius:99px}
+.lsw a:hover{color:var(--fg)}
+.lsw a[aria-current]{background:var(--raise);color:var(--fg);box-shadow:inset 0 0 0 1px var(--line)}
+.lnote{font:11px "Geist Mono",monospace;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin:2px 0 0}
 /* Story page: the book cover beside the title and back cover copy */
 .bkh.hasc{display:grid;grid-template-columns:minmax(0,1fr) clamp(260px,40%,360px);gap:36px;align-items:start}
 .bkc{display:block;position:sticky;top:84px;border-radius:6px;overflow:hidden;border:1px solid var(--line);box-shadow:0 24px 50px -28px rgba(0,0,0,.55);margin-top:6px;transition:transform .3s,box-shadow .3s}
@@ -1506,7 +1513,7 @@ function entry(id){
 let STORY=null,storyLoad=null;
 const getStory=()=>storyLoad||(storyLoad=fetch('story.json').then(r=>{if(!r.ok)throw new Error(r.status);return r.json()}).then(s=>STORY=s).catch(e=>{storyLoad=null;throw e}));
 function storyOrder(){const have=new Set(STORY.pages.map(p=>p.slug));const byS=Object.fromEntries(STORY.pages.map(p=>[p.slug,p]));
-  const known=CHAPTERS.sections.filter(c=>have.has(c.s)).map(c=>({...c,html:byS[c.s].html}));
+  const known=CHAPTERS.sections.filter(c=>have.has(c.s)).map(c=>({...c,html:byS[c.s].html,html_pl:byS[c.s].html_pl,title_pl:byS[c.s].title_pl}));
   const extra=STORY.pages.filter(p=>!CHAPTERS.sections.some(c=>c.s===p.slug)).map(p=>({s:p.slug,t:p.title,l:p.title,g:'after',html:p.html}));
   return known.concat(extra)}
 function storySide(cur){const O=storyOrder(),c=O.find(x=>x.s===cur);return `<aside class="side">${CHAPTERS.groups.map(g=>{const items=O.filter(x=>x.g===g.c);return items.length?`<details data-acc="story" name="story"${c&&c.g===g.c?' open':''}><summary>${esc(g.n)}<span class="n">${items.length}</span></summary>${items.map(x=>`<a href="#story-${x.s}" class="${x.s===cur?'on':''}" title="${esc(x.t)}"><span>${esc(x.l||x.t)}</span></a>`).join('')}</details>`:''}).join('')}</aside>`}
@@ -1517,11 +1524,19 @@ function storyHome(){const S=STORY,O=storyOrder();const start=O.find(x=>x.s==='f
     ${S.cover?`<a class="bkc" href="${esc(S.cover)}" aria-label="Open the book cover"><img src="${esc(S.cover)}" alt="${esc(S.cover_alt||'The cover of '+S.name)}" width="1200" height="1600" fetchpriority="high"></a>`:''}</div>
     <div class="toc">${CHAPTERS.groups.map(g=>{const items=O.filter(x=>x.g===g.c);return items.length?`<h5>${esc(g.n)}</h5>`+items.map(x=>`<a class="row" href="#story-${x.s}"><b>${esc(x.t)}</b></a>`).join(''):''}).join('')}</div></div></div></div>`;
   const c=$('.bkc');if(c)c.onclick=e=>{e.preventDefault();lbOpen([{src:S.cover,alt:S.cover_alt||'The cover of '+S.name}],0)}}
-function storyPage(slug){const P=storyOrder(),i=P.findIndex(x=>x.s===slug);if(i<0){storyHome();return}const p=P[i],pv=P[i-1],nx=P[i+1];
-  $('#app').innerHTML=`<div class="wrap"><div class="docs two">${storySide(slug)}<article class="main"><div class="crumb"><a href="#home">Codex</a> / <a href="#story">Story</a> / ${esc(p.t.split(':')[0])}</div><h1 class="t">${esc(p.t)}</h1>
-    <div class="prose sprose">${p.html}</div>
-    <nav class="pager">${pv?`<a href="#story-${pv.s}"><small>Previous</small>${esc(pv.t)}</a>`:'<a href="#story"><small>Back to</small>Contents</a>'}${nx?`<a class="nx" href="#story-${nx.s}"><small>Next</small>${esc(nx.t)}</a>`:'<a class="nx" href="#story"><small>Back to</small>Contents</a>'}</nav></article></div></div>`;figures($('.sprose'))}
-function storyRoute(h){const draw=()=>{h==='story'?storyHome():storyPage(h.slice(6));ctxPaint(h);scrollTo(0,0)};
+// Story language: English, or Polish for the sections that have it. The
+// reader's choice is remembered; #story-<section>/pl and /en name it.
+const LANG_KEY='syren-lang';
+const langPref=()=>{try{return localStorage.getItem(LANG_KEY)||'en'}catch(e){return 'en'}};
+const langSet=l=>{try{localStorage.setItem(LANG_KEY,l)}catch(e){}};
+function storyPage(slug,lang){const P=storyOrder(),i=P.findIndex(x=>x.s===slug);if(i<0){storyHome();return}const p=P[i],pv=P[i-1],nx=P[i+1];
+  const pl=!!p.html_pl&&(lang||langPref())==='pl',title=pl&&p.title_pl?p.title_pl:p.t;
+  const sw=p.html_pl?`<div class="lsw" role="group" aria-label="Language"><a href="#story-${p.s}/en" data-lang="en" lang="en"${pl?'':' aria-current="true"'}>EN</a><a href="#story-${p.s}/pl" data-lang="pl" lang="pl"${pl?' aria-current="true"':''}>PL</a></div>`:'';
+  $('#app').innerHTML=`<div class="wrap"><div class="docs two">${storySide(slug)}<article class="main"${pl?' lang="pl"':''}><div class="crumb"><a href="#home">Codex</a> / <a href="#story">Story</a> / ${esc(p.t.split(':')[0])}</div><div class="sth"><h1 class="t">${esc(title)}</h1>${sw}</div>${pl?'<p class="lnote">Wersja robocza tłumaczenia · <span lang="en">Draft translation</span></p>':''}
+    <div class="prose sprose">${pl?p.html_pl:p.html}</div>
+    <nav class="pager">${pv?`<a href="#story-${pv.s}"><small>Previous</small>${esc(pv.t)}</a>`:'<a href="#story"><small>Back to</small>Contents</a>'}${nx?`<a class="nx" href="#story-${nx.s}"><small>Next</small>${esc(nx.t)}</a>`:'<a class="nx" href="#story"><small>Back to</small>Contents</a>'}</nav></article></div></div>`;figures($('.sprose'));
+  document.querySelectorAll('.lsw a').forEach(a=>a.onclick=()=>langSet(a.dataset.lang))}
+function storyRoute(h){const draw=()=>{if(h==='story')storyHome();else{const[sl,lg]=h.slice(6).split('/');if(lg==='pl'||lg==='en')langSet(lg);storyPage(sl,lg)}ctxPaint(h);scrollTo(0,0)};
   if(STORY)return draw();
   $('#app').innerHTML='<div class="wrap"><div class="empty">Opening the manuscript…</div></div>';
   getStory().then(()=>{if((location.hash||'#home').slice(1)===h)draw()}).catch(()=>{$('#app').innerHTML='<div class="wrap"><div class="empty">The manuscript could not be loaded. Please reload the page.</div></div>'})}
@@ -1892,7 +1907,7 @@ const ctxEl=$('#ctx'),shEl=$('#sheet');let ctxBody=null,ctxTitle='',shLast=null;
 const chevL='<svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5.5 8.5 12l6.5 6.5"/></svg>',chevR='<svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5.5 15.5 12 9 18.5"/></svg>';
 function ctxPaint(h){let lab='',prev=null,next=null,prog=false;ctxBody=null;
   if(h==='story'&&STORY){const P=storyOrder();lab='The Story · Contents';prev='';next=P[0]?['#story-'+P[0].s,P[0].t]:'';ctxBody=()=>storySide('');ctxTitle='Contents'}
-  else if(h.startsWith('story-')&&STORY){const P=storyOrder(),i=P.findIndex(x=>x.s===h.slice(6));if(i>-1){const p=P[i];lab=p.l||p.t;prev=P[i-1]?['#story-'+P[i-1].s,P[i-1].t]:['#story','Contents'];next=P[i+1]?['#story-'+P[i+1].s,P[i+1].t]:'';ctxBody=()=>storySide(p.s);ctxTitle='Contents';prog=true}}
+  else if(h.startsWith('story-')&&STORY){const P=storyOrder(),i=P.findIndex(x=>x.s===h.slice(6).split('/')[0]);if(i>-1){const p=P[i];lab=p.l||p.t;prev=P[i-1]?['#story-'+P[i-1].s,P[i-1].t]:['#story','Contents'];next=P[i+1]?['#story-'+P[i+1].s,P[i+1].t]:'';ctxBody=()=>storySide(p.s);ctxTitle='Contents';prog=true}}
   else if(h.startsWith('e-')&&BYID[h.slice(2)]){const d=BYID[h.slice(2)],L=markGroups(d.type).flatMap(g=>g.items),i=L.indexOf(d);lab=d.ref.replace('SYNPTCL/','')+' · '+d.name.replace(/ \(.*$/,'');
     prev=L[i-1]?['#e-'+L[i-1].id,L[i-1].name]:'';next=L[i+1]?['#e-'+L[i+1].id,L[i+1].name]:'';ctxBody=()=>side(d.type,d.id);ctxTitle='The Codex · '+META[d.type].label}
   else if(h.startsWith('c-')&&META[h.slice(2).toUpperCase()]){const t=h.slice(2).toUpperCase();lab=META[t].label+' · '+count(t)+' entries';ctxBody=()=>side(t,'');ctxTitle='The Codex'}

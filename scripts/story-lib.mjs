@@ -112,7 +112,8 @@ export function buildStoryFrom({ book, parts }) {
     blurb: render(book.back_cover || ''),
     cover: coverUrl(book.cover),
     cover_alt: book.cover_alt || '',
-    pages: parts.map((s) => ({ slug: s.slug, title: s.title, group: s.group, html: render(s.md || '') })),
+    pages: parts.map((s) => ({ slug: s.slug, title: s.title, group: s.group, html: render(s.md || ''),
+      ...(s.pl && s.pl.body ? { title_pl: s.pl.title || '', html_pl: render(s.pl.body) } : {}) })),
   };
 }
 

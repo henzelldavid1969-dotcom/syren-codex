@@ -213,6 +213,7 @@ table.tbl{width:100%;border-collapse:collapse;font-size:14px}
 .kv dt{color:var(--muted)}
 .kv dd{margin:0;font-family:"Geist Mono",monospace;font-size:12px;text-align:right;overflow:hidden;text-overflow:ellipsis}
 .private{border-left:3px solid var(--fg)}
+.warnline{margin:0 0 14px;padding:10px 12px;border:1px solid var(--line);border-left:3px solid var(--fg);border-radius:8px;font-size:13.5px}
 .figph{margin:-6px 0 18px;padding:14px;border:1px dashed var(--line);border-radius:10px;font:12px "Geist Mono",monospace;color:var(--muted);text-align:center}
 .savebar{position:sticky;bottom:0;z-index:6;display:flex;align-items:center;gap:10px;padding:12px 28px;border-top:1px solid var(--line);background:color-mix(in srgb,var(--surface) 94%,transparent);backdrop-filter:blur(10px);margin-top:12px}
 .savebar .msg{flex:1;font-size:14px;color:var(--muted);min-width:0}
@@ -1038,7 +1039,9 @@ async function viewSection(slug) {
   const { data: x, error } = await sb.from('story_sections').select('*').eq('slug', slug).maybeSingle();
   if (error) return toast(error.message, true);
   if (!x) { $('#view').innerHTML = '<div class="view"><p class="empty">There is no section at this address.</p></div>'; return; }
-  M = { kind: 'section', slug, updated_at: x.updated_at, v: { title: x.title, label: x.label || '', kind: x.kind || '', group_code: x.group_code || '', body: x.body || '' }, dirty: false };
+  M = { kind: 'section', slug, updated_at: x.updated_at, v: { title: x.title, label: x.label || '', kind: x.kind || '', group_code: x.group_code || '', body: x.body || '', title_pl: x.title_pl || '', body_pl: x.body_pl || '' }, dirty: false };
+  // The Polish needs a look when the English changed after it was last saved.
+  const plStale = !!x.body_pl && x.body_en_at && x.body_pl_at && new Date(x.body_en_at) > new Date(x.body_pl_at);
   const i = S.sections.findIndex((y) => y.slug === slug), prev = S.sections[i - 1], next = S.sections[i + 1];
   crumbs([['Story', '#/story'], [x.label || x.title]]);
   $('#view').innerHTML = `<div class="view">
@@ -1057,6 +1060,11 @@ async function viewSection(slug) {
         <div class="fld"><label for="s_fig">Insert a figure</label><select id="s_fig"><option value="">Choose a figure to put under a table</option>${FIGS.map(([k, l, h]) => `<option value="${k}">${esc(l)}: ${esc(h)}</option>`).join('')}</select>
           <span class="help">Put the cursor on the line straight after a table, then choose. The figure is drawn on the site from that table's rows, so editing the table changes it. To remove a figure, delete its marker line, &lt;!-- figure: ... --&gt;.</span></div>
       </div></details>
+      <details class="sec"${x.body_pl ? ' open' : ''}><summary><span class="n">03</span>Polish version<span class="hint">${x.body_pl ? (plStale ? '<span class="tag warn">Needs a look</span>' : 'Up to date') : 'Not started'}</span><span class="chev">${ico('chev')}</span></summary><div class="body">
+        ${plStale ? '<p class="warnline">The English text has changed since the Polish was last saved. Check the Polish still matches, then save it.</p>' : ''}
+        <div class="fld"><label for="s_title_pl">Polish title</label><input id="s_title_pl" type="text" lang="pl" value="${esc(x.title_pl || '')}" placeholder="Przedmowa"><span class="help">Shown on the Polish page in place of the English title.</span></div>
+        ${mdField('s_body_pl', 'Polish text', x.body_pl || '', { rows: 22, cls: 'ms', help: 'A draft translation, shown on the site with an EN / PL switch and marked as a draft. Leave empty for English only. ' })}
+      </div></details>
     </div>
     <aside class="edside">
       <div class="card"><h3>Record</h3><dl class="kv">
@@ -1074,6 +1082,8 @@ async function viewSection(slug) {
   $('#s_kind').onchange = (ev) => { M.v.kind = ev.target.value; dirty(); };
   $('#s_group').onchange = (ev) => { M.v.group_code = ev.target.value; dirty(); };
   wireMd('s_body', (v) => { M.v.body = v; dirty(); });
+  wireMd('s_body_pl', (v) => { M.v.body_pl = v; dirty(); });
+  $('#s_title_pl').addEventListener('input', (ev) => { M.v.title_pl = ev.target.value; dirty(); });
   $('#s_fig').onchange = (ev) => {
     const k = ev.target.value, ta = $('#s_body');
     ev.target.value = '';
@@ -1090,7 +1100,7 @@ async function viewSection(slug) {
     if (M.v.label.length > 24) return toast('The short label is longer than 24 characters.', true);
     $('#save').disabled = true;
     try {
-      await guardedUpdate('story_sections', 'slug', slug, { title: M.v.title.trim(), label: M.v.label.trim() || null, kind: M.v.kind, group_code: M.v.group_code, body: M.v.body });
+      await guardedUpdate('story_sections', 'slug', slug, { title: M.v.title.trim(), label: M.v.label.trim() || null, kind: M.v.kind, group_code: M.v.group_code, body: M.v.body, title_pl: M.v.title_pl.trim() || null, body_pl: M.v.body_pl.trim() ? M.v.body_pl : null });
       M.dirty = false;
       await refreshLists();
       toast('Saved. Publish when you are ready for it to go live.');
@@ -1357,15 +1367,15 @@ function entryApply(v) {
 
 // Story sections
 function sectionCompare(v) {
-  return [['title', 'Full title'], ['label', 'Short label'], ['kind', 'Kind'], ['group_code', 'Part'], ['body', 'Section text']]
+  return [['title', 'Full title'], ['label', 'Short label'], ['kind', 'Kind'], ['group_code', 'Part'], ['body', 'Section text'], ['title_pl', 'Polish title'], ['body_pl', 'Polish text']]
     .map(([k, l]) => ({ label: l, now: M.v[k] ?? '', then: v[k] ?? '' }));
 }
 function sectionApply(v) {
-  for (const k of ['title', 'label', 'kind', 'group_code', 'body']) M.v[k] = v[k] ?? '';
+  for (const k of ['title', 'label', 'kind', 'group_code', 'body', 'title_pl', 'body_pl']) M.v[k] = v[k] ?? '';
   $('#s_title').value = M.v.title; $('#s_label').value = M.v.label; $('#s_kind').value = M.v.kind; $('#s_group').value = M.v.group_code;
-  $('#s_body').value = M.v.body;
+  $('#s_body').value = M.v.body; $('#s_body_pl').value = M.v.body_pl; $('#s_title_pl').value = M.v.title_pl;
   $('#hname').textContent = M.v.title;
-  ['#s_label', '#s_body'].forEach((s) => $(s).dispatchEvent(new Event('input', { bubbles: true })));
+  ['#s_label', '#s_body', '#s_body_pl'].forEach((s) => $(s).dispatchEvent(new Event('input', { bubbles: true })));
 }
 
 // Book copy and home page copy

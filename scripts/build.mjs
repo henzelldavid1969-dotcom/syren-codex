@@ -150,7 +150,7 @@ const read = (path) => readFile(new URL('../' + path, import.meta.url), 'utf8');
 const story = codex.STORY_TEXT && codex.BOOK
   ? buildStoryFrom({
       book: codex.BOOK,
-      parts: STORY.sections.map((s) => ({ slug: s.s, title: s.t, group: groupOfKind(s.k), md: codex.STORY_TEXT[s.s] })),
+      parts: STORY.sections.map((s) => ({ slug: s.s, title: s.t, group: groupOfKind(s.k), md: codex.STORY_TEXT[s.s], pl: (codex.STORY_TEXT_PL || {})[s.s] })),
     })
   : buildStory({ manuscript: await read('story/manuscript.md'), backCover: await read('story/back-cover.md') });
 await writeFile(new URL('../dist/story.json', import.meta.url), JSON.stringify(story));
