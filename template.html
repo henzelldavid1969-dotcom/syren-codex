@@ -485,6 +485,9 @@ footer .wrap{display:flex;gap:16px;justify-content:space-between;flex-wrap:wrap}
 .vp.open .vt{opacity:0;visibility:hidden;pointer-events:none}
 .vb{position:absolute;top:0;bottom:0;left:0;width:calc(100cqi - (var(--n) - 1) * 64px);box-sizing:border-box;padding:26px 30px 26px;display:flex;flex-direction:column;opacity:0;visibility:hidden;transition:opacity .2s,visibility 0s .2s}
 .vp.open .vb{opacity:1;visibility:visible;transition:opacity .35s .25s}
+.vb{container-type:inline-size}
+/* a narrow open card has no room for the file card: drop it, so it never covers the text */
+@container (max-width:480px){.vdos{display:none}.vb h3,.vs,.vf{max-width:none}}
 .vh{font:400 11.5px "Geist Mono",monospace;letter-spacing:.06em;color:var(--muted);text-transform:uppercase}
 .vh b{background:var(--accent);color:var(--accent-fg);font-weight:500;padding:1px 5px;border-radius:3px}
 .vb h3{margin:16px 0 10px;font-weight:500;font-size:clamp(24px,2.6vw,32px);letter-spacing:-.025em;line-height:1.1;outline:none;max-width:62%}
@@ -1334,8 +1337,9 @@ function home(){
   let tln=0;const tlItems=TL.events.map(e=>{if(e.gap)return `<li class="tgap"><span>${esc(e.gap)}</span></li>`;const n=tln++;const sec=CHAPTERS.sections.find(x=>x.s===e.story);
     const inner=`<span class="tdt">${esc(e.date)}</span><span class="tnode k-${esc(e.kind||'')}"><svg aria-hidden="true"><use href="#${TLI[e.kind]||'i-idx'}"/></svg></span><span class="tlab">${esc(e.label)}</span>${sec?`<span class="tgo">${esc(sec.l.toUpperCase())} <i aria-hidden="true">→</i></span>`:''}`;
     return `<li class="te" style="--i:${n}">${sec?`<a href="#story-${sec.s}">${inner}</a>`:`<div>${inner}</div>`}</li>`}).join('');
-  // Voices in the archive: the archivist, then each survivor who owns a Protocol, in chapter order
-  const VO=[BYID['chr-001'],...DATA.filter(d=>d.type==='CHR'&&d.facts&&d.facts.own_protocol).map(d=>[d,CHAPTERS.sections.find(x=>x.s===d.facts.own_protocol)]).filter(x=>x[1]).sort((a,b)=>a[1].o-b[1].o).map(x=>x[0])].filter(Boolean);
+  // Voices in the archive: the ten survivors whose own Protocol is a
+  // testimony chapter, in chapter order (not the diary or the interludes)
+  const VO=DATA.filter(d=>d.type==='CHR'&&d.facts&&d.facts.own_protocol).map(d=>[d,CHAPTERS.sections.find(x=>x.s===d.facts.own_protocol)]).filter(x=>x[1]&&x[1].k==='chapter').sort((a,b)=>a[1].o-b[1].o).map(x=>x[0]);
   const vname=d=>d.name.replace(/ \(.*$/,'');
   const vshort=d=>vname(d).replace(/"[^"]*" /,'');
   const vnum=d=>d.ref.split('/').pop();
