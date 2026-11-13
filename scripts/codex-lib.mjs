@@ -51,7 +51,7 @@ const [categories, entries, relations, relTypes, sections, groups, marks, appear
 ]);
 // The Story text and the site copy (the admin's Story and Home page editors).
 const [bodies, content] = await Promise.all([
-  table('story_sections', 'slug,body', 'position'),
+  table('story_sections', 'slug,body,title_pl,body_pl', 'position'),
   table('site_content', 'key,data', 'key'),
 ]);
 
@@ -165,9 +165,11 @@ const FACTIONS = await Promise.all(factionRows.map(async (f) => ({
 })));
 
 const STORY_TEXT = Object.fromEntries(bodies.filter((b) => b.body != null).map((b) => [b.slug, b.body]));
+// The Polish version, for the sections that have one.
+const STORY_TEXT_PL = Object.fromEntries(bodies.filter((b) => b.body_pl).map((b) => [b.slug, { title: b.title_pl || '', body: b.body_pl }]));
 const CONTENT = Object.fromEntries(content.map((c) => [c.key, c.data]));
 const out = { META, DATA, MAP, STORY, FACTIONS };
-if (Object.keys(STORY_TEXT).length === sections.length && CONTENT.book) Object.assign(out, { STORY_TEXT, BOOK: CONTENT.book });
+if (Object.keys(STORY_TEXT).length === sections.length && CONTENT.book) Object.assign(out, { STORY_TEXT, STORY_TEXT_PL, BOOK: CONTENT.book });
 if (CONTENT.home) out.HOME = CONTENT.home;
 return out;
 }
