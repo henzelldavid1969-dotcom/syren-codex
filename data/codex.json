@@ -267,7 +267,7 @@
    "note": "",
    "xnote": "",
    "aliases": "",
-   "updated": "2026-11-10",
+   "updated": "2026-11-14",
    "facts": {
     "control": "survivor",
     "ground_class": "D",
@@ -384,7 +384,13 @@
      "l": "Ch 16 · The Protocols"
     }
    ],
-   "images": [],
+   "images": [
+    {
+     "src": "https://qldxlphmvjjovzlmeguw.supabase.co/storage/v1/object/public/images/loc-002/mwgdf16z-zoo01.jpg",
+     "caption": "Fort Śliwickiego - The Zoo",
+     "credit": "D. Antonoff"
+    }
+   ],
    "audio": [],
    "video": [],
    "files": []
@@ -406,7 +412,7 @@
    "note": "",
    "xnote": "",
    "aliases": "",
-   "updated": "2026-11-10",
+   "updated": "2026-11-14",
    "facts": {
     "control": "survivor",
     "ground_class": "D",
@@ -470,7 +476,13 @@
      "l": "Ch 16 · The Protocols"
     }
    ],
-   "images": [],
+   "images": [
+    {
+     "src": "https://qldxlphmvjjovzlmeguw.supabase.co/storage/v1/object/public/images/loc-003/mwgdvn0q-brodno.jpg",
+     "caption": "Szpital; OP Brodno",
+     "credit": "D. Antonoff"
+    }
+   ],
    "audio": [],
    "video": [],
    "files": []
@@ -492,7 +504,7 @@
    "note": "",
    "xnote": "",
    "aliases": "",
-   "updated": "2026-11-10",
+   "updated": "2026-11-14",
    "facts": {
     "control": "survivor",
     "ground_class": "D",
@@ -525,7 +537,23 @@
      "l": "Ch 13 · The Youngest"
     }
    ],
-   "images": [],
+   "images": [
+    {
+     "src": "https://qldxlphmvjjovzlmeguw.supabase.co/storage/v1/object/public/images/loc-004/mwge45v4-praski01.jpg",
+     "caption": "Abandoned houseboat - Port Praski. Used as FOP for gathering intel.",
+     "credit": "D. Antonoff"
+    },
+    {
+     "src": "https://qldxlphmvjjovzlmeguw.supabase.co/storage/v1/object/public/images/loc-004/mwgedktz-praski02.jpg",
+     "caption": "View West across Port Praski from Ul Sokola",
+     "credit": "D. Antonoff"
+    },
+    {
+     "src": "https://qldxlphmvjjovzlmeguw.supabase.co/storage/v1/object/public/images/loc-004/mwger32y-filtry-bar.jpg",
+     "caption": "W Oparach Absurdu Bar in it's seventh location of the occupation",
+     "credit": "D. Antonoff"
+    }
+   ],
    "audio": [],
    "video": [],
    "files": []
@@ -3034,6 +3062,11 @@
      "src": "https://qldxlphmvjjovzlmeguw.supabase.co/storage/v1/object/public/images/chr-003/mwg97yvl-fritha-corridor.jpg",
      "caption": "Fritha in a school corridor, standing before three hundred copies of the same class photograph. None of them had been claimed.",
      "credit": "D. Antonoff"
+    },
+    {
+     "src": "https://qldxlphmvjjovzlmeguw.supabase.co/storage/v1/object/public/images/chr-003/mwgayh3d-fritha-berlin.jpg",
+     "caption": "Fritha at the plan chest in the museum basement, Berlin.",
+     "credit": "Alex"
     }
    ],
    "audio": [],
