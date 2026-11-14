@@ -2930,7 +2930,7 @@
    "note": "",
    "xnote": "",
    "aliases": "",
-   "updated": "2026-11-10",
+   "updated": "2026-11-14",
    "facts": {
     "age": "19",
     "role": "Photographer",
@@ -3011,9 +3011,29 @@
    ],
    "images": [
     {
-     "src": "https://qldxlphmvjjovzlmeguw.supabase.co/storage/v1/object/public/images/chr-003/mwaf4zb9-fritha-grunge.jpg",
+     "src": "https://qldxlphmvjjovzlmeguw.supabase.co/storage/v1/object/public/images/chr-003/mwg9ne9e-fritha-rev.jpg",
      "caption": "Felicyta \"Fritha\" Cielinski",
-     "credit": "D. Antanoff"
+     "credit": "D. Antonoff"
+    },
+    {
+     "src": "https://qldxlphmvjjovzlmeguw.supabase.co/storage/v1/object/public/images/chr-003/mwg7v7gs-fritha-worst-ever.jpg",
+     "caption": "Fritha at four, on her father’s shoulders.",
+     "credit": "Photographer: her father. The one she never put in a box."
+    },
+    {
+     "src": "https://qldxlphmvjjovzlmeguw.supabase.co/storage/v1/object/public/images/chr-003/mwg8mup5-fritha-church-2.jpg",
+     "caption": "Fritha in the cathedral. Taken without her knowledge.",
+     "credit": "Photographer unknown."
+    },
+    {
+     "src": "https://qldxlphmvjjovzlmeguw.supabase.co/storage/v1/object/public/images/chr-003/mwg8am2j-fritha-sky.jpg",
+     "caption": "Fritha photographing the sky at Piaski",
+     "credit": "D. Antonoff"
+    },
+    {
+     "src": "https://qldxlphmvjjovzlmeguw.supabase.co/storage/v1/object/public/images/chr-003/mwg97yvl-fritha-corridor.jpg",
+     "caption": "Fritha in a school corridor, standing before three hundred copies of the same class photograph. None of them had been claimed.",
+     "credit": "D. Antonoff"
     }
    ],
    "audio": [],
@@ -3037,7 +3057,7 @@
    "note": "",
    "xnote": "",
    "aliases": "",
-   "updated": "2026-11-10",
+   "updated": "2026-11-14",
    "facts": {
     "age": "55 in August 2034, 57 when the archivist met him",
     "role": "Wanderer. Former seminarian",
@@ -3093,7 +3113,18 @@
      "l": "Ch 16 · The Protocols"
     }
    ],
-   "images": [],
+   "images": [
+    {
+     "src": "https://qldxlphmvjjovzlmeguw.supabase.co/storage/v1/object/public/images/chr-004/mwg6lazc-janek.jpg",
+     "caption": "Janek Dąbrowski at The Kościuszko Infantry Division Memorial",
+     "credit": "D. Antonoff"
+    },
+    {
+     "src": "https://qldxlphmvjjovzlmeguw.supabase.co/storage/v1/object/public/images/chr-004/mwg6w17e-janek02.jpg",
+     "caption": "Janek with troops at Halinów",
+     "credit": "D. Antonoff"
+    }
+   ],
    "audio": [],
    "video": [],
    "files": []
